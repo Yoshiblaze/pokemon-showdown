@@ -8592,4 +8592,48 @@ export const FormatsData: {[k: string]: SpeciesFormatsData} = {
 		tier: "OU",
 		doublesTier: "DOU",
 	},
+	doduoyb: {
+		tier: "LC",
+		doublesTier: "DOU",
+	},
+	dodrioyb: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	krabbyyb: {
+		tier: "LC",
+		doublesTier: "DOU",
+	},
+	kingleryb: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	lunatoneyb: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	solrockyb: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	finneonyb: {
+		tier: "LC",
+		doublesTier: "DOU",
+	},
+	lumineonyb: {
+		tier: "NFE",
+		doublesTier: "DOU",
+	},
+	minccinoyb: {
+		tier: "LC",
+		doublesTier: "DOU",
+	},
+	cinccinoyb: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	solosisyb: {
+		tier: "LC",
+		doublesTier: "DOU",
+	},
 };
