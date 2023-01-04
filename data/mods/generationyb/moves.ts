@@ -371,7 +371,183 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Steel",
 		contestType: "Cute",
 	},
-
+	boltbomb: {
+		accuracy: 100,
+		basePower: 80,
+		category: "Special",
+		shortDesc: "Sets Electric Terrain if it hits.",
+		name: "Bolt Bomb",
+		pp: 10,
+		priority: 0,
+		flags: {bullet: 1, protect: 1, mirror: 1},
+		onPrepareHit(target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Zap Cannon", target);
+		},
+		onHit() {
+			this.field.setTerrain('electricterrain');
+		},
+		secondary: null,
+		target: "allAdjacentFoes",
+		type: "Electric",
+		contestType: "Beautiful",
+	},
+	charcoalchakram: {
+		accuracy: 100,
+		basePower: 60,
+		category: "Physical",
+		shortDesc: "Makes the target weaker to Fire.",
+		name: "Charcoal Chakram",
+		pp: 10,
+		priority: 0,
+		flags: {slicing: 1, protect: 1, mirror: 1, defrost: 1},
+		onPrepareHit(target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Flame Burst", target);
+		},
+		secondary: {
+			chance: 100,
+			onHit(target) {
+				target.addVolatile('tarshot');
+			},
+		},
+		target: "normal",
+		type: "Fire",
+		contestType: "Beautiful",
+	},
+	cursedhorns: {
+		accuracy: 100,
+		basePower: 75,
+		category: "Physical",
+		shortDesc: "Heals 50% of damage dealt. 30% chance to poison foe.",
+		name: "Cursed Horns",
+		pp: 10,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1, heal: 1},
+		drain: [1, 2],
+		onPrepareHit(target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Horn Leech", target);
+		},
+		secondary: {
+			chance: 30,
+			status: 'psn',
+		},
+		target: "normal",
+		type: "Ghost",
+		contestType: "Tough",
+	},
+	darknarrative: {
+		accuracy: 100,
+		basePower: 70,
+		category: "Special",
+		shortDesc: "Lowers the foe's SpA by 1 stage.",
+		name: "Dark Narrative",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1, sound: 1, bypasssub: 1},
+		onPrepareHit(target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Snarl", target);
+		},
+		secondary: {
+			chance: 100,
+			boosts: {
+				spa: -1,
+			},
+		},
+		target: "normal",
+		type: "Dark",
+		contestType: "Beautiful",
+	},
+	deafeningshriek: {
+		accuracy: 100,
+		basePower: 120,
+		category: "Special",
+		shortDesc: "Has 33% recoil, unless the user has the ability Soundproof or is wearing Headphones.",
+		name: "Deafening Shriek",
+		pp: 5,
+		priority: 0,
+		flags: {protect: 1, mirror: 1, sound: 1, bypasssub: 1},
+		onPrepareHit(target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Hyper Voice", target);
+			this.add('-anim', source, "Boomburst", target);
+		},
+		recoil: [1, 3],
+		target: "normal",
+		type: "Ghost",
+		contestType: "Cool",
+	},
+	electrontransfer: {
+		accuracy: 95,
+		basePower: 40,
+		basePowerCallback(pokemon, target, move) {
+			return 49 - 9 * move.hit;
+		},
+		category: "Physical",
+		shortDesc: "Hits 5 times, each hit can miss, each hit gets slightly weaker.",
+		name: "Electron Transfer",
+		pp: 15,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1},
+		multihit: 5,
+		multiaccuracy: true,
+		onPrepareHit(target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Spark", target);
+		},
+		secondary: null,
+		target: "normal",
+		type: "Electric",
+		zMove: {basePower: 120},
+		maxMove: {basePower: 140},
+	},
+	heartbeat: {
+		accuracy: 100,
+		basePower: 25,
+		category: "Physical",
+		shortDesc: "Hits 2-5 times.",
+		name: "Heartbeat",
+		pp: 30,
+		priority: 0,
+		flags: {protect: 1, mirror: 1, sound: 1, bypasssub: 1},
+		multihit: [2, 5],
+		onPrepareHit(target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Heart Stamp", target);
+		},
+		secondary: null,
+		target: "normal",
+		type: "Fairy",
+		zMove: {basePower: 140},
+		maxMove: {basePower: 130},
+		contestType: "Cute",
+	},
+	heroswelcome: {
+		accuracy: 100,
+		basePower: 70,
+		category: "Physical",
+		shortDesc: "Only works on the user's first turn active.",
+		name: "Hero's Welcome",
+		pp: 10,
+		priority: 2,
+		flags: {contact: 1, protect: 1, mirror: 1},
+		onPrepareHit(target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "First Impression", target);
+		},
+		onTry(source) {
+			if (source.activeMoveActions > 1) {
+				this.hint("Hero's Welcome only works on your first turn out.");
+				return false;
+			}
+		},
+		secondary: null,
+		target: "normal",
+		type: "Fairy",
+		contestType: "Cute",
+	},
 	
 // Legalizing Some Dexited Moves
 	psychoboost: {
