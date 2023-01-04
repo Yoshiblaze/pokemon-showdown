@@ -8184,4 +8184,412 @@ export const FormatsData: {[k: string]: SpeciesFormatsData} = {
 		tier: "Uber",
 		isNonstandard: null,
 	},
+	mintarin: {
+		tier: "LC",
+		doublesTier: "DOU",
+	},
+	sagicuta: {
+		tier: "NFE",
+		doublesTier: "DOU",
+	},
+	menthapilli: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	fyermine: {
+		tier: "LC",
+		doublesTier: "DOU",
+	},
+	exploat: {
+		tier: "NFE",
+		doublesTier: "DOU",
+	},
+	ancillarine: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	hydrattler: {
+		tier: "LC",
+		doublesTier: "DOU",
+	},
+	zingshot: {
+		tier: "NFE",
+		doublesTier: "DOU",
+	},
+	trebutalus: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	knittle: {
+		tier: "LC",
+		doublesTier: "DOU",
+	},
+	knitwit: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	silkloth: {
+		tier: "LC",
+		doublesTier: "DOU",
+	},
+	silkapeau: {
+		tier: "NFE",
+		doublesTier: "DOU",
+	},
+	soiecharpe: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	bittertweet: {
+		tier: "LC",
+		doublesTier: "DOU",
+	},
+	mourvid: {
+		tier: "NFE",
+		doublesTier: "DOU",
+	},
+	villainelle: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	easellief: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	gessuketo: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	archisect: {
+		tier: "LC",
+		doublesTier: "DOU",
+	},
+	drasmida: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	blancobra: {
+		tier: "LC",
+		doublesTier: "DOU",
+	},
+	prismoa: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	clairvoil: {
+		tier: "LC",
+		doublesTier: "DOU",
+	},
+	arcojos: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	worrywren: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	haresay: {
+		tier: "LC",
+		doublesTier: "DOU",
+	},
+	kataralope: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	pogolai: {
+		tier: "LC",
+		doublesTier: "DOU",
+	},
+	vittivolt: {
+		tier: "NFE",
+		doublesTier: "DOU",
+	},
+	generata: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	myrmur: {
+		tier: "LC",
+		doublesTier: "DOU",
+	},
+	myrmikos: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	vismas: {
+		tier: "LC",
+		doublesTier: "DOU",
+	},
+	blistletoe: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	bristletoe: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	hororina: {
+		tier: "LC",
+		doublesTier: "DOU",
+	},
+	solarina: {
+		tier: "NFE",
+		doublesTier: "DOU",
+	},
+	superina: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	ankylocot: {
+		tier: "LC",
+		doublesTier: "DOU",
+	},
+	calamikylo: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	casseclock: {
+		tier: "LC",
+		doublesTier: "DOU",
+	},
+	casseloge: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	cersing: {
+		tier: "LC",
+		doublesTier: "DOU",
+	},
+	destaptera: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	extremkitty: {
+		tier: "LC",
+		doublesTier: "DOU",
+	},
+	exopurrmic: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	sablizz: {
+		tier: "LC",
+		doublesTier: "DOU",
+	},
+	frizzillina: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	wanderou: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	sweetaya: {
+		tier: "LC",
+		doublesTier: "DOU",
+	},
+	undahaya: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	tarnivine: {
+		tier: "LC",
+		doublesTier: "DOU",
+	},
+	pterovine: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	chanal: {
+		tier: "LC",
+		doublesTier: "DOU",
+	},
+	crator: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	radaroo: {
+		tier: "LC",
+		doublesTier: "DOU",
+	},
+	gammaroo: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	pebblami: {
+		tier: "LC",
+		doublesTier: "DOU",
+	},
+	sedient: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	crissoa: {
+		tier: "LC",
+		doublesTier: "DOU",
+	},
+	crossoa: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	colderium: {
+		tier: "LC",
+		doublesTier: "DOU",
+	},
+	shivola: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	launchem: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	mercurie: {
+		tier: "LC",
+		doublesTier: "DOU",
+	},
+	appistotle: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	charkram: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	maunufacture: {
+		tier: "LC",
+		doublesTier: "DOU",
+	},
+	ocelauto: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	terramite: {
+		tier: "LC",
+		doublesTier: "DOU",
+	},
+	termonde: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	immolyco: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	tragichiou: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	ghoulgoyle: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	mystidraco: {
+		tier: "LC",
+		doublesTier: "DOU",
+	},
+	dracalistico: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	petradum: {
+		tier: "LC",
+		doublesTier: "DOU",
+	},
+	petrander: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	petragena: {
+		tier: "LC",
+		doublesTier: "DOU",
+	},
+	petradvena: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	hearow: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	mytheon: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	geareon: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	seelyon: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	currket: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	trampline: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	maracarga: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	lampineon: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	duochondrion: {
+		tier: "NFE",
+		doublesTier: "DOU",
+	},
+	reuniplast: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	gbonawola: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	gbonanene: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	gbonablanu: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	gbonazito: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	tuatoxa: {
+		tier: "LC",
+		doublesTier: "DOU",
+	},
+	tuakahu: {
+		tier: "NFE",
+		doublesTier: "DOU",
+	},
+	tuamana: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	fiayala: {
+		tier: "Uber",
+		doublesTier: "DOU",
+	},
+	fiawowo: {
+		tier: "Uber",
+		doublesTier: "DOU",
+	},
+	fiavivi: {
+		tier: "Uber",
+		doublesTier: "DOU",
+	},
+	kaledzi: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
 };
