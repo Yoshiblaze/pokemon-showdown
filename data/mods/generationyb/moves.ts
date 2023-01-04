@@ -548,6 +548,256 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Fairy",
 		contestType: "Cute",
 	},
+	futureflames: {
+		accuracy: 100,
+		basePower: 90,
+		category: "Special",
+		shortDesc: "Hits two turns after being used. Summons a sea of fire.",
+		name: "Future Flames",
+		pp: 5,
+		priority: 0,
+		flags: {},
+		ignoreImmunity: true,
+		isFutureMove: true,
+		onPrepareHit(target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Future Sight", target);
+		},
+		onTry(source, target) {
+			if (!target.side.addSlotCondition(target, 'futuremove')) return false;
+			Object.assign(target.side.slotConditions[target.position]['futuremove'], {
+				duration: 3,
+				move: 'futureflames',
+				source: source,
+				moveData: {
+					id: 'futureflames',
+					name: "Future Flames",
+					accuracy: 100,
+					basePower: 90,
+					category: "Special",
+					priority: 0,
+					flags: {},
+					ignoreImmunity: false,
+					effectType: 'Move',
+					isFutureMove: true,
+					type: 'Fire',
+				},
+			});
+			this.add('-start', source, 'move: Future Flames');
+			return this.NOT_FAIL;
+		},
+		onHit(target, source, move) {
+			return target.addVolatile('firepledge');
+		},
+		secondary: null,
+		target: "normal",
+		type: "Fire",
+		contestType: "Clever",
+	},
+	futureharvest: {
+		accuracy: 100,
+		basePower: 90,
+		category: "Special",
+		shortDesc: "Hits two turns after being used. Leeches the foe.",
+		name: "Future Harvest",
+		pp: 5,
+		priority: 0,
+		flags: {},
+		ignoreImmunity: true,
+		isFutureMove: true,
+		onPrepareHit(target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Future Sight", target);
+		},
+		onTry(source, target) {
+			if (!target.side.addSlotCondition(target, 'futuremove')) return false;
+			Object.assign(target.side.slotConditions[target.position]['futuremove'], {
+				duration: 3,
+				move: 'futureharvest',
+				source: source,
+				moveData: {
+					id: 'futureharvest',
+					name: "Future Harvest",
+					accuracy: 100,
+					basePower: 90,
+					category: "Special",
+					priority: 0,
+					flags: {},
+					ignoreImmunity: false,
+					effectType: 'Move',
+					isFutureMove: true,
+					type: 'Grass',
+				},
+			});
+			this.add('-start', source, 'move: Future Harvest');
+			return this.NOT_FAIL;
+		},
+		onHit(target, source, move) {
+			return target.addVolatile('leechseed');
+		},
+		secondary: null,
+		target: "normal",
+		type: "Grass",
+		contestType: "Clever",
+	},
+	futurelaments: {
+		accuracy: 100,
+		basePower: 90,
+		category: "Physical",
+		shortDesc: "Hits two turns after being used. Curses the foe.",
+		name: "Future Laments",
+		pp: 5,
+		priority: 0,
+		flags: {},
+		ignoreImmunity: true,
+		isFutureMove: true,
+		onPrepareHit(target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Future Sight", target);
+		},
+		onTry(source, target) {
+			if (!target.side.addSlotCondition(target, 'futuremove')) return false;
+			Object.assign(target.side.slotConditions[target.position]['futuremove'], {
+				duration: 3,
+				move: 'futurelaments',
+				source: source,
+				moveData: {
+					id: 'futurelaments',
+					name: "Future Laments",
+					accuracy: 100,
+					basePower: 90,
+					category: "Physical",
+					priority: 0,
+					flags: {},
+					ignoreImmunity: false,
+					effectType: 'Move',
+					isFutureMove: true,
+					type: 'Ghost',
+				},
+			});
+			this.add('-start', source, 'move: Future Laments');
+			return this.NOT_FAIL;
+		},
+		onHit(target, source, move) {
+			return target.addVolatile('curse');
+		},
+		secondary: null,
+		target: "normal",
+		type: "Ghost",
+		contestType: "Clever",
+	},
+	futureshock: {
+		accuracy: 100,
+		basePower: 90,
+		category: "Physical",
+		shortDesc: "Hits two turns after being used. Suppresses the foe's ability.",
+		name: "Future Shock",
+		pp: 5,
+		priority: 0,
+		flags: {},
+		ignoreImmunity: true,
+		isFutureMove: true,
+		onPrepareHit(target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Future Sight", target);
+		},
+		onTry(source, target) {
+			if (!target.side.addSlotCondition(target, 'futuremove')) return false;
+			Object.assign(target.side.slotConditions[target.position]['futuremove'], {
+				duration: 3,
+				move: 'futureshock',
+				source: source,
+				moveData: {
+					id: 'futureshock',
+					name: "Future Shock",
+					accuracy: 100,
+					basePower: 90,
+					category: "Physical",
+					priority: 0,
+					flags: {},
+					ignoreImmunity: false,
+					effectType: 'Move',
+					isFutureMove: true,
+					type: 'Electric',
+				},
+			});
+			this.add('-start', source, 'move: Future Shock');
+			return this.NOT_FAIL;
+		},
+		onHit(target, source, move) {
+			return target.addVolatile('curse');
+		},
+		secondary: null,
+		target: "normal",
+		type: "Electric",
+		contestType: "Clever",
+	},
+	jugglingflames: {
+		accuracy: 90,
+		basePower: 35,
+		category: "Special",
+		shortDesc: "Hits 3 times, but each hit can miss. If it misses: -33% max HP, switch out.",
+		name: "Juggling Flames",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		onPrepareHit(target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Fire Blast", target);
+		},
+		onMoveFail(target, source, move) {
+			if (!this.canSwitch(source.side)) return;
+			this.damage(source.baseMaxhp / 3, source, source);
+			move.selfSwitch = true;
+		},
+		multihit: 3,
+		multiaccuracy: true,
+		secondary: null,
+		target: "allAdjacentFoes",
+		type: "Fire",
+	},
+	knittingneedle: {
+		accuracy: 100,
+		basePower: 55,
+		category: "Physical",
+		shortDesc: "Always critically hits.",
+		name: "Knitting Needle",
+		pp: 10,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1, slicing: 1},
+		willCrit: true,
+		onPrepareHit(target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Smart Strike", target);
+		},
+		secondary: null,
+		target: "normal",
+		type: "Steel",
+		contestType: "Cool",
+	},
+	mudbath: {
+		accuracy: 100,
+		basePower: 75,
+		category: "Special",
+		shortDesc: "Lowers the foe's Attack by 1 stage.",
+		name: "Mud Bath",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		onPrepareHit(target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Mud Bomb", target);
+		},
+		secondary: {
+			chance: 100,
+			boosts: {
+				atk: -1,
+			},
+		},
+		target: "normal",
+		type: "Ground",
+		contestType: "Beautiful",
+	},
 	
 // Legalizing Some Dexited Moves
 	psychoboost: {
@@ -563,6 +813,58 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		isNonstandard: null,
 	},
 	healbell: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	pursuit: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	jumpkick: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	tailglow: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	spotlight: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	feintattack: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	signalbeam: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	frustration: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	return: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	poweruppunch: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	dizzypunch: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	sketch: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	mistball: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	lusterpurge: {
 		inherit: true,
 		isNonstandard: null,
 	},
