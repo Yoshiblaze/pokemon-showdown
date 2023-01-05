@@ -12,6 +12,10 @@ export const Conditions: {[k: string]: ConditionData} = {
 				target.formeChange('Shaymin', this.effect, true);
 			}
 		},
+		onResidualOrder: 10,
+		onResidual(pokemon) {
+			this.damage(pokemon.baseMaxhp / 8);
+		},
 		onBeforeMovePriority: 10,
 		onBeforeMove(pokemon, target, move) {
 			if (move.flags['defrost']) return;
@@ -19,8 +23,6 @@ export const Conditions: {[k: string]: ConditionData} = {
 				pokemon.cureStatus();
 				return;
 			}
-			this.add('cant', pokemon, 'frz');
-			return false;
 		},
 		onModifyMove(move, pokemon) {
 			if (move.flags['defrost']) {
