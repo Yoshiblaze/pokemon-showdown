@@ -336,6 +336,26 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		target: "normal",
 		type: "Fire",
 	},
+	refresh: {
+		num: 287,
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		isNonstandard: null,
+		name: "Refresh",
+		pp: 20,
+		priority: 0,
+		flags: {snatch: 1},
+		onHit(pokemon) {
+			if (['', 'slp'].includes(pokemon.status)) return false;
+			pokemon.cureStatus();
+		},
+		secondary: null,
+		target: "self",
+		type: "Normal",
+		zMove: {effect: 'heal'},
+		contestType: "Cute",
+	},
 	
 // New Moves
 	bladebullet: {
@@ -1246,6 +1266,306 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		isNonstandard: null,
 	},
 	flowershield: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	grudge: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	healbell: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	healblock: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	heartstamp: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	hyperfang: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	iceball: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	iondeluge: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	jumpkick: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	kinesis: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	kingsshield: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	landswrath: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	laserfocus: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	leaftornado: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	lovelykiss: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	luckychant: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	lusterpurge: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	magiccoat: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	magnetbomb: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	mefirst: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	meteorassault: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	mindreader: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	miracleeye: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	mirrorshot: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	mistball: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	naturepower: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	needlearm: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	oblivionwing: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	octazooka: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	odorsleuth: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	ominouswind: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	powder: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	poweruppunch: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	psychoboost: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	psychoshift: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	punishment: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	pursuit: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	ragingfury: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	return: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	revenge: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	rockclimb: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	rockwrecker: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	rollingkick: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	rototiller: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	sacredfire: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	secretpower: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	seedflare: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	signalbeam: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	silverwind: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	simplebeam: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	skullbash: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	skyuppercut: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	snaptrap: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	snatch: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	sparklingaria: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	spiderweb: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	spectralthief: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	spikecannon: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	spotlight: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	steamroller: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	stoneaxe: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	stormthrow: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	submission: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	tailglow: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	thousandarrows: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	thousandwaves: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	topsyturvy: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	toxicthread: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	triplekick: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	trumpcard: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	twineedle: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	venomdrench: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	victorydance: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	vitalthrow: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	wakeupslap: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	wringout: {
 		inherit: true,
 		isNonstandard: null,
 	},
