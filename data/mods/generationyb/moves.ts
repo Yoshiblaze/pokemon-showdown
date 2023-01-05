@@ -269,12 +269,12 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 	ragefist: {
 		num: 889,
 		accuracy: 100,
-		basePower: 50,
+		basePower: 25,
 		basePowerCallback(pokemon) {
-			return Math.min(150, 50 + 25 * pokemon.timesAttacked);
+			return Math.min(150, 25 + 25 * pokemon.timesAttacked);
 		},
 		category: "Physical",
-		shortDesc: "+25 power for each time user was hit. Max 4 hits.",
+		shortDesc: "+25 power for each time user was hit. Max 5 hits.",
 		name: "Rage Fist",
 		pp: 10,
 		priority: 0,
@@ -758,7 +758,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 	},
 	knittingneedle: {
 		accuracy: 100,
-		basePower: 55,
+		basePower: 65,
 		category: "Physical",
 		shortDesc: "Always critically hits.",
 		name: "Knitting Needle",
@@ -798,6 +798,251 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Ground",
 		contestType: "Beautiful",
 	},
+	poprocks: {
+		accuracy: 100,
+		basePower: 70,
+		category: "Physical",
+		shortDesc: "Hits again in two turns.",
+		name: "Pop Rocks",
+		pp: 15,
+		priority: 0,
+		flags: {protect: 1, mirror: 1, bullet: 1},
+		onPrepareHit(target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Stealth Rock", target);
+		},
+		onHit(source, target) {
+			if (!target.side.addSlotCondition(target, 'futuremove')) return false;
+			Object.assign(target.side.slotConditions[target.position]['futuremove'], {
+				duration: 3,
+				move: 'poprocks',
+				source: source,
+				moveData: {
+					id: 'poprocks',
+					name: "Pop Rocks",
+					accuracy: 100,
+					basePower: 60,
+					category: "Physical",
+					priority: 0,
+					flags: {bullet: 1},
+					ignoreImmunity: false,
+					effectType: 'Move',
+					isFutureMove: true,
+					type: 'Physical',
+				},
+			});
+			this.add('-start', source, 'move: Pop Rocks');
+			return this.NOT_FAIL;
+		},
+		secondary: null,
+		target: "normal",
+		type: "Rock",
+		contestType: "Clever",
+	},
+	rattle: {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		shortDesc: "Lowers the foe's Special Attack by 1 stage.",
+		name: "Rattle",
+		pp: 20,
+		priority: 0,
+		flags: {reflectable: 1, mirror: 1, sound: 1, bypasssub: 1},
+		onPrepareHit(target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Confide", target);
+		},
+		boosts: {
+			spd: -1,
+		},
+		secondary: null,
+		target: "normal",
+		type: "Normal",
+		zMove: {boost: {spd: 1}},
+		contestType: "Cool",
+	},
+	rehearsal: {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		shortDesc: "+1 Spe and +1 Atk/SpA depending on form.",
+		name: "Rehearsal",
+		pp: 20,
+		priority: 0,
+		flags: {snatch: 1},
+		onPrepareHit(target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Quiver Dance", target);
+		},
+		boosts: {
+			spe: 1,
+		},
+		self: {
+			onHit(source) {
+				if (source.species.name === 'Tragichiou-Comedy') {
+					this.boost({spa: 1}, source);
+				} else {
+					this.boost({atk: 1}, source);
+				}
+			},
+		},
+		secondary: null,
+		target: "self",
+		type: "Fairy",
+		zMove: {effect: 'clearnegativeboost'},
+		contestType: "Cute",
+	},
+	rocketpunch: {
+		accuracy: 100,
+		basePower: 85,
+		category: "Physical",
+		shortDesc: "Ignores the target's stat stage changes.",
+		name: "Rocket Punch",
+		pp: 10,
+		priority: 0,
+		flags: {punch: 1, protect: 1, mirror: 1, bullet: 1},
+		onPrepareHit(target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Vacuum Wave", target);
+		},
+		ignoreEvasion: true,
+		ignoreDefensive: true,
+		secondary: null,
+		target: "normal",
+		type: "Rock",
+		contestType: "Cool",
+	},
+	spearmint: {
+		accuracy: 100,
+		basePower: 80,
+		category: "Physical",
+		shortDesc: "Lowers the foe's Evasion by 2 stages.",
+		name: "Spear Mint",
+		pp: 15,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1, slicing: 1},
+		onPrepareHit(target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Ice Spinner", target);
+		},
+		secondary: {
+			chance: 100,
+			boosts: {
+				evasion: -2,
+			},
+		},		
+		target: "normal",
+		type: "Ice",
+	},
+	specialdelivery: {
+		accuracy: 100,
+		basePower: 80,
+		category: "Physical",
+		shortDesc: "Lowers the foe's Defense by 2 stages.",
+		name: "Special Delivery",
+		pp: 15,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		onPrepareHit(target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Rock Wrecker", target);
+		},
+		onBasePower(basePower) {
+			if (this.field.getPseudoWeather('gravity')) {
+				return this.chainModify(1.5);
+			}
+		},
+		secondary: {
+			chance: 100,
+			boosts: {
+				def: -2,
+			},
+		},
+		target: "normal",
+		type: "Rock",
+	},
+	tailendturn: {
+		accuracy: 100,
+		basePower: 70,
+		category: "Physical",
+		shortDesc: "User switches out after damaging the target.",
+		name: "Tail-End Turn",
+		pp: 20,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1},
+		selfSwitch: true,
+		onPrepareHit(target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "U-Turn", target);
+		},
+		secondary: null,
+		target: "normal",
+		type: "Normal",
+		contestType: "Clever",
+	},
+	timeout: {
+		accuracy: 85,
+		basePower: 110,
+		category: "Physical",
+		shortDesc: "Clears all timed field effects.",
+		name: "Timeout",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		onPrepareHit(target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Boomburst", target);
+		},
+		onTryHit(pokemon) {
+			// will shatter screens through sub, before you hit
+			pokemon.side.removeSideCondition('reflect');
+			pokemon.side.removeSideCondition('lightscreen');
+			pokemon.side.removeSideCondition('auroraveil');
+			pokemon.side.removeSideCondition('safeguard');
+			pokemon.side.removeSideCondition('mist');
+			pokemon.side.removeSideCondition('luckychant');
+			pokemon.side.removeSideCondition('firepledge');
+			pokemon.side.removeSideCondition('grasspledge');
+			pokemon.side.removeSideCondition('waterpledge');
+		},
+		onHit() {
+			this.field.clearTerrain();
+			this.field.clearWeather();
+			this.field.removePseudoWeather('trickroom');
+			this.field.removePseudoWeather('magicroom');
+			this.field.removePseudoWeather('wonderroom');
+			this.field.removePseudoWeather('gravity');
+		},
+		onAfterSubDamage() {
+			this.field.clearTerrain();
+			this.field.clearWeather();
+			this.field.removePseudoWeather('trickroom');
+			this.field.removePseudoWeather('magicroom');
+			this.field.removePseudoWeather('wonderroom');
+			this.field.removePseudoWeather('gravity');
+		},
+		secondary: null,
+		target: "normal",
+		type: "Dark",
+	},
+	vacuumcut: {
+		accuracy: 100,
+		basePower: 40,
+		category: "Special",
+		shortDesc: "Usually goes first.",
+		name: "Vacuum Cut",
+		pp: 30,
+		priority: 1,
+		flags: {protect: 1, mirror: 1, slicing: 1, wind: 1},
+		onPrepareHit(target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Air Cutter", target);
+		},
+		secondary: null,
+		target: "normal",
+		type: "Flying",
+		contestType: "Cool",
+	},
 	
 // Legalizing Some Dexited Moves
 	psychoboost: {
@@ -813,6 +1058,10 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		isNonstandard: null,
 	},
 	healbell: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	aromatherapy: {
 		inherit: true,
 		isNonstandard: null,
 	},
@@ -865,6 +1114,138 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		isNonstandard: null,
 	},
 	lusterpurge: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	snatch: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	barbbarrage: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	aeroblast: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	anchorshot: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	aromatherapy: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	aurawheel: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	autotomize: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	barrier: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	bittermalice: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	bubble: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	camouflage: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	ceaselessedge: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	chatter: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	chipaway: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	clangingscales: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	clangoroussoul: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	cometpunch: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	coreenforcer: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	cosmicpower: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	craftyshield: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	direclaw: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	dizzypunch: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	dragonhammer: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	dualchop: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	feintattack: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	aromatherapy: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	floralhealing: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	foresight: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	frustration: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	geargrind: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	gearup: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	geomancy: {
+		inherit: true,
+		isNonstandard: null,
+	},
+	flowershield: {
 		inherit: true,
 		isNonstandard: null,
 	},
