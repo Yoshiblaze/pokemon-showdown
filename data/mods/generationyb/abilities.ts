@@ -359,4 +359,44 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		},
 		name: "Total Eclipse",
 	},
+	goodasgold: {
+		onAllyBoost(boost, target, source, effect) {
+			if ((source && target === source) || !target.hasType('Steel')) return;
+			let showMsg = false;
+			let i: BoostID;
+			for (i in boost) {
+				if (boost[i]! < 0) {
+					delete boost[i];
+					showMsg = true;
+				}
+			}
+			if (showMsg && !(effect as ActiveMove).secondaries) {
+				const effectHolder = this.effectState.target;
+				this.add('-block', target, 'ability: Good as Gold', '[of] ' + effectHolder);
+			}
+		},
+		onAllySetStatus(status, target, source, effect) {
+			if (target.hasType('Steel') && source && target !== source && effect && effect.id !== 'yawn') {
+				this.debug('interrupting setStatus with Good as Gold');
+				if (effect.id === 'synchronize' || (effect.effectType === 'Move' && !effect.secondaries)) {
+					const effectHolder = this.effectState.target;
+					this.add('-block', target, 'ability: Good as Gold', '[of] ' + effectHolder);
+				}
+				return null;
+			}
+		},
+		onAllyTryAddVolatile(status, target) {
+			if (target.hasType('Steel') && status.id === 'yawn') {
+				this.debug('Good as Gold blocking yawn');
+				const effectHolder = this.effectState.target;
+				this.add('-block', target, 'ability: Good as Gold', '[of] ' + effectHolder);
+				return null;
+			}
+		},
+		isBreakable: true,
+		name: "Good as Gold",
+		rating: 3,
+		shortDesc: "This side's Steel-types can't have stats lowered or status inflicted by other Pokemon.",
+		num: 283,
+	},
 };
