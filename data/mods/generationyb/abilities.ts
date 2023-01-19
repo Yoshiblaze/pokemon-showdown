@@ -147,7 +147,6 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		name: "Heart of Courage",
 		shortDesc: "At 1/3 or less of its max HP, this Pokemon's offensive stat is 1.5x with STAB attacks.",
 		rating: 2,
-		num: 66,
 	},
 	highfashion: {
 		onBasePowerPriority: 15,
@@ -159,7 +158,6 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		name: "High Fashion",
 		shortDesc: "User's Normal-type attacks have 1.2x power.",
 		rating: 3.5,
-		num: 181,
 	},
 	inevitable: {
 		name: "Inevitable",
@@ -180,7 +178,6 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		},
 		shortDesc: "When this Pokemon faints due to another Pokemon's move, it uses its signature future move if it's not already active.",
 		rating: 2,
-		num: 106,
 	},
 	insulttoinjury: {
 		onBasePowerPriority: 19,
@@ -193,7 +190,6 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		name: "Insult to Injury",
 		shortDesc: "This Pokemon's moves deal 1.5x damage to targets that have already taken damage this turn.",
 		rating: 3.5,
-		num: 173,
 	},
 	laststand: {
 		onBasePowerPriority: 19,
@@ -205,7 +201,6 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		name: "Last Stand",
 		shortDesc: "This Pokemon's moves deal 1.3x damage if it has used each of its moves at least once. Resets on switch out.",
 		rating: 3.5,
-		num: 173,
 	},
 	nevermore: {
 		onStart(pokemon) {
@@ -249,7 +244,6 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		name: "Nevermore",
 		shortDesc: "This Pokemon's sound moves gain power each time they're used, capping at 2x power.",
 		rating: 3.5,
-		num: 173,
 	},
 	powerrush: {
 		onModifyDamage(damage, source, target, move) {
@@ -264,7 +258,6 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		name: "Power Rush",
 		shortDesc: "This Pokemon's moves deal 1.3x damage, but this Pokemon loses 10% of its max HP every time it lands an attack.",
 		rating: 3.5,
-		num: 173,
 	},
 	reboot: {
 		onDamagingHit(damage, target, source, move) {
@@ -273,7 +266,6 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		name: "Reboot",
 		shortDesc: "When this Pokemon is hit by an attack, the effect of Electric Terrain begins.",
 		rating: 2.5,
-		num: 269,
 	},
 	rocketfists: {
 		onModifyMovePriority: 8,
@@ -283,7 +275,6 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		name: "Rocket Fists",
 		shortDesc: "This Pokemon's punching moves are Special.",
 		rating: 2.5,
-		num: 269,
 	},
 	rolereversal: {
 		onModifyMovePriority: 1,
@@ -296,6 +287,76 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		name: "Role Reversal",
 		shortDesc: "This Pokemon changes to its Comedy form before it uses a Special move and its Tragedy form before it uses a Physical move.",
 		rating: 4,
-		num: 176,
+	},
+	siegeengine: {
+		onModifyMove(move) {
+			move.infiltrates = true;
+		},
+		name: "Siege Engine",
+		shortDesc: "(Placeholder) This Pokemon's moves break the Reflect/Light Screen/Aurora Veil before dealing damage and ignore Wide Guard and Quick Guard.",
+		rating: 4,
+	},
+	silkstream: {
+		onStart(pokemon) {
+			pokemon.abilityState.choiceLock = "";
+		},
+		onBeforeMove(pokemon, target, move) {
+			if (move.isZOrMaxPowered || move.id === 'struggle') return;
+			if (pokemon.abilityState.choiceLock && pokemon.abilityState.choiceLock !== move.id) {
+				// Fails unless ability is being ignored (these events will not run), no PP lost.
+				this.addMove('move', pokemon, move.name);
+				this.attrLastMove('[still]');
+				this.debug("Disabled by Gorilla Tactics");
+				this.add('-fail', pokemon);
+				return false;
+			}
+		},
+		onModifyMove(move, pokemon) {
+			if (pokemon.abilityState.choiceLock || move.isZOrMaxPowered || move.id === 'struggle') return;
+			pokemon.abilityState.choiceLock = move.id;
+		},
+		onModifySpePriority: 1,
+		onModifySpe(spe, pokemon) {
+			if (pokemon.volatiles['dynamax']) return;
+			// PLACEHOLDER
+			this.debug('Silk Stream Spe Boost');
+			return this.chainModify(1.5);
+		},
+		onDisableMove(pokemon) {
+			if (!pokemon.abilityState.choiceLock) return;
+			if (pokemon.volatiles['dynamax']) return;
+			for (const moveSlot of pokemon.moveSlots) {
+				if (moveSlot.id !== pokemon.abilityState.choiceLock) {
+					pokemon.disableMove(moveSlot.id, false, this.effectState.sourceEffect);
+				}
+			}
+		},
+		onEnd(pokemon) {
+			pokemon.abilityState.choiceLock = "";
+		},
+		name: "Silk Stream",
+		shortDesc: "This Pokemon's Speed is 1.5x, but it can only select the first move it executes.",
+		rating: 4.5,
+	},
+	tippedscales: {
+		onPrepareHit(source, target, move) {
+			if (move.hasBounced) return;
+			const type = move.type;
+			if (type && type !== '???' && source.getTypes().join() !== type) {
+				if (!source.setType(type)) return;
+				this.add('-start', source, 'typechange', type, '[from] ability: Tipped Scales');
+			}
+		},
+		name: "Tipped Scales",
+		rating: 4.5,
+		shortDesc: "This Pokemon's type changes to match the type of the move it is about to use. Works multiple times per switch-in.",
+	},
+	totaleclipse: {
+		shortDesc: "Removes weather upon switch-in.",
+		onSwitchInPriority: 6,
+		onSwitchIn(pokemon, target, source) {
+			this.field.clearWeather();
+		},
+		name: "Total Eclipse",
 	},
 };
