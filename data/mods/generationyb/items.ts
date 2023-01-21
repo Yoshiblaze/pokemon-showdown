@@ -118,10 +118,10 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 		spritenum: 658,
 		onTakeItem: false,
 		onStart(pokemon) {
-			const type = this.dex.moves.get(pokemon.moveSlots[0].id).type;
 			this.add('-item', pokemon, 'Link Brace');
 			this.add('-anim', pokemon, "Cosmic Power", pokemon);
-			this.add('-start', pokemon, 'typechange', type);
+			this.actions.useMove("Conversion", pokemon);
+			this.add('-message', `${pokemon.name}'s Link Brace changed its type!`);
 		},
 		onTryHit(pokemon, target, move) {
 			if (move.id === 'soak' || move.id === 'magicpowder') {
