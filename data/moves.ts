@@ -755,6 +755,9 @@ export const Moves: {[moveid: string]: MoveData} = {
 				this.add('-end', pokemon, 'Attract', '[silent]');
 			},
 		},
+		onTryImmunity(target, source) {
+			return (target.gender === 'M' && source.gender === 'F') || (target.gender === 'F' && source.gender === 'M');
+		},
 		secondary: null,
 		target: "normal",
 		type: "Normal",
@@ -5945,17 +5948,6 @@ export const Moves: {[moveid: string]: MoveData} = {
 			this.add('-prepare', attacker, move.name);
 			if (!this.runEvent('ChargeMove', attacker, defender, move)) {
 				return;
-			}
-
-			// In SwSh, Fly's animation leaks the initial target through a camera focus
-			// The animation leak target itself isn't "accurate"; the target it reveals is as if Fly weren't a charge movee
-			// (Fly, like all other charge moves, will actually target slots on its charging turn, relevant for things like Follow Me)
-			// We use a generic single-target move to represent this
-			if (this.gameType === 'doubles' || this.gameType === 'multi') {
-				const animatedTarget = attacker.getMoveTargets(this.dex.getActiveMove('aerialace'), defender).targets[0];
-				if (animatedTarget) {
-					this.hint(`${move.name}'s animation targeted ${animatedTarget.name}`);
-				}
 			}
 			attacker.addVolatile('twoturnmove', defender);
 			return null;
@@ -12248,7 +12240,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 		sideCondition: 'mist',
 		condition: {
 			duration: 5,
-			onBoost(boost, target, source, effect) {
+			onTryBoost(boost, target, source, effect) {
 				if (effect.effectType === 'Move' && effect.infiltrates && !target.isAlly(source)) return;
 				if (source && target !== source) {
 					let showMsg = false;
@@ -14876,13 +14868,13 @@ export const Moves: {[moveid: string]: MoveData} = {
 		},
 		onModifyType(move, pokemon) {
 			switch (pokemon.species.name) {
-			case 'Tauros-Paldea':
+			case 'Tauros-Paldea-Combat':
 				move.type = 'Fighting';
 				break;
-			case 'Tauros-Paldea-Fire':
+			case 'Tauros-Paldea-Blaze':
 				move.type = 'Fire';
 				break;
-			case 'Tauros-Paldea-Water':
+			case 'Tauros-Paldea-Aqua':
 				move.type = 'Water';
 				break;
 			}
@@ -15873,7 +15865,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 				if (effect.effectType === 'Move' && effect.infiltrates && !target.isAlly(source)) return;
 				if (target !== source) {
 					this.debug('interrupting setStatus');
-					if (effect.id === 'synchronize' || (effect.effectType === 'Move' && !effect.secondaries)) {
+					if (effect.name === 'Synchronize' || (effect.effectType === 'Move' && !effect.secondaries)) {
 						this.add('-activate', target, 'move: Safeguard');
 					}
 					return null;
@@ -15916,15 +15908,16 @@ export const Moves: {[moveid: string]: MoveData} = {
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
 		condition: {
-			onStart(pokemon, source) {
-				this.add('-start', pokemon, 'move: Salt Cure', '[of] ' + source);
+			noCopy: true,
+			onStart(pokemon) {
+				this.add('-start', pokemon, 'Salt Cure');
 			},
 			onResidualOrder: 13,
 			onResidual(pokemon) {
 				this.damage(pokemon.baseMaxhp / (pokemon.hasType(['Water', 'Steel']) ? 4 : 8));
 			},
 			onEnd(pokemon) {
-				this.add('-end', pokemon, 'move: Salt Cure');
+				this.add('-end', pokemon, 'Salt Cure');
 			},
 		},
 		secondary: {
@@ -18677,12 +18670,11 @@ export const Moves: {[moveid: string]: MoveData} = {
 			if (!pokemon.getItem().isBerry) pokemon.disableMove('stuffcheeks');
 		},
 		onTry(source) {
-			const item = source.getItem();
-			if (item.isBerry && source.eatItem(true)) {
-				this.boost({def: 2}, source, null, null, false, true);
-			} else {
-				return false;
-			}
+			return source.getItem().isBerry;
+		},
+		onHit(pokemon) {
+			if (!this.boost({def: 2})) return null;
+			pokemon.eatItem(true);
 		},
 		secondary: null,
 		target: "self",
@@ -19428,21 +19420,23 @@ export const Moves: {[moveid: string]: MoveData} = {
 		priority: 0,
 		flags: {bypasssub: 1},
 		onHitField(target, source, move) {
-			let result = false;
-			for (const active of this.getAllActive()) {
-				if (this.runEvent('Invulnerability', active, source, move) === false) {
-					this.add('-miss', source, active);
-					result = true;
-				} else if (this.runEvent('TryHit', active, source, move)) {
-					const item = active.getItem();
-					if (active.hp && item.isBerry) {
-						// bypasses Unnerve
-						active.eatItem(true);
-						result = true;
-					}
+			const targets: Pokemon[] = [];
+			for (const pokemon of this.getAllActive()) {
+				if (this.runEvent('Invulnerability', pokemon, source, move) === false) {
+					this.add('-miss', source, pokemon);
+				} else if (this.runEvent('TryHit', pokemon, source, move) && pokemon.getItem().isBerry) {
+					targets.push(pokemon);
 				}
 			}
-			return result;
+			this.add('-fieldactivate', 'move: Teatime');
+			if (!targets.length) {
+				this.add('-fail', source, 'move: Teatime');
+				this.attrLastMove('[still]');
+				return this.NOT_FAIL;
+			}
+			for (const pokemon of targets) {
+				pokemon.eatItem(true);
+			}
 		},
 		secondary: null,
 		target: "all",
