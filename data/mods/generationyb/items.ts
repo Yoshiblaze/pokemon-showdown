@@ -77,11 +77,42 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 				return this.chainModify(0.75);
 			}
 		},
-		num: 325,
-		gen: 4,
+		gen: 9,
 		desc: "Rock-types: Heal 1/16 of their max HP every turn and take 0.75x damage from super effective moves.",
 	},
 
 // Link Braces
-
+	linkbrace: {
+		name: "Link Brace",
+		spritenum: 658,
+		onTakeItem: false,
+		onStart(pokemon) {
+			this.add('-item', pokemon, 'Link Brace');
+			this.add('-anim', pokemon, "Cosmic Power", pokemon);
+			this.add('-message', `${pokemon.name}'s Link Brace turned it into a ${species.types[0]}-type!`);
+		},
+		onModifySpeciesPriority: 2,
+		onModifySpecies(species, target, source, effect) {
+			if (!target) return; // Chat command
+			if (effect && ['imposter', 'transform'].includes(effect.id)) return;
+			const types = [...new Set(target.baseMoveSlots.slice(0, 1).map(move => this.dex.moves.get(move.id).type))];
+			return {...species, types: types};
+		},
+		onSwitchIn(pokemon) {
+			this.add('-start', pokemon, 'typechange', (pokemon.illusion || pokemon).getTypes(true).join('/'), '[silent]');
+		},
+		onTryHit(pokemon, target, move) {
+			if (move.id === 'soak' || move.id === 'magicpowder') {
+				this.add('-immune', pokemon, '[from] ability: Oblivious');
+				return null;
+			}
+		},
+		num: -1000,
+		gen: 9,
+		desc: "Changes the user's type to that of its first move. 1.2x power on STAB moves.",
+	},	
+	
+// Will add Signature Link Braces after testing
+	
+	
 };
