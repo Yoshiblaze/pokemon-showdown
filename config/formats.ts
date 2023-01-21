@@ -53,6 +53,13 @@ export const Formats: FormatList = [
 		ruleset: ['[Gen 9] Random Battle', 'Blitz'],
 	},
 	{
+		name: "[Gen 9] Generation YB",
+
+		mod: 'generationyb',
+		ruleset: ['Standard', 'Terastal Clause', 'One Link Brace Limit'],
+		banlist: ['Uber', 'AG', 'Arena Trap', 'Moody', 'Sand Veil', 'Snow Cloak', 'King\'s Rock', 'Baton Pass'],
+	},
+	{
 		name: "[Gen 9] OU",
 
 		mod: 'gen9',
