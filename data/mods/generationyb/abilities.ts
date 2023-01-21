@@ -24,7 +24,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			}
 		},
 		name: "Additive Armor",
-		shortDesc: "This Pokemon's Defense is raised by 1 stage if it attacks and KOes another Pokemon.",
+		shortDesc: "This Pokemon's Defense is raised by 1 stage if it attacks and KOes another Pokemon..",
 		rating: 3,
 		num: 153,
 	},
