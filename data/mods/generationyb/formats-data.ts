@@ -7692,7 +7692,7 @@ export const FormatsData: {[k: string]: SpeciesFormatsData} = {
 		tier: "Uber",
 		isNonstandard: null,
 	},
-	zygarde10%: {
+	zygarde10: {
 		tier: "OU",
 		isNonstandard: null,
 	},
