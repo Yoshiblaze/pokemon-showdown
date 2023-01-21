@@ -82,6 +82,7 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 	},
 
 // Link Braces
+/*
 	linkbrace: {
 		name: "Link Brace",
 		spritenum: 658,
@@ -111,7 +112,31 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 		gen: 9,
 		desc: "Changes the user's type to that of its first move. 1.2x power on STAB moves.",
 	},	
-	
+*/
+	linkbrace: {
+		name: "Link Brace",
+		spritenum: 658,
+		onTakeItem: false,
+		onStart(pokemon) {
+			const type = this.dex.moves.get(pokemon.moveSlots[0].id).type;
+			this.add('-item', pokemon, 'Link Brace');
+			this.add('-anim', pokemon, "Cosmic Power", pokemon);
+			this.add('-start', pokemon, 'typechange', type);
+			this.add('-message', `${pokemon.name}'s Link Brace turned it into a ${species.types[0]}-type!`);
+		},
+		onSwitchIn(pokemon) {
+			this.add('-start', pokemon, 'typechange', (pokemon.illusion || pokemon).getTypes(true).join('/'), '[silent]');
+		},
+		onTryHit(pokemon, target, move) {
+			if (move.id === 'soak' || move.id === 'magicpowder') {
+				this.add('-immune', pokemon, '[from] item: Link Brace');
+				return null;
+			}
+		},
+		num: -1000,
+		gen: 9,
+		desc: "Changes the user's type to that of its first move. 1.2x power on STAB moves.",
+	},	
 // Will add Signature Link Braces after testing
 	
 	
