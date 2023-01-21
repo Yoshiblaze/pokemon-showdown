@@ -122,7 +122,7 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 			this.add('-item', pokemon, 'Link Brace');
 			this.add('-anim', pokemon, "Cosmic Power", pokemon);
 			this.add('-start', pokemon, 'typechange', type);
-			this.add('-message', `${pokemon.name}'s Link Brace turned it into a ${species.types[0]}-type!`);
+			this.add('-message', `${pokemon.name}'s Link Brace turned it into a ${pokemon.types[0]}-type!`);
 		},
 		onSwitchIn(pokemon) {
 			this.add('-start', pokemon, 'typechange', (pokemon.illusion || pokemon).getTypes(true).join('/'), '[silent]');
