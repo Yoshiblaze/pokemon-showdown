@@ -194,12 +194,18 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	laststand: {
 		onBasePowerPriority: 19,
 		onBasePower(basePower, attacker, defender, move) {
-			if (attacker.moveSlots.length > 1 && attacker.moveSlot.used) {
+			if (attacker.hp <= attacker.maxhp / 1.33333333) {
+				return this.chainModify(1.1);
+			}
+			else if (attacker.hp <= attacker.maxhp / 2) {
 				return this.chainModify(1.3);
+			}
+			else if (attacker.hp <= attacker.maxhp / 4) {
+				return this.chainModify(1.5);
 			}
 		},
 		name: "Last Stand",
-		shortDesc: "This Pokemon's moves deal 1.3x damage if it has used each of its moves at least once. Resets on switch out.",
+		shortDesc: "This Pokemon's moves deal more damage when this Pokemon has less HP.",
 		rating: 3.5,
 	},
 	nevermore: {
@@ -280,7 +286,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onModifyMovePriority: 1,
 		onModifyMove(move, attacker, defender) {
 			if (attacker.species.baseSpecies !== 'Tragichiou' || attacker.transformed) return;
-			const targetForme = (move.category === 'Special' ? 'Tragichiou-Comedy' : 'Tragichiou');
+			const targetForme = (move.category === 'Physical' ? 'Tragichiou' : 'Tragichiou-Comedy');
 			if (attacker.species.name !== targetForme) attacker.formeChange(targetForme);
 		},
 		isPermanent: true,
