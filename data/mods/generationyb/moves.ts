@@ -905,7 +905,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			onHit(pokemon, source, move) {
 				if (move.category !== 'Status') {
 					this.effectState.lostFocus = true;
-					for (const side of source.side.foeSidesWithConditions()) {
+					for (const side of pokemon.side.foeSidesWithConditions()) {
 						side.addSideCondition('stealthrock');
 					}
 				}
