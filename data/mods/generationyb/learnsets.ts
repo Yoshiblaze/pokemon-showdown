@@ -19178,7 +19178,7 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 			skillswap: ["9L1"],
 			solarbeam: ["9L1"],
 			zenheadbutt: ["9L1"],
-			grassknow: ["9L1"],
+			grassknot: ["9L1"],
 			stompingtantrum: ["9L1"],
 		},
 	},
@@ -40403,6 +40403,7 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 			flashcannon: ["9L1"],
 			energyball: ["9L1"],
 			solarbeam: ["9L1"],
+			terablast: ["9L1"],
 		},
 	},
 	flamigo: {
@@ -41623,6 +41624,7 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 			irondefense: ["9L1"],
 			cottonspore: ["9L1"],
 			ironhead: ["9L1"],
+			slash: ["9L1"],
 		},
 	},
 	silkloth: {
@@ -43836,8 +43838,8 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 			stomp: ["9L1"],
 			doublekick: ["9L1"],
 			spite: ["9L1"],
-			curse: ["9L1"],
-			ominouswind: ["9L1"],
+			sheercold: ["9L1"],
+			phantomforce: ["9L1"],
 			whirlwind: ["9L1"],
 			shadowsneak: ["9L1"],
 			protect: ["9L1"],
@@ -46911,6 +46913,7 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 			dracometeor: ["9L1"],
 			dragonpulse: ["9L1"],
 			dragontail: ["9L1"],
+			fireblast: ["9L1"],
 		},
 	},
 	gbonanene: {
@@ -47517,6 +47520,7 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 			reversal: ["9L1"],
 			instruct: ["9L1"],
 			charm: ["9L1"],
+			playrough: ["9L1"],
 		},
 	},
 	doduoyb: {
