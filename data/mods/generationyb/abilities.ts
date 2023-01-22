@@ -285,7 +285,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	rolereversal: {
 		onModifyMovePriority: 1,
 		onModifyMove(move, attacker, defender) {
-			if (attacker.species.baseSpecies !== 'Tragichiou' || attacker.transformed) return;
+			if (attacker.species.baseSpecies !== 'Tragichiou' || attacker.transformed || move.category === 'Status') return;
 			const targetForme = (move.category === 'Physical' ? 'Tragichiou' : 'Tragichiou-Comedy');
 			if (attacker.species.name !== targetForme) attacker.formeChange(targetForme);
 		},
