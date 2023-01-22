@@ -172,6 +172,12 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 			this.actions.useMove("Conversion", pokemon);
 			this.add('-message', `${pokemon.name}'s Link Brace changed its type!`);
 		},
+		onBasePowerPriority: 15,
+		onBasePower(basePower, user, target, move) {
+			if (user.hasType(move.type) && !move.priority > 0.1) {
+				return this.chainModify(1.2);
+			}
+		},
 		onTryHit(pokemon, target, move) {
 			if (move.id === 'soak' || move.id === 'magicpowder') {
 				this.add('-immune', pokemon, '[from] item: Link Brace');
