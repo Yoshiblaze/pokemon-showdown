@@ -80,6 +80,55 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 		gen: 9,
 		desc: "Rock-types: Heal 1/16 of their max HP every turn and take 0.75x damage from super effective moves.",
 	},
+	headphones: {
+		name: "Headphones",
+		spritenum: 0, // TODO
+		onBasePowerPriority: 23,
+		onBasePower(basePower, attacker, defender, move) {
+			if (move.flags['sound']) {
+				this.debug('Headphones boost');
+				return this.chainModify([4506, 4096]);
+			}
+		},
+		onTryHit(target, source, move) {
+			if (target !== source && move.flags['sound']) {
+				this.add('-immune', target, '[from] item: Headphones');
+				return null;
+			}
+		},
+		onAllyTryHitSide(target, source, move) {
+			if (move.flags['sound']) {
+				this.add('-immune', this.effectState.target, '[from] item: Headphones');
+			}
+		},
+		desc: "Holder's sound-based attacks have 1.1x power and the user is immune to sound moves.",
+		gen: 9,
+	},
+	windshieldwipers: {
+		name: "Windshield Wipers",
+		spritenum: 385,
+		fling: {
+			basePower: 90,
+		},
+		onStart(pokemon) {
+			let activated = false;
+			for (const sideCondition of ['reflect', 'lightscreen', 'auroraveil']) {
+				for (const side of [pokemon.side, ...pokemon.side.foeSidesWithConditions()]) {
+					if (side.getSideCondition(sideCondition)) {
+						if (!activated) {
+							this.add('-activate', pokemon, 'item: Windshield Wipers');
+							activated = true;
+						}
+						side.removeSideCondition(sideCondition);
+						pokemon.useItem();
+					}
+				}
+			}
+		},
+		gen: 9,
+		desc: "On switch-in, this Pokemon removes screens from both sides of the field and the item is consumed.",
+	},
+
 
 // Link Braces
 /*
