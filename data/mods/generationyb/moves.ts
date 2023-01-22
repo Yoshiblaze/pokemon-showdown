@@ -68,6 +68,10 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		inherit: true,
 		pp: 10,
 	},
+	slackoff: {
+		inherit: true,
+		pp: 10,
+	},
 	razorwind: {
 		num: 13,
 		accuracy: 100,
@@ -1004,7 +1008,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 	timeout: {
 		accuracy: 85,
 		basePower: 110,
-		category: "Physical",
+		category: "Special",
 		shortDesc: "Clears all timed field effects.",
 		name: "Timeout",
 		pp: 10,
@@ -1219,8 +1223,31 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		isNonstandard: null,
 	},
 	direclaw: {
-		inherit: true,
+		num: 827,
+		accuracy: 100,
+		basePower: 80,
+		category: "Physical",
+		shortDesc: "50% chance to freeze, poison, or paralyze target.",
 		isNonstandard: null,
+		name: "Dire Claw",
+		pp: 15,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1},
+		secondary: {
+			chance: 50,
+			onHit(target, source) {
+				const result = this.random(3);
+				if (result === 0) {
+					target.trySetStatus('psn', source);
+				} else if (result === 1) {
+					target.trySetStatus('par', source);
+				} else {
+					target.trySetStatus('frz', source);
+				}
+			},
+		},
+		target: "normal",
+		type: "Poison",
 	},
 	dizzypunch: {
 		inherit: true,
@@ -1539,8 +1566,26 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		isNonstandard: null,
 	},
 	triplekick: {
-		inherit: true,
+		num: 167,
+		accuracy: 90,
+		basePower: 20,
+		basePowerCallback(pokemon, target, move) {
+			return 20 * move.hit;
+		},
+		category: "Physical",
 		isNonstandard: null,
+		name: "Triple Kick",
+		pp: 10,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1},
+		multihit: 3,
+		multiaccuracy: true,
+		secondary: null,
+		target: "normal",
+		type: "Fighting",
+		zMove: {basePower: 120},
+		maxMove: {basePower: 80},
+		contestType: "Cool",
 	},
 	trumpcard: {
 		inherit: true,
