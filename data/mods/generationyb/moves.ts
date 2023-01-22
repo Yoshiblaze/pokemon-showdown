@@ -823,6 +823,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Ground",
 		contestType: "Beautiful",
 	},
+/*
 	poprocks: {
 		accuracy: 100,
 		basePower: 100,
@@ -872,6 +873,51 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		target: "normal",
 		type: "Rock",
 		contestType: "Clever",
+	},
+*/
+	poprocks: {
+		accuracy: 100,
+		basePower: 120,
+		category: "Physical",
+		shortDesc: "Fails and sets Stealth Rock if the user takes damage before it hits.",
+		name: "Pop Rocks",
+		pp: 20,
+		priority: -3,
+		flags: {protect: 1},
+		onPrepareHit(target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Stealth Rock", target);
+		},
+		priorityChargeCallback(pokemon) {
+			pokemon.addVolatile('poprocks');
+		},
+		beforeMoveCallback(pokemon) {
+			if (pokemon.volatiles['poprocks']?.lostFocus) {
+				this.add('cant', pokemon, 'Pop Rocks', 'Pop Rocks');
+				return true;
+			}
+		},
+		condition: {
+			duration: 1,
+			onStart(pokemon) {
+				this.add('-singleturn', pokemon, 'move: Pop Rocks');
+			},
+			onHit(pokemon, source, move) {
+				if (move.category !== 'Status') {
+					this.effectState.lostFocus = true;
+					for (const side of source.side.foeSidesWithConditions()) {
+						side.addSideCondition('stealthrock');
+					}
+				}
+			},
+			onTryAddVolatile(status, pokemon) {
+				if (status.id === 'flinch') return null;
+			},
+		},
+		secondary: null,
+		target: "normal",
+		type: "Rock",
+		contestType: "Tough",
 	},
 	rattle: {
 		accuracy: true,
