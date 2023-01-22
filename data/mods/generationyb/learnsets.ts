@@ -41728,6 +41728,7 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 			memento: ["9L1"],
 			wideguard: ["9L1"],
 			wrap: ["9L1"],
+			hypervoice: ["9L1"],
 		},
 	},
 	bittertweet: {
