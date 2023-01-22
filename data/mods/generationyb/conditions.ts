@@ -19,7 +19,7 @@ export const Conditions: {[k: string]: ConditionData} = {
 		onBeforeMovePriority: 10,
 		onBeforeMove(pokemon, target, move) {
 			if (move.flags['defrost']) return;
-			if (this.randomChance(1, 5)) {
+			if (this.randomChance(1, 10)) {
 				pokemon.cureStatus();
 				return;
 			}
