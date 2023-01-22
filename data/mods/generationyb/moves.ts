@@ -825,18 +825,20 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 	},
 	poprocks: {
 		accuracy: 100,
-		basePower: 70,
+		basePower: 100,
 		category: "Physical",
-		shortDesc: "Hits again in two turns.",
+		shortDesc: "Sets Stealth Rock, then attacks two turns later.",
 		name: "Pop Rocks",
 		pp: 15,
 		priority: 0,
-		flags: {protect: 1, mirror: 1, bullet: 1},
+		flags: {reflectable: 1},
 		onPrepareHit(target, source, move) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Stealth Rock", target);
 		},
-		onHit(source, target) {
+		ignoreImmunity: true,
+		isFutureMove: true,
+		onTry(source, target) {
 			if (!target.side.addSlotCondition(target, 'futuremove')) return false;
 			Object.assign(target.side.slotConditions[target.position]['futuremove'], {
 				duration: 3,
@@ -846,18 +848,25 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 					id: 'poprocks',
 					name: "Pop Rocks",
 					accuracy: 100,
-					basePower: 60,
+					basePower: 100,
 					category: "Physical",
 					priority: 0,
-					flags: {bullet: 1},
+					flags: {},
 					ignoreImmunity: false,
 					effectType: 'Move',
 					isFutureMove: true,
-					type: 'Physical',
+					type: 'Rock',
 				},
 			});
 			this.add('-start', source, 'move: Pop Rocks');
 			return this.NOT_FAIL;
+		},
+		self: {
+			onHit(source) {
+				for (const side of source.side.foeSidesWithConditions()) {
+					side.addSideCondition('stealthrock');
+				}
+			},
 		},
 		secondary: null,
 		target: "normal",
