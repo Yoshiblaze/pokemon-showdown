@@ -90,6 +90,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 	},
 	kecleon: {
 		inherit: true,
+		baseStats: {hp: 60, atk: 100, def: 70, spa: 60, spd: 120, spe: 40},
 		abilities: {0: "Color Change", H: "Tipped Scales"},
 	},
 	relicanth: {
@@ -143,6 +144,30 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 	falinks: {
 		inherit: true,
 		abilities: {0: "Battle Armor", 1: "Siege Engine", H: "Defiant"},
+	},
+	fearow: {
+		inherit: true,
+		evos: ["Hearow"],
+	},
+	dewgong: {
+		inherit: true,
+		evos: ["Seelyon"],
+	},
+	furret: {
+		inherit: true,
+		evos: ["Currket"],
+	},
+	grumpig: {
+		inherit: true,
+		evos: ["Trampline"],
+	},
+	maractus: {
+		inherit: true,
+		evos: ["Maracarga"],
+	},
+	eevee: {
+		inherit: true,
+		evos: ["Vaporeon", "Jolteon", "Flareon", "Espeon", "Umbreon", "Leafeon", "Glaceon", "Sylveon", "Mytheon", "Geareon"],
 	},
 	
 // New Pokemon
@@ -267,7 +292,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		num: 1027,
 		name: "Soiecharpe",
 		types: ["Bug", "Normal"],
-		baseStats: {hp: 56, atk: 62, def: 106, spa: 1114, spd: 67, spe: 90},
+		baseStats: {hp: 56, atk: 62, def: 106, spa: 114, spd: 67, spe: 90},
 		abilities: {0: "High Fashion", H: "Silk Stream"},
 		weightkg: 5,
 		prevo: "Silkapeau",
@@ -385,7 +410,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		baseStats: {hp: 65, atk: 30, def: 45, spa: 60, spd: 45, spe: 65},
 		abilities: {0: "Cute Charm", H: "Cursed Body"},
 		weightkg: 5,
-		prevo: "Kataralope",
+		evos: ["Kataralope"],
 	},
 	kataralope: {
 		num: 1041,
@@ -394,7 +419,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		baseStats: {hp: 85, atk: 85, def: 95, spa: 70, spd: 95, spe: 85},
 		abilities: {0: "Power Rush", H: "Cursed Body"},
 		weightkg: 10,
-		evos: ["Haresay"],
+		prevo: "Haresay",
 	},
 	pogolai: {
 		num: 1042,
