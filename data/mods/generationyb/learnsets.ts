@@ -2067,7 +2067,7 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 	},
 	clefairy: {
 		learnset: {
-
+			stealthrock: ["9L1"],
 			splash: ["9L1"],
 			pound: ["9L1"],
 			copycat: ["9L1"],
@@ -2166,7 +2166,7 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 	},
 	clefable: {
 		learnset: {
-
+			stealthrock: ["9L1"],
 			splash: ["9L1"],
 			pound: ["9L1"],
 			copycat: ["9L1"],
@@ -3227,7 +3227,6 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 	},
 	mankey: {
 		learnset: {
-
 			covet: ["9L1"],
 			scratch: ["9L1"],
 			leer: ["9L1"],
@@ -3301,11 +3300,12 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 			round: ["9L1"],
 			snore: ["9L1"],
 			encore: ["9L1"],
+			gunkshot: ["9L1"],
 		},
 	},
 	primeape: {
 		learnset: {
-
+			gunkshot: ["9L1"],
 			covet: ["9L1"],
 			scratch: ["9L1"],
 			leer: ["9L1"],
@@ -3475,6 +3475,7 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 			shadowpunch: ["9L1"],
 			overheat: ["9L1"],
 			encore: ["9L1"],
+			gunkshot: ["9L1"],
 		},
 	},
 	growlithe: {
@@ -9970,6 +9971,7 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 			throatchop: ["9L1"],
 			vacuumcut: ["9L1"],
 			spikes: ["9L1"],
+			stealthrock: ["9L1"],
 			toxicspikes: ["9L1"],
 			stickyweb: ["9L1"],
 			thunderwave: ["9L1"],
