@@ -8538,7 +8538,7 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 			zenheadbutt: ["9L1"],
 		},
 	},
-	taurospaldea: {
+	taurospaldeacombat: {
 		learnset: {
 			tackle: ["9L1"],
 			tailwhip: ["9L1"],
@@ -8609,7 +8609,7 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 			zenheadbutt: ["9L1"],
 		},
 	},
-	taurosfirepaldea: {
+	taurospaldeablaze: {
 		learnset: {
 			tackle: ["9L1"],
 			tailwhip: ["9L1"],
@@ -8684,7 +8684,7 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 			zenheadbutt: ["9L1"],
 		},
 	},
-	tauroswaterpaldea: {
+	tauroswaterpaldeaaqua: {
 		learnset: {
 			tackle: ["9L1"],
 			tailwhip: ["9L1"],
@@ -12965,7 +12965,6 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 	},
 	qwilfish: {
 		learnset: {
-
 			poisonsting: ["9L1"],
 			tackle: ["9L1"],
 			harden: ["9L1"],
@@ -13103,6 +13102,7 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 			raindance: ["9L1"],
 			snowscape: ["9L1"],
 			mudbath: ["9L1"],
+			flipturn: ["9L1"],
 			shadowball: ["9L1"],
 			darkpulse: ["9L1"],
 			hex: ["9L1"],
@@ -13182,6 +13182,7 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 			raindance: ["9L1"],
 			snowscape: ["9L1"],
 			mudbath: ["9L1"],
+			flipturn: ["9L1"],
 			shadowball: ["9L1"],
 			darkpulse: ["9L1"],
 			hex: ["9L1"],
@@ -14322,7 +14323,7 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 	},
 	suicune: {
 		learnset: {
-
+			defog: ["9L1"],
 			sheercold: ["9L1"],
 			extremespeed: ["9L1"],
 			watergun: ["9L1"],
@@ -15698,7 +15699,7 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 			raindance: ["9L1"],
 			mudbath: ["9L1"],
 			sludgebomb: ["9L1"],
-			energybal: ["9L1"],
+			energyball: ["9L1"],
 			drainpunch: ["9L1"],
 			gigadrain: ["9L1"],
 			heartbeat: ["9L1"],
@@ -15755,7 +15756,7 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 			raindance: ["9L1"],
 			mudbath: ["9L1"],
 			sludgebomb: ["9L1"],
-			energybal: ["9L1"],
+			energyball: ["9L1"],
 			drainpunch: ["9L1"],
 			gigadrain: ["9L1"],
 			heartbeat: ["9L1"],
@@ -19825,7 +19826,7 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 	},
 	salamence: {
 		learnset: {
-
+			firefang: ["9L1"],
 			ember: ["9L1"],
 			leer: ["9L1"],
 			bite: ["9L1"],
@@ -20065,7 +20066,7 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 	},
 	latias: {
 		learnset: {
-
+			dracometeor: ["9L1"],
 			storedpower: ["9L1"],
 			charm: ["9L1"],
 			helpinghand: ["9L1"],
@@ -20150,7 +20151,7 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 	},
 	latios: {
 		learnset: {
-
+			dracometeor: ["9L1"],
 			storedpower: ["9L1"],
 			helpinghand: ["9L1"],
 			recover: ["9L1"],
@@ -32099,6 +32100,7 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 			rocktomb: ["9L1"],
 			throatchop: ["9L1"],
 			shadowclaw: ["9L1"],
+			shadowball: ["9L1"],
 			thief: ["9L1"],
 			scald: ["9L1"],
 			hydropump: ["9L1"],
@@ -40472,6 +40474,7 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 			lowkick: ["9L1"],
 			steelwing: ["9L1"],
 			liquidation: ["9L1"],
+			defog: ["9L1"],
 		},
 	},
 	frigibax: {
