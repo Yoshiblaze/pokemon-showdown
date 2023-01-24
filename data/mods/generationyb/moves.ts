@@ -883,7 +883,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		name: "Pop Rocks",
 		pp: 20,
 		priority: -3,
-		flags: {protect: 1},
+		flags: {protect: 1, bullet: 1},
 		onPrepareHit(target, source, move) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Stealth Rock", target);
