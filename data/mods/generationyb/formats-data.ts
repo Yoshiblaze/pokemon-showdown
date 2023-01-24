@@ -6360,15 +6360,15 @@ export const FormatsData: {[k: string]: SpeciesFormatsData} = {
 		tier: "OU",
 		isNonstandard: null,
 	},
-	taurospaldea: {
+	taurospaldeacombat: {
 		tier: "OU",
 		isNonstandard: null,
 	},
-	taurosfirepaldea: {
+	taurospaldeablaze: {
 		tier: "OU",
 		isNonstandard: null,
 	},
-	tauroswaterpaldea: {
+	taurospaldeaaqua: {
 		tier: "OU",
 		isNonstandard: null,
 	},
