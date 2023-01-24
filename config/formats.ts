@@ -57,7 +57,7 @@ export const Formats: FormatList = [
 
 		mod: 'generationyb',
 		ruleset: ['Standard', 'Terastal Clause', 'One Link Brace Limit'],
-		banlist: ['Uber', 'AG', 'Arena Trap', 'Moody', 'Sand Veil', 'Snow Cloak', 'King\'s Rock', 'Baton Pass'],
+		banlist: ['Uber', 'AG', 'Arena Trap', 'Moody', 'Sand Veil', 'Snow Cloak', 'King\'s Rock', 'Baton Pass', 'Power Construct', 'Clangorous Soul'],
 	},
 	{
 		name: "[Gen 9] OU",
