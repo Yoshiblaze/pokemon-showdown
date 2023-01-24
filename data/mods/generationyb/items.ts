@@ -40,9 +40,10 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 		onSwitchOut(pokemon) {
 			if (pokemon.status) this.add('-curestatus', pokemon, pokemon.status, '[from] item: First-Aid Kit');
 			pokemon.clearStatus();
+			pokemon.useItem();
 		},
 		gen: 9,
-		desc: "Heals the user's status condition on switch-out.",
+		desc: "Heals the user's status condition on switch-out. One time use.",
 	},
 	ruthlessribbon: {
 		name: "Ruthless Ribbon",
@@ -166,7 +167,7 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 		name: "Link Brace",
 		spritenum: 658,
 		onTakeItem: false,
-		onStart(pokemon) {
+		onSwitchIn(pokemon) {
 			this.add('-item', pokemon, 'Link Brace');
 			this.add('-anim', pokemon, "Cosmic Power", pokemon);
 			this.actions.useMove("Conversion", pokemon);
