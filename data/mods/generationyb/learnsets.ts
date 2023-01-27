@@ -14384,6 +14384,7 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 			liquidation: ["9L1"],
 			snarl: ["9L1"],
 			weatherball: ["9L1"],
+			scald: ["9L1"],
 		},
 	},
 	larvitar: {
@@ -26321,6 +26322,7 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 			dig: ["9L1"],
 			doubleedge: ["9L1"],
 			signalbeam: ["9L1"],
+			endeavor: ["9L1"],
 		},
 	},
 	whirlipede: {
@@ -26379,11 +26381,12 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 			solarbeam: ["9L1"],
 			hex: ["9L1"],
 			throatchop: ["9L1"],
+			endeavor: ["9L1"],
 		},
 	},
 	scolipede: {
 		learnset: {
-
+			endeavor: ["9L1"],
 			poisonsting: ["9L1"],
 			defensecurl: ["9L1"],
 			rollout: ["9L1"],
@@ -44460,6 +44463,7 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 			rockblast: ["9L1"],
 			seedbomb: ["9L1"],
 			bulletseed: ["9L1"],
+			spikes: ["9L1"],
 		},
 	},
 	sedient: {
@@ -44530,6 +44534,7 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 			rockblast: ["9L1"],
 			bulletseed: ["9L1"],
 			seedbomb: ["9L1"],
+			spikes: ["9L1"],
 		},
 	},
 	crissoa: {
@@ -45636,6 +45641,7 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 			solarbeam: ["9L1"],
 			steelwing: ["9L1"],
 			zenheadbutt: ["9L1"],
+			moonblast: ["9L1"],
 		},
 	},
 	dracalistico: {
@@ -45718,6 +45724,7 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 			bite: ["9L1"],
 			crunch: ["9L1"],
 			firefang: ["9L1"],
+			moonblast: ["9L1"],
 		},
 	},
 	petradum: {
@@ -47229,6 +47236,8 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 			stompingtantrum: ["9L1"],
 			rockslide: ["9L1"],
 			zenheadbutt: ["9L1"],
+			seedbomb: ["9L1"],
+			gigadrain: ["9L1"],
 		},
 	},
 	tuakahu: {
@@ -47300,6 +47309,8 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 			stompingtantrum: ["9L1"],
 			rockslide: ["9L1"],
 			zenheadbutt: ["9L1"],
+			seedbomb: ["9L1"],
+			gigadrain: ["9L1"],
 		},
 	},
 	tuamana: {
@@ -47380,6 +47391,10 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 			earthquake: ["9L1"],
 			focusblast: ["9L1"],
 			bodypress: ["9L1"],
+			seedbomb: ["9L1"],
+			gigadrain: ["9L1"],
+			dazzlinggleam: ["9L1"],
+			moonblast: ["9L1"],
 		},
 	},
 	fiayala: {
