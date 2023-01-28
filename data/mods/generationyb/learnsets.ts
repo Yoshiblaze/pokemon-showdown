@@ -20148,6 +20148,7 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 			skillswap: ["9L1"],
 			steelwing: ["9L1"],
 			zenheadbutt: ["9L1"],
+			trick: ["9L1"],
 		},
 	},
 	latios: {
@@ -20231,6 +20232,7 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 			lusterpurge: ["9L1"],
 			memento: ["9L1"],
 			powersplit: ["9L1"],
+			trick: ["9L1"],
 		},
 	},
 	deoxys: {
@@ -41302,6 +41304,7 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 			aurasphere: ["9L1"],
 			finalgambit: ["9L1"],
 			lastresort: ["9L1"],
+			knockoff: ["9L1"],
 		},
 	},
 	hydrattler: {
@@ -43081,6 +43084,7 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 			iceshard: ["9L1"],
 			razorleaf: ["9L1"],
 			solarblade: ["9L1"],
+			knockoff: ["9L1"],
 		},
 	},
 	hororina: {
@@ -43142,6 +43146,7 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 			playrough: ["9L1"],
 			steelwing: ["9L1"],
 			weatherball: ["9L1"],
+			knockoff: ["9L1"],
 		},
 	},
 	solarina: {
@@ -43203,6 +43208,7 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 			playrough: ["9L1"],
 			steelwing: ["9L1"],
 			weatherball: ["9L1"],
+			knockoff: ["9L1"],
 		},
 	},
 	superina: {
@@ -43270,6 +43276,7 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 			bravebird: ["9L1"],
 			encore: ["9L1"],
 			psybeam: ["9L1"],
+			knockoff: ["9L1"],
 		},
 	},
 	ankylocot: {
@@ -43789,6 +43796,7 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 			playrough: ["9L1"],
 			weatherball: ["9L1"],
 			zenheadbutt: ["9L1"],
+			knockoff: ["9L1"],
 		},
 	},
 	frizzillina: {
@@ -43840,6 +43848,7 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 			zenheadbutt: ["9L1"],
 			gigaimpact: ["9L1"],
 			hyperbeam: ["9L1"],
+			knockoff: ["9L1"],
 		},
 	},
 	wanderou: {
