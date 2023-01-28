@@ -37290,6 +37290,7 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 			grasspledge: ["9L1"],
 			acrobatics: ["9L1"],
 			solarbeam: ["9L1"],
+			suckerpunch: ["9L1"],
 		},
 	},
 	floragato: {
@@ -37358,6 +37359,7 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 			lowkick: ["9L1"],
 			thunderpunch: ["9L1"],
 			solarbeam: ["9L1"],
+			suckerpunch: ["9L1"],
 		},
 	},
 	meowscarada: {
@@ -37443,6 +37445,7 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 			frenzyplant: ["9L1"],
 			skillswap: ["9L1"],
 			foulplay: ["9L1"],
+			suckerpunch: ["9L1"],
 		},
 	},
 	fuecoco: {
