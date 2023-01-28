@@ -361,6 +361,27 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		zMove: {effect: 'heal'},
 		contestType: "Cute",
 	},
+	conversion: {
+		num: 160,
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		isNonstandard: "Past",
+		name: "Conversion",
+		pp: 30,
+		priority: 0,
+		flags: {snatch: 1},
+		onHit(target) {
+			const type = this.dex.moves.get(target.moveSlots[0].id).type;
+			if (!target.setType(type)) return false;
+			this.add('-start', target, 'typechange', type);
+		},
+		secondary: null,
+		target: "self",
+		type: "Normal",
+		zMove: {boost: {atk: 1, def: 1, spa: 1, spd: 1, spe: 1}},
+		contestType: "Beautiful",
+	},
 	
 // New Moves
 	bladebullet: {
