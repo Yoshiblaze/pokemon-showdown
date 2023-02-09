@@ -65,7 +65,8 @@ export class RandomGen3Teams extends RandomGen4Teams {
 			return {
 				cull: (
 					counter.setupType !== 'Special' ||
-					(counter.get('Special') + counter.get('specialpool') < 2 && !moves.has('batonpass') && !restTalk)
+					(counter.get('Special') + counter.get('specialpool') < 2 && !moves.has('batonpass') &&
+					!moves.has('refresh') && !restTalk)
 				),
 				isSetup: true,
 			};
@@ -77,7 +78,7 @@ export class RandomGen3Teams extends RandomGen4Teams {
 
 		// Not very useful without their supporting moves
 		case 'amnesia': case 'sleeptalk':
-			if (moves.has('roar')) return {cull: true};
+			if (moves.has('roar') || moves.has('whirlwind')) return {cull: true};
 			if (!moves.has('rest')) return {cull: true};
 			if (movePool.length > 1) {
 				const rest = movePool.indexOf('rest');
@@ -168,7 +169,7 @@ export class RandomGen3Teams extends RandomGen4Teams {
 			return {cull: !!counter.setupType || moves.has('rest') || !!teamDetails.rapidSpin};
 		case 'reflect':
 			return {cull: !!counter.setupType || !!counter.get('speedsetup')};
-		case 'roar':
+		case 'roar': case 'whirlwind':
 			return {cull: moves.has('sleeptalk') || moves.has('rest')};
 		case 'seismictoss':
 			return {cull: !!counter.setupType || moves.has('thunderbolt')};
@@ -179,7 +180,8 @@ export class RandomGen3Teams extends RandomGen4Teams {
 			// This cull condition otherwise causes mono-solarbeam Entei
 			return {cull: restOrDD || (species.id !== 'entei' && !moves.has('batonpass') && movePool.includes('calmmind'))};
 		case 'thunderwave':
-			return {cull: !!counter.setupType || moves.has('bodyslam') || moves.has('substitute') || restTalk};
+			return {cull: !!counter.setupType || moves.has('bodyslam') ||
+				moves.has('substitute') && movePool.includes('toxic') || restTalk};
 		case 'toxic':
 			return {cull: (
 				!!counter.setupType ||
@@ -273,7 +275,7 @@ export class RandomGen3Teams extends RandomGen4Teams {
 		if ((moves.has('substitute') || moves.has('raindance')) && counter.get('Special') >= 3) return 'Petaya Berry';
 		if (counter.get('Physical') >= 4 && !moves.has('fakeout')) return 'Choice Band';
 		if (counter.get('Physical') >= 3 && !moves.has('rapidspin') && (
-			['firepunch', 'icebeam', 'overheat'].some(m => moves.has(m)) ||
+			['fireblast', 'icebeam', 'overheat'].some(m => moves.has(m)) ||
 			Array.from(moves).some(m => {
 				const moveData = this.dex.moves.get(m);
 				return moveData.category === 'Special' && types.has(moveData.type);
@@ -404,7 +406,7 @@ export class RandomGen3Teams extends RandomGen4Teams {
 				const requiresStab = (
 					!counter.get('stab') &&
 					!moves.has('seismictoss') && !moves.has('nightshade') &&
-					species.id !== 'castform' &&
+					species.id !== 'castform' && species.id !== 'umbreon' &&
 					// If a Flying-type has Psychic, it doesn't need STAB
 					!(moves.has('psychic') && types.has('Flying')) &&
 					!(types.has('Ghost') && species.baseStats.spa > species.baseStats.atk) &&
@@ -434,7 +436,7 @@ export class RandomGen3Teams extends RandomGen4Teams {
 					// There may be more important moves that this Pokemon needs
 					if (
 						requiresStab ||
-						(counter.setupType && counter.get(counter.setupType) < 2) ||
+						(counter.setupType && counter.get(counter.setupType) < 2 && !moves.has('refresh')) ||
 						(moves.has('substitute') && movePool.includes('morningsun')) ||
 						['meteormash', 'spore', 'recover'].some(m => movePool.includes(m))
 					) {

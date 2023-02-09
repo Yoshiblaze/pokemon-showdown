@@ -54,7 +54,7 @@ export class RandomGen7Teams extends RandomGen8Teams {
 			Fighting: (movePool, moves, abilities, types, counter) => !counter.get('Fighting') || !counter.get('stab'),
 			Fire: (movePool, moves, abilities, types, counter) => (
 				!counter.get('Fire') || ['eruption', 'quiverdance'].some(m => movePool.includes(m)) ||
-				moves.has('flamecharge') && movePool.includes('flareblitz')
+				moves.has('flamecharge') && (movePool.includes('flareblitz') || movePool.includes('blueflare'))
 			),
 			Flying: (movePool, moves, abilities, types, counter, species) => (
 				!counter.get('Flying') && (
@@ -262,7 +262,12 @@ export class RandomGen7Teams extends RandomGen8Teams {
 				movePool.includes('bellydrum') ||
 				movePool.includes('shellsmash')
 			);
-			const singlesCondition = counter.setupType && !moves.has('wish');
+			const singlesCondition = (
+				(counter.setupType && !moves.has('wish')) ||
+				(!['Guts', 'Harvest', 'Poison Heal', 'Quick Feet', 'Speed Boost'].some(abil => abilities.has(abil)) &&
+				!['leechseed', 'perishsong', 'toxic', 'wish'].some(m => moves.has(m)) &&
+				species.id !== 'sharpedomega')
+			);
 			return {cull: (
 				(isDoubles ? doublesCondition : singlesCondition) ||
 				!!counter.get('speedsetup') ||
@@ -314,6 +319,10 @@ export class RandomGen7Teams extends RandomGen8Teams {
 				!!counter.get('speedsetup') ||
 				['electricterrain', 'raindance', 'uturn'].some(m => moves.has(m))
 			)};
+		case 'wish':
+			if (species.baseStats.hp >= 130) return {cull: false};
+			if (abilities.has('Regenerator')) return {cull: false};
+			return {cull: (!['ironhead', 'protect', 'spikyshield', 'uturn'].some(m => moves.has(m)))};
 
 		// Bit redundant to have both
 		// Attacks:
@@ -428,9 +437,12 @@ export class RandomGen7Teams extends RandomGen8Teams {
 		case 'earthpower':
 			return {cull: moves.has('earthquake') && counter.setupType !== 'Special'};
 		case 'earthquake':
-			return {cull: isDoubles && moves.has('highhorsepower')};
+			return {cull: isDoubles && moves.has('highhorsepower') || moves.has('closecombat') && abilities.has('Aerilate')};
 		case 'freezedry':
-			return {cull: moves.has('icebeam') || moves.has('icywind') || counter.get('stab') < species.types.length};
+			return {cull: (
+				moves.has('icebeam') || moves.has('icywind') || counter.get('stab') < species.types.length ||
+				(moves.has('blizzard') && !!counter.setupType)
+			)};
 		case 'bodyslam': case 'return':
 			return {cull: (
 				moves.has('doubleedge') ||
@@ -548,7 +560,7 @@ export class RandomGen7Teams extends RandomGen8Teams {
 
 			return {cull};
 		case 'painsplit': case 'recover': case 'roost': case 'synthesis':
-			return {cull: moves.has('leechseed') || moves.has('rest')};
+			return {cull: moves.has('leechseed') || moves.has('rest') || moves.has('wish') && moves.has('protect')};
 		case 'substitute':
 			return {cull: (
 				moves.has('dracometeor') ||
@@ -611,7 +623,10 @@ export class RandomGen7Teams extends RandomGen8Teams {
 		case 'Hustle':
 			return counter.get('Physical') < 2;
 		case 'Hydration': case 'Rain Dish': case 'Swift Swim':
-			return (species.baseStats.spe > 100 || !moves.has('raindance') && !teamDetails.rain);
+			return (
+				species.baseStats.spe > 100 || !moves.has('raindance') && !teamDetails.rain ||
+				!moves.has('raindance') && ['Rock Head', 'Water Absorb'].some(abil => abilities.has(abil))
+			);
 		case 'Slush Rush': case 'Snow Cloak':
 			return !teamDetails.hail;
 		case 'Immunity': case 'Snow Warning':
@@ -965,7 +980,7 @@ export class RandomGen7Teams extends RandomGen8Teams {
 			return 'Lustrous Orb';
 		}
 		if (counter.damagingMoves.size >= 4) {
-			return (counter.get('Dragon') || counter.get('Dark') || counter.get('Normal')) ? 'Life Orb' : 'Expert Belt';
+			return (counter.get('Dragon') || moves.has('suckerpunch') || counter.get('Normal')) ? 'Life Orb' : 'Expert Belt';
 		}
 		if (counter.damagingMoves.size >= 3 && !!counter.get('speedsetup') && defensiveStatTotal >= 300) {
 			return 'Weakness Policy';
@@ -1000,6 +1015,7 @@ export class RandomGen7Teams extends RandomGen8Teams {
 			!isDoubles &&
 			counter.damagingMoves.size >= 3 &&
 			ability !== 'Sturdy' &&
+			(species.baseStats.spe >= 90 || !moves.has('voltswitch')) &&
 			['acidspray', 'dragontail', 'foulplay', 'rapidspin', 'superfang', 'uturn'].every(m => !moves.has(m)) && (
 				counter.get('speedsetup') ||
 				moves.has('trickroom') ||
@@ -1519,10 +1535,10 @@ export class RandomGen7Teams extends RandomGen8Teams {
 				case 'Castform': case 'Floette':
 					if (this.randomChance(2, 3)) continue;
 					break;
-				case 'Aegislash': case 'Basculin': case 'Cherrim': case 'Gourgeist': case 'Groudon': case 'Kyogre': case 'Meloetta':
+				case 'Aegislash': case 'Basculin': case 'Gourgeist': case 'Groudon': case 'Kyogre': case 'Meloetta':
 					if (this.randomChance(1, 2)) continue;
 					break;
-				case 'Greninja':
+				case 'Cherrim': case 'Greninja':
 					if (this.gen >= 7 && this.randomChance(1, 2)) continue;
 					break;
 				}

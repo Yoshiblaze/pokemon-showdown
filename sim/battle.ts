@@ -1816,8 +1816,8 @@ export class Battle {
 			if (boostBy) {
 				success = true;
 				switch (effect?.id) {
-				case 'bellydrum':
-					this.add('-setboost', target, 'atk', target.boosts['atk'], '[from] move: Belly Drum');
+				case 'bellydrum': case 'angerpoint':
+					this.add('-setboost', target, 'atk', target.boosts['atk'], '[from] ' + effect.fullname);
 					break;
 				case 'bellydrum2':
 					this.add(msg, target, boostName, boostBy, '[silent]');
@@ -2695,12 +2695,12 @@ export class Battle {
 						reviveSwitch = true;
 						continue;
 					}
-				  pokemon.switchFlag = false;
+					pokemon.switchFlag = false;
 				}
 				if (!reviveSwitch) switches[i] = false;
 			} else if (switches[i]) {
 				for (const pokemon of this.sides[i].active) {
-					if (pokemon.switchFlag && !pokemon.skipBeforeSwitchOutEventFlag) {
+					if (pokemon.switchFlag && pokemon.switchFlag !== 'revivalblessing' && !pokemon.skipBeforeSwitchOutEventFlag) {
 						this.runEvent('BeforeSwitchOut', pokemon);
 						pokemon.skipBeforeSwitchOutEventFlag = true;
 						this.faintMessages(); // Pokemon may have fainted in BeforeSwitchOut
