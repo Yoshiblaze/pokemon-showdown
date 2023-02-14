@@ -53,16 +53,18 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
 		onModifyMove(move, pokemon, target) {
-			const rand = this.random(10);
-			if (rand < 2) {
-				move.heal = [1, 4];
-				move.infiltrates = true;
-			} else if (rand < 6) {
-				move.basePower = 40;
-			} else if (rand < 9) {
-				move.basePower = 80;
-			} else {
-				move.basePower = 120;
+		if (pokemon.side !== target.side) {
+				const rand = this.random(10);
+				if (rand < 2) {
+					move.heal = [1, 4];
+					move.infiltrates = true;
+				} else if (rand < 6) {
+					move.basePower = 40;
+				} else if (rand < 9) {
+					move.basePower = 80;
+				} else {
+					move.basePower = 120;
+				}
 			}
 		},
 		onHit(target, source) {
