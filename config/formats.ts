@@ -64,7 +64,7 @@ export const Formats: FormatList = [
 
 		mod: 'ybgc',
 		gameType: 'doubles',
-		ruleset: ['Flat Rules', '!! Adjust Level = 50', 'Paldea Pokedex', 'Min Source Gen = 9', 'VGC Timer', 'Open Team Sheets'],
+		ruleset: ['Flat Rules', '!! Adjust Level = 50', 'YBGC Paldea Pokedex', 'Min Source Gen = 9', 'VGC Timer', 'Open Team Sheets'],
 		banlist: ['Sub-Legendary'],
 		unbanlist: ['Meowth-Galar', 'Wooper-Base', 'Quagsire', 'Perrserker', 'Charmander', 'Charmeleon', 'Charizard', 'Scorbunny', 'Raboot', 'Cinderace', 'Froakie', 'Frogadier', 'Greninja',],
 	},
