@@ -60,6 +60,15 @@ export const Formats: FormatList = [
 		banlist: ['Uber', 'AG', 'Arena Trap', 'Moody', 'Sand Veil', 'Snow Cloak', 'King\'s Rock', 'Baton Pass', 'Power Construct', 'Clangorous Soul'],
 	},
 	{
+		name: "[Gen 9] YBGC Series 2",
+
+		mod: 'ybgc',
+		gameType: 'doubles',
+		ruleset: ['Flat Rules', '!! Adjust Level = 50', 'Paldea Pokedex', 'Min Source Gen = 9', 'VGC Timer', 'Open Team Sheets'],
+		banlist: ['Sub-Legendary'],
+		unbanlist: ['Meowth-Galar', 'Wooper-Base', 'Quagsire', 'Perrserker', 'Charmander', 'Charmeleon', 'Charizard', 'Scorbunny', 'Raboot', 'Cinderace', 'Froakie', 'Frogadier', 'Greninja',],
+	},
+	{
 		name: "[Gen 9] OU",
 
 		mod: 'gen9',
