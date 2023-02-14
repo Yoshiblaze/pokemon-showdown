@@ -58,7 +58,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	sandveil: {
     shortDesc: "Boosts highest non-HP, non-Speed stat by 1.3x in sandstorm.",                                                      
 		onStart(pokemon) {
-			this.singleEvent('WeatherChange', this.effect, this.effectData, pokemon);
+			this.singleEvent('WeatherChange', this.effect, this.effectState, pokemon);
 		},
 		onWeatherChange(pokemon) {
 			if (pokemon.transformed) return;
@@ -76,31 +76,31 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		condition: {
 			noCopy: true,
 			onStart(pokemon, source, effect) {
-			  this.add('-activate', pokemon, 'ability: Sand Veil');
-				this.effectData.bestStat = pokemon.getBestStat(false, true);
-				this.add('-start', pokemon, 'sandveil' + this.effectData.bestStat);
+				this.add('-activate', pokemon, 'ability: Sand Veil');
+				this.effectState.bestStat = pokemon.getBestStat(false, true);
+				this.add('-start', pokemon, 'sandveil' + this.effectState.bestStat);
 			},
 			onModifyAtkPriority: 5,
 			onModifyAtk(atk, source, target, move) {
-				if (this.effectData.bestStat !== 'atk' && this.effectData.bestStat !== 'spe') return;
+				if (this.effectState.bestStat !== 'atk' && this.effectState.bestStat !== 'spe') return;
 				this.debug('Sand Veil atk boost');
 				return this.chainModify([5325, 4096]);
 			},
 			onModifyDefPriority: 6,
 			onModifyDef(def, target, source, move) {
-				if (this.effectData.bestStat !== 'def' && this.effectData.bestStat !== 'spe') return;
+				if (this.effectState.bestStat !== 'def' && this.effectState.bestStat !== 'spe') return;
 				this.debug('Sand Veil def boost');
 				return this.chainModify([5325, 4096]);
 			},
 			onModifySpAPriority: 5,
 			onModifySpA(relayVar, source, target, move) {
-				if (this.effectData.bestStat !== 'spa' && this.effectData.bestStat !== 'spe') return;
+				if (this.effectState.bestStat !== 'spa' && this.effectState.bestStat !== 'spe') return;
 				this.debug('Sand Veil spa boost');
 				return this.chainModify([5325, 4096]);
 			},
 			onModifySpDPriority: 6,
 			onModifySpD(relayVar, target, source, move) {
-				if (this.effectData.bestStat !== 'spd' && this.effectData.bestStat !== 'spe') return;
+				if (this.effectState.bestStat !== 'spd' && this.effectState.bestStat !== 'spe') return;
 				this.debug('Sand Veil spd boost');
 				return this.chainModify([5325, 4096]);
 			},
@@ -115,7 +115,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	snowcloak: {
     shortDesc: "Boosts highest non-HP, non-Speed stat by 1.3x in snow.",                                                      
 		onStart(pokemon) {
-			this.singleEvent('WeatherChange', this.effect, this.effectData, pokemon);
+			this.singleEvent('WeatherChange', this.effect, this.effectState, pokemon);
 		},
 		onWeatherChange(pokemon) {
 			if (pokemon.transformed) return;
@@ -133,31 +133,31 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		condition: {
 			noCopy: true,
 			onStart(pokemon, source, effect) {
-			  this.add('-activate', pokemon, 'ability: Snow Cloak');
-				this.effectData.bestStat = pokemon.getBestStat(false, true);
-				this.add('-start', pokemon, 'snowcloak' + this.effectData.bestStat);
+				this.add('-activate', pokemon, 'ability: Snow Cloak');
+				this.effectState.bestStat = pokemon.getBestStat(false, true);
+				this.add('-start', pokemon, 'snowcloak' + this.effectState.bestStat);
 			},
 			onModifyAtkPriority: 5,
 			onModifyAtk(atk, source, target, move) {
-				if (this.effectData.bestStat !== 'atk' && this.effectData.bestStat !== 'spe') return;
+				if (this.effectState.bestStat !== 'atk' && this.effectState.bestStat !== 'spe') return;
 				this.debug('Snow Cloak atk boost');
 				return this.chainModify([5325, 4096]);
 			},
 			onModifyDefPriority: 6,
 			onModifyDef(def, target, source, move) {
-				if (this.effectData.bestStat !== 'def' && this.effectData.bestStat !== 'spe') return;
+				if (this.effectState.bestStat !== 'def' && this.effectState.bestStat !== 'spe') return;
 				this.debug('Snow Cloak def boost');
 				return this.chainModify([5325, 4096]);
 			},
 			onModifySpAPriority: 5,
 			onModifySpA(relayVar, source, target, move) {
-				if (this.effectData.bestStat !== 'spa' && this.effectData.bestStat !== 'spe') return;
+				if (this.effectState.bestStat !== 'spa' && this.effectState.bestStat !== 'spe') return;
 				this.debug('Snow Cloak spa boost');
 				return this.chainModify([5325, 4096]);
 			},
 			onModifySpDPriority: 6,
 			onModifySpD(relayVar, target, source, move) {
-				if (this.effectData.bestStat !== 'spd' && this.effectData.bestStat !== 'spe') return;
+				if (this.effectState.bestStat !== 'spd' && this.effectState.bestStat !== 'spe') return;
 				this.debug('Snow Cloak spd boost');
 				return this.chainModify([5325, 4096]);
 			},
