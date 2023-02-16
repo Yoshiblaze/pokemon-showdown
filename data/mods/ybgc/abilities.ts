@@ -171,5 +171,18 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		name: "Snow Cloak",
 		rating: 1.5,
 		num: 81,
-	},                                                          
+	},
+	wonderskin: {
+    shortDesc: "This Pokemon is immune to status moves while switching in.",                                                      
+		onTryHit(target, source, move) {
+			if (move.category === 'Status' && target !== source && !target.activeTurns) {
+				this.add('-immune', target, '[from] ability: Wonder Skin');
+				return null;
+			}
+		},
+		isBreakable: true,
+		name: "Wonder Skin",
+		rating: 4,
+		num: 147,
+	},
 };
