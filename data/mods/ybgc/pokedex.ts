@@ -109,4 +109,33 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		inherit: true,
 		abilities: {0: "Sand Veil", 1: "Arena Trap", H: "Sand Rush"},
   },
+	skuntank: {
+		inherit: true,
+		baseStats: {hp: 103, atk: 103, def: 67, spa: 71, spd: 67, spe: 84},
+		abilities: {0: "Stench", 1: "Aftermath", H: "Stalwart"},
+  },
+	passimian: {
+		inherit: true,
+		baseStats: {hp: 100, atk: 120, def: 90, spa: 40, spd: 60, spe: 105},
+  },
+	oranguru: {
+		inherit: true,
+		baseStats: {hp: 100, atk: 60, def: 85, spa: 100, spd: 110, spe: 60},
+  },
+	perrserker: {
+		inherit: true,
+		baseStats: {hp: 70, atk: 110, def: 100, spa: 50, spd: 80, spe: 50},
+  },
+	persian: {
+		inherit: true,
+		baseStats: {hp: 65, atk: 70, def: 60, spa: 85, spd: 65, spe: 115},
+  },
+	persianalola: {
+		inherit: true,
+		baseStats: {hp: 65, atk: 60, def: 60, spa: 95, spd: 65, spe: 115},
+  },
+	ironjugulis: {
+		inherit: true,
+		baseStats: {hp: 90, atk: 104, def: 76, spa: 122, spd: 70, spe: 108},
+  },
 };
