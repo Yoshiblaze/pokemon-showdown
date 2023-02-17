@@ -82,5 +82,8 @@ export const Scripts: ModdedBattleScriptsData = {
 		this.modData("Learnsets", "vaporeon").learnset.brine = ["9L1"];
 		this.modData("Learnsets", "salazzle").learnset.clearsmog = ["9L1"];
 		this.modData("Learnsets", "skuntank").learnset.willowisp = ["9L1"];
+		this.modData("Learnsets", "flareon").learnset.fakeout = ["9L1"];
+		this.modData("Learnsets", "flareon").learnset.closecombat = ["9L1"];
+
   },
 };
