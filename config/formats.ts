@@ -191,7 +191,7 @@ export const Formats: FormatList = [
 
 		mod: 'gen9',
 		ruleset: ['[Gen 9] PU'],
-		banlist: ['PU'],
+		banlist: ['PU', 'Fraxure', 'Girafarig'],
 	},
 	{
 		name: "[Gen 9] CAP",
@@ -370,7 +370,7 @@ export const Formats: FormatList = [
 
 		mod: 'gen9',
 		ruleset: ['[Gen 9] National Dex'],
-		banlist: ['ND OU', 'ND UUBL'],
+		banlist: ['ND OU', 'ND UUBL', 'Battle Bond'],
 	},
 	{
 		name: "[Gen 9] National Dex RU",
