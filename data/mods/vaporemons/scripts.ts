@@ -37,6 +37,7 @@ export const Scripts: ModdedBattleScriptsData = {
 		this.modData('Learnsets', 'spidops').learnset.electroweb = ['9L1'];
 		this.modData('Learnsets', 'surskit').learnset.electroweb = ['9L1'];
 		this.modData('Learnsets', 'pichu').learnset.electroweb = ['9L1'];
+		this.modData('Learnsets', 'raichualola').learnset.electroweb = ['9L1'];
 		this.modData('Learnsets', 'samurotthisui').learnset.ceaselessedge = ['9L1'];
 		this.modData('Learnsets', 'cacturne').learnset.ceaselessedge = ['9L1'];
 		this.modData('Learnsets', 'houndoom').learnset.ceaselessedge = ['9L1'];
