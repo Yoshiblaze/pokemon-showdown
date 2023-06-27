@@ -69,6 +69,12 @@ export const Formats: FormatList = [
 		banlist: ['Uber', 'AG', 'Arena Trap', 'Moody', 'Sand Veil', 'Snow Cloak', 'King\'s Rock', 'Baton Pass', 'Power Construct', 'Clangorous Soul'],
 	},
 	{
+		name: "[Gen 9] VaporeMons",
+		mod: 'vaporemons',
+		ruleset: ['Standard', 'Terastal Clause'],
+		banlist: ['Uber', 'AG', 'Arena Trap', 'Moody', 'Sand Veil', 'Snow Cloak', 'King\'s Rock', 'Baton Pass', 'Power Construct'],
+	},
+	{
 		name: "[Gen 9] YBGC Series 2",
 
 		mod: 'ybgc',
