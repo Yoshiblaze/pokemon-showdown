@@ -10,6 +10,17 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		color: "Red",
 		eggGroups: ["Water 3"],
 	},
+	klawf: {
+		num: 950,
+		name: "Klawf",
+		types: ["Rock"],
+		baseStats: {hp: 70, atk: 100, def: 115, spa: 35, spd: 55, spe: 85},
+		abilities: {0: "Anger Shell", 1: "Shell Armor", H: "Regenerator"},
+		heightm: 1.3,
+		weightkg: 79,
+		color: "Red",
+		eggGroups: ["Water 3"],
+	},
 	veluza: {
 		num: 976,
 		name: "Veluza",
