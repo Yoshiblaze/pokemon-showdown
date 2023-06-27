@@ -10,10 +10,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		pp: 15,
 		priority: 0,
 		flags: {contact: 1, protect: 1, mirror: 1},
-		onPrepareHit(target, source, move) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Crush Claw", target);
-		},
 	   secondary: {
 			chance: 100,
 		 	sideCondition: 'toxicspikes',
@@ -32,10 +28,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		pp: 15,
 		priority: 0,
 		flags: {contact: 1, protect: 1, mirror: 1, slicing: 1},
-		onPrepareHit(target, source, move) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Night Slash", target);
-		},
 	   secondary: {
 			chance: 100,
 		 	sideCondition: 'spikes',
@@ -54,10 +46,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		pp: 15,
 		priority: 0,
 		flags: {contact: 1, protect: 1, mirror: 1, slicing: 1},
-		onPrepareHit(target, source, move) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Stone Edge", target);
-		},
 	   secondary: {
 			chance: 100,
 		 	sideCondition: 'stealthrock',
@@ -135,10 +123,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			}
 			if (success) this.add('-activate', pokemon, 'move: Shelter');
 			return !!this.boost({def: 1}, pokemon, pokemon, null, false, true) || success;
-		},
-		onPrepareHit(target, source, move) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Shell Smash", target);
 		},
 		secondary: null,
 		target: "self",
