@@ -211,6 +211,7 @@ export const Scripts: ModdedBattleScriptsData = {
 		this.modData('Learnsets', 'zarude').learnset.falsesurrender = ['9L1'];
 		this.modData('Learnsets', 'zoroark').learnset.falsesurrender = ['9L1'];
 		this.modData('Learnsets', 'greninja').learnset.falsesurrender = ['9L1'];
+		this.modData('Learnsets', 'greninjabond').learnset.falsesurrender = ['9L1'];
 		this.modData('Learnsets', 'kricketune').learnset.cuttingremark = ['9L1'];
 		this.modData('Learnsets', 'gallade').learnset.cuttingremark = ['9L1'];
 		this.modData('Learnsets', 'squawkabilly').learnset.cuttingremark = ['9L1'];
