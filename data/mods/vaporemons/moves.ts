@@ -11,10 +11,21 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		pp: 15,
 		priority: 0,
 		flags: {contact: 1, protect: 1, mirror: 1},
-	   secondary: {
-			chance: 100,
-		 	sideCondition: 'toxicspikes',
-	   },
+		onAfterHit(target, source, move) {
+			if (!move.hasSheerForce && source.hp && !target.hasItem('covertcloak')) {
+				for (const side of source.side.foeSidesWithConditions()) {
+					side.addSideCondition('toxicspikes');
+				}
+			}
+		},
+		onAfterSubDamage(damage, target, source, move) {
+			if (!move.hasSheerForce && source.hp && !target.hasItem('covertcloak')) {
+				for (const side of source.side.foeSidesWithConditions()) {
+					side.addSideCondition('toxicspikes');
+				}
+			}
+		},
+	   secondary: {},
 		target: "normal",
 		type: "Poison",
 		contestType: "Clever",
@@ -29,10 +40,21 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		pp: 15,
 		priority: 0,
 		flags: {contact: 1, protect: 1, mirror: 1, slicing: 1},
-	   secondary: {
-			chance: 100,
-		 	sideCondition: 'spikes',
-	   },
+		onAfterHit(target, source, move) {
+			if (!move.hasSheerForce && source.hp && !target.hasItem('covertcloak')) {
+				for (const side of source.side.foeSidesWithConditions()) {
+					side.addSideCondition('spikes');
+				}
+			}
+		},
+		onAfterSubDamage(damage, target, source, move) {
+			if (!move.hasSheerForce && source.hp && !target.hasItem('covertcloak')) {
+				for (const side of source.side.foeSidesWithConditions()) {
+					side.addSideCondition('spikes');
+				}
+			}
+		},
+	   secondary: {},
 		target: "normal",
 		type: "Dark",
 	},
