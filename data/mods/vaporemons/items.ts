@@ -350,7 +350,7 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 			newMove.pranksterBoosted = false;
 			this.actions.useMove(newMove, target, source);
 			target.useItem();
-			this.add('-message', `${pokemon.name}'s Baseball Bat broke!`);
+			this.add('-message', `${target.name}'s Baseball Bat broke!`);
 			return null;
 		},
 		onAllyTryHitSide(target, source, move) {
