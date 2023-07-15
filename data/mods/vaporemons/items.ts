@@ -432,7 +432,7 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 				pokemon.formeChange('Meloetta-Pirouette');
 				if (pokemon.hasAbility('trace')) {
 					pokemon.setAbility('noguard', pokemon, true);
-					this.add('-activate', source, 'ability: No Guard');
+					this.add('-activate', pokemon, 'ability: No Guard');
 				}
 			}
 		},
@@ -478,7 +478,7 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 				}
 				this.add('-message', `${pokemon.name}'s Charizardite Shard X changed its type!`);
 				pokemon.setAbility('toughclaws', pokemon, true);
-				this.add('-activate', source, 'ability: Tough Claws');
+				this.add('-activate', pokemon, 'ability: Tough Claws');
 				this.boost({atk: 1});
 			}
 		},
