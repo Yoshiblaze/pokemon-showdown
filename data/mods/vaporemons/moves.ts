@@ -879,7 +879,15 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		contestType: "Clever",
 	},
 	electricterrain: {
-		inherit: true,
+		num: 604,
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		name: "Electric Terrain",
+		pp: 10,
+		priority: 0,
+		flags: {nonsky: 1},
+		terrain: 'electricterrain',
 		condition: {
 			duration: 5,
 			durationCallback(source, effect) {
@@ -930,22 +938,27 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 						}
 					}
 					this.debug('electric terrain boost');
-					return this.chainModify([0x14CD, 0x1000]);
+					return this.chainModify([5325, 4096]);
 				}
 			},
-			onStart(battle, source, effect) {
+			onFieldStart(field, source, effect) {
 				if (effect?.effectType === 'Ability') {
-					this.add('-fieldstart', 'move: Electric Terrain', '[from] ability: ' + effect, '[of] ' + source);
+					this.add('-fieldstart', 'move: Electric Terrain', '[from] ability: ' + effect.name, '[of] ' + source);
 				} else {
 					this.add('-fieldstart', 'move: Electric Terrain');
 				}
 			},
-			onResidualOrder: 21,
-			onResidualSubOrder: 2,
-			onEnd() {
+			onFieldResidualOrder: 27,
+			onFieldResidualSubOrder: 7,
+			onFieldEnd() {
 				this.add('-fieldend', 'move: Electric Terrain');
 			},
 		},
+		secondary: null,
+		target: "all",
+		type: "Electric",
+		zMove: {boost: {spe: 1}},
+		contestType: "Clever",
 	},
 	psychicterrain: {
 		num: 678,
@@ -1020,7 +1033,15 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		contestType: "Clever",
 	},
 	grassyterrain: {
-		inherit: true,
+		num: 580,
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		name: "Grassy Terrain",
+		pp: 10,
+		priority: 0,
+		flags: {nonsky: 1},
+		terrain: 'grassyterrain',
 		condition: {
 			duration: 5,
 			durationCallback(source, effect) {
@@ -1032,7 +1053,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			onBasePowerPriority: 6,
 			onBasePower(basePower, attacker, defender, move) {
 				const weakenedMoves = ['earthquake', 'bulldoze', 'magnitude'];
-				if (weakenedMoves.includes(move.id)) {
+				if (weakenedMoves.includes(move.id) && defender.isGrounded() && !defender.isSemiInvulnerable()) {
 					for (const target of this.getAllActive()) {
 						if (target.hasAbility('cloudnine')) {
 							this.add('-message', `${target.name} suppresses the effects of the terrain!`);
@@ -1050,41 +1071,53 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 						}
 					}
 					this.debug('grassy terrain boost');
-					return this.chainModify([0x14CD, 0x1000]);
+					return this.chainModify([5325, 4096]);
 				}
 			},
-			onStart(battle, source, effect) {
+			onFieldStart(field, source, effect) {
 				if (effect?.effectType === 'Ability') {
-					this.add('-fieldstart', 'move: Grassy Terrain', '[from] ability: ' + effect, '[of] ' + source);
+					this.add('-fieldstart', 'move: Grassy Terrain', '[from] ability: ' + effect.name, '[of] ' + source);
 				} else {
 					this.add('-fieldstart', 'move: Grassy Terrain');
 				}
 			},
 			onResidualOrder: 5,
-			onResidualSubOrder: 3,
-			onResidual() {
+			onResidualSubOrder: 2,
+			onResidual(pokemon) {
 				for (const target of this.getAllActive()) {
 					if (target.hasAbility('cloudnine')) {
 						this.add('-message', `${target.name} suppresses the effects of the terrain!`);
 						return;
 					}
 				}
-				this.eachEvent('Terrain');
-			},
-			onTerrain(pokemon) {
 				if (pokemon.isGrounded() && !pokemon.isSemiInvulnerable()) {
-					this.debug('Pokemon is grounded, healing through Grassy Terrain.');
 					this.heal(pokemon.baseMaxhp / 16, pokemon, pokemon);
+				} else {
+					this.debug(`Pokemon semi-invuln or not grounded; Grassy Terrain skipped`);
 				}
 			},
-			onEnd() {
-				if (!this.effectState.duration) this.eachEvent('Terrain');
+			onFieldResidualOrder: 27,
+			onFieldResidualSubOrder: 7,
+			onFieldEnd() {
 				this.add('-fieldend', 'move: Grassy Terrain');
 			},
 		},
+		secondary: null,
+		target: "all",
+		type: "Grass",
+		zMove: {boost: {def: 1}},
+		contestType: "Beautiful",
 	},
 	mistyterrain: {
-		inherit: true,
+		num: 581,
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		name: "Misty Terrain",
+		pp: 10,
+		priority: 0,
+		flags: {nonsky: 1},
+		terrain: 'mistyterrain',
 		condition: {
 			duration: 5,
 			durationCallback(source, effect) {
@@ -1103,7 +1136,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 					}
 					this.add('-activate', target, 'move: Misty Terrain');
 				}
-				for (const active of this.getAllActive()) {
+			for (const active of this.getAllActive()) {
 					if (active.hasAbility('cloudnine')) {
 						this.add('-message', `${active.name} suppresses the effects of the terrain!`);
 						return;
@@ -1137,19 +1170,24 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 					return this.chainModify(0.5);
 				}
 			},
-			onStart(battle, source, effect) {
+			onFieldStart(field, source, effect) {
 				if (effect?.effectType === 'Ability') {
-					this.add('-fieldstart', 'move: Misty Terrain', '[from] ability: ' + effect, '[of] ' + source);
+					this.add('-fieldstart', 'move: Misty Terrain', '[from] ability: ' + effect.name, '[of] ' + source);
 				} else {
 					this.add('-fieldstart', 'move: Misty Terrain');
 				}
 			},
-			onResidualOrder: 21,
-			onResidualSubOrder: 2,
-			onEnd(side) {
+			onFieldResidualOrder: 27,
+			onFieldResidualSubOrder: 7,
+			onFieldEnd() {
 				this.add('-fieldend', 'Misty Terrain');
 			},
 		},
+		secondary: null,
+		target: "all",
+		type: "Fairy",
+		zMove: {boost: {spd: 1}},
+		contestType: "Beautiful",
 	},
 	camouflage: {
 		inherit: true,
