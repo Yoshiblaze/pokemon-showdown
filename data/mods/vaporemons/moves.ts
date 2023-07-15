@@ -364,7 +364,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		accuracy: 100,
 		basePower: 40,
 		category: "Physical",
-		defensiveCategory: "Special",
+		overrideDefensiveStat: 'spd',
 		shortDesc: "Usually goes first. Targets the foe's Special Defense.",
 		name: "Cutting Remark",
 		pp: 25,
