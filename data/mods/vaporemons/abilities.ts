@@ -291,7 +291,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 					target.removeVolatile('cloudnine');
 				}
 			}
-			source.abilityData.ending = true;
+			source.abilityState.ending = true;
 			for (const pokemon of this.getAllActive()) {
 				if (pokemon.hasAbility('mimicry')) {
 					for (const target of this.getAllActive()) {
