@@ -1097,7 +1097,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				this.add('-start', source, 'typechange', type, '[from] ability: Protean');
 				if (source.hasType(move.type) && source.hasItem('tiedyeband') && move.category !== 'Status') {
 					this.add('cant', source, 'item: Tie-Dye Band');
-					this.add('-message', `${pokemon.name}'s Tie-Dye Band prevents it from using a STAB move!`);
+					this.add('-message', `${source.name}'s Tie-Dye Band prevents it from using a STAB move!`);
 					return false;
 				}
 			}
@@ -1120,7 +1120,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				this.add('-start', source, 'typechange', type, '[from] ability: Libero');
 				if (source.hasType(move.type) && source.hasItem('tiedyeband') && move.category !== 'Status') {
 					this.add('cant', source, 'item: Tie-Dye Band');
-					this.add('-message', `${pokemon.name}'s Tie-Dye Band prevents it from using a STAB move!`);
+					this.add('-message', `${source.name}'s Tie-Dye Band prevents it from using a STAB move!`);
 					return false;
 				}
 			}
