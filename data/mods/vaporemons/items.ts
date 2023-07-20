@@ -614,10 +614,10 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 			}
 		},
 		onSourceModifyDamage(damage, source, target, move) {
-			if (source.getMoveHitData(move).crit && target.hasAbility('sniper')) {
+			if (target.getMoveHitData(move).crit && source.hasAbility('sniper')) {
 				return this.chainModify(0.5);
 			}
-			else if (source.getMoveHitData(move).crit) {
+			else if (target.getMoveHitData(move).crit) {
 				return this.chainModify(0.67);
 			}
 		},
