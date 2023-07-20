@@ -1095,7 +1095,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				this.effectState.protean = true;
 				this.add('-start', source, 'typechange', type, '[from] ability: Protean');
 				if (source.hasType(move.type) && source.hasItem('tiedyeband')) {
-					this.add('cant', pokemon, 'item: Tie-Dye Band');
+					this.add('cant', source, 'item: Tie-Dye Band');
 					return false;
 				}
 			}
@@ -1117,7 +1117,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				this.effectState.libero = true;
 				this.add('-start', source, 'typechange', type, '[from] ability: Libero');
 				if (source.hasType(move.type) && source.hasItem('tiedyeband')) {
-					this.add('cant', pokemon, 'item: Tie-Dye Band');
+					this.add('cant', source, 'item: Tie-Dye Band');
 					return false;
 				}
 			}
