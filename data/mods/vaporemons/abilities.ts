@@ -860,7 +860,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 					target.setType(target.getTypes(true).map(type => type === targetType ? "???" : type));
 					this.add('-start', target, 'typechange', target.types.join('/'));
 					this.add('-start', source, 'typeadd', targetType, '[from] ability: Outclass');
-					source.addVolatile('outclass');			
+					// source.addVolatile('outclass');			
 				}
 		},
 		condition: {},
