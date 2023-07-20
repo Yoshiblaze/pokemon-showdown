@@ -606,16 +606,24 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 			return this.chainModify(1.2);
 		},
 		onModifyDamage(damage, source, target, move) {
-			if (target.getMoveHitData(move).crit) {
-				return null;
+			if (target.getMoveHitData(move).crit && source.hasAbility('sniper')) {
+				return this.chainModify(0.5);
 			}
-			if (source.getMoveHitData(move).crit) {
-				return null;
+			else if (target.getMoveHitData(move).crit) {
+				return this.chainModify(0.67);
+			}
+		},
+		onSourceModifyDamage(damage, source, target, move) {
+			if (source.getMoveHitData(move).crit && target.hasAbility('sniper')) {
+				return this.chainModify(0.5);
+			}
+			else if (source.getMoveHitData(move).crit) {
+				return this.chainModify(0.67);
 			}
 		},
 		num: -1030,
 		gen: 8,
-		desc: "Holder is immune to critical hits and has 1.2x Defense, but its own moves can't crit.",
+		desc: "(Mostly functional placeholder) Holder is immune to critical hits and has 1.2x Defense, but its own moves can't crit.",
 	},
 	tiedyeband: {
 		name: "Tie-Dye Band",
