@@ -1107,4 +1107,26 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		rating: 4,
 		num: 168,
 	},
+	libero: {
+		onPrepareHit(source, target, move) {
+			if (this.effectState.libero) return;
+			if (move.hasBounced || move.flags['futuremove'] || move.sourceEffect === 'snatch') return;
+			const type = move.type;
+			if (type && type !== '???' && source.getTypes().join() !== type) {
+				if (!source.setType(type)) return;
+				this.effectState.libero = true;
+				this.add('-start', source, 'typechange', type, '[from] ability: Libero');
+				if (source.hasType(move.type) && source.hasItem('tiedyeband')) {
+					this.add('cant', pokemon, 'item: Tie-Dye Band');
+					return false;
+				}
+			}
+		},
+		onSwitchIn() {
+			delete this.effectState.libero;
+		},
+		name: "Libero",
+		rating: 4,
+		num: 236,
+	},
 };
