@@ -777,6 +777,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		// new Ability suppression implemented in scripts.ts
 		onStart(pokemon) {
 			this.add('-ability', pokemon, 'Counteract');
+			this.add('-message', `${pokemon.name}'s is thinking of how to counter the opponent's strategy!`);
 		},
 		// onModifyPriority implemented in relevant abilities
 		onFoeBeforeMovePriority: 13,
@@ -1094,8 +1095,9 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				if (!source.setType(type)) return;
 				this.effectState.protean = true;
 				this.add('-start', source, 'typechange', type, '[from] ability: Protean');
-				if (source.hasType(move.type) && source.hasItem('tiedyeband')) {
+				if (source.hasType(move.type) && source.hasItem('tiedyeband') && move.category !== 'Status') {
 					this.add('cant', source, 'item: Tie-Dye Band');
+					this.add('-message', `${pokemon.name}'s Tie-Dye Band prevents it from using a STAB move!`);
 					return false;
 				}
 			}
@@ -1116,8 +1118,9 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				if (!source.setType(type)) return;
 				this.effectState.libero = true;
 				this.add('-start', source, 'typechange', type, '[from] ability: Libero');
-				if (source.hasType(move.type) && source.hasItem('tiedyeband')) {
+				if (source.hasType(move.type) && source.hasItem('tiedyeband') && move.category !== 'Status') {
 					this.add('cant', source, 'item: Tie-Dye Band');
+					this.add('-message', `${pokemon.name}'s Tie-Dye Band prevents it from using a STAB move!`);
 					return false;
 				}
 			}
