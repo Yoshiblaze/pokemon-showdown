@@ -134,7 +134,11 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 	},
 	oranguru: {
 		inherit: true,
-		abilities: {0: "Inner Focus", 1: "Healer", H: "Symbiosis"},
+		abilities: {0: "Counteract", 1: "Healer", H: "Symbiosis"},
+	},
+	passimian: {
+		inherit: true,
+		abilities: {0: "Receiver", 1: "Counteract", H: "Defiant"},
 	},
 	petilil: {
 		inherit: true,
