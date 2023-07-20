@@ -641,21 +641,21 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 		},
 		onDisableMove(pokemon) {
 			for (const moveSlot of pokemon.moveSlots) {
-				if (pokemon.hasType(this.dex.moves.get(moveSlot.move).type)) {
+				if (pokemon.hasType(this.dex.moves.get(moveSlot.move).type) && this.dex.moves.get(moveSlot.move).category !== 'Status') {
 					pokemon.disableMove(moveSlot.id);
 				}
 			}
 		},
 		onBeforeMovePriority: 9,
 		onBeforeMove(pokemon, target, move) {
-			if (pokemon.hasType(move.type)) {
+			if (pokemon.hasType(move.type) && move.category !== 'Status') {
 				this.add('cant', pokemon, 'item: Tie-Dye Band');
 				return false;
 			}
 		},
 		num: -1031,
 		gen: 8,
-		desc: "Holder's moves deal 50% more damage, but it can't select moves of its type.",
+		desc: "Holder's moves deal 50% more damage, but it can't select attacking moves of its type.",
 	},
 
 // unchanged items
