@@ -18,7 +18,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			}
 			return !!(
 				(this.battle.gen >= 5 && !this.isActive) ||
-				((this.volatiles['gastroacid'] || this.volatiles['counteract'] || (neutralizinggas && this.ability !== ('neutralizinggas' as ID))))
+				((this.volatiles['gastroacid'] || this.volatiles['counteract'] || (neutralizinggas && this.ability !== ('neutralizinggas' as ID)))
 				&& !this.getAbility().isPermanent)
 			);
 		},
