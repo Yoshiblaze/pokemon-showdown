@@ -549,10 +549,10 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			if (yourSide.getSideCondition('stealthrock')) allLayers++;
 			if (yourSide.getSideCondition('healingstones')) allLayers++;
 			if (yourSide.getSideCondition('stickyweb')) allLayers++;
-			if (targetSide.getSideCondition('spikes')) {
+			if (yourSide.getSideCondition('spikes')) {
 				let spikesLayers = this.effectState.layers;
 			}
-			if (targetSide.getSideCondition('toxicspikes')) {
+			if (yourSide.getSideCondition('toxicspikes')) {
 				let tspikesLayers = this.effectState.layers;
 			}
 			let totalLayers = allLayers + spikesLayers + tspikesLayers;
