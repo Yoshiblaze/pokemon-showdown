@@ -1085,4 +1085,26 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		},
 		shortDesc: "This Pokemon's healing moves have their priority increased by 1.",
 	},
+	protean: {
+		onPrepareHit(source, target, move) {
+			if (this.effectState.protean) return;
+			if (move.hasBounced || move.flags['futuremove'] || move.sourceEffect === 'snatch') return;
+			const type = move.type;
+			if (type && type !== '???' && source.getTypes().join() !== type) {
+				if (!source.setType(type)) return;
+				this.effectState.protean = true;
+				this.add('-start', source, 'typechange', type, '[from] ability: Protean');
+				if (source.hasType(move.type) && source.hasItem('tiedyeband')) {
+					this.add('cant', pokemon, 'item: Tie-Dye Band');
+					return false;
+				}
+			}
+		},
+		onSwitchIn(pokemon) {
+			delete this.effectState.protean;
+		},
+		name: "Protean",
+		rating: 4,
+		num: 168,
+	},
 };
