@@ -62,6 +62,11 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	},
 	galewings: {
 		onModifyPriority(priority, pokemon, target, move) {
+			for (const poke of this.getAllActive()) {
+				if (poke.hasAbility('counteract') && poke.side.id !== pokemon.side.id && !poke.abilityState.ending) {
+					return;
+				}
+			}
 			if (move?.type === 'Flying' && pokemon.hp >= pokemon.maxhp / 2) return priority + 1;
 		},
 		name: "Gale Wings",
@@ -767,6 +772,102 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		name: "Protostasis",
 		rating: 3,
 	},
+	counteract: {
+		name: "Counteract",
+		// new Ability suppression implemented in scripts.ts
+		onStart(pokemon) {
+			this.add('-ability', pokemon, 'Counteract');
+		},
+		// onModifyPriority implemented in relevant abilities
+		onFoeBeforeMovePriority: 13,
+		onFoeBeforeMove(attacker, defender, move) {
+			attacker.addVolatile('counteract');
+		},
+		condition: {
+			onAfterMove(pokemon) {
+				pokemon.removeVolatile('counteract');
+			},
+		},
+		desc: "While this Pokemon is active, opposing Pokemon's moves and their effects ignore its own Ability. Does not affect the As One, Battle Bond, Comatose, Disguise, Gulp Missile, Ice Face, Multitype, Power Construct, RKS System, Schooling, Shields Down, Stance Change, or Zen Mode Abilities.",
+		shortDesc: "While this Pokemon is active, opposing Pokemon's Ability has no effect when it uses moves.",
+		rating: 4,
+		gen: 8,
+	},
+	sunblock: {
+		name: "Sunblock",
+		onDamage(damage, target, source, effect) {
+			if (effect.effectType !== 'Move' && this.field.isWeather('sunnyday')) {
+				if (effect.effectType === 'Ability') this.add('-activate', source, 'ability: ' + effect.name);
+				return false;
+			}
+		},
+		onModifySecondaries(secondaries) {
+			if (this.field.isWeather('sunnyday')) {
+				this.debug('Sunblock prevent secondary');
+				return secondaries.filter(effect => !!(effect.self || effect.dustproof));
+			}
+		},
+		shortDesc: "In Sun: Immune to indirect damage and secondary effects.",
+		gen: 8,
+	},
+	sandveil: {
+		name: "Sand Veil",
+		onDamage(damage, target, source, effect) {
+			if (effect.effectType !== 'Move' && this.field.isWeather('sandstorm')) {
+				if (effect.effectType === 'Ability') this.add('-activate', source, 'ability: ' + effect.name);
+				return false;
+			}
+		},
+		onModifySecondaries(secondaries) {
+			if (this.field.isWeather('sandstorm')) {
+				this.debug('Snow Cloak prevent secondary');
+				return secondaries.filter(effect => !!(effect.self || effect.dustproof));
+			}
+		},
+		onImmunity(type, pokemon) {
+			if (type === 'sandstorm') return false;
+		},
+		shortDesc: "In Sandstorm: Immune to indirect damage and secondary effects.",
+		rating: 3,
+		num: 8,
+	},
+	snowcloak: {
+		name: "Snow Cloak",
+		onDamage(damage, target, source, effect) {
+			if (effect.effectType !== 'Move' && this.field.isWeather(['hail', 'snow'])) {
+				if (effect.effectType === 'Ability') this.add('-activate', source, 'ability: ' + effect.name);
+				return false;
+			}
+		},
+		onModifySecondaries(secondaries) {
+			if (this.field.isWeather(['hail', 'snow'])) {
+				this.debug('Snow Cloak prevent secondary');
+				return secondaries.filter(effect => !!(effect.self || effect.dustproof));
+			}
+		},
+		onImmunity(type, pokemon) {
+			if (type === 'hail') return false;
+		},
+		shortDesc: "In Snow: Immune to indirect damage and secondary effects.",
+		rating: 3,
+		num: 81,
+	},
+	outclass: {
+		onSourceHit(target, source, move) {
+			if (!move || !target || source.types[1] || source.volatiles['outclass']) return;
+			let targetType = target.types[0]
+			if (target !== source && move.category !== 'Status' && !source.hasType(targetType) && !source.addType(targetType)) {
+					target.setType(target.getTypes(true).map(type => type === targetType ? "???" : type));
+					this.add('-start', target, 'typechange', target.types.join('/'));
+					this.add('-start', source, 'typeadd', targetType, '[from] ability: Outclass');
+					source.addVolatile('outclass');			
+				}
+		},
+		condition: {},
+		name: "Outclass",
+		shortDesc: "If this Pokemon has one type, it steals the primary typing off a Pokemon it hits with an attack.",
+		rating: 4,
+	},
 	
 // unchanged abilities
 	damp: {
@@ -955,5 +1056,33 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		name: "Quark Drive",
 		rating: 3,
 		num: 282,
+	},
+	prankster: {
+		// for ngas
+		inherit: true,
+		onModifyPriority(priority, pokemon, target, move) {
+			for (const poke of this.getAllActive()) {
+				if (poke.hasAbility('counteract') && poke.side.id !== pokemon.side.id && !poke.abilityState.ending) {
+					return;
+				}
+			}
+			if (move?.category === 'Status') {
+				move.pranksterBoosted = true;
+				return priority + 1;
+			}
+		},
+	},
+	triage: {
+		inherit: true,
+		onModifyPriority(priority, pokemon, target, move) {
+			// for ngas
+			for (const poke of this.getAllActive()) {
+				if (poke.hasAbility('counteract') && poke.side.id !== pokemon.side.id && !poke.abilityState.ending) {
+					return;
+				}
+			}
+			if (move?.flags['heal']) return priority + 1;
+		},
+		shortDesc: "This Pokemon's healing moves have their priority increased by 1.",
 	},
 };
