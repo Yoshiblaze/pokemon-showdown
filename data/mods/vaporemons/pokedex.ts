@@ -7,7 +7,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 	crabominable: {
 		inherit: true,
 		types: ["Fighting", "Water"],
-		abilities: {0: "Fur Coat", 1: "Iron Fist", H: "Anger Point"},
+		abilities: {0: "Fur Coat", 1: "Iron Fist", H: "Snow Cloak"},
 	},
 	toxapex: {
 		inherit: true,
@@ -179,6 +179,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 	bellibolt: {
 		inherit: true,
 		types: ["Electric", "Water"],
+		abilities: {0: "Electromorphosis", 1: "Static", H: "Volt Absorb"},
 	},
 	decidueye: {
 		inherit: true,
@@ -243,7 +244,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 	},
 	ironvaliant: {
 		inherit: true,
-		abilities: {0: "Rune Drive"},
+		abilities: {0: "Rune Drive", H: "Outclass"},
 	},
 	arboliva: {
 		inherit: true,
@@ -287,15 +288,17 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 	},
 	oricorio: {
 		inherit: true,
-		abilities: {0: "Dancer", 1: "Muscle Memory"},
+		types: ["Fighting", "Flying"],
+		abilities: {0: "Dancer", 1: "Muscle Memory", H: "Scrappy"},
 	},
 	oricoriopau: {
 		inherit: true,
-		abilities: {0: "Dancer", 1: "Muscle Memory"},
+		types: ["Fairy", "Flying"],
+		abilities: {0: "Dancer", 1: "Muscle Memory", H: "Fairy Aura"},
 	},
 	oricoriopompom: {
 		inherit: true,
-		abilities: {0: "Dancer", 1: "Muscle Memory"},
+		abilities: {0: "Dancer", 1: "Muscle Memory", H: "Fluffy"},
 	},
 	oricoriosensu: {
 		inherit: true,
@@ -404,7 +407,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 	},
 	rabsca: {
 		inherit: true,
-		abilities: {0: "Synchronize", 1: "Sand Force", H: "Telepathy"},
+		abilities: {0: "Sunblock", 1: "Sand Force", H: "Counteract"},
 	},
 	greavard: {
 		inherit: true,
@@ -493,6 +496,154 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 	pyroar: {
 		inherit: true,
 		types: ["Fire", "Ground"],
-		abilities: {0: "Sand Rush", 1: "Unnerve", H: "Supreme Overlord"},
+		abilities: {0: "Sand Rush", 1: "Outclass", H: "Supreme Overlord"},
+	},
+	zacian: {
+		inherit: true,
+		abilities: {0: "Intrepid Sword", H: "Outclass"},
+	},
+	zaciancrowned: {
+		inherit: true,
+		abilities: {0: "Intrepid Sword", H: "Outclass"},
+	},
+	zamazenta: {
+		inherit: true,
+		abilities: {0: "Dauntless Shield", H: "Counteract"},
+	},
+	zamazentacrowned: {
+		inherit: true,
+		abilities: {0: "Dauntless Shield", H: "Counteract"},
+	},
+	uxie: {
+		inherit: true,
+		abilities: {0: "Levitate", H: "Counteract"},
+	},
+	azelf: {
+		inherit: true,
+		abilities: {0: "Levitate", H: "Outclass"},
+	},
+	tinkaton: {
+		inherit: true,
+		abilities: {0: "Mold Breaker", 1: "Counteract", H: "Sheer Force"},
+	},
+	girafarig: {
+		inherit: true,
+		abilities: {0: "Inner Focus", 1: "Early Bird", H: "Counteract"},
+	},
+	farigiraf: {
+		inherit: true,
+		abilities: {0: "Cud Chew", 1: "Armor Tail", H: "Counteract"},
+	},
+	umbreon: {
+		inherit: true,
+		abilities: {0: "Synchronize", H: "Counteract"},
+	},
+	drifloon: {
+		inherit: true,
+		abilities: {0: "Counteract", 1: "Unburden", H: "Flare Boost"},
+	},
+	drifblim: {
+		inherit: true,
+		abilities: {0: "Counteract", 1: "Unburden", H: "Flare Boost"},
+	},
+	falinks: {
+		inherit: true,
+		abilities: {0: "Battle Armor", 1: "Counteract", H: "Defiant"},
+	},
+	basculegionf: {
+		inherit: true,
+		abilities: {0: "Swift Swim", 1: "Adaptability", H: "Counteract"},
+	},
+	taurospaldeablaze: {
+		inherit: true,
+		abilities: {0: "Intimidate", 1: "Sunblock", H: "Cud Chew"},
+	},
+	taurospaldeaaqua: {
+		inherit: true,
+		abilities: {0: "Intimidate", 1: "Counteract", H: "Cud Chew"},
+	},
+	espathra: {
+		inherit: true,
+		abilities: {0: "Opportunist", 1: "Outclass", H: "Speed Boost"},
+	},
+	haxorus: {
+		inherit: true,
+		abilities: {0: "Outclass", 1: "Mold Breaker", H: "Unnerve"},
+	},
+	eevee: {
+		inherit: true,
+		abilities: {0: "Outclass", 1: "Adaptability", H: "Anticipation"},
+	},
+	drednaw: {
+		inherit: true,
+		abilities: {0: "Strong Jaw", 1: "Sand Veil", H: "Swift Swim"},
+	},
+	weavile: {
+		inherit: true,
+		abilities: {0: "Pressure", 1: "Snow Cloak", H: "Pickpocket"},
+	},
+	snom: {
+		inherit: true,
+		abilities: {0: "Shield Dust", 1: "Snow Cloak", H: "Ice Scales"},
+	},
+	frosmoth: {
+		inherit: true,
+		abilities: {0: "Shield Dust", 1: "Snow Cloak", H: "Ice Scales"},
+	},
+	frigibax: {
+		inherit: true,
+		abilities: {0: "Thermal Exchange", 1: "Snow Cloak", H: "Ice Body"},
+	},
+	arctibax: {
+		inherit: true,
+		abilities: {0: "Thermal Exchange", 1: "Snow Cloak", H: "Ice Body"},
+	},
+	baxcalibur: {
+		inherit: true,
+		abilities: {0: "Thermal Exchange", 1: "Snow Cloak", H: "Ice Body"},
+	},
+	salandit: {
+		inherit: true,
+		abilities: {0: "Corrosion", 1: "Sunblock", H: "Oblivious"},
+	},
+	salazzle: {
+		inherit: true,
+		abilities: {0: "Corrosion", 1: "Sunblock", H: "Oblivious"},
+	},
+	fomantis: {
+		inherit: true,
+		abilities: {0: "Leaf Guard", 1: "Sunblock", H: "Contrary"},
+	},
+	lurantis: {
+		inherit: true,
+		abilities: {0: "Leaf Guard", 1: "Sunblock", H: "Contrary"},
+	},
+	moltres: {
+		inherit: true,
+		abilities: {0: "Pressure", 1: "Sunblock", H: "Flame Body"},
+	},
+	cyndaquil: {
+		inherit: true,
+		abilities: {0: "Blaze", H: "Sunblock"},
+	},
+	quilava: {
+		inherit: true,
+		abilities: {0: "Blaze", H: "Sunblock"},
+	},
+	typhlosion: {
+		inherit: true,
+		abilities: {0: "Blaze", H: "Sunblock"},
+	},
+	zarude: {
+		inherit: true,
+		abilities: {0: "Sunblock"},
+	},
+	zarudedada: {
+		inherit: true,
+		abilities: {0: "Sunblock"},
+	},
+	mew: {
+		inherit: true,
+		abilities: {0: "Synchronize", H: "Protean"},
 	},
 };
