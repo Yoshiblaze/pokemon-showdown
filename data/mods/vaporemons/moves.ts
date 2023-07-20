@@ -414,6 +414,166 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		maxMove: {basePower: 130},
 		contestType: "Cool",
 	}, */
+	chainlightning: {
+		accuracy: 100,
+		basePower: 15,
+		category: "Physical",
+		shortDesc: "Usually goes first. Hits 2-5 times.",
+		name: "Chain Lightning",
+		pp: 20,
+		priority: 1,
+		flags: {protect: 1, mirror: 1},
+		multihit: [2, 5],
+		onPrepareHit(target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Thunder Shock", target);
+		},
+		secondary: null,
+		target: "normal",
+		type: "Electric",
+		contestType: "Cool",
+	},
+	pluck: {
+		num: 365,
+		accuracy: 100,
+		basePower: 50,
+		category: "Physical",
+		shortDesc: "Heals the user by 75% of the damage dealt.",
+		name: "Pluck",
+		pp: 10,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1, heal: 1},
+		drain: [3, 4],
+		secondary: null,
+		target: "normal",
+		type: "Flying",
+		contestType: "Cute",
+	},
+	throatchop: {
+		num: 675,
+		accuracy: 100,
+		basePower: 85,
+		category: "Physical",
+		shortDesc: "Foe can't use Sound moves or Yawn for 3 turns.",
+		name: "Throat Chop",
+		pp: 10,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1},
+		condition: {
+			duration: 3,
+			onStart(target) {
+				this.add('-start', target, 'Throat Chop', '[silent]');
+			},
+			onDisableMove(pokemon) {
+				for (const moveSlot of pokemon.moveSlots) {
+					if (this.dex.moves.get(moveSlot.id).flags['sound']) {
+						pokemon.disableMove(moveSlot.id);
+					}
+				}
+			},
+			onBeforeMovePriority: 6,
+			onBeforeMove(pokemon, target, move) {
+				if (!move.isZ && !move.isMax && (move.flags['sound'] || move.id === 'yawn')) {
+					this.add('cant', pokemon, 'move: Throat Chop');
+					return false;
+				}
+			},
+			onResidualOrder: 22,
+			onEnd(target) {
+				this.add('-end', target, 'Throat Chop', '[silent]');
+			},
+		},
+		secondary: {
+			chance: 100,
+			onHit(target) {
+				target.addVolatile('throatchop');
+			},
+		},
+		target: "normal",
+		type: "Dark",
+		contestType: "Clever",
+	},
+	windbreaker: {
+		accuracy: 100,
+		basePower: 85,
+		category: "Special",
+		shortDesc: "Foe can't use Wind moves for 3 turns.",
+		name: "Wind Breaker",
+		pp: 10,
+		priority: 0,
+		flags: {wind: 1, protect: 1, mirror: 1},
+		onPrepareHit(target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Gust", target);
+		},
+		condition: {
+			duration: 3,
+			onStart(target) {
+				this.add('-start', target, 'Wind Breaker', '[silent]');
+			},
+			onDisableMove(pokemon) {
+				for (const moveSlot of pokemon.moveSlots) {
+					if (this.dex.moves.get(moveSlot.id).flags['wind']) {
+						pokemon.disableMove(moveSlot.id);
+					}
+				}
+			},
+			onBeforeMovePriority: 6,
+			onBeforeMove(pokemon, target, move) {
+				if (!move.isZ && !move.isMax && move.flags['wind']) {
+					this.add('cant', pokemon, 'move: Wind Breaker');
+					return false;
+				}
+			},
+			onResidualOrder: 22,
+			onEnd(target) {
+				this.add('-end', target, 'Wind Breaker', '[silent]');
+			},
+		},
+		secondary: {
+			chance: 100,
+			onHit(target) {
+				target.addVolatile('windbreaker');
+			},
+		},
+		target: "normal",
+		type: "Flying",
+		contestType: "Clever",
+	},
+	hazardouswaste: {
+		accuracy: 100,
+		basePower: 50,
+		basePowerCallback(pokemon, target, move) {
+			const yourSide = pokemon.side;
+			let allLayers = 0;
+			if (yourSide.getSideCondition('stealthrock')) allLayers++;
+			if (yourSide.getSideCondition('healingstones')) allLayers++;
+			if (yourSide.getSideCondition('stickyweb')) allLayers++;
+			if (targetSide.getSideCondition('spikes')) {
+				let spikesLayers = this.effectState.layers;
+			}
+			if (targetSide.getSideCondition('toxicspikes')) {
+				let tspikesLayers = this.effectState.layers;
+			}
+			let totalLayers = allLayers + spikesLayers + tspikesLayers;
+			this.debug('Hazardous Waste damage boost');
+			return Math.min(300, 50 + 50 * totalLayers);
+		},
+		category: "Physical",
+		shortDesc: "+50 power for each hazard on user's side. Caps at 300.",
+		name: "Hazardous Waste",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		onPrepareHit(target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Acid Downpour", target);
+		},
+		secondary: null,
+		target: "normal",
+		type: "Poison",
+		contestType: "Tough",
+	},
 
 // all edited unchanged moves
 	stealthrock: {
@@ -552,7 +712,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		name: "Defog",
 		pp: 15,
 		priority: 0,
-		flags: {protect: 1, reflectable: 1, mirror: 1, bypasssub: 1},
+		flags: {protect: 1, reflectable: 1, mirror: 1, bypasssub: 1, wind: 1},
 		onHit(target, source, move) {
 			let success = false;
 			if (!target.volatiles['substitute'] || move.infiltrates) success = !!this.boost({evasion: -1});
