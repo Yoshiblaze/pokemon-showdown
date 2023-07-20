@@ -546,6 +546,8 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		basePowerCallback(pokemon, target, move) {
 			const yourSide = pokemon.side;
 			let allLayers = 0;
+			let spikesLayers = 0;
+			let tspikesLayers = 0;
 			if (yourSide.getSideCondition('stealthrock')) allLayers++;
 			if (yourSide.getSideCondition('healingstones')) allLayers++;
 			if (yourSide.getSideCondition('stickyweb')) allLayers++;
