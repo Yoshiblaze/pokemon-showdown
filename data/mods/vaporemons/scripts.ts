@@ -417,9 +417,9 @@ export const Scripts: ModdedBattleScriptsData = {
 				} else {
 					if (!move.spreadHit) this.attrLastMove('[miss]');
 					this.add('-miss', pokemon, target);
-				}
-				if (!move.ohko && pokemon.hasItem('blunderpolicy') && pokemon.useItem()) {
-					this.boost({accuracy: 2, spe: 2}, pokemon);
+					if (!move.ohko && pokemon.hasItem('blunderpolicy') && pokemon.useItem()) {
+						this.boost({accuracy: 2, spe: 2}, pokemon);
+					}
 				}
 				hitResults[i] = false;
 				continue;
