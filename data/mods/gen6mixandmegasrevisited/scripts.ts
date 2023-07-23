@@ -12,7 +12,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			return false;
 		},
 	},
-	init: function () {
+	init() {
 		for (const i in this.data.Items) {
 			if (!this.data.Items[i].megaStone) continue;
 			this.modData('Items', i).onTakeItem = false;
