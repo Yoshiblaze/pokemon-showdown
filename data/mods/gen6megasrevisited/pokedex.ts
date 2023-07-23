@@ -116,7 +116,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 	},	
 	sableyemega: {
 		inherit: true,
-		types: ["Ghost", "Dark"],
+		types: ["Dark", "Ghost"],
 		baseStats: {hp: 50, atk: 95, def: 115, spa: 85, spd: 115, spe: 20},
 	},	
 	beedrillmega: {
