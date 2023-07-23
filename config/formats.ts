@@ -87,7 +87,7 @@ export const Formats: FormatList = [
 		mod: 'gen6mixandmegasrevisited',
 		ruleset: ['Standard', 'Swagger Clause', 'Mega Data Mod'],
 		banlist: [
-			'Medichamite',
+			'Medichamite', 'Glalitite',
 		],
 		restricted: [
 			'Arceus', 'Cresselia', 'Darkrai', 'Deoxys-Attack', 'Deoxys-Normal', 'Deoxys-Speed', 'Dialga', 'Dragonite', 'Genesect',
