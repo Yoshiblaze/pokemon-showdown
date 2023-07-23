@@ -88,7 +88,9 @@ export const Formats: FormatList = [
 		ruleset: ['Standard', 'Swagger Clause', 'Mega Data Mod'],
 		// banlist: [],
 		restricted: [
-			'Arceus', 'Giratina', 'Groudon', 'Mewtwo', 'Palkia', 'Rayquaza', 'Kyogre', 
+			'Arceus', 'Cresselia', 'Darkrai', 'Deoxys-Attack', 'Deoxys-Normal', 'Deoxys-Speed', 'Dialga', 'Dragonite', 'Genesect',
+			'Giratina', 'Groudon', 'Ho-Oh', 'Kyogre', 'Kyurem-Black', 'Kyurem-White', 'Lucario', 'Lugia', 'Manaphy', 'Mewtwo',
+			'Palkia', 'Rayquaza', 'Regigigas', 'Reshiram', 'Shaymin-Sky', 'Slaking', 'Xerneas', 'Yveltal', 'Zekrom',		
 		],
 		onValidateTeam(team) {
 			const itemTable = new Set<ID>();
