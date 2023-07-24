@@ -192,7 +192,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (!negateImmunity && this.hasType('Flying') && !('roost' in this.volatiles)) return false;
 			if (
 				(this.hasAbility(['levitate', 'holygrail', 'risingtension', 'freeflight', 'airbornearmor'])) &&
-				!this.battle.suppressingAttackEvents()
+				!this.battle.suppressingAbility(this)
 			) return null;
 			if ('magnetrise' in this.volatiles) return false;
 			if ('telekinesis' in this.volatiles) return false;
