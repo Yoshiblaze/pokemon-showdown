@@ -195,8 +195,8 @@ export const Scripts: ModdedBattleScriptsData = {
 			if ('magnetrise' in this.volatiles) return false;
 			if ('telekinesis' in this.volatiles) return false;
 			return item !== 'airballoon';
-		},
-    },
+		 },
+     },
 	canUltraBurst(pokemon) {
 		if (['Necrozma-Dawn-Wings', 'Necrozma-Dusk-Mane'].includes(pokemon.baseSpecies.name) &&
 			pokemon.getItem().id === 'ultranecroziumz') {
@@ -207,5 +207,6 @@ export const Scripts: ModdedBattleScriptsData = {
 			return "Necrotrik-Ultra";
 		}
 		return null;
+	  },
 	},
 };
