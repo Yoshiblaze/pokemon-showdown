@@ -72,7 +72,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	  name: "All-Devouring",
     },
 	galvanicrelay: {
-	  shortDesc: "Mycelium Might + Transistor; Mycelium Might effects extend to Electric-type attacks.",
+	  shortDesc: "Mycelium Might + Transistor; Electric attacks also ignore the foe's ability.",
 		onModifyAtkPriority: 5,
 		onModifyAtk(atk, attacker, defender, move) {
 			if (move.type === 'Electric') {
@@ -89,7 +89,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		},
 		onFractionalPriorityPriority: -1,
 		onFractionalPriority(priority, pokemon, target, move) {
-			if (move.category === 'Status' || move.type === 'Electric') {
+			if (move.category === 'Status') {
 				return -0.1;
 			}
 		},
@@ -856,20 +856,29 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		rating: 3,
 	},
 	eczema: {
-	  shortDesc: "Pokemon that make contact with or KO this Pokemon lose 1/8 of their max HP.",
+	  shortDesc: "Unaware + Rough Skin",
 		onDamagingHitOrder: 1,
 		onDamagingHit(damage, target, source, move) {
-			if (move.flags['contact']) {
-				if (!target.hp) {
-					this.damage(source.baseMaxhp / 4, source, target);
-				} else {
-					this.damage(source.baseMaxhp / 8, source, target);
-				}
-			}
-			else if (!target.hp) {
+			if (this.checkMoveMakesContact(move, source, target, true)) {
 				this.damage(source.baseMaxhp / 8, source, target);
 			}
 		},
+		onAnyModifyBoost(boosts, pokemon) {
+			const unawareUser = this.effectState.target;
+			if (unawareUser === pokemon) return;
+			if (unawareUser === this.activePokemon && pokemon === this.activeTarget) {
+				boosts['def'] = 0;
+				boosts['spd'] = 0;
+				boosts['evasion'] = 0;
+			}
+			if (pokemon === this.activePokemon && unawareUser === this.activeTarget) {
+				boosts['atk'] = 0;
+				boosts['def'] = 0;
+				boosts['spa'] = 0;
+				boosts['accuracy'] = 0;
+			}
+		},
+		isBreakable: true,
 		name: "Eczema",
 		rating: 3,
 	},
