@@ -163,7 +163,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onResidualSubOrder: 1,
 		onResidual(pokemon) {
 			if (this.field.isWeather(['sunnyday', 'desolateland']) || this.randomChance(1, 2)) {
-				if (pokemon.hp && !pokemon.item && this.dex.getItem(pokemon.lastItem).isBerry) {
+				if (pokemon.hp && !pokemon.item && this.dex.items.get(pokemon.lastItem).isBerry) {
 					pokemon.setItem(pokemon.lastItem);
 					pokemon.lastItem = '';
 					this.add('-item', pokemon, pokemon.getItem(), '[from] ability: Growth Spurt');
@@ -175,7 +175,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			const lastAttackedBy = target.getLastAttackedBy();
 			if (!lastAttackedBy) return;
 			const damage = move.multihit ? move.totalDamage : lastAttackedBy.damage;
-			if (target.hp <= target.maxhp / 3 && target.hp + damage > target.maxhp / 3 && !target.item && this.dex.getItem(target.lastItem).isBerry) {
+			if (target.hp <= target.maxhp / 3 && target.hp + damage > target.maxhp / 3 && !target.item && this.dex.items.get(target.lastItem).isBerry) {
 					target.setItem(target.lastItem);
 					target.lastItem = '';
 					this.add('-item', target, target.getItem(), '[from] ability: Growth Spurt');
@@ -966,7 +966,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				const speciesid = /*pokemon.species.id === 'mimikyutotem' ? 'Mimikyu-Busted-Totem' :*/ 'Iron Mimic-Busted';
 				pokemon.formeChange(speciesid, this.effect, true);
 				this.add('-start', pokemon, 'typechange', pokemon.getTypes(true).join('/'), '[silent]');
-				this.damage(pokemon.baseMaxhp / 8, pokemon, pokemon, this.dex.getSpecies(speciesid));
+				this.damage(pokemon.baseMaxhp / 8, pokemon, pokemon, this.dex.species.get(speciesid));
 			}
 			if (this.field.isTerrain('electricterrain') && !pokemon.volatiles['faultyphoton']) {
 				pokemon.addVolatile('faultyphoton');
@@ -1579,7 +1579,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			move.secondaries.push({
 				chance: 30,
 				status: 'par',
-				ability: this.dex.getAbility('shellshock'),
+				ability: this.dex.abilities.get('shellshock'),
 			});
 		},
 		name: "Shell Shock",
@@ -1774,7 +1774,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			move.secondaries.push({
 				chance: 30,
 				status: 'psn',
-				ability: this.dex.getAbility('rebelsblade'),
+				ability: this.dex.abilities.get('rebelsblade'),
 			});
 		},
 		name: "Rebel's Blade",
@@ -2315,16 +2315,12 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onStart(pokemon) {
 			this.singleEvent('WeatherChange', this.effect, this.effectState, pokemon);
 		},
-		onUpdate(pokemon) {
-			// if (pokemon.transformed) return;
+		onWeatherChange(pokemon) {
+			if (pokemon.transformed) return;
 			// Protosynthesis is not affected by Utility Umbrella
-			if (this.field.isWeather('sunnyday') && !pokemon.volatiles['protosynthesis']) {
+			if (this.field.isWeather('sunnyday')) {
 				pokemon.addVolatile('protosynthesis');
-			} else if (pokemon.hasItem('boosterenergy') && !this.field.isWeather('sunnyday') && pokemon.useItem()) {
-				pokemon.removeVolatile('protosynthesis');
-				pokemon.addVolatile('protosynthesis', pokemon, Dex.getItem('boosterenergy'));
-				pokemon.volatiles['protosynthesis'].fromBooster = true;
-			} else if (!pokemon.volatiles['protosynthesis']?.fromBooster && !this.field.isWeather('sunnyday')) {
+			} else if (!pokemon.volatiles['protosynthesis']?.fromBooster) {
 				pokemon.removeVolatile('protosynthesis');
 			}
 		},
@@ -2337,9 +2333,9 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			onStart(pokemon, source, effect) {
 				if (effect?.id === 'boosterenergy') {
 					this.effectState.fromBooster = true;
-					this.add('-activate', pokemon, 'ability: ' + pokemon.getAbility().name, '[fromitem]');
+					this.add('-activate', pokemon, 'ability: Protosynthesis', '[fromitem]');
 				} else {
-					this.add('-activate', pokemon, 'ability: ' + pokemon.getAbility().name);
+					this.add('-activate', pokemon, 'ability: Protosynthesis');
 				}
 				this.effectState.bestStat = pokemon.getBestStat(false, true);
 				this.add('-start', pokemon, 'protosynthesis' + this.effectState.bestStat);
@@ -2386,16 +2382,11 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onStart(pokemon) {
 			this.singleEvent('TerrainChange', this.effect, this.effectState, pokemon);
 		},
-		onUpdate(pokemon) {
-			// if (pokemon.transformed) return;
-			// Protosynthesis is not affected by Utility Umbrella
-			if (this.field.isTerrain('electricterrain') && !pokemon.volatiles['quarkdrive']) {
+		onTerrainChange(pokemon) {
+			if (pokemon.transformed) return;
+			if (this.field.isTerrain('electricterrain')) {
 				pokemon.addVolatile('quarkdrive');
-			} else if (pokemon.hasItem('boosterenergy') && !this.field.isTerrain('electricterrain') && pokemon.useItem()) {
-				pokemon.removeVolatile('quarkdrive');
-				pokemon.addVolatile('quarkdrive', pokemon, Dex.getItem('boosterenergy'));
-				pokemon.volatiles['quarkdrive'].fromBooster = true;
-			} else if (!pokemon.volatiles['quarkdrive']?.fromBooster && !this.field.isTerrain('electricterrain')) {
+			} else if (!pokemon.volatiles['quarkdrive']?.fromBooster) {
 				pokemon.removeVolatile('quarkdrive');
 			}
 		},
@@ -2408,9 +2399,9 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			onStart(pokemon, source, effect) {
 				if (effect?.id === 'boosterenergy') {
 					this.effectState.fromBooster = true;
-					this.add('-activate', pokemon, 'ability: ' + pokemon.getAbility().name, '[fromitem]');
+					this.add('-activate', pokemon, 'ability: Quark Drive', '[fromitem]');
 				} else {
-					this.add('-activate', pokemon, 'ability: ' + pokemon.getAbility().name);
+					this.add('-activate', pokemon, 'ability: Quark Drive');
 				}
 				this.effectState.bestStat = pokemon.getBestStat(false, true);
 				this.add('-start', pokemon, 'quarkdrive' + this.effectState.bestStat);
