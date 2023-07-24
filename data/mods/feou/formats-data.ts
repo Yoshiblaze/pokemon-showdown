@@ -419,6 +419,37 @@ export const FormatsData: {[k: string]: SpeciesFormatsData} = {
 		randomBattleMoves: ["closecombat", "doubleedge", "crunch", "wildcharge"],
 		randomBattleLevel: 75,
 	},
+	decidulax: {
+		tier: "FEOU",
+		doublesTier: "DOU",
+		randomBattleMoves: ["swordsdance", "roost", "spiritshackle", "bodyslam"],
+		randomBattleLevel: 75,
+	},
+	corvizolt: {
+		tier: "FEOU",
+		doublesTier: "DOU",
+		randomBattleMoves: ["boltbeak", "bravebird", "earthquake", "roost"],
+		randomBattleLevel: 75,
+	},
+	taputitan: {
+		tier: "FEOU",
+		doublesTier: "DOU",
+		randomBattleMoves: ["bellydrum", "playrough", "iciclecrash", "iceshard"],
+		randomBattleLevel: 75,
+	},
+	necrotrikdawnwings: {
+		tier: "FEOU",
+		doublesTier: "DOU",
+		randomBattleMoves: ["morningsun", "voltswitch", "shadowball", "stealthrock"],
+		randomBattleLevel: 75,
+	},
+	necrotrikultra: {
+		tier: "FEOU",
+		doublesTier: "DOU",
+		requiredItem: "Depleted Ultranecrozium Z",
+		randomBattleMoves: ["thunderbolt", "uturn", "dragonpulse", "heatwave"],
+		randomBattleLevel: 75,
+	},
 	larvix: {
 		tier: "FELC",
 		doublesTier: "DOU",
@@ -433,6 +464,10 @@ export const FormatsData: {[k: string]: SpeciesFormatsData} = {
 	},
 	marshgoohisui: {
 		tier: "FENFE",
+		doublesTier: "DOU",
+	},
+	rowlax: {
+		tier: "FELC",
 		doublesTier: "DOU",
 	},
 };
