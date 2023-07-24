@@ -26,8 +26,7 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 		desc: "If held by an Iron Meta, this item allows it to Mega Evolve in battle.",
 	},
 	boosterenergy: {
-		name: "Booster Energy",
-		spritenum: 0, // TODO
+		inherit: true,
 		onUpdate(pokemon) {
 			if (pokemon.transformed) return;
 			if (this.queue.peek(true)?.choice === 'runSwitch') return;
@@ -43,7 +42,8 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 				}
 			}
 			if (!this.field.isTerrain('electricterrain')) {
-				for (const quark of ['quarkdrive', 'lightdrive', 'quarksurge', 'nanorepairs', 'circuitbreaker', 'dyschronometria', 'faultyphoton']) { 
+				for (const quark of ['quarkdrive', 'lightdrive', 'quarksurge', 'nanorepairs', 'circuitbreaker', 'dyschronometria',
+											'faultyphoton']) { 
 					if (pokemon.hasAbility(quark)) {
 						if (!pokemon.volatiles[quark] && pokemon.useItem()) {
 							pokemon.addVolatile(quark);
@@ -60,8 +60,6 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 			if (source.baseSpecies.tags.includes("Paradox")) return false;
 			return true;
 		},
-		num: 1880,
-		gen: 9,
 	},
 	absolite: {
 		name: "Absolite",
