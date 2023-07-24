@@ -21,6 +21,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				return this.chainModify([5461, 4096]);
 			}
 		},
+		isBreakable: true,
 	  name: "Unfiltered",
     },
 	quickstart: {
@@ -138,6 +139,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				return null;
 			}
 		},
+		isBreakable: true,
 	  name: "Forest Fury",
     },
 	growthspurt: {
@@ -284,6 +286,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				this.add('-immune', target, '[from] ability: Scrap Rock');
 			}
 		},
+		isBreakable: true,
 		name: "Scrap Rock",
 		rating: 3,
 	},
@@ -420,18 +423,40 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				return null;
 			}
 		},
+		isBreakable: true,
 		name: "Necromancer",
 		rating: 3,
 	},
 	regainpatience: {
 	  shortDesc: "Berserk + Regenerator",
+		onDamage(damage, target, source, effect) {
+			if (
+				effect.effectType === "Move" &&
+				!effect.multihit &&
+				(!effect.negateSecondary && !(effect.hasSheerForce && source.hasAbility('sheerforce')))
+			) {
+				this.effectState.checkedBerserk = false;
+			} else {
+				this.effectState.checkedBerserk = true;
+			}
+		},
+		onTryEatItem(item) {
+			const healingItems = [
+				'aguavberry', 'enigmaberry', 'figyberry', 'iapapaberry', 'magoberry', 'sitrusberry', 'wikiberry', 'oranberry', 'berryjuice',
+			];
+			if (healingItems.includes(item.id)) {
+				return this.effectState.checkedBerserk;
+			}
+			return true;
+		},
 		onAfterMoveSecondary(target, source, move) {
+			this.effectState.checkedBerserk = true;
 			if (!source || source === target || !target.hp || !move.totalDamage) return;
 			const lastAttackedBy = target.getLastAttackedBy();
 			if (!lastAttackedBy) return;
 			const damage = move.multihit ? move.totalDamage : lastAttackedBy.damage;
 			if (target.hp <= target.maxhp / 2 && target.hp + damage > target.maxhp / 2) {
-				this.boost({spa: 1});
+				this.boost({spa: 1}, target, target);
 			}
 		},
 		onSwitchOut(pokemon) {
@@ -804,6 +829,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				this.boost({atk: 1}, pokemon, pokemon);
 			}
 		},
+		isBreakable: true,
 		name: "Squall",
 		rating: 4,
 	},
@@ -837,6 +863,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				return this.chainModify(1.5);
 			}
 		},
+		isBreakable: true,
 		name: "Stone Age",
 		rating: 3,
 	},
@@ -900,7 +927,6 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			if (move.auraBooster !== this.effectState.target) return;
 			return this.chainModify([move.hasAuraBreak ? 0x0C00 : 0x1547, 0x1000]);
 		},
-		isUnbreakable: true,
 		name: "Aura Shield",
 		rating: 3,
 	},
@@ -1002,6 +1028,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			},
 		},
 		isPermanent: true,
+		isBreakable: true,
 		name: "Faulty Photon",
 		rating: 3,
 	}, /*
@@ -1199,6 +1226,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				this.add('-end', pokemon, 'Dyschronometria');
 			},
 		},
+		isBreakable: true,
+		isPermanent: true,
 		name: "Dyschronometria",
 		rating: 3,
 	},
@@ -1395,6 +1424,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				pokemon.cureStatus();
 			}
 		},
+		isBreakable: true,
 		name: "Electromagnetic Veil",
 		rating: 3,
 	},
@@ -1408,6 +1438,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				}
 			}
 		},
+		isBreakable: true,
 		name: "Rising Tension",
 		rating: 3,
 	},
@@ -1789,7 +1820,6 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				this.add("-fail", target, "unboost", "[from] ability: Vital Metal Body", "[of] " + target);
 			}
 		},
-		isUnbreakable: true,
 		name: "Vital Metal Body",
 		rating: 3,
 	},
@@ -1846,6 +1876,33 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				return null;
 			}
 		},
+		onEnd(pokemon) {
+			pokemon.removeVolatile('burningpetals');
+		},
+		condition: {
+			noCopy: true,
+			onStart(target) {
+				this.add('-start', target, 'ability: Burning Petals');
+			},
+			onModifyAtkPriority: 5,
+			onModifyAtk(atk, attacker, defender, move) {
+				if (move.type === 'Fire' && attacker.hasAbility('burningpetals')) {
+					this.debug('Burning Petals boost');
+					return this.chainModify(1.5);
+				}
+			},
+			onModifySpAPriority: 5,
+			onModifySpA(atk, attacker, defender, move) {
+				if (move.type === 'Fire' && attacker.hasAbility('burningpetals')) {
+					this.debug('Burning Petals boost');
+					return this.chainModify(1.5);
+				}
+			},
+			onEnd(target) {
+				this.add('-end', target, 'ability: Burning Petals', '[silent]');
+			},
+		},
+		isBreakable: true,
 		name: "Burning Petals",
 		rating: 3,
 	},
@@ -1935,6 +1992,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onTryAddVolatile(status, pokemon) {
 			if (status.id === 'flinch') return null;
 		},
+		isBreakable: true,
 		name: "Glacial Focus",
 		rating: 3,
 	},
@@ -1992,6 +2050,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			}
 		},
 		onCriticalHit: false,
+		isBreakable: true,
 		name: "Pondweed",
 		rating: 3,
 	},
@@ -2051,6 +2110,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			}
 			return false;
 		},
+		isBreakable: true,
 		name: "Frisk Exchange",
 		rating: 3,
 	},
@@ -2069,28 +2129,27 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onSwitchIn() {
 			delete this.effectState.libero;
 		},
+		isBreakable: true,
 		name: "Free Flight",
 		rating: 3,
 	},
 	pillage: {
-		id: "pillage",
 		name: "Pillage",
 		shortDesc: "On switch-in, swaps ability with the opponent.",
 		onSwitchIn(pokemon) {
 			this.effectState.switchingIn = true;
 		},
 		onStart(pokemon) {
-			if ((pokemon.side.foe.active.some(
-				foeActive => foeActive && this.isAdjacent(pokemon, foeActive) && foeActive.ability === 'noability'
-			))
-			|| pokemon.species.id !== 'zoinkazenta') {
+			if (pokemon.foes().some(
+				foeActive => foeActive && foeActive.isAdjacent(pokemon) && foeActive.ability === 'noability'
+			) || !['zoinkazenta'].includes(pokemon.species.id)) {
 				this.effectState.gaveUp = true;
 			}
 		},
 		onUpdate(pokemon) {
 			if (!pokemon.isStarted || this.effectState.gaveUp) return;
 			if (!this.effectState.switchingIn) return;
-			const possibleTargets = pokemon.side.foe.active.filter(foeActive => foeActive && this.isAdjacent(pokemon, foeActive));
+			const possibleTargets = pokemon.foes().filter(foeActive => foeActive && foeActive.isAdjacent(pokemon));
 			while (possibleTargets.length) {
 				let rand = 0;
 				if (possibleTargets.length > 1) rand = this.random(possibleTargets.length);
@@ -2098,7 +2157,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				const ability = target.getAbility();
 				const additionalBannedAbilities = [
 					// Zen Mode included here for compatability with Gen 5-6
-					'noability', 'flowergift', 'forecast', 'hungerswitch', 'illusion', 'pillage',
+					'noability', 'flowergift', 'forecast', 'hungerswitch', 'illusion', 'wanderingspirit',
 					'imposter', 'neutralizinggas', 'powerofalchemy', 'receiver', 'trace', 'zenmode',
 				];
 				if (target.getAbility().isPermanent || additionalBannedAbilities.includes(target.ability)) {
@@ -2107,17 +2166,89 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				}
 				target.setAbility('pillage', pokemon);
 				pokemon.setAbility(ability);
-				
-				this.add('-activate', pokemon, 'ability: Pillage');
-				this.add('-activate', pokemon, 'Skill Swap', '', '', '[of] ' + target);
-				this.add('-activate', pokemon, 'ability: ' + ability.name);
-				this.add('-activate', target, 'ability: Pillage');
+				this.add('-activate', pokemon, 'ability: Pillage', ability.name, 'Pillage', '[of] ' + target);
 				return;
 			}
 		},
+		name: "Pillage",
+		rating: 5,
+	},
+	fatfingers: {
+	  shortDesc: "Long Reach + Thick Fat",
+		onModifyMove(move) {
+			delete move.flags['contact'];
+		},
+		onSourceModifyAtkPriority: 6,
+		onSourceModifyAtk(atk, attacker, defender, move) {
+			if (move.type === 'Ice' || move.type === 'Fire') {
+				this.debug('Fat Fingers weaken');
+				return this.chainModify(0.5);
+			}
+		},
+		onSourceModifySpAPriority: 5,
+		onSourceModifySpA(atk, attacker, defender, move) {
+			if (move.type === 'Ice' || move.type === 'Fire') {
+				this.debug('Fat Fingers weaken');
+				return this.chainModify(0.5);
+			}
+		},
+		isBreakable: true,
+		name: "Fat Fingers",
+		rating: 3,
+	},
+	hourglass: {
+	  shortDesc: "Mirror Armor + Sand Rush",
+		onModifySpe(spe, pokemon) {
+			if (this.field.isWeather('sandstorm')) {
+				return this.chainModify(2);
+			}
+		},
+		onImmunity(type, pokemon) {
+			if (type === 'sandstorm') return false;
+		},
+		onTryBoost(boost, target, source, effect) {
+			// Don't bounce self stat changes, or boosts that have already bounced
+			if (!source || target === source || !boost || effect.name === 'Hourglass') return;
+			let b: BoostID;
+			for (b in boost) {
+				if (boost[b]! < 0) {
+					if (target.boosts[b] === -6) continue;
+					const negativeBoost: SparseBoostsTable = {};
+					negativeBoost[b] = boost[b];
+					delete boost[b];
+					if (source.hp) {
+						this.add('-ability', target, 'Hourglass');
+						this.boost(negativeBoost, source, target, null, true);
+					}
+				}
+			}
+		},
+		isBreakable: true,
+		name: "Hourglass",
+		rating: 3,
+	},
+	fieldday: {
+	  shortDesc: "If Grassy Terrain is active, this Pokemon's Speed is doubled.",
+		onModifySpe(spe) {
+			if (this.field.isTerrain('grassyterrain')) {
+				return this.chainModify(2);
+			}
+		},
+		name: "Field Day",
+		rating: 3,
+	},
+	airbornearmor: {
+	  shortDesc: "Prism Armor + Levitate",
+		onSourceModifyDamage(damage, source, target, move) {
+			if (target.getMoveHitData(move).typeMod > 0) {
+				this.debug('Airborne Armor neutralize');
+				return this.chainModify(0.75);
+			}
+		},
+		name: "Airborne Armor",
+		rating: 3,
 	},
 
-	
 	//Vanilla abilities
 	naturalcure: {
 		onCheckShow(pokemon) {
