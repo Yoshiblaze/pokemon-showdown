@@ -198,17 +198,16 @@ export const Scripts: ModdedBattleScriptsData = {
 			if ('telekinesis' in this.volatiles) return false;
 			return item !== 'airballoon';
 		 },
+		canUltraBurst(pokemon) {
+			if (['Necrozma-Dawn-Wings', 'Necrozma-Dusk-Mane'].includes(pokemon.baseSpecies.name) &&
+				pokemon.getItem().id === 'ultranecroziumz') {
+				return "Necrozma-Ultra";
+			}
+			if (['Necrotrik-Dawn-Wings'].includes(pokemon.baseSpecies.name) &&
+				pokemon.getItem().id === 'depletedultranecroziumz') {
+				return "Necrotrik-Ultra";
+			}
+			return null;
+		  },
      },
-	canUltraBurst(pokemon) {
-		if (['Necrozma-Dawn-Wings', 'Necrozma-Dusk-Mane'].includes(pokemon.baseSpecies.name) &&
-			pokemon.getItem().id === 'ultranecroziumz') {
-			return "Necrozma-Ultra";
-		}
-		if (['Necrotrik-Dawn-Wings'].includes(pokemon.baseSpecies.name) &&
-			pokemon.getItem().id === 'depletedultranecroziumz') {
-			return "Necrotrik-Ultra";
-		}
-		return null;
-	  },
-	},
 };
