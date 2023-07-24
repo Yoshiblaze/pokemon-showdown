@@ -165,4 +165,12 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 		num: 761,
 		desc: "If held by a Tyranix, this item allows it to Mega Evolve in battle.",
 	},
+	depletedultranecroziumz: {
+		name: "Depleted Ultranecrozium Z",
+		spritenum: 687,
+		itemUser: ["Necrotrik-Dawn-Wings"],
+		onTakeItem: false,
+		num: -1001,
+		desc: "If held by a Necrotrik-Dawn-Wings, this item allows it to Ultra Burst in battle. This does not allow it to use a Z-Move.",
+	},
 };
