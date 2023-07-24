@@ -1,12 +1,11 @@
 export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
-	inherit: 'gen9',
+	gen: 9,
 	teambuilderConfig: {
         excludeStandardTiers: true,
         customTiers: ['FEOU', 'FENFE', 'FELC'],
 	},
-	
 	canMegaEvo(pokemon) {
-		const altForme = pokemon.baseSpecies.otherFormes && this.dex.getSpecies(pokemon.baseSpecies.otherFormes[0]);
+		const altForme = pokemon.baseSpecies.otherFormes && this.dex.species.get(pokemon.baseSpecies.otherFormes[0]);
 		const item = pokemon.getItem();
 		if (
 			altForme?.isMega && altForme?.requiredMove &&
@@ -107,7 +106,7 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 
 		if (zMove) {
 			if (pokemon.illusion) {
-				this.singleEvent('End', this.dex.getAbility('Illusion'), pokemon.abilityData, pokemon);
+				this.singleEvent('End', this.dex.abilities.get('Illusion'), pokemon.abilityData, pokemon);
 			}
 			this.add('-zpower', pokemon);
 			pokemon.side.zMoveUsed = true;
@@ -138,13 +137,14 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 				if (this.faintMessages()) break;
 				if (dancer.fainted) continue;
 				const dancersTarget = target!.side !== dancer.side && pokemon.side === dancer.side ? target! : pokemon;
-				this.runMove(move.id, dancer, this.getTargetLoc(dancersTarget, dancer), this.dex.getAbility(dancer.ability), undefined, true);
+				this.runMove(move.id, dancer, this.getTargetLoc(dancersTarget, dancer), this.dex.abilities.get(dancer.ability), undefined, true);
 			}
 		}
 		if (noLock && pokemon.volatiles['lockedmove']) delete pokemon.volatiles['lockedmove'];
 	},
 	
-	pokemon: {
+	pokemon: { 
+		/*
 		runImmunity(type: string, message?: string | boolean) {
 			if (!type || type === '???') return true;
 			if (!(type in this.battle.dex.data.TypeChart)) {
@@ -152,7 +152,6 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 				throw new Error("Use runStatusImmunity for " + type);
 			}
 			if (this.fainted) return false;
-
 			const negateResult = this.battle.runEvent('NegateImmunity', this, type);
 			let isGrounded;
 			if (type === 'Ground') {
@@ -180,7 +179,7 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 				return false;
 			}
 			return true;
-		},
+		}, */
 		isGrounded(negateImmunity = false) {
 			if ('gravity' in this.battle.field.pseudoWeather) return true;
 			if ('ingrain' in this.volatiles && this.battle.gen >= 4) return true;
