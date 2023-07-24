@@ -191,16 +191,16 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onStart(pokemon) {
 			this.singleEvent('TerrainChange', this.effect, this.effectState, pokemon);
 		},
-		onUpdate(pokemon) {
-			// if (pokemon.transformed) return;
-			// Protosynthesis is not affected by Utility Umbrella
-			if (this.field.isTerrain('electricterrain') && !pokemon.volatiles['lightdrive']) {
+		onTerrainChange(pokemon) {
+			if (pokemon.transformed) return;
+			if (this.field.isTerrain('electricterrain')) {
 				pokemon.addVolatile('lightdrive');
-			} else if (pokemon.hasItem('boosterenergy') && !this.field.isTerrain('electricterrain') && pokemon.useItem()) {
+			} else if (!pokemon.volatiles['lightdrive']?.fromBooster) {
 				pokemon.removeVolatile('lightdrive');
-				pokemon.addVolatile('lightdrive', pokemon, Dex.getItem('boosterenergy'));
-				pokemon.volatiles['lightdrive'].fromBooster = true;
-			} else if (!(pokemon.volatiles['lightdrive']?.fromBooster || pokemon.volatiles['lightdrive']?.fromWeightDiff) && !this.field.isTerrain('electricterrain')) {
+			}
+		},
+		onUpdate(pokemon) {
+			if (!(pokemon.volatiles['lightdrive']?.fromBooster || pokemon.volatiles['lightdrive']?.fromWeightDiff) && !this.field.isTerrain('electricterrain')) {
 				pokemon.removeVolatile('lightdrive');
 			}
 		},
@@ -333,16 +333,12 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onStart(pokemon) {
 			this.singleEvent('WeatherChange', this.effect, this.effectState, pokemon);
 		},
-		onUpdate(pokemon) {
-			// if (pokemon.transformed) return;
-			// Opening Act is not affected by Utility Umbrella
-			if (this.field.isWeather('sunnyday') && !pokemon.volatiles['openingact']) {
+		onWeatherChange(pokemon) {
+			if (pokemon.transformed) return;
+			// Protosynthesis is not affected by Utility Umbrella
+			if (this.field.isWeather('sunnyday')) {
 				pokemon.addVolatile('openingact');
-			} else if (pokemon.hasItem('boosterenergy') && !this.field.isWeather('sunnyday') && pokemon.useItem()) {
-				pokemon.removeVolatile('openingact');
-				pokemon.addVolatile('openingact', pokemon, Dex.getItem('boosterenergy'));
-				pokemon.volatiles['openingact'].fromBooster = true;
-			} else if (!pokemon.volatiles['openingact']?.fromBooster && !this.field.isWeather('sunnyday')) {
+			} else if (!pokemon.volatiles['openingact']?.fromBooster) {
 				pokemon.removeVolatile('openingact');
 			}
 		},
@@ -467,16 +463,11 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			this.field.setTerrain('electricterrain');
 			this.singleEvent('TerrainChange', this.effect, this.effectState, pokemon);
 		},
-		onUpdate(pokemon) {
-			// if (pokemon.transformed) return;
-			// Protosynthesis is not affected by Utility Umbrella
-			if (this.field.isTerrain('electricterrain') && !pokemon.volatiles['quarksurge']) {
+		onTerrainChange(pokemon) {
+			if (pokemon.transformed) return;
+			if (this.field.isTerrain('electricterrain')) {
 				pokemon.addVolatile('quarksurge');
-			} else if (pokemon.hasItem('boosterenergy') && !this.field.isTerrain('electricterrain') && pokemon.useItem()) {
-				pokemon.removeVolatile('quarksurge');
-				pokemon.addVolatile('quarksurge', pokemon, Dex.getItem('boosterenergy'));
-				pokemon.volatiles['quarksurge'].fromBooster = true;
-			} else if (!pokemon.volatiles['quarksurge']?.fromBooster && !this.field.isTerrain('electricterrain')) {
+			} else if (!pokemon.volatiles['quarksurge']?.fromBooster) {
 				pokemon.removeVolatile('quarksurge');
 			}
 		},
@@ -538,16 +529,12 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onStart(pokemon) {
 			this.singleEvent('WeatherChange', this.effect, this.effectState, pokemon);
 		},
-		onUpdate(pokemon) {
-			// if (pokemon.transformed) return;
-			// Once Upon a Time is not affected by Utility Umbrella
-			if (this.field.isWeather('sunnyday') && !pokemon.volatiles['onceuponatime']) {
+		onWeatherChange(pokemon) {
+			if (pokemon.transformed) return;
+			// Protosynthesis is not affected by Utility Umbrella
+			if (this.field.isWeather('sunnyday')) {
 				pokemon.addVolatile('onceuponatime');
-			} else if (pokemon.hasItem('boosterenergy') && !this.field.isWeather('sunnyday') && pokemon.useItem()) {
-				pokemon.removeVolatile('onceuponatime');
-				pokemon.addVolatile('onceuponatime', pokemon, Dex.getItem('boosterenergy'));
-				pokemon.volatiles['onceuponatime'].fromBooster = true;
-			} else if (!pokemon.volatiles['onceuponatime']?.fromBooster && !this.field.isWeather('sunnyday')) {
+			} else if (!pokemon.volatiles['onceuponatime']?.fromBooster) {
 				pokemon.removeVolatile('onceuponatime');
 			}
 		},
@@ -638,15 +625,11 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				pokemon.removeVolatile('taunt');
 				// Taunt's volatile already sends the -end message when removed
 			}
-			// if (pokemon.transformed) return;
-			// Primitive is not affected by Utility Umbrella
-			if (this.field.isWeather('sunnyday') && !pokemon.volatiles['primitive']) {
+			if (pokemon.transformed) return;
+			// Protosynthesis is not affected by Utility Umbrella
+			if (this.field.isWeather('sunnyday')) {
 				pokemon.addVolatile('primitive');
-			} else if (pokemon.hasItem('boosterenergy') && !this.field.isWeather('sunnyday') && pokemon.useItem()) {
-				pokemon.removeVolatile('primitive');
-				pokemon.addVolatile('primitive', pokemon, Dex.getItem('boosterenergy'));
-				pokemon.volatiles['primitive'].fromBooster = true;
-			} else if (!pokemon.volatiles['primitive']?.fromBooster && !this.field.isWeather('sunnyday')) {
+			} else if (!pokemon.volatiles['primitive']?.fromBooster) {
 				pokemon.removeVolatile('primitive');
 			}
 		},
@@ -710,13 +693,12 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				target.addVolatile('systempurge');
 			}
 		},
-		onUpdate(pokemon) {
-			// if (pokemon.transformed) return;
-			// Protosynthesis is not affected by Utility Umbrella
-			if (pokemon.hasItem('boosterenergy') && pokemon.useItem()) {
+		onTerrainChange(pokemon) {
+			if (pokemon.transformed) return;
+			if (this.field.isTerrain('electricterrain')) {
+				pokemon.addVolatile('systempurge');
+			} else if (!pokemon.volatiles['systempurge']?.fromBooster) {
 				pokemon.removeVolatile('systempurge');
-				pokemon.addVolatile('systempurge', pokemon, Dex.getItem('boosterenergy'));
-				pokemon.volatiles['systempurge'].fromBooster = true;
 			}
 		},
 		onEnd(pokemon) {
@@ -968,13 +950,11 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				this.add('-start', pokemon, 'typechange', pokemon.getTypes(true).join('/'), '[silent]');
 				this.damage(pokemon.baseMaxhp / 8, pokemon, pokemon, this.dex.species.get(speciesid));
 			}
-			if (this.field.isTerrain('electricterrain') && !pokemon.volatiles['faultyphoton']) {
+		},
+		onTerrainChange(pokemon) {
+			if (this.field.isTerrain('electricterrain')) {
 				pokemon.addVolatile('faultyphoton');
-			} else if (pokemon.hasItem('boosterenergy') && !this.field.isTerrain('electricterrain') && pokemon.useItem()) {
-				pokemon.removeVolatile('faultyphoton');
-				pokemon.addVolatile('faultyphoton', pokemon, Dex.getItem('boosterenergy'));
-				pokemon.volatiles['faultyphoton'].fromBooster = true;
-			} else if (!pokemon.volatiles['faultyphoton']?.fromBooster && !this.field.isTerrain('electricterrain')) {
+			} else if (!pokemon.volatiles['faultyphoton']?.fromBooster) {
 				pokemon.removeVolatile('faultyphoton');
 			}
 		},
@@ -1030,7 +1010,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		isPermanent: true,
 		name: "Faulty Photon",
 		rating: 3,
-	},
+	}, /*
 	dyschronometria: {
 	  shortDesc: "This Pokemon ignores other Pokemon's stat stages and Paradox boosts when taking or doing damage.",
 		onAnyModifyBoost(boosts, pokemon) {
@@ -1048,75 +1028,6 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				boosts['accuracy'] = 0;
 			}
 		},
-		/*onSourceModifyAtkPriority: 6,
-		onSourceModifyAtk(atk, attacker, defender, move) {
-			//this.effectState.bestStat = attacker.getBestStat(false, true);
-			if (attacker.getBestStat(false, true) !== 'atk') return;
-			for (const paradox of ['faultyphoton', 'systempurge', 'onceuponatime', 'primitive', 'quarksurge', 
-										'lightdrive', 'openingact', 'protosynthesis', 'quarkdrive', 'nanorepairs', 
-										'weightoflife', 'circuitbreaker']) { 
-				if (attacker.volatiles[paradox]) {
-					this.debug('Dyschronometria weaken');
-					return this.chainModify([3151, 4096]);
-				}
-			}
-		},
-		onSourceModifySpAPriority: 5,
-		onSourceModifySpA(atk, attacker, defender, move) {
-			//this.effectState.bestStat = attacker.getBestStat(false, true);
-			if (attacker.getBestStat(false, true) !== 'spa') return;
-			for (const paradox of ['faultyphoton', 'systempurge', 'onceuponatime', 'primitive', 'quarksurge', 
-										'lightdrive', 'openingact', 'protosynthesis', 'quarkdrive', 'nanorepairs', 
-										'weightoflife', 'circuitbreaker']) { 
-					if (attacker.volatiles[paradox]) {
-					this.debug('Dyschronometria weaken');
-					return this.chainModify([3151, 4096]);
-				}
-			}
-		},
-		onSourceModifyDamage(damage, source, target, move) {
-			const bestStat = source.getBestStat(false,true);
-			if (['def','spd','spe'].includes(bestStat)) return;
-			if (bestStat === 'atk' && move.category !== 'Physical') return;
-			if (bestStat === 'spa' && move.category !== 'Special') return;
-			for (const paradox of ['faultyphoton', 'systempurge', 'onceuponatime', 'primitive', 'quarksurge', 
-										'lightdrive', 'openingact', 'protosynthesis', 'quarkdrive', 'nanorepairs',
-											'weightoflife', 'circuitbreaker']) { 
-					if (source.volatiles[paradox]) {
-					this.debug('Dyschronometria nullify');
-					return this.chainModify([3151, 4096]);
-				}
-			}
-		},
-		onModifyAtkPriority: 5,
-		onModifyAtk(atk, attacker, defender, move) {
-			const bestStat = defender.getBestStat(false,true);
-			if (bestStat !== 'def' && (!move.defensiveCategory || move.defensiveCategory === 'Physical')) return;
-			if (move.defensiveCategory === 'Special' && bestStat !== 'spd') return;
-			for (const paradox of ['faultyphoton', 'systempurge', 'onceuponatime', 'primitive', 'quarksurge', 
-									   'lightdrive', 'openingact', 'protosynthesis', 'quarkdrive', 'nanorepairs',
-											'weightoflife', 'circuitbreaker']) { 
-				if (defender.volatiles[paradox]) {
-					this.debug('Dyschronometria nullify');
-					return this.chainModify([5325, 4096]);
-				}
-			}
-		},
-		onModifySpAPriority: 5,
-		onModifySpA (atk, attacker, defender, move) {
-			const bestStat = defender.getBestStat(false,true);
-			if (bestStat !== 'spd' && (!move.defensiveCategory || move.defensiveCategory === 'Special')) return;
-			if (move.defensiveCategory === 'Physical' && bestStat !== 'def') return;
-			for (const paradox of ['faultyphoton', 'systempurge', 'onceuponatime', 'primitive', 'quarksurge', 
-										'lightdrive', 'openingact', 'protosynthesis', 'quarkdrive', 'nanorepairs',
-											'weightoflife', 'circuitbreaker']) { 
-				if (defender.volatiles[paradox]) {
-					this.debug('Dyschronometria nullify');
-					return this.chainModify([5325, 4096]);
-				}
-			}
-		},*/
-		
 		onAnyModifyAtkPriority: 6,
 		onAnyModifyAtk(atk, attacker, defender, move) {
 			//this.effectState.bestStat = attacker.getBestStat(false, true);
@@ -1175,7 +1086,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		},
 		name: "Dyschronometria",
 		rating: 3,
-	},
+	}, */
 	dyschronometria: {
 	  shortDesc: "Quark Drive + This Pokemon ignores other Pokemon's Paradox boosts when taking or doing damage.",
 		onAnyModifyAtkPriority: 6,
@@ -1235,18 +1146,13 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			}
 		},
 		onStart(pokemon) {
-			this.singleEvent('WeatherChange', this.effect, this.effectState, pokemon);
+			this.singleEvent('TerrainChange', this.effect, this.effectState, pokemon);
 		},
-		onUpdate(pokemon) {
-			// if (pokemon.transformed) return;
-			// Dyschronometria is not affected by Utility Umbrella
-			if (this.field.isTerrain('electricterrain') && !pokemon.volatiles['dyschronometria']) {
+		onTerrainChange(pokemon) {
+			if (pokemon.transformed) return;
+			if (this.field.isTerrain('electricterrain')) {
 				pokemon.addVolatile('dyschronometria');
-			} else if (pokemon.hasItem('boosterenergy') && !this.field.isTerrain('electricterrain') && pokemon.useItem()) {
-				pokemon.removeVolatile('dyschronometria');
-				pokemon.addVolatile('dyschronometria', pokemon, Dex.getItem('boosterenergy'));
-				pokemon.volatiles['dyschronometria'].fromBooster = true;
-			} else if (!pokemon.volatiles['dyschronometria']?.fromBooster && !this.field.isTerrain('electricterrain')) {
+			} else if (!pokemon.volatiles['dyschronometria']?.fromBooster) {
 				pokemon.removeVolatile('dyschronometria');
 			}
 		},
@@ -1310,16 +1216,11 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onStart(pokemon) {
 			this.singleEvent('WeatherChange', this.effect, this.effectState, pokemon);
 		},
-		onUpdate(pokemon) {
-			// if (pokemon.transformed) return;
-			// Nanorepairs is not affected by Utility Umbrella
-			if (this.field.isTerrain('electricterrain') && !pokemon.volatiles['nanorepairs']) {
+		onTerrainChange(pokemon) {
+			if (pokemon.transformed) return;
+			if (this.field.isTerrain('electricterrain')) {
 				pokemon.addVolatile('nanorepairs');
-			} else if (pokemon.hasItem('boosterenergy') && !this.field.isTerrain('electricterrain') && pokemon.useItem()) {
-				pokemon.removeVolatile('nanorepairs');
-				pokemon.addVolatile('nanorepairs', pokemon, Dex.getItem('boosterenergy'));
-				pokemon.volatiles['nanorepairs'].fromBooster = true;
-			} else if (!pokemon.volatiles['nanorepairs']?.fromBooster && !this.field.isTerrain('electricterrain')) {
+			} else if (!pokemon.volatiles['nanorepairs']?.fromBooster) {
 				pokemon.removeVolatile('nanorepairs');
 			}
 		},
@@ -1594,16 +1495,11 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onModifyMove(move) {
 			move.ignoreAbility = true;
 		},
-		onUpdate(pokemon) {
-			// if (pokemon.transformed) return;
-			// Nanorepairs is not affected by Utility Umbrella
-			if (this.field.isTerrain('electricterrain') && !pokemon.volatiles['nanorepairs']) {
+		onTerrainChange(pokemon) {
+			if (pokemon.transformed) return;
+			if (this.field.isTerrain('electricterrain')) {
 				pokemon.addVolatile('circuitbreaker');
-			} else if (pokemon.hasItem('boosterenergy') && !this.field.isTerrain('electricterrain') && pokemon.useItem()) {
-				pokemon.removeVolatile('circuitbreaker');
-				pokemon.addVolatile('circuitbreaker', pokemon, Dex.getItem('boosterenergy'));
-				pokemon.volatiles['circuitbreaker'].fromBooster = true;
-			} else if (!pokemon.volatiles['circuitbreaker']?.fromBooster && !this.field.isTerrain('electricterrain')) {
+			} else if (!pokemon.volatiles['circuitbreaker']?.fromBooster) {
 				pokemon.removeVolatile('circuitbreaker');
 			}
 		},
@@ -1664,21 +1560,22 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	  shortDesc: "Heavy Metal + Protosynthesis. Protosynthesis activates if the user is heavier.",
 		onModifyWeightPriority: 1,
 		onModifyWeight(weighthg) {
-			return weighthg*2
+			return weighthg * 2;
 		},
 		onStart(pokemon) {
 			this.singleEvent('WeatherChange', this.effect, this.effectState, pokemon);
 		},
-		onUpdate(pokemon) {
-			// if (pokemon.transformed) return;
+		onWeatherChange(pokemon) {
+			if (pokemon.transformed) return;
 			// Protosynthesis is not affected by Utility Umbrella
-			if (this.field.isWeather('sunnyday') && !pokemon.volatiles['weightoflife']) {
+			if (this.field.isWeather('sunnyday')) {
 				pokemon.addVolatile('weightoflife');
-			} else if (pokemon.hasItem('boosterenergy') && !this.field.isWeather('sunnyday') && pokemon.useItem()) {
+			} else if (!pokemon.volatiles['weightoflife']?.fromBooster) {
 				pokemon.removeVolatile('weightoflife');
-				pokemon.addVolatile('weightoflife', pokemon, Dex.getItem('boosterenergy'));
-				pokemon.volatiles['weightoflife'].fromBooster = true;
-			} else if (!(pokemon.volatiles['weightoflife']?.fromBooster || pokemon.volatiles['weightoflife']?.fromWeightDiff) && !this.field.isWeather('sunnyday')) {
+			}
+		},
+		onUpdate(pokemon) {
+			if (!(pokemon.volatiles['weightoflife']?.fromBooster || pokemon.volatiles['weightoflife']?.fromWeightDiff) && !this.field.isWeather('sunnyday')) {
 				pokemon.removeVolatile('weightoflife');
 			}
 		},
