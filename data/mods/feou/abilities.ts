@@ -62,29 +62,12 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	  name: "Holy Grail",
     },
 	alldevouring: {
-	  shortDesc: "Beast Boost + Serene Grace",
+	  shortDesc: "Beast Boost + Run Away",
 		onSourceAfterFaint(length, target, source, effect) {
 			if (effect && effect.effectType === 'Move') {
-				let statName = 'atk';
-				let bestStat = 0;
-				let s: StatNameExceptHP;
-				for (s in source.storedStats) {
-					if (source.storedStats[s] > bestStat) {
-						statName = s;
-						bestStat = source.storedStats[s];
-					}
-				}
-				this.boost({[statName]: length}, source);
+				const bestStat = source.getBestStat(true, true);
+				this.boost({[bestStat]: length}, source);
 			}
-		},
-		onModifyMove(move) {
-			if (move.secondaries) {
-				this.debug('doubling secondary chance');
-				for (const secondary of move.secondaries) {
-					if (secondary.chance) secondary.chance *= 2;
-				}
-			}
-			if (move.self?.chance) move.self.chance *= 2;
 		},
 	  name: "All-Devouring",
     },
