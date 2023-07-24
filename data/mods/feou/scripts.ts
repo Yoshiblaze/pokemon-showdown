@@ -164,6 +164,8 @@ export const Scripts: ModdedBattleScriptsData = {
 							this.battle.add('-immune', this, '[from] ability: Rising Tension');
 						} else if (this.hasAbility('freeflight')) {
 							this.battle.add('-immune', this, '[from] ability: Free Flight');
+						} else if (this.hasAbility('airbornearmor')) {
+							this.battle.add('-immune', this, '[from] ability: Airborne Armor');
 						} else {
 							this.battle.add('-immune', this, '[from] ability: Levitate');
 						}
@@ -189,7 +191,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			// If a Fire/Flying type uses Burn Up and Roost, it becomes ???/Flying-type, but it's still grounded.
 			if (!negateImmunity && this.hasType('Flying') && !('roost' in this.volatiles)) return false;
 			if (
-				(this.hasAbility(['levitate', 'holygrail', 'risingtension', 'freeflight'])) &&
+				(this.hasAbility(['levitate', 'holygrail', 'risingtension', 'freeflight', 'airbornearmor'])) &&
 				!this.battle.suppressingAttackEvents()
 			) return null;
 			if ('magnetrise' in this.volatiles) return false;
