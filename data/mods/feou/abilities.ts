@@ -597,6 +597,15 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				this.add('-immune', target, '[from] ability: Primitive');
 			}
 		},
+		onWeatherChange(pokemon) {
+			if (pokemon.transformed) return;
+			// Protosynthesis is not affected by Utility Umbrella
+			if (this.field.isWeather('sunnyday')) {
+				pokemon.addVolatile('primitive');
+			} else if (!pokemon.volatiles['primitive']?.fromBooster) {
+				pokemon.removeVolatile('primitive');
+			}
+		},
 		onUpdate(pokemon) {
 			if (pokemon.volatiles['attract']) {
 				this.add('-activate', pokemon, 'ability: Primitive');
@@ -607,13 +616,6 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				this.add('-activate', pokemon, 'ability: Primitive');
 				pokemon.removeVolatile('taunt');
 				// Taunt's volatile already sends the -end message when removed
-			}
-			if (pokemon.transformed) return;
-			// Protosynthesis is not affected by Utility Umbrella
-			if (this.field.isWeather('sunnyday')) {
-				pokemon.addVolatile('primitive');
-			} else if (!pokemon.volatiles['primitive']?.fromBooster) {
-				pokemon.removeVolatile('primitive');
 			}
 		},
 		onEnd(pokemon) {
