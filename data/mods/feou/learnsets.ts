@@ -1,4 +1,4 @@
-export const Learnsets: {[k: string]: ModdedLearnsetData} = {
+export const Learnsets: {[k: string]: LearnsetData} = {
 	varantis: {
 		learnset: {
 			acidspray: ["8L1"],
