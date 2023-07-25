@@ -642,7 +642,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		abilities: {0: "Hourglass"},
 		weightkg: 132.5,
 	},
-	taputian: {
+	taputitan: {
  // fusion: ['Tapu Bulu', 'Cetitan'],
 		num: 49,
 		name: "Tapu Titan",
