@@ -672,7 +672,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		baseStats: {hp: 83, atk: 137, def: 79, spa: 137, spd: 79, spe: 111}, 
 		abilities: {0: "Neuroforce"},
 		weightkg: 66,
-		requiredItem: "Ultranecrozium Z",
+		requiredItem: "Depleted Ultranecrozium Z",
 		battleOnly: ["Necrotrik-Dawn-Wings"],
 	},
 	
