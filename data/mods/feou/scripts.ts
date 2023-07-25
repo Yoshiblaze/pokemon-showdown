@@ -55,14 +55,14 @@ export const Scripts: ModdedBattleScriptsData = {
 			}
 			let move = baseMove;
 			if (zMove) {
-				move = this.getActiveZMove(baseMove, pokemon);
+				move = this.battle.getActiveZMove(baseMove, pokemon);
 			} else if (maxMove) {
-				move = this.getActiveMaxMove(baseMove, pokemon);
+				move = this.battle.getActiveMaxMove(baseMove, pokemon);
 			}
 	
 			move.isExternal = externalMove;
 	
-			this.setActiveMove(move, pokemon, target);
+			this.battle.setActiveMove(move, pokemon, target);
 	
 			/* if (pokemon.moveThisTurn) {
 				// THIS IS PURELY A SANITY CHECK
@@ -75,7 +75,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			const willTryMove = this.battle.runEvent('BeforeMove', pokemon, target, move);
 			if (!willTryMove) {
 				this.battle.runEvent('MoveAborted', pokemon, target, move);
-				this.clearActiveMove(true);
+				this.battle.clearActiveMove(true);
 				// The event 'BeforeMove' could have returned false or null
 				// false indicates that this counts as a move failing for the purpose of calculating Stomping Tantrum's base power
 				// null indicates the opposite, as the Pokemon didn't have an option to choose anything
@@ -84,7 +84,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			}
 			if (move.beforeMoveCallback) {
 				if (move.beforeMoveCallback.call(this, pokemon, target, move)) {
-					this.clearActiveMove(true);
+					this.battle.clearActiveMove(true);
 					pokemon.moveThisTurnResult = false;
 					return;
 				}
@@ -96,12 +96,12 @@ export const Scripts: ModdedBattleScriptsData = {
 				if (lockedMove === true) lockedMove = false;
 				if (!lockedMove) {
 					if (!pokemon.deductPP(baseMove, null, target) && (move.id !== 'struggle')) {
-						this.add('cant', pokemon, 'nopp', move);
+						this.battle.add('cant', pokemon, 'nopp', move);
 						const gameConsole = [
 							null, 'Game Boy', 'Game Boy Color', 'Game Boy Advance', 'DS', 'DS', '3DS', '3DS',
-						][this.gen] || 'Switch';
-						this.hint(`This is not a bug, this is really how it works on the ${gameConsole}; try it yourself if you don't believe us.`);
-						this.clearActiveMove(true);
+						][this.battle.gen] || 'Switch';
+						this.battle.hint(`This is not a bug, this is really how it works on the ${gameConsole}; try it yourself if you don't believe us.`);
+						this.battle.clearActiveMove(true);
 						pokemon.moveThisTurnResult = false;
 						return;
 					}
@@ -117,13 +117,13 @@ export const Scripts: ModdedBattleScriptsData = {
 	
 			if (zMove) {
 				if (pokemon.illusion) {
-					this.singleEvent('End', this.dex.abilities.get('Illusion'), pokemon.abilityData, pokemon);
+					this.battle.singleEvent('End', this.dex.abilities.get('Illusion'), pokemon.abilityData, pokemon);
 				}
-				this.add('-zpower', pokemon);
+				this.battle.add('-zpower', pokemon);
 				pokemon.side.zMoveUsed = true;
 			}
-			const moveDidSomething = this.useMove(baseMove, pokemon, target, sourceEffect, zMove, maxMove);
-			this.lastSuccessfulMoveThisTurn = moveDidSomething ? this.activeMove && this.activeMove.id : null;
+			const moveDidSomething = this.battle.useMove(baseMove, pokemon, target, sourceEffect, zMove, maxMove);
+			this.battle.lastSuccessfulMoveThisTurn = moveDidSomething ? this.battle.activeMove && this.battle.activeMove.id : null;
 			if (this.battle.activeMove) move = this.battle.activeMove;
 			this.battle.singleEvent('AfterMove', move, null, pokemon, target, move);
 			this.battle.runEvent('AfterMove', pokemon, target, move);
@@ -145,10 +145,10 @@ export const Scripts: ModdedBattleScriptsData = {
 					(a, b) => -(b.storedStats['spe'] - a.storedStats['spe']) || b.abilityOrder - a.abilityOrder
 				);
 				for (const dancer of dancers) {
-					if (this.faintMessages()) break;
+					if (this.battle.faintMessages()) break;
 					if (dancer.fainted) continue;
 					const dancersTarget = target!.side !== dancer.side && pokemon.side === dancer.side ? target! : pokemon;
-					this.runMove(move.id, dancer, this.getTargetLoc(dancersTarget, dancer), this.dex.abilities.get(dancer.ability), undefined, true);
+					this.battle.runMove(move.id, dancer, this.battle.getTargetLoc(dancersTarget, dancer), this.dex.abilities.get(dancer.ability), undefined, true);
 				}
 			}
 			if (noLock && pokemon.volatiles['lockedmove']) delete pokemon.volatiles['lockedmove'];
