@@ -10,16 +10,22 @@ export const Scripts: ModdedBattleScriptsData = {
 				let accuracy = move.accuracy;
 				if (move.ohko) { // bypasses accuracy modifiers
 					if (!target.isSemiInvulnerable()) {
-						if (pokemon.level < target.level) {
-							this.battle.add('-immune', target, '[ohko]');
+						accuracy = 30;
+						if (move.ohko === 'Ice' && this.gen >= 7 && !pokemon.hasType('Ice')) {
+							accuracy = 20;
+						}
+						if (!target.volatiles['dynamax'] && pokemon.level >= target.level &&
+							(move.ohko === true || !target.hasType(move.ohko))) {
+							accuracy += (pokemon.level - target.level);
+						} else {
+							this.add('-immune', target, '[ohko]');
 							hitResults[i] = false;
 							continue;
 						}
-						accuracy = 30 + pokemon.level - target.level;
 					}
 				} else {
 					const boostTable = [1, 4 / 3, 5 / 3, 2, 7 / 3, 8 / 3, 3];
-
+	
 					let boosts;
 					let boost!: number;
 					if (accuracy !== true) {
@@ -44,19 +50,23 @@ export const Scripts: ModdedBattleScriptsData = {
 					}
 					accuracy = this.battle.runEvent('ModifyAccuracy', target, pokemon, move, accuracy);
 				}
-				if (move.alwaysHit) {
+				if (move.alwaysHit || (move.id === 'toxic' && this.gen >= 6 && pokemon.hasType('Poison'))) {
 					accuracy = true; // bypasses ohko accuracy modifiers
 				} else {
 					accuracy = this.battle.runEvent('Accuracy', target, pokemon, move, accuracy);
 				}
-				if (accuracy !== true && !this.battle.randomChance(accuracy, 100)) {
-					if (!move.spreadHit) this.battle.attrLastMove('[miss]');
-					this.battle.add('-miss', pokemon, target);
+				if (accuracy !== true && !this.randomChance(accuracy, 100)) {
+					if (move.smartTarget) {
+						move.smartTarget = false;
+					} else {
+						if (!move.spreadHit) this.attrLastMove('[miss]');
+						this.add('-miss', pokemon, target);
+					}
+					if (!move.ohko && pokemon.hasItem('blunderpolicy') && pokemon.useItem()) {
+							this.boost({accuracy: 2, spe: 2}, pokemon);
+					}
 					hitResults[i] = false;
 					continue;
-				}
-				if (!move.ohko && pokemon.hasItem('blunderpolicy') && pokemon.useItem()) {
-						this.boost({accuracy: 2, spe: 2}, pokemon);
 				}
 				hitResults[i] = true;
 			}
