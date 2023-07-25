@@ -101,7 +101,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
  // fusion: ['Decidueye-Hisui', 'Rhyperior'],
 		num: 8,
 		name: "Deciperior-Hisui",
-		types: ["Fighting", "Ground"],
+		types: ["Ground", "Fighting"],
 		baseStats: {hp: 105, atk: 130, def: 105, spa: 75, spd: 75, spe: 50},
 		abilities: {0: "Scrap Rock"},
 		weightkg: 160,
