@@ -42,15 +42,15 @@ export const Scripts: ModdedBattleScriptsData = {
 		},
 		runMove(moveOrMoveName, pokemon, targetLoc, sourceEffect, zMove, externalMove, maxMove, originalTarget) {
 			pokemon.activeMoveActions++;
-			let target = this.getTarget(pokemon, maxMove || zMove || moveOrMoveName, targetLoc, originalTarget);
+			let target = this.battle.getTarget(pokemon, maxMove || zMove || moveOrMoveName, targetLoc, originalTarget);
 			let baseMove = this.dex.getActiveMove(moveOrMoveName);
 			const pranksterBoosted = baseMove.pranksterBoosted;
 			if (baseMove.id !== 'struggle' && !zMove && !maxMove && !externalMove) {
-				const changedMove = this.runEvent('OverrideAction', pokemon, target, baseMove);
+				const changedMove = this.battle.runEvent('OverrideAction', pokemon, target, baseMove);
 				if (changedMove && changedMove !== true) {
 					baseMove = this.dex.getActiveMove(changedMove);
 					if (pranksterBoosted) baseMove.pranksterBoosted = pranksterBoosted;
-					target = this.getRandomTarget(pokemon, baseMove);
+					target = this.battle.getRandomTarget(pokemon, baseMove);
 				}
 			}
 			let move = baseMove;
@@ -72,9 +72,9 @@ export const Scripts: ModdedBattleScriptsData = {
 				this.clearActiveMove(true);
 				return;
 			} */
-			const willTryMove = this.runEvent('BeforeMove', pokemon, target, move);
+			const willTryMove = this.battle.runEvent('BeforeMove', pokemon, target, move);
 			if (!willTryMove) {
-				this.runEvent('MoveAborted', pokemon, target, move);
+				this.battle.runEvent('MoveAborted', pokemon, target, move);
 				this.clearActiveMove(true);
 				// The event 'BeforeMove' could have returned false or null
 				// false indicates that this counts as a move failing for the purpose of calculating Stomping Tantrum's base power
@@ -92,7 +92,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			pokemon.lastDamage = 0;
 			let lockedMove;
 			if (!externalMove) {
-				lockedMove = this.runEvent('LockMove', pokemon);
+				lockedMove = this.battle.runEvent('LockMove', pokemon);
 				if (lockedMove === true) lockedMove = false;
 				if (!lockedMove) {
 					if (!pokemon.deductPP(baseMove, null, target) && (move.id !== 'struggle')) {
@@ -125,13 +125,13 @@ export const Scripts: ModdedBattleScriptsData = {
 			const moveDidSomething = this.useMove(baseMove, pokemon, target, sourceEffect, zMove, maxMove);
 			this.lastSuccessfulMoveThisTurn = moveDidSomething ? this.activeMove && this.activeMove.id : null;
 			if (this.activeMove) move = this.activeMove;
-			this.singleEvent('AfterMove', move, null, pokemon, target, move);
-			this.runEvent('AfterMove', pokemon, target, move);
+			this.battle.singleEvent('AfterMove', move, null, pokemon, target, move);
+			this.battle.runEvent('AfterMove', pokemon, target, move);
 	
 			// Dancer's activation order is completely different from any other event, so it's handled separately
 			if (move.flags['dance'] && moveDidSomething && !move.isExternal) {
 				const dancers = [];
-				for (const currentPoke of this.getAllActive()) {
+				for (const currentPoke of this.battle.getAllActive()) {
 					if (pokemon === currentPoke) continue;
 					if ((currentPoke.hasAbility(['dancer', 'choreography'])) && !currentPoke.isSemiInvulnerable()) {
 						dancers.push(currentPoke);
