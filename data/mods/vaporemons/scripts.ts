@@ -55,7 +55,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				} else {
 					accuracy = this.battle.runEvent('Accuracy', target, pokemon, move, accuracy);
 				}
-				if (accuracy !== true && !this.randomChance(accuracy, 100)) {
+				if (accuracy !== true && !this.battle.randomChance(accuracy, 100)) {
 					if (move.smartTarget) {
 						move.smartTarget = false;
 					} else {
