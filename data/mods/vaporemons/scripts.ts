@@ -59,7 +59,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (move.smartTarget) {
 						move.smartTarget = false;
 					} else {
-						if (!move.spreadHit) this.attrLastMove('[miss]');
+						if (!move.spreadHit) this.battle.attrLastMove('[miss]');
 						this.add('-miss', pokemon, target);
 					}
 					if (!move.ohko && pokemon.hasItem('blunderpolicy') && pokemon.useItem()) {
