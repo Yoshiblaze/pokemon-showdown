@@ -170,7 +170,7 @@ export const Formats: FormatList = [
 	{
 		name: "[Gen 9] VaporeMons",
 		mod: 'vaporemons',
-		ruleset: ['Standard', 'Terastal Clause'],
+		ruleset: ['Standard', 'Terastal Clause', 'Data Mod'],
 		banlist: ['Uber', 'AG', 'Arena Trap', 'Moody', 'King\'s Rock', 'Baton Pass', 'Power Construct'],
 	},
 	{
