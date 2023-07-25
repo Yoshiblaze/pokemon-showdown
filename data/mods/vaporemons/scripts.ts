@@ -18,7 +18,7 @@ export const Scripts: ModdedBattleScriptsData = {
 							(move.ohko === true || !target.hasType(move.ohko))) {
 							accuracy += (pokemon.level - target.level);
 						} else {
-							this.add('-immune', target, '[ohko]');
+							this.battle.add('-immune', target, '[ohko]');
 							hitResults[i] = false;
 							continue;
 						}
@@ -60,10 +60,10 @@ export const Scripts: ModdedBattleScriptsData = {
 						move.smartTarget = false;
 					} else {
 						if (!move.spreadHit) this.battle.attrLastMove('[miss]');
-						this.add('-miss', pokemon, target);
+						this.battle.add('-miss', pokemon, target);
 					}
 					if (!move.ohko && pokemon.hasItem('blunderpolicy') && pokemon.useItem()) {
-							this.boost({accuracy: 2, spe: 2}, pokemon);
+							this.battle.boost({accuracy: 2, spe: 2}, pokemon);
 					}
 					hitResults[i] = false;
 					continue;
