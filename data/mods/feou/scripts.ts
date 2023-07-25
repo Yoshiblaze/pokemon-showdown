@@ -39,7 +39,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				return "Necrotrik-Ultra";
 			}
 			return null;
-		},
+		}, 
 		runMove(moveOrMoveName, pokemon, targetLoc, sourceEffect, zMove, externalMove, maxMove, originalTarget) {
 			pokemon.activeMoveActions++;
 			let target = this.battle.getTarget(pokemon, maxMove || zMove || moveOrMoveName, targetLoc, originalTarget);
@@ -63,15 +63,6 @@ export const Scripts: ModdedBattleScriptsData = {
 			move.isExternal = externalMove;
 	
 			this.battle.setActiveMove(move, pokemon, target);
-	
-			/* if (pokemon.moveThisTurn) {
-				// THIS IS PURELY A SANITY CHECK
-				// DO NOT TAKE ADVANTAGE OF THIS TO PREVENT A POKEMON FROM MOVING;
-				// USE this.queue.cancelMove INSTEAD
-				this.debug('' + pokemon.id + ' INCONSISTENT STATE, ALREADY MOVED: ' + pokemon.moveThisTurn);
-				this.clearActiveMove(true);
-				return;
-			} */
 			const willTryMove = this.battle.runEvent('BeforeMove', pokemon, target, move);
 			if (!willTryMove) {
 				this.battle.runEvent('MoveAborted', pokemon, target, move);
@@ -148,7 +139,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (this.battle.faintMessages()) break;
 					if (dancer.fainted) continue;
 					const dancersTarget = target!.side !== dancer.side && pokemon.side === dancer.side ? target! : pokemon;
-					this.battle.runMove(move.id, dancer, this.battle.getTargetLoc(dancersTarget, dancer), this.dex.abilities.get(dancer.ability), undefined, true);
+					this.battle.runMove(move.id, dancer, this.getTargetLoc(dancersTarget, dancer), this.dex.abilities.get(dancer.ability), undefined, true);
 				}
 			}
 			if (noLock && pokemon.volatiles['lockedmove']) delete pokemon.volatiles['lockedmove'];
