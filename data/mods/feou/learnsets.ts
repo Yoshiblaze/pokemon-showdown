@@ -8484,7 +8484,7 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 			yawn: ["9L1"],
 		},
 	},
-	necrotrikwingsdawn: {
+	necrotrikdawnwings: {
 		learnset: {
 			acid: ["9L1"],
 			acidspray: ["9L1"],
