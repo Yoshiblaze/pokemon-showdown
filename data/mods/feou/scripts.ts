@@ -124,7 +124,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			}
 			const moveDidSomething = this.useMove(baseMove, pokemon, target, sourceEffect, zMove, maxMove);
 			this.lastSuccessfulMoveThisTurn = moveDidSomething ? this.activeMove && this.activeMove.id : null;
-			if (this.activeMove) move = this.activeMove;
+			if (this.battle.activeMove) move = this.battle.activeMove;
 			this.battle.singleEvent('AfterMove', move, null, pokemon, target, move);
 			this.battle.runEvent('AfterMove', pokemon, target, move);
 	
