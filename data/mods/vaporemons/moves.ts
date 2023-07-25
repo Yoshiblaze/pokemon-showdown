@@ -546,26 +546,20 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		basePowerCallback(pokemon, target, move) {
 			const yourSide = pokemon.side;
 			let allLayers = 0;
-			let spikesLayers = 0;
-			let tspikesLayers = 0;
 			if (yourSide.getSideCondition('stealthrock')) allLayers++;
 			if (yourSide.getSideCondition('healingstones')) allLayers++;
 			if (yourSide.getSideCondition('stickyweb')) allLayers++;
-			if (yourSide.getSideCondition('spikes')) spikesLayers++;
-			if (yourSide.getSideCondition('toxicspikes')) tspikesLayers++;
-			/*
-			if (yourSide.getSideCondition('spikes')) {
-				let spikesLayers = this.effectState.layers;
+			if (yourSide.sideConditions['spikes']) {
+				allLayers += yourSide.sideConditions['spikes'].layers;
 			}
-			if (yourSide.getSideCondition('toxicspikes')) {
-				let tspikesLayers = this.effectState.layers;
-			} */
-			let totalLayers = allLayers + spikesLayers + tspikesLayers;
+			if (yourSide.sideConditions['toxicspikes']) {
+				allLayers += yourSide.sideConditions['toxicspikes'].layers;
+			}
 			this.debug('Hazardous Waste damage boost');
-			return Math.min(300, 50 + 50 * totalLayers);
+			return Math.min(300, 50 + 50 * allLayers);
 		},
 		category: "Physical",
-		shortDesc: "(Mostly functional placehdoler) +50 power for each hazard layer on user's side. Caps at 300.",
+		shortDesc: "+50 power for each hazard layer on user's side. Caps at 300.",
 		name: "Hazardous Waste",
 		pp: 10,
 		priority: 0,
