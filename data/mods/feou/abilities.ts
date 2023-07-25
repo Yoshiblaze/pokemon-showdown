@@ -8,9 +8,9 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				return this.chainModify(0.75);
 			}
 		},
-		onBoost(boost, target, source, effect) {
+		onChangeBoost(boost, target, source, effect) {
 			if (effect && effect.id === 'zpower') return;
-			let i: BoostName;
+			let i: BoostID;
 			for (i in boost) {
 				boost[i]! *= -1;
 			}
@@ -1516,6 +1516,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onStart(pokemon) {
 			this.singleEvent('WeatherChange', this.effect, this.effectState, pokemon);
 			this.add('-ability', pokemon, 'Circuit Breaker');
+			this.add('-message', `${pokemon.name} breaks the circuit!`);
 		},
 		onModifyMove(move) {
 			move.ignoreAbility = true;
