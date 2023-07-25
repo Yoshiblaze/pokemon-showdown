@@ -605,6 +605,9 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 		onModifyDef(def, pokemon) {
 			return this.chainModify(1.2);
 		},
+		onModifyMove(move) {
+			move.willCrit = false;
+		},
 		onCriticalHit: false,
 		onSourceCriticalHit: false,
 		num: -1030,
