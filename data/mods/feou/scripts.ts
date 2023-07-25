@@ -5,6 +5,7 @@ export const Scripts: ModdedBattleScriptsData = {
         customTiers: ['FEOU', 'FENFE', 'FELC'],
 	},
 	actions: {
+		inherit: true,
 		canMegaEvo(pokemon) {
 			const altForme = pokemon.baseSpecies.otherFormes && this.dex.species.get(pokemon.baseSpecies.otherFormes[0]);
 			const item = pokemon.getItem();
@@ -39,7 +40,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				return "Necrotrik-Ultra";
 			}
 			return null;
-		}, 
+		}, /*
 		runMove(moveOrMoveName, pokemon, targetLoc, sourceEffect, zMove, externalMove, maxMove, originalTarget) {
 			pokemon.activeMoveActions++;
 			let target = this.battle.getTarget(pokemon, maxMove || zMove || moveOrMoveName, targetLoc, originalTarget);
@@ -143,7 +144,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				}
 			}
 			if (noLock && pokemon.volatiles['lockedmove']) delete pokemon.volatiles['lockedmove'];
-		},
+		}, */
 	},
 	pokemon: { 
 		/*
