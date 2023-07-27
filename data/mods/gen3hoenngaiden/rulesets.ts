@@ -1,4 +1,18 @@
 export const Rulesets: {[k: string]: ModdedFormatData} = {
+    batonpassmod: {
+        effectType: 'Rule',
+        name: 'Baton Pass Mod',
+        desc: "Positive stat boosts are reset upon using Baton Pass.",
+        onBegin() {
+            this.add('rule', 'Baton Pass Mod: Positive stat boosts are reset upon using Baton Pass');
+        },
+        onHit(source, target, move) {
+            if (source.positiveBoosts() && move.id === 'batonpass') {
+                this.add('-clearpositiveboost', source);
+                this.hint("Baton Pass Mod activated: Stat Boosts cannot be passed");
+            }
+        },
+    },
 	hoenngaidenmod: {
 		effectType: 'Rule',
 		name: 'Hoenn Gaiden Mod',
@@ -17,7 +31,7 @@ export const Rulesets: {[k: string]: ModdedFormatData} = {
 		desc: "The standard ruleset for all Hoenn Gaiden tiers.",
 		ruleset: [
 				'Obtainable', 'Sleep Clause Mod', 'Switch Priority Clause Mod', 'Species Clause', 'Nickname Clause', 'OHKO Clause', 'Moody Clause', 'Evasion Moves Clause', 'Endless Battle Clause', 'HP Percentage Mod', 'Cancel Mod',
-				'Hoenn Gaiden Mod', 'Deoxys Camouflage Clause',
+				'Hoenn Gaiden Mod', 'Deoxys Camouflage Clause', 'Baton Pass Mod',
 		],
 		banlist: [
 			'Armaldo ++ Rapid Spin ++ Knock Off',
