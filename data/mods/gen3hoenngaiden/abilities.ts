@@ -68,14 +68,12 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		num: 98,
 	},
 	galvanize: {
-		onModifyTypePriority: -1,
-		onModifyType(move, pokemon) {
+		onModifyMove(move) {
 			const noModifyType = [
 				'judgment', 'multiattack', 'naturalgift', 'revelationdance', 'technoblast', 'terrainpulse', 'weatherball',
 			];
-			if (move.type === 'Normal' && !noModifyType.includes(move.id) &&
-				!(move.isZ && move.category !== 'Status') && !(move.name === 'Tera Blast' && pokemon.terastallized)) {
-        move.type = 'Electric';
+			if (move.type === 'Normal' && !noModifyType.includes(move.id)) {
+        		move.type = 'Electric';
 				move.category = 'Special';
 				move.typeChangerBoosted = this.effect;
 			}
