@@ -1024,6 +1024,10 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		inherit: true,
 		gen: 3,
 	},
+	happiny: {
+		inherit: true,
+		gen: 3,
+	},
 	ariados: {
 		inherit: true,
 		abilities: {0: "Stakeout", 1: "Swarm"},
