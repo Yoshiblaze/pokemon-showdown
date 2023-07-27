@@ -375,7 +375,6 @@ export const Scripts: ModdedBattleScriptsData = {
 		this.modData('Learnsets', 'nidoking').learnset.circlethrow = ['3L1'];
 		this.modData('Learnsets', 'granbull').learnset.circlethrow = ['3L1'];
 		this.modData('Learnsets', 'machamp').learnset.circlethrow = ['3L1'];
-		this.modData('Learnsets', 'kleavor').learnset.rockslide = ['3L1'];
 		this.modData("Learnsets", "slowkinggalar").learnset.counter = ["3L1"];
 		this.modData("Learnsets", "slowkinggalar").learnset.doubleteam = ["3L1"];
 		this.modData("Learnsets", "slowkinggalar").learnset.doubleedge = ["3L1"];
@@ -485,9 +484,6 @@ export const Scripts: ModdedBattleScriptsData = {
 		this.modData("Learnsets", "golemalola").learnset.spark = ["3L1"];
 		this.modData("Learnsets", "golemalola").learnset.megapunch = ["3L1"];
 		this.modData("Learnsets", "golemalola").learnset.hyperbeam = ["3L1"];
-		this.modData("Learnsets", "kleavor").learnset.calmmind = ["3L1"];
-		this.modData("Learnsets", "kleavor").learnset.sandstorm = ["3L1"];
-		this.modData("Learnsets", "kleavor").learnset.rocktomb = ["3L1"];
 		this.modData("Learnsets", "golemalola").learnset.spark = ["3L1"];
 		this.modData("Learnsets", "electrodehisui").learnset.solarbeam = ["3L1"];
 		this.modData("Learnsets", "electrodehisui").learnset.iceball = ["3L1"];
@@ -689,5 +685,27 @@ export const Scripts: ModdedBattleScriptsData = {
 		this.modData("Learnsets", "talonflame").learnset.doubleedge = ["3L1"];
 		this.modData("Learnsets", "talonflame").learnset.mimic = ["3L1"];	
 		this.modData("Learnsets", "talonflame").learnset.mudslap = ["3L1"];	
+		delete this.modData('Learnsets', 'sirfetchd').learnset.featherdance;
+		delete this.modData('Learnsets', 'sirfetchd').learnset.wish;
+		delete this.modData('Learnsets', 'sirfetchd').learnset.yawn;
+		delete this.modData('Learnsets', 'sirfetchd').learnset.mirrormove;
+		delete this.modData('Learnsets', 'farfetchdgalar').learnset.featherdance;
+		delete this.modData('Learnsets', 'farfetchdgalar').learnset.wish;
+		delete this.modData('Learnsets', 'farfetchdgalar').learnset.yawn;
+		delete this.modData('Learnsets', 'farfetchdgalar').learnset.mirrormove;
+		delete this.modData('Learnsets', 'budew').learnset.sleeppowder;
+		delete this.modData('Learnsets', 'roselia').learnset.sleeppowder;
+		delete this.modData('Learnsets', 'roserade').learnset.sleeppowder;
+		delete this.modData('Learnsets', 'voltorbhisui').learnset.headbutt;
+		delete this.modData('Learnsets', 'voltorbhisui').learnset.refresh;
+		delete this.modData('Learnsets', 'electrodehisui').learnset.headbutt;
+		delete this.modData('Learnsets', 'electrodehisui').learnset.refresh;
+		delete this.modData('Learnsets', 'perrserker').learnset.batonpass;
+		delete this.modData('Learnsets', 'perrserker').learnset.crunch;
+		delete this.modData('Learnsets', 'perrserker').learnset.headbutt;
+		delete this.modData('Learnsets', 'perrserker').learnset.retaliate;
+		delete this.modData('Learnsets', 'dugtrioalola').learnset.headbutt;
+		delete this.modData('Learnsets', 'dugtrioalola').learnset.reversal;
+		delete this.modData('Learnsets', 'weavile').learnset.calmmind;
 	},
 };
