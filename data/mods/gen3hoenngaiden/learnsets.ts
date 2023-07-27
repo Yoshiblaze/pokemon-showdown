@@ -1846,7 +1846,7 @@ export const Learnsets: {[speciesid: string]: LearnsetData} = {
 			taunt: ["3L1"],
 			thunderpunch: ["3L1"],
 			toxic: ["3L1"],
-			vinewhip: ["3L1"],,
+			vinewhip: ["3L1"],
 		},
 	},
 	chesnaught: {
