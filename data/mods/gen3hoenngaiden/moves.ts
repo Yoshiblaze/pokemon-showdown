@@ -84,6 +84,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 	lunge: {
 		inherit: true,
 		basePower: 60,
+		gen: 3,
 	},
 	multiattack: {
 		inherit: true,
