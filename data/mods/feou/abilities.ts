@@ -1310,12 +1310,13 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onModifySpA(spa) {
 			return this.chainModify([5461, 4096]);
 		},
-		onSourceModifyAccuracyPriority: 9,
+		onSourceModifyAccuracyPriority: -1,
 		onSourceModifyAccuracy(accuracy) {
 			if (typeof accuracy !== 'number') return;
-			this.debug('iron sights - enhancing accuracy');
-			return accuracy / 0.75;
+			this.debug('ironsights - enhancing accuracy');
+			return this.chainModify([5461, 4096]);
 		},
+		isPermanent: true,
 		name: "Iron Sights",
 		rating: 3,
 	},
