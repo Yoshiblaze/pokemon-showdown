@@ -8,36 +8,34 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		gen: 3,
 	},
 	rkssystem: {
-	shortDesc: "If this Pokemon is a Silvally, its type changes to match its held Memory.",
+		shortDesc: "If this Pokemon is a Silvally, its type changes to match its held Memory.",
 		// RKS System's type-changing itself is implemented in statuses.js
 		inherit: true,
 		isNonstandard: null,
 		gen: 3,
 	},
 	sandveil: {
-		desc: "This Pokemon can not be damaged by sandstorm.",
 		shortDesc: "This Pokemon can not be damaged by sandstorm.",
 		onImmunity(type, pokemon) {
 			if (type === 'sandstorm') return false;
 		},
-		id: "sandveil",
 		name: "Sand Veil",
-		rating: 3,
-		num: 146,
+		rating: 1.5,
+		num: 8,
 	},
 	icebody: {
+		shortDesc: "This Pokemon can not be damaged by hail.",
 		onImmunity(type, pokemon) {
 			if (type === 'hail') return false;
 		},
 		isNonstandard: null,
-		desc: "This Pokemon can not be damaged by hail.",
-		shortDesc: "This Pokemon can not be damaged by hail.",
 		gen: 3,
 		name: "Ice Body",
 		rating: 1,
 		num: 115,
 	},
 	overcoat: {
+		shortDesc: "This Pokemon is immune to powder moves, Sandstorm or Hail damage, and Effect Spore.",
 		onImmunity(type, pokemon) {
 			if (type === 'sandstorm' || type === 'hail' || type === 'powder') return false;
 		},
