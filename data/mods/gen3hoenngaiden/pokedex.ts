@@ -1080,4 +1080,24 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		inherit: true,
 		abilities: {0: "Keen Eye", 1: "Fur Coat"},
 	},
+	zigzagoongalar: {
+		inherit: true,
+		abilities: {0: "Pickup"},
+		gen: 3,
+	},
+	linoonegalar: {
+		inherit: true,
+		abilities: {0: "Pickup"},
+		gen: 3,
+	},
+	bellossom: {
+		inherit: true,
+		abilities: {0: "Chlorophyll", 1: "Natural Cure"},
+	},
+	stantler: {
+		inherit: true,
+		types: ["Ground", "Psychic"],
+		baseStats: {hp: 103, atk: 115, def: 82, spa: 95, spd: 65, spe: 95},
+		abilities: {0: "Intimidate", 1: "Insomnia"},
+	},
 };
