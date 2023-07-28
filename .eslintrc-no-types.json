@@ -79,7 +79,7 @@
     "default-case": "off", // hopefully TypeScript will let us skip `default` for things that are exhaustive
     "no-bitwise": "off", // used in Dashycode
     "no-case-declarations": "off", // meh, we have no-shadow
-    "no-duplicate-case": "off",
+    "no-duplicate-case": "error",
     "no-empty": ["error", {"allowEmptyCatch": true}],
     "no-extra-bind": "error",
     "no-extra-label": "error",
@@ -126,7 +126,7 @@
     "new-parens": "error",
     "no-array-constructor": "error",
     "no-div-regex": "error",
-    "no-duplicate-imports": "error",
+    "no-duplicate-imports": "off",
     "no-extra-parens": "off",
     "no-floating-decimal": "error",
     "no-mixed-requires": "error",
