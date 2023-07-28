@@ -126,7 +126,7 @@
     "new-parens": "error",
     "no-array-constructor": "error",
     "no-div-regex": "error",
-    "no-duplicate-imports": "off",
+    "no-duplicate-imports": "error",
     "no-extra-parens": "off",
     "no-floating-decimal": "error",
     "no-mixed-requires": "error",
