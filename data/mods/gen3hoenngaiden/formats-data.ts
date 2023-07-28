@@ -487,4 +487,16 @@ export const FormatsData: {[k: string]: SpeciesFormatsData} = {
 		tier: "OU",
 		doublesTier: "DOU",
 	},
+	typenull: {
+		tier: "NFE",
+		doublesTier: "DOU",
+	},
+	linoonegalar: {
+		tier: "NFE",
+		doublesTier: "DOU",
+	},
+	zigzagoongalar: {
+		tier: "LC",
+		doublesTier: "DOU",
+	},
 };
