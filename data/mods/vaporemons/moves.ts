@@ -584,8 +584,9 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		flags: {protect: 1, mirror: 1, contact: 1},
 		multihit: 4,
 		onPrepareHit(target, source, move) {
-			target.addVolatile('substitute');
 			this.attrLastMove('[still]');
+			this.add('-anim', source, "Salt Cure", target);
+			target.addVolatile('substitute');
 			this.add('-anim', source, "Stone Axe", target);
 		},
 		secondary: null,
