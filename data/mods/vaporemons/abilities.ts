@@ -835,7 +835,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	snowcloak: { // add snow globe effect here later
 		name: "Snow Cloak",
 		onDamage(damage, target, source, effect) {
-			if (effect.effectType !== 'Move' && this.field.isWeather(['hail', 'snow']) {
+			if (effect.effectType !== 'Move' && this.field.isWeather(['hail', 'snow'])) {
 				if (effect.effectType === 'Ability') this.add('-activate', source, 'ability: ' + effect.name);
 				return false;
 			}
