@@ -698,13 +698,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		pp: 10,
 		priority: 0,
 		flags: {contact: 1, protect: 1, mirror: 1},
-		onModifyPriority(priority, source, target, move) {
-			const action = this.queue.willMove(source);
-			const move = action?.choice === 'move' ? action.move : null;
-			if (move.priority >) {
-				return priority + 1;
-			}
-		},
 		priorityChargeCallback(pokemon) {
 			pokemon.addVolatile('parry');
 			this.add('-message', `${pokemon.name} is attempting to parry!`);
