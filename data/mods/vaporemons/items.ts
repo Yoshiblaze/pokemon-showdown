@@ -693,10 +693,20 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 		fling: {
 			basePower: 30,
 		},
+		onStart(pokemon) {
+			this.add('-message', `${pokemon.name}'s is under the effects of Sand!`);
+		},
 		onModifySpDPriority: 1,
 		onModifySpD(spd, pokemon) {
 			if (!this.field.isWeather('sandstorm') && pokemon.hasType('Rock')) {
 				return this.chainModify(1.5);
+			}
+		},
+		onUpdate(pokemon) {
+			if (pokemon.transformed) return;
+			if (this.queue.peek(true)?.choice === 'runSwitch') return;
+			if (pokemon.hasAbility('protocrysalis') && !pokemon.volatiles['protocrysalis'] && !this.field.isWeather('sandstorm') && pokemon.useItem()) {
+				pokemon.addVolatile('protocrysalis');
 			}
 		},
 		// All other effects coded in the moves and abilities themselves
@@ -710,10 +720,20 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 		fling: {
 			basePower: 30,
 		},
+		onStart(pokemon) {
+			this.add('-message', `${pokemon.name}'s is under the effects of Snow!`);
+		},
 		onModifyDefPriority: 1,
 		onModifyDef(def, pokemon) {
 			if (!this.field.isWeather('snow') && pokemon.hasType('Ice')) {
 				return this.chainModify(1.5);
+			}
+		},
+		onUpdate(pokemon) {
+			if (pokemon.transformed) return;
+			if (this.queue.peek(true)?.choice === 'runSwitch') return;
+			if (pokemon.hasAbility('protostasis') && !pokemon.volatiles['protostasis'] && !this.field.isWeather('snow') && pokemon.useItem()) {
+				pokemon.addVolatile('protostasis');
 			}
 		},
 		// All other effects coded in the moves and abilities themselves
