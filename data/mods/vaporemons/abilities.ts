@@ -811,16 +811,16 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		shortDesc: "In Sun: Immune to indirect damage and secondary effects.",
 		gen: 8,
 	},
-	sandveil: {
+	sandveil: { // add sand clock effect here later
 		name: "Sand Veil",
 		onDamage(damage, target, source, effect) {
-			if (effect.effectType !== 'Move' && (this.field.isWeather('sandstorm') || source.hasItem('sandclock'))) {
+			if (effect.effectType !== 'Move' && this.field.isWeather('sandstorm')) {
 				if (effect.effectType === 'Ability') this.add('-activate', source, 'ability: ' + effect.name);
 				return false;
 			}
 		},
 		onModifySecondaries(secondaries) {
-			if (this.field.isWeather('sandstorm')) { // add sand clock effect here later
+			if (this.field.isWeather('sandstorm')) { 
 				this.debug('Snow Cloak prevent secondary');
 				return secondaries.filter(effect => !!(effect.self || effect.dustproof));
 			}
@@ -832,16 +832,16 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		rating: 3,
 		num: 8,
 	},
-	snowcloak: {
+	snowcloak: { // add snow globe effect here later
 		name: "Snow Cloak",
 		onDamage(damage, target, source, effect) {
-			if (effect.effectType !== 'Move' && (this.field.isWeather(['hail', 'snow']) || source.hasItem('snowglobe'))) {
+			if (effect.effectType !== 'Move' && this.field.isWeather(['hail', 'snow']) {
 				if (effect.effectType === 'Ability') this.add('-activate', source, 'ability: ' + effect.name);
 				return false;
 			}
 		},
 		onModifySecondaries(secondaries) {
-			if (this.field.isWeather(['hail', 'snow'])) { // add snow globe effect here later
+			if (this.field.isWeather(['hail', 'snow'])) { 
 				this.debug('Snow Cloak prevent secondary');
 				return secondaries.filter(effect => !!(effect.self || effect.dustproof));
 			}
