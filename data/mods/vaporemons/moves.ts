@@ -2215,8 +2215,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		flags: {snatch: 1},
 		sideCondition: 'auroraveil',
 		onTry(source) {
-			return this.field.isWeather(['hail', 'snow']);
-			if (source.hasItem('snowglobe')) {
+			if (this.field.isWeather(['hail', 'snow']) || source.hasItem('snowglobe')) {
 				return;
 			}
 		},
