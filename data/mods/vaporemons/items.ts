@@ -694,6 +694,7 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 			basePower: 30,
 		},
 		onStart(pokemon) {
+			this.add('-item', pokemon, 'Sand Clock');
 			this.add('-message', `${pokemon.name}'s is under the effects of Sand!`);
 		},
 		onModifySpDPriority: 1,
@@ -721,6 +722,7 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 			basePower: 30,
 		},
 		onStart(pokemon) {
+			this.add('-item', pokemon, 'Snow Globe');
 			this.add('-message', `${pokemon.name}'s is under the effects of Snow!`);
 		},
 		onModifyDefPriority: 1,
