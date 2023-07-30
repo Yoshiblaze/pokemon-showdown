@@ -646,6 +646,96 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 		gen: 8,
 		desc: "Holder's moves deal 50% more damage, but it can't select attacking moves of its type.",
 	},
+	herosbubble: {
+		name: "Hero's Bubble",
+		spritenum: 390,
+		fling: {
+			basePower: 30,
+		},
+		onModifyAtk(atk, attacker, defender, move) {
+			if (move.type === 'Water' && 
+				 attacker.baseSpecies.baseSpecies === 'Palafin' && 
+				 attacker.species.forme !== 'Hero') {
+				return this.chainModify(2);
+			}
+		},
+		onModifySpA(atk, attacker, defender, move) {
+			if (move.type === 'Water' && 
+				 attacker.baseSpecies.baseSpecies === 'Palafin' && 
+				 attacker.species.forme !== 'Hero') {
+				return this.chainModify(2);
+			}
+		},
+		onSourceModifyAtkPriority: 5,
+		onSourceModifyAtk(atk, attacker, defender, move) {
+			if ((move.type === 'Dark' || move.type === 'Fighting') && 
+				 defender.baseSpecies.baseSpecies === 'Palafin' && 
+				 defender.species.forme === 'Hero') {
+				return this.chainModify(0.5);
+			}
+		},
+		onSourceModifySpAPriority: 5,
+		onSourceModifySpA(atk, attacker, defender, move) {
+			if ((move.type === 'Dark' || move.type === 'Fighting') && 
+				 defender.baseSpecies.baseSpecies === 'Palafin' && 
+				 defender.species.forme === 'Hero') {
+				return this.chainModify(0.5);
+			}
+		},
+		itemUser: ["Palafin"],
+		num: -1032,
+		gen: 8,
+		desc: "If Palafin-Zero: 2x Water power. If Palafin-Hero: takes 50% damage from Dark and Fighting.",
+	},
+	sandclock: {
+		name: "Sand Clock",
+		spritenum: 390,
+		fling: {
+			basePower: 30,
+		},
+		onModifySpDPriority: 1,
+		onModifySpD(spd, pokemon) {
+			if (!this.field.isWeather('sandstorm') && pokemon.hasType('Rock')) {
+				return this.chainModify(1.5);
+			}
+		},
+		// All other effects coded in the moves and abilities themselves
+		num: -1033,
+		gen: 8,
+		desc: "Holder is considered to be under the effects of Sandstorm.",
+	},
+	snowglobe: {
+		name: "Snow Globe",
+		spritenum: 390,
+		fling: {
+			basePower: 30,
+		},
+		onModifyDefPriority: 1,
+		onModifyDef(def, pokemon) {
+			if (!this.field.isWeather('snow') && pokemon.hasType('Ice')) {
+				return this.chainModify(1.5);
+			}
+		},
+		// All other effects coded in the moves and abilities themselves
+		num: -1034,
+		gen: 8,
+		desc: "Holder is considered to be under the effects of Snow.",
+	},
+	handmirror: {
+		name: "Hand Mirror",
+		spritenum: 390,
+		fling: {
+			basePower: 30,
+		},
+		onSourceModifyDamage(damage, source, target, move) {
+			if (target.hasType(source.getTypes()) {
+				return this.chainModify(0.66);
+			}
+		},
+		num: -1035,
+		gen: 8,
+		desc: "Holder takes 2/3 damage from foes that share a type.",
+	},
 
 // unchanged items
 	boosterenergy: {
