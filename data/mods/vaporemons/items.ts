@@ -728,7 +728,7 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 			basePower: 30,
 		},
 		onSourceModifyDamage(damage, source, target, move) {
-			if (target.hasType(source.getTypes()) {
+			if (target.hasType(source.getTypes())) {
 				return this.chainModify(0.66);
 			}
 		},
