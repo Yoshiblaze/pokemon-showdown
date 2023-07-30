@@ -9,10 +9,14 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		types: ["Fighting", "Water"],
 		abilities: {0: "Fur Coat", 1: "Iron Fist", H: "Snow Cloak"},
 	},
+	mareanie: {
+		inherit: true,
+		abilities: {0: "Battle Spines", 1: "Merciless", H: "Regenerator"},
+	},
 	toxapex: {
 		inherit: true,
 		types: ["Dark", "Water"],
-		abilities: {0: "Immunity", 1: "Merciless", H: "Regenerator"},
+		abilities: {0: "Battle Spines", 1: "Merciless", H: "Regenerator"},
 	},
 	revavroom: {
 		inherit: true,
@@ -142,11 +146,11 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 	},
 	petilil: {
 		inherit: true,
-		abilities: {0: "Chlorophyll", 1: "Own Tempo", H: "Healer"},
+		abilities: {0: "Chlorophyll", 1: "Sheer Heart", H: "Healer"},
 	},
 	lilligant: {
 		inherit: true,
-		abilities: {0: "Chlorophyll", 1: "Own Tempo", H: "Healer"},
+		abilities: {0: "Chlorophyll", 1: "Sheer Heart", H: "Healer"},
 	},
 	lilliganthisui: {
 		inherit: true,
@@ -236,7 +240,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 	},
 	ironjugulis: {
 		inherit: true,
-		abilities: {0: "Neuron Drive"},
+		abilities: {0: "Neuron Drive", H: "Mega Launcher"},
 	},
 	ironmoth: {
 		inherit: true,
@@ -268,11 +272,11 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 	},
 	swablu: {
 		inherit: true,
-		abilities: {0: "Natural Cure", 1: "Gale Wings", H: "Cloud Nine"},
+		abilities: {0: "Natural Cure", 1: "Gale Wings", H: "Sheer Heart"},
 	},
 	altaria: {
 		inherit: true,
-		abilities: {0: "Natural Cure", 1: "Gale Wings", H: "Cloud Nine"},
+		abilities: {0: "Natural Cure", 1: "Gale Wings", H: "Sheer Heart"},
 	},
 	tropius: {
 		inherit: true,
@@ -369,9 +373,13 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		inherit: true,
 		abilities: {0: "Serene Grace", 1: "Cloud Nine", H: "Rattled"},
 	},
+	cacnea: {
+		inherit: true,
+		abilities: {0: "Battle Spines", H: "Water Absorb"},
+	},
 	cacturne: {
 		inherit: true,
-		abilities: {0: "Sand Veil", 1: "Sand Force", H: "Water Absorb"},
+		abilities: {0: "Battle Spines", 1: "Sand Force", H: "Water Absorb"},
 	},
 	gible: {
 		inherit: true,
@@ -570,9 +578,17 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		inherit: true,
 		abilities: {0: "Opportunist", 1: "Outclass", H: "Speed Boost"},
 	},
+	axew: {
+		inherit: true,
+		abilities: {0: "Rivalry", 1: "Mold Breaker", H: "Steely Spirit"},
+	},
+	fraxure: {
+		inherit: true,
+		abilities: {0: "Rivalry", 1: "Mold Breaker", H: "Steely Spirit"},
+	},
 	haxorus: {
 		inherit: true,
-		abilities: {0: "Outclass", 1: "Mold Breaker", H: "Unnerve"},
+		abilities: {0: "Outclass", 1: "Mold Breaker", H: "Steely Spirit"},
 	},
 	eevee: {
 		inherit: true,
@@ -649,5 +665,102 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 	mew: {
 		inherit: true,
 		abilities: {0: "Synchronize", H: "Protean"},
+	},
+	hariyama: {
+		inherit: true,
+		abilities: {0: "Thick Fat", 1: "Guts", H: "Purifying Salt"},
+	},
+	mukalola: {
+		inherit: true,
+		abilities: {0: "Neutralizing Gas", 1: "Poison Touch", H: "Power of Alchemy"},
+	},
+	muk: {
+		inherit: true,
+		types: ["Poison", "Water"],
+		abilities: {0: "Regenerator", 1: "Liquid Ooze", H: "Water Absorb"},
+	},
+	meowthgalar: {
+		inherit: true,
+		abilities: {0: "Pickup", 1: "Tough Claws", H: "Steely Spirit"},
+	},
+	diglettalola: {
+		inherit: true,
+		abilities: {0: "Steely Spirit", 1: "Tangling Hair", H: "Sand Force"},
+	},
+	dugtrioalola: {
+		inherit: true,
+		abilities: {0: "Steely Spirit", 1: "Tangling Hair", H: "Sand Force"},
+	},
+	cufant: {
+		inherit: true,
+		abilities: {0: "Sheer Force", 1: "Steely Spirit", H: "Heavy Metal"},
+	},
+	copperajah: {
+		inherit: true,
+		abilities: {0: "Sheer Force", 1: "Steely Spirit", H: "Heavy Metal"},
+	},
+	bronzor: {
+		inherit: true,
+		abilities: {0: "Levitate", 1: "Heatproof", H: "Steely Spirit"},
+	},
+	bronzong: {
+		inherit: true,
+		abilities: {0: "Levitate", 1: "Heatproof", H: "Steely Spirit"},
+	},
+	thundurus: {
+		inherit: true,
+		abilities: {0: "Prankster", H: "Battle Spines"},
+	},
+	overqwil: {
+		inherit: true,
+		abilities: {0: "Battle Spines", 1: "Swift Swim", H: "Intimidate"},
+	},
+	clodsire: {
+		inherit: true,
+		abilities: {0: "Battle Spines", 1: "Water Absorb", H: "Unaware"},
+	},
+	jolteon: {
+		inherit: true,
+		abilities: {0: "Volt Absorb", H: "Battle Spines"},
+	},
+	pincurchin: {
+		inherit: true,
+		abilities: {0: "Lightning Rod", 1: "Battle Spines", H: "Electric Surge"},
+	},
+	cloyster: {
+		inherit: true,
+		abilities: {0: "Battle Spines", 1: "Skill Link", H: "Overcoat"},
+	},
+	spoink: {
+		inherit: true,
+		abilities: {0: "Thick Fat", 1: "Sheer Heart", H: "Gluttony"},
+	},
+	grumpig: {
+		inherit: true,
+		abilities: {0: "Thick Fat", 1: "Sheer Heart", H: "Gluttony"},
+	},
+	alomomola: {
+		inherit: true,
+		abilities: {0: "Healer", 1: "Sheer Heart", H: "Regenerator"},
+	},
+	luvdisc: {
+		inherit: true,
+		abilities: {0: "Swift Swim", 1: "Sheer Heart", H: "Hydration"},
+	},
+	lucario: {
+		inherit: true,
+		abilities: {0: "Sheer Heart", 1: "Inner Focus", H: "Justified"},
+	},
+	gothita: {
+		inherit: true,
+		abilities: {0: "Sheer Heart", 1: "Competitive", H: "Shadow Tag"},
+	},
+	gothorita: {
+		inherit: true,
+		abilities: {0: "Sheer Heart", 1: "Competitive", H: "Shadow Tag"},
+	},
+	gothitelle: {
+		inherit: true,
+		abilities: {0: "Sheer Heart", 1: "Competitive", H: "Shadow Tag"},
 	},
 };
