@@ -689,6 +689,54 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		target: "normal",
 		type: "Fire",
 	},
+	parry: {
+		accuracy: 100,
+		basePower: 80,
+		category: "Physical",
+		shortDesc: "If the foe used a priority move, this move hits before that move and flinches the foe.",
+		name: "Parry",
+		pp: 10,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1},
+		onModifyPriority(priority, source, target, move) {
+			const action = this.queue.willMove(source);
+			const move = action?.choice === 'move' ? action.move : null;
+			if (move.priority >) {
+				return priority + 1;
+			}
+		},
+		priorityChargeCallback(pokemon) {
+			pokemon.addVolatile('parry');
+			this.add('-message', `${pokemon.name} is attempting to parry!`);
+		},
+		condition: {
+			duration: 1,
+			onStart(pokemon) {
+				this.add('-singleturn', pokemon, 'move: Focus Punch');
+			},
+			onHit(pokemon, source, move) {
+				if (move.category !== 'Status') {
+					this.effectState.lostFocus = true;
+				}
+			},
+			onFoeBeforeMovePriority: 13,
+			onFoeBeforeMove(attacker, defender, move) {
+				if (move.priority > 0 && move.category !== 'Status') {
+					const action = this.queue.willMove(defender);
+					if (action) {
+						this.queue.prioritizeAction(action);
+						this.add('-activate', defender, 'move: Parry');
+					}
+					attacker.addVolatile('flinch');
+					this.add('-message', `The attack was parried!`);
+				}
+			},
+		},
+		secondary: {},
+		target: "normal",
+		type: "Fighting",
+		contestType: "Clever",
+	},
 
 // all edited unchanged moves
 	stealthrock: {
