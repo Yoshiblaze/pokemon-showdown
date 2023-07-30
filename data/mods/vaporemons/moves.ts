@@ -573,6 +573,122 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Poison",
 		contestType: "Tough",
 	},
+	chisel: {
+		accuracy: 100,
+		basePower: 45,
+		category: "Physical",
+		shortDesc: "Gives the foe a Substitute, then hits 4 times.",
+		name: "Chisel",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1, contact: 1},
+		multihit: 4,
+		onPrepareHit(target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Stone Axe", target);
+		},
+		onBeforeMovePriority: 6,
+		onBeforeMove(pokemon, target, move) {
+			target.addVolatile('substitute');
+		},
+		secondary: null,
+		target: "normal",
+		type: "Rock",
+		contestType: "Cool",
+	},
+	peekaboo: {
+		accuracy: 100,
+		basePower: 140,
+		category: "Physical",
+		shortDesc: "Deal halved damage if the user takes damage before it hits.",
+		name: "Peekaboo",
+		pp: 20,
+		priority: -3,
+		flags: {contact: 1, protect: 1, failmefirst: 1, nosleeptalk: 1, noassist: 1, failcopycat: 1, failinstruct: 1},
+		onPrepareHit(target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Heart Stamp", target);
+		},
+		priorityChargeCallback(pokemon) {
+			pokemon.addVolatile('peekaboo');
+		},
+		condition: {
+			duration: 1,
+			onStart(pokemon) {
+				this.add('-singleturn', pokemon, 'move: Peekaboo');
+			},
+			onHit(pokemon, source, move) {
+				if (move.category !== 'Status') {
+					this.effectState.lostSurprise = true;
+				}
+			},
+			onBasePower(basePower, pokemon) {
+				if (pokemon.volatiles['peekaboo']?.lostSurprise) {
+					this.debug('halved power');
+					return this.chainModify(0.5);
+				}
+			},
+		},
+		secondary: null,
+		target: "normal",
+		type: "Fairy",
+		contestType: "Tough",
+	},
+	psychoboost: {
+		num: 354,
+		accuracy: 100,
+		basePower: 120,
+		shortDesc: "Lowers the user's Sp. Atk by 1. Hits foe(s).",
+		category: "Special",
+		isNonstandard: null,
+		name: "Psycho Boost",
+		pp: 5,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		self: {
+			boosts: {
+				spa: -1,
+			},
+		},
+		secondary: null,
+		target: "allAdjacentFoes",
+		type: "Psychic",
+		contestType: "Clever",
+	},
+	ragefist: {
+		num: 889,
+		accuracy: 100,
+		basePower: 50,
+		basePowerCallback(pokemon) {
+			return Math.min(200, 50 + 50 * pokemon.timesAttacked);
+		},
+		shortDesc: "+50 power for each time user was hit. Max 3 hits.",
+		category: "Physical",
+		name: "Rage Fist",
+		pp: 10,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1, punch: 1},
+		secondary: null,
+		target: "normal",
+		type: "Ghost",
+	},
+	ragingfury: {
+		num: 833,
+		accuracy: 100,
+		basePower: 50,
+		basePowerCallback(pokemon) {
+			return Math.min(200, 50 + 50 * pokemon.timesAttacked);
+		},
+		shortDesc: "+50 power for each time user was hit. Max 3 hits.",
+		category: "Physical",
+		name: "Raging Fury",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		secondary: null,
+		target: "normal",
+		type: "Fire",
+	},
 
 // all edited unchanged moves
 	stealthrock: {
