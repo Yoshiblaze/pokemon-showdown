@@ -584,12 +584,9 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		flags: {protect: 1, mirror: 1, contact: 1},
 		multihit: 4,
 		onPrepareHit(target, source, move) {
+			this.actions.useMove("Substitute", target);
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Stone Axe", target);
-		},
-		onBeforeMovePriority: 6,
-		onBeforeMove(pokemon, target, move) {
-			this.actions.useMove("Substitute", target);
 		},
 		secondary: null,
 		target: "normal",
