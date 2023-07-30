@@ -228,7 +228,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	sandforce: {
 		onBasePowerPriority: 21,
 		onBasePower(basePower, attacker, defender, move) {
-			if (this.field.isWeather('sandstorm')) {
+			if (this.field.isWeather('sandstorm') || pokemon.hasItem('sandclock')) {
 				this.debug('Sand Force boost');
 				return this.chainModify([0x14CD, 0x1000]);
 			}
@@ -814,13 +814,13 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	sandveil: {
 		name: "Sand Veil",
 		onDamage(damage, target, source, effect) {
-			if (effect.effectType !== 'Move' && this.field.isWeather('sandstorm')) {
+			if (effect.effectType !== 'Move' && (this.field.isWeather('sandstorm') || source.hasItem('sandclock'))) {
 				if (effect.effectType === 'Ability') this.add('-activate', source, 'ability: ' + effect.name);
 				return false;
 			}
 		},
 		onModifySecondaries(secondaries) {
-			if (this.field.isWeather('sandstorm')) {
+			if (this.field.isWeather('sandstorm')) { // add sand clock effect here later
 				this.debug('Snow Cloak prevent secondary');
 				return secondaries.filter(effect => !!(effect.self || effect.dustproof));
 			}
@@ -835,13 +835,13 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	snowcloak: {
 		name: "Snow Cloak",
 		onDamage(damage, target, source, effect) {
-			if (effect.effectType !== 'Move' && this.field.isWeather(['hail', 'snow'])) {
+			if (effect.effectType !== 'Move' && (this.field.isWeather(['hail', 'snow']) || source.hasItem('snowglobe'))) {
 				if (effect.effectType === 'Ability') this.add('-activate', source, 'ability: ' + effect.name);
 				return false;
 			}
 		},
 		onModifySecondaries(secondaries) {
-			if (this.field.isWeather(['hail', 'snow'])) {
+			if (this.field.isWeather(['hail', 'snow'])) { // add snow globe effect here later
 				this.debug('Snow Cloak prevent secondary');
 				return secondaries.filter(effect => !!(effect.self || effect.dustproof));
 			}
@@ -868,6 +868,69 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		name: "Outclass",
 		shortDesc: "If this Pokemon has one type, it steals the primary typing off a Pokemon it hits with an attack.",
 		rating: 4,
+	},
+	steelyspirit: {
+		onAllyBasePowerPriority: 22,
+		onAllyBasePower(basePower, attacker, defender, move) {
+			if (move.type === 'Steel') {
+				this.debug('Steely Spirit boost');
+				return this.chainModify(2);
+			}
+		},
+		onSourceModifyAtkPriority: 5,
+		onSourceModifyAtk(atk, attacker, defender, move) {
+			if (move.type === 'Electric') {
+				return this.chainModify(0.5);
+			}
+		},
+		onSourceModifySpAPriority: 5,
+		onSourceModifySpA(atk, attacker, defender, move) {
+			if (move.type === 'Electric') {
+				return this.chainModify(0.5);
+			}
+		},
+		onUpdate(pokemon) {
+			if (pokemon.status === 'par') {
+				this.add('-activate', pokemon, 'ability: Steely Spirit');
+				pokemon.cureStatus();
+			}
+		},
+		onSetStatus(status, target, source, effect) {
+			if (status.id !== 'par') return;
+			if ((effect as Move)?.status) {
+				this.add('-immune', target, '[from] ability: Steely Spirit');
+			}
+			return false;
+		},
+		isBreakable: true,
+		name: "Steely Spirit",
+		rating: 3.5,
+		shortDesc: "This Pokemon's Steel power is 2x; it can't be paralyzed; Electric power against it is halved.",
+		num: 252,
+	},
+	sheerheart: {
+		onBasePowerPriority: 21,
+		onBasePower(basePower, pokemon, target, move) {
+			if (move.category === 'Special') return this.chainModify([5325, 4096]);
+		},
+		onTryBoost(boost, target, source, effect) {
+			if (boost.spa && (boost.spa < 0 || boost.spa > 0)) {
+				delete boost.spa;
+				if (!(effect as ActiveMove).secondaries) {
+					this.add("-fail", target, "unboost", "Special Attack", "[from] ability: Sheer Heart", "[of] " + target);
+				}
+			}
+		},
+		isBreakable: true,
+		name: "Sheer Heart",
+		shortDesc: "Special attacks have 1.3x power; stat changes to the Special Attack stat have no effect.",
+	},
+	battlespines: {
+      onAfterMove(target, source, move) {
+			this.damage(target.baseMaxhp / 8, target, source);
+		},
+		name: "Battle Spines",
+		shortDesc: "This Pokemon’s attacks do an additional 1/8 of the target’s max HP in damage. ",
 	},
 	
 // unchanged abilities
@@ -1131,5 +1194,41 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		name: "Libero",
 		rating: 4,
 		num: 236,
+	},
+	icebody: {
+		onWeather(target, source, effect) {
+			if (effect.id === 'hail' || effect.id === 'snow' || target.hasItem('snowglobe')) {
+				this.heal(target.baseMaxhp / 16);
+			}
+		},
+		onImmunity(type, pokemon) {
+			if (type === 'hail') return false;
+		},
+		name: "Ice Body",
+		rating: 1,
+		num: 115,
+	},
+	slushrush: {
+		onModifySpe(spe, pokemon) {
+			if (this.field.isWeather(['hail', 'snow']) || pokemon.hasItem('snowglobe')) {
+				return this.chainModify(2);
+			}
+		},
+		name: "Slush Rush",
+		rating: 3,
+		num: 202,
+	},
+	sandrush: {
+		onModifySpe(spe, pokemon) {
+			if (this.field.isWeather('sandstorm') || pokemon.hasItem('sandclock')) {
+				return this.chainModify(2);
+			}
+		},
+		onImmunity(type, pokemon) {
+			if (type === 'sandstorm') return false;
+		},
+		name: "Sand Rush",
+		rating: 3,
+		num: 146,
 	},
 };
