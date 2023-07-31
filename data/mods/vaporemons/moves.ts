@@ -710,10 +710,11 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				if ((source.isAlly(parryHolder) || move.target === 'all') && move.priority > 0.1) {
 					move.parryActivated = true;
 					this.attrLastMove('[still]');
-					target.addVolatile('flinch');
+					this.add('cant', pokemon, 'Parry', 'Parry');
+					return false;
 				}
 			},
-		  onModifyMove(move, source, target) {
+        onModifyPriority(priority, source, target, move) {
 			if (move.parryActivated = true) {
 				 move.priority = 6;
 			}
