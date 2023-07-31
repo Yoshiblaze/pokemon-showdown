@@ -697,32 +697,55 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 	  priority: 0,
 	  flags: {contact: 1, protect: 1, mirror: 1},
 	  priorityChargeCallback(pokemon) {
-			pokemon.addVolatile('parry');
-			this.add('-message', `${pokemon.name}'s attack might get parried!`);
+			this.actions.useMove("Parry Condition", pokemon);
 	  },
-		onModifyMove(move, pokemon) {
-			move.secondaries = [];
-			if (this.effectState.gotParried = true) {
-				move.secondaries.push({
-					chance: 100,
-					volatileStatus: 'flinch',
-				});
-			}
-		},
-	  condition: {
-		duration: 1,
-		onModifyPriority(priority, pokemon, target, move) {
-			 if (move.priority > 0.1 && move.category !== 'Status') {
-				 this.effectState.gotParried = true;
-				 move.priority = -7;
-			 }
-		  },
+	  onModifyMove(move, pokemon, target) {
+		 move.secondaries = [];
+		 if (this.effectState.gotParried = true && target.volatiles['parrycondition']) {
+			 move.secondaries.push({
+				 chance: 100,
+				 volatileStatus: 'flinch',
+			 });
+		 }
 	  },
 	  secondary: {}, // sheer force boosted
 	  target: "normal",
 	  type: "Fighting",
 	  contestType: "Clever",
     },
+  parrycondition: {
+	   accuracy: true,
+	   basePower: 0,
+	   category: "Physical",
+	   shortDesc: "Required to make Parry work.",
+	   name: "Parry Condition",
+	   pp: 10,
+	   priority: 6,
+	   flags: {},
+		volatileStatus: 'parrycondition',
+		onPrepareHit(target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Imprison", target);
+		},
+	   condition: {
+		 duration: 1,
+		 onStart(pokemon) {
+			 this.add('-message', `${pokemon.name}'s attack might get parried!`);
+			 this.effectState.gotParried = false;
+		 },
+		 onModifyPriority(priority, pokemon, target, move) {
+			if (move?.priority > 0.1 && move?.category !== 'Status') {
+				this.effectState.gotParried = true;
+				move.priority = -7;
+			}
+		 },
+	  },
+	  secondary: {}, // sheer force boosted
+	  target: "normal",
+	  type: "Fighting",
+	  contestType: "Clever",
+    },
+
 
 // all edited unchanged moves
 	stealthrock: {
