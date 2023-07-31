@@ -710,7 +710,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				if ((source.isAlly(parryHolder) || move.target === 'all') && move.priority > 0.1) {
 					move.parryActivated = true;
 					this.attrLastMove('[still]');
-					this.add('cant', target, 'Parry', 'Parry');
+					this.add('cant', target, move, move);
 					return false;
 				}
 			},
@@ -718,6 +718,42 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			if (move.parryActivated = true) {
 				 move.priority = 6;
 			}
+		  },
+	  },
+	  secondary: {}, // sheer force boosted
+	  target: "normal",
+	  type: "Fighting",
+	  contestType: "Clever",
+    },
+  parry: {
+	  accuracy: 100,
+	  basePower: 80,
+	  category: "Physical",
+	  shortDesc: "If the foe used a priority move, this move hits before that move and flinches the foe.",
+	  name: "Parry",
+	  pp: 10,
+	  priority: 0,
+	  flags: {contact: 1, protect: 1, mirror: 1},
+	  priorityChargeCallback(target) {
+			target.addVolatile('parry');
+			this.add('-message', `${pokemon.name}'s attack might get parried!`);
+	  },
+		onModifyMove(move, pokemon) {
+			move.secondaries = [];
+			if (this.effectState.gotParried = true) {
+				move.secondaries.push({
+					chance: 100,
+					volatileStatus: 'flinch',
+				});
+			}
+		},
+	  condition: {
+		duration: 1,
+		onModifyPriority(priority, pokemon, target, move) {
+			 if (move.priority > 0.1 && move.category !== 'Status') {
+				 this.effectState.gotParried = true;
+				 move.priority = -7;
+			 }
 		  },
 	  },
 	  secondary: {}, // sheer force boosted
