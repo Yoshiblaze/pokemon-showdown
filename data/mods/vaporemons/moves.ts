@@ -738,9 +738,11 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			}
 		 },
 		onBeforeMovePriority: 5,
-		onBeforeMove(attacker, defender, move) {
-			if (defender.lastMove.id === 'parry' && defender.moveThisTurnResult !== false) {
-            attacker.addVolatile('flinch');
+		onBeforeMove(pokemon, target, move) {
+			if (target.lastMove.id === 'parry' && target.moveThisTurnResult !== false && 
+				(!pokemon.hasAbility('innerfocus') || !pokemon.hasItem('covertcloak'))) {
+				this.add('cant', pokemon, move, move);
+				return false;
 			}
 		},
 	  },
