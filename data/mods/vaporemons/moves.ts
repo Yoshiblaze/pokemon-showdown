@@ -733,15 +733,17 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		 onStart(pokemon) {
 			this.effectState.gotParried = false;
 		 },
-		onModifyPriority(priority, source, target, move) {
+		 onModifyPriority(priority, source, target, move) {
 			if ((move?.priority > 0.1) && (move?.category !== 'Status')) {
-			 	this.add('-message', `${source.name}'s attack was parried!`);
 				this.effectState.gotParried = true;
-				move.priority = -7;
+				if (this.effectState.gotParried = true) {
+				 	this.add('-message', `${source.name}'s attack was parried!`);
+				}
+				return priority - 6;
 			}
 		 },
 	  },
-	  secondary: {}, // sheer force boosted
+	  secondary: null,
 	  target: "normal",
 	  type: "Fighting",
 	  contestType: "Clever",
