@@ -703,8 +703,8 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 	   priorityChargeCallback(pokemon) {
 			this.add('-message', `${pokemon.name} is attempting to parry!`);
 			this.actions.useMove("Parry Condition", pokemon);
-	   }, /*
-	  onModifyMove(move, pokemon, target) {
+	   }, 
+	   onModifyMove(move, pokemon, target) {
 		 move.secondaries = [];
 		 if (target.move.gotParried = true && target.volatiles['parrycondition']) {
 			 move.secondaries.push({
@@ -712,7 +712,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				 volatileStatus: 'flinch',
 			 });
 		 }
-	  }, */
+	  	}, 
 	   secondary: {}, // sheer force boosted
 	   target: "normal",
 	   type: "Fighting",
@@ -732,25 +732,32 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Imprison", target);
 		},
+		onHit(target) {
+			target.addVolatile('parryplaceholder');
+		},
 	   condition: {
 		 duration: 1,
 		 onModifyPriority(priority, source, target, move) {
 			if ((move?.priority > 0.1) && (move?.category !== 'Status')) {
-				move.gotParried = true;
-				if (move.gotParried = true) {
-				 	this.add('-message', `${source.name}'s attack was parried!`);
-				}
 				return priority - 6;
 			}
 		 },
+		onModifyMove(move, pokemon, target) {
+			if (['fakeout', 'extremespeed', 'feint', 'firstimpression', 'accelerock', 'aquajet', 'machpunch',
+				  'quickattack', 'bulletpunch', 'shadowsneak','iceshard', 'jetpunch', 'cuttingremark', 'chainlightning',
+				 	'suckerpunch', 'watershuriken', 'vacuumwave', 'grassyglide'].includes(move.id)) {
+				move.flags.parried = 1;
+			}
+		},
 		onBeforeMovePriority: 9,
 		onBeforeMove(pokemon, target, move) {
-			if (move.gotParried = true && (!pokemon.hasAbility('innerfocus') || !pokemon.hasItem('covertcloak'))) {
+			if (move.flags['parried']) {
 				this.add('cant', pokemon, move, move);
+				this.add('-message', `${pokemon.name}'s attack was parried!`);
 				return false;
 			}
 		},
-	  },
+	  },	
 	  secondary: null,
 	  target: "normal",
 	  type: "Fighting",
