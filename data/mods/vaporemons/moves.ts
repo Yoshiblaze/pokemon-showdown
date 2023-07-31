@@ -732,7 +732,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			if ((move?.priority > 0.1) && (move?.category !== 'Status')) {
 				return priority - 6;
 			}
-		 },
+		 }, /*
 		onBeforeMovePriority: 9,
 		onBeforeMove(pokemon, target, move) {
 			if (['fakeout', 'extremespeed', 'feint', 'firstimpression', 'accelerock', 'aquajet', 'machpunch',
@@ -750,6 +750,14 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				if (pokemon.hasAbility('steadfast')) {
 					this.boost({spe: 1}, pokemon);					
 				}
+			}
+		}, */
+		onBeforeMovePriority: 9,
+		onBeforeMove(pokemon, target, move) {
+			if (['fakeout', 'extremespeed', 'feint', 'firstimpression', 'accelerock', 'aquajet', 'machpunch',
+				  'quickattack', 'bulletpunch', 'shadowsneak','iceshard', 'jetpunch', 'cuttingremark', 'chainlightning',
+				 	'suckerpunch', 'watershuriken', 'vacuumwave', 'grassyglide'].includes(move.id)) {
+				pokemon.addVolatile('flinch');
 			}
 		},
 	  },	
