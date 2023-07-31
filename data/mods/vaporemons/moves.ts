@@ -724,7 +724,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			this.add('-anim', source, "Imprison", target);
 		},
 		onHit(target) {
-			target.addVolatile('parryplaceholder');
+			this.add('-message', `${target.name}'s priority attacks will get parried!`);
 		},
 	   condition: {
 		 duration: 1,
