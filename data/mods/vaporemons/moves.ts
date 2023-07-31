@@ -704,15 +704,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			this.add('-message', `${pokemon.name} is attempting to parry!`);
 			this.actions.useMove("Parry Condition", pokemon);
 	   }, 
-	   onModifyMove(move, pokemon, target) {
-		 move.secondaries = [];
-		 if (target.move.gotParried = true && target.volatiles['parrycondition']) {
-			 move.secondaries.push({
-				 chance: 100,
-				 volatileStatus: 'flinch',
-			 });
-		 }
-	  	}, 
 	   secondary: {}, // sheer force boosted
 	   target: "normal",
 	   type: "Fighting",
@@ -751,10 +742,19 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		},
 		onBeforeMovePriority: 9,
 		onBeforeMove(pokemon, target, move) {
-			if (move.flags['parried']) {
+			if (move.flags['parried'] &&
+				(!pokemon.hasAbility('innerfocus') ||
+				 !pokemon.hasAbility('shielddust') ||
+				 !pokemon.hasItem('covertcloak') || 
+				 !pokemon.hasAbility('sandveil') && !this.field.isWeather('sandstorm') ||
+				 !pokemon.hasAbility('sunblock') && !this.field.isWeather('sunnyday')  ||
+				 !pokemon.hasAbility('snowcloak') && !this.field.isWeather('snow'))) {
 				this.add('cant', pokemon, move, move);
 				this.add('-message', `${pokemon.name}'s attack was parried!`);
 				return false;
+				if (pokemon.hasAbility('steadfast')) {
+					this.boost({spe: 1}, pokemon);					
+				}
 			}
 		},
 	  },	
