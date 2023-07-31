@@ -735,7 +735,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		 },
 		onModifyPriority(priority, source, target, move) {
 			if ((move?.priority > 0.1) && (move?.category !== 'Status')) {
-			 	this.add('-message', `${pokemon.name}'s attack was parried!`);
+			 	this.add('-message', `${source.name}'s attack was parried!`);
 				this.effectState.gotParried = true;
 				move.priority = -7;
 			}
