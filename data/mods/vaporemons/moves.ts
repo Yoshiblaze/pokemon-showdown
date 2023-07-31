@@ -698,45 +698,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 	  flags: {contact: 1, protect: 1, mirror: 1},
 	  priorityChargeCallback(pokemon) {
 			pokemon.addVolatile('parry');
-			this.add('-message', `${pokemon.name} is attempting to parry!`);
-	  },
-	  condition: {
-			onFoeTryMove(target, source, move) {
-				const targetAllExceptions = ['perishsong', 'flowershield', 'rototiller'];
-				if (move.target === 'foeSide') {
-					return;
-				}
-				const parryHolder = this.effectState.target;
-				if ((source.isAlly(parryHolder) || move.target === 'all') && move.priority > 0.1) {
-					move.parryActivated = true;
-					this.attrLastMove('[still]');
-					this.add('cant', target, move, move);
-					return false;
-				}
-			},
-        onModifyPriority(priority, source, target, move) {
-			if (move.parryActivated = true) {
-				 move.priority = 6;
-			}
-		  },
-	  },
-	  secondary: {}, // sheer force boosted
-	  target: "normal",
-	  type: "Fighting",
-	  contestType: "Clever",
-    },
-  parry: {
-	  accuracy: 100,
-	  basePower: 80,
-	  category: "Physical",
-	  shortDesc: "If the foe used a priority move, this move hits before that move and flinches the foe.",
-	  name: "Parry",
-	  pp: 10,
-	  priority: 0,
-	  flags: {contact: 1, protect: 1, mirror: 1},
-	  priorityChargeCallback(target) {
-			target.addVolatile('parry');
-			this.add('-message', `${target.name}'s attack might get parried!`);
+			this.add('-message', `${pokemon.name}'s attack might get parried!`);
 	  },
 		onModifyMove(move, pokemon) {
 			move.secondaries = [];
