@@ -737,7 +737,9 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		onBeforeMove(pokemon, target, move) {
 			if (['fakeout', 'extremespeed', 'feint', 'firstimpression', 'accelerock', 'aquajet', 'machpunch',
 				  'quickattack', 'bulletpunch', 'shadowsneak','iceshard', 'jetpunch', 'cuttingremark', 'chainlightning',
-				 	'suckerpunch', 'watershuriken', 'vacuumwave', 'grassyglide'].includes(move.id) &&
+				 	'suckerpunch', 'watershuriken', 'vacuumwave', 'grassyglide'].includes(move.id) ||
+				 	(move.type === 'Flying' && pokemon.hp >= pokemon.maxhp / 2 && pokemon.hasAbility('galewings')) ||
+					(move.flags['heal'] && pokemon.hasAbility('triage'))) &&
 				(!pokemon.hasAbility('innerfocus') ||
 				 !pokemon.hasAbility('shielddust') ||
 				 !pokemon.hasItem('covertcloak') || 
