@@ -736,7 +736,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 	  flags: {contact: 1, protect: 1, mirror: 1},
 	  priorityChargeCallback(target) {
 			target.addVolatile('parry');
-			this.add('-message', `${pokemon.name}'s attack might get parried!`);
+			this.add('-message', `${target.name}'s attack might get parried!`);
 	  },
 		onModifyMove(move, pokemon) {
 			move.secondaries = [];
