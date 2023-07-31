@@ -703,7 +703,16 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 	   priorityChargeCallback(pokemon) {
 			this.add('-message', `${pokemon.name} is attempting to parry!`);
 			this.actions.useMove("Parry Condition", pokemon);
-	   },
+	   }, /*
+	  onModifyMove(move, pokemon, target) {
+		 move.secondaries = [];
+		 if (target.move.gotParried = true && target.volatiles['parrycondition']) {
+			 move.secondaries.push({
+				 chance: 100,
+				 volatileStatus: 'flinch',
+			 });
+		 }
+	  }, */
 	   secondary: {}, // sheer force boosted
 	   target: "normal",
 	   type: "Fighting",
@@ -725,22 +734,18 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		},
 	   condition: {
 		 duration: 1,
-		 onStart(pokemon) {
-			this.effectState.gotParried = false;
-		 },
 		 onModifyPriority(priority, source, target, move) {
 			if ((move?.priority > 0.1) && (move?.category !== 'Status')) {
-				this.effectState.gotParried = true;
-				if (this.effectState.gotParried = true) {
+				move.gotParried = true;
+				if (move.gotParried = true) {
 				 	this.add('-message', `${source.name}'s attack was parried!`);
 				}
 				return priority - 6;
 			}
 		 },
-		onBeforeMovePriority: 5,
+		onBeforeMovePriority: 9,
 		onBeforeMove(pokemon, target, move) {
-			if (target.lastMove.id === 'parry' && target.moveThisTurnResult !== false && 
-				(!pokemon.hasAbility('innerfocus') || !pokemon.hasItem('covertcloak'))) {
+			if (move.gotParried = true && (!pokemon.hasAbility('innerfocus') || !pokemon.hasItem('covertcloak'))) {
 				this.add('cant', pokemon, move, move);
 				return false;
 			}
