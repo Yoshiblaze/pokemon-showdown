@@ -697,6 +697,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 	  priority: 0,
 	  flags: {contact: 1, protect: 1, mirror: 1},
 	  priorityChargeCallback(pokemon) {
+			this.add('-message', `${pokemon.name} is attempting to parry!`);
 			this.actions.useMove("Parry Condition", pokemon);
 	  },
 	  onModifyMove(move, pokemon, target) {
@@ -730,11 +731,11 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 	   condition: {
 		 duration: 1,
 		 onStart(pokemon) {
-			 this.add('-message', `${pokemon.name}'s attack might get parried!`);
-			 this.effectState.gotParried = false;
+			this.effectState.gotParried = false;
 		 },
-		 onModifyPriority(priority, pokemon, target, move) {
-			if (move?.priority > 0.1 && move?.category !== 'Status') {
+		onModifyPriority(priority, source, target, move) {
+			if ((move?.priority > 0.1) && (move?.category !== 'Status')) {
+			 	this.add('-message', `${pokemon.name}'s attack was parried!`);
 				this.effectState.gotParried = true;
 				move.priority = -7;
 			}
