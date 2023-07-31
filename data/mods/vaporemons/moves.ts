@@ -733,16 +733,11 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				return priority - 6;
 			}
 		 },
-		onModifyMove(move, pokemon, target) {
-			if (['fakeout', 'extremespeed', 'feint', 'firstimpression', 'accelerock', 'aquajet', 'machpunch',
-				  'quickattack', 'bulletpunch', 'shadowsneak','iceshard', 'jetpunch', 'cuttingremark', 'chainlightning',
-				 	'suckerpunch', 'watershuriken', 'vacuumwave', 'grassyglide'].includes(move.id)) {
-				move.flags.parried = 1;
-			}
-		},
 		onBeforeMovePriority: 9,
 		onBeforeMove(pokemon, target, move) {
-			if (move.flags['parried'] &&
+			if (['fakeout', 'extremespeed', 'feint', 'firstimpression', 'accelerock', 'aquajet', 'machpunch',
+				  'quickattack', 'bulletpunch', 'shadowsneak','iceshard', 'jetpunch', 'cuttingremark', 'chainlightning',
+				 	'suckerpunch', 'watershuriken', 'vacuumwave', 'grassyglide'].includes(move.id) &&
 				(!pokemon.hasAbility('innerfocus') ||
 				 !pokemon.hasAbility('shielddust') ||
 				 !pokemon.hasItem('covertcloak') || 
