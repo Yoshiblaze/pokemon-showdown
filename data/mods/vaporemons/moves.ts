@@ -696,17 +696,27 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 	  pp: 10,
 	  priority: 0,
 	  flags: {contact: 1, protect: 1, mirror: 1},
-	  onModifyMove(priority, source, target, move) {
-			const action = this.queue.willMove(target);
-			const oppMove = action?.choice === 'move' ? action.move : null;
-			if (oppMove.priority > 0) {
-				 move.parryActivated = true;
+	  priorityChargeCallback(pokemon) {
+			pokemon.addVolatile('parry');
+	  },
+	  condition: {
+			onFoeTryMove(target, source, move) {
+				const targetAllExceptions = ['perishsong', 'flowershield', 'rototiller'];
+				if (move.target === 'foeSide') {
+					return;
+				}
+				const parryHolder = this.effectState.target;
+				if ((source.isAlly(parryHolder) || move.target === 'all') && move.priority > 0.1) {
+					move.parryActivated = true;
+					this.attrLastMove('[still]');
+					source.addVolatile('flinch');
+				}
+			},
+		  onModifyMove(move, source, target) {
+			if (move.parryActivated = true) {
 				 move.priority = 6;
 			}
-	  },
-	  onAfterMove(pokemon, target, move) {
-			if (!move.parryActivated) return;
-			target.addVolatile('flinch');
+		  },
 	  },
 	  secondary: {}, // sheer force boosted
 	  target: "normal",
