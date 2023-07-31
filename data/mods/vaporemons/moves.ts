@@ -688,31 +688,26 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Fire",
 	},
   parry: {
-	  accuracy: 100,
-	  basePower: 80,
-	  category: "Physical",
-	  shortDesc: "If the foe used a priority move, this move hits before that move and flinches the foe.",
-	  name: "Parry",
-	  pp: 10,
-	  priority: 0,
-	  flags: {contact: 1, protect: 1, mirror: 1},
-	  priorityChargeCallback(pokemon) {
+	   accuracy: 100,
+	   basePower: 80,
+	   category: "Physical",
+	   shortDesc: "If the foe used a priority move, this move hits before that move and flinches the foe.",
+	   name: "Parry",
+	   pp: 10,
+	   priority: 0,
+	   flags: {contact: 1, protect: 1, mirror: 1},
+		onPrepareHit(target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Feint", target);
+		},
+	   priorityChargeCallback(pokemon) {
 			this.add('-message', `${pokemon.name} is attempting to parry!`);
 			this.actions.useMove("Parry Condition", pokemon);
-	  },
-	  onModifyMove(move, pokemon, target) {
-		 move.secondaries = [];
-		 if (this.effectState.gotParried = true && target.volatiles['parrycondition']) {
-			 move.secondaries.push({
-				 chance: 100,
-				 volatileStatus: 'flinch',
-			 });
-		 }
-	  },
-	  secondary: {}, // sheer force boosted
-	  target: "normal",
-	  type: "Fighting",
-	  contestType: "Clever",
+	   },
+	   secondary: {}, // sheer force boosted
+	   target: "normal",
+	   type: "Fighting",
+	   contestType: "Clever",
     },
   parrycondition: {
 	   accuracy: true,
@@ -742,6 +737,12 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				return priority - 6;
 			}
 		 },
+		onBeforeMovePriority: 5,
+		onBeforeMove(attacker, defender, move) {
+			if (defender.lastMove.id === 'parry' && defender.moveThisTurnResult !== false) {
+            attacker.addVolatile('flinch');
+			}
+		},
 	  },
 	  secondary: null,
 	  target: "normal",
