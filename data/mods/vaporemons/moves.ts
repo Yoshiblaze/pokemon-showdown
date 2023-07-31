@@ -698,7 +698,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 	   flags: {contact: 1, protect: 1, mirror: 1},
 		onPrepareHit(target, source, move) {
 			this.attrLastMove('[still]');
-			this.add('-anim', source, "Feint", target);
+			this.add('-anim', source, "Mach Punch", target);
 		},
 	   priorityChargeCallback(pokemon) {
 			this.add('-message', `${pokemon.name} is attempting to parry!`);
