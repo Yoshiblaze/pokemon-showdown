@@ -698,6 +698,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 	  flags: {contact: 1, protect: 1, mirror: 1},
 	  priorityChargeCallback(pokemon) {
 			pokemon.addVolatile('parry');
+			this.add('-message', `${pokemon.name} is attempting to parry!`);
 	  },
 	  condition: {
 			onFoeTryMove(target, source, move) {
@@ -709,7 +710,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				if ((source.isAlly(parryHolder) || move.target === 'all') && move.priority > 0.1) {
 					move.parryActivated = true;
 					this.attrLastMove('[still]');
-					source.addVolatile('flinch');
+					target.addVolatile('flinch');
 				}
 			},
 		  onModifyMove(move, source, target) {
