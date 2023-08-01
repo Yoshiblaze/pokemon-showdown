@@ -290,7 +290,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 	cramorant: {
 		inherit: true,
 		baseStats: {hp: 80, atk: 55, def: 75, spa: 85, spd: 135, spe: 85},
-		abilities: {0: "Gulp Missile"},
+		abilities: {0: "Oblivious"},
 		gen: 3,
 	},
 	guzzlord: {
@@ -507,7 +507,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 	weezinggalar: {
 		inherit: true,
 		types: ["Water", "Poison"],
-		abilities: {0: "Levitate"},
+		abilities: {0: "Neutralizing Gas"},
 		gen: 3,
 	},
 	skrelp: {
@@ -762,7 +762,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 	delibird: {
 		inherit: true,
 		baseStats: {hp: 77, atk: 107, def: 66, spa: 106, spd: 66, spe: 103},
-		abilities: {0: "Vital Spirit", 1: "Hustle"},
+		abilities: {0: "Vital Spirit"},
 	},
 	ninjask: {
 		inherit: true,
