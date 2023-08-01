@@ -582,5 +582,6 @@ export const Scripts: ModdedBattleScriptsData = {
 		this.modData("Learnsets", "hariyama").learnset.swordsdance = ["9L1"];
 		this.modData("Learnsets", "ironjugulis").learnset.aurasphere = ["9L1"];
 		this.modData("Learnsets", "ironjugulis").learnset.roost = ["9L1"];
+    	// delete this.modData('Learnsets', 'rotomfan').learnset.airslash;
   },
 };
