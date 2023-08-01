@@ -437,6 +437,7 @@ export const Scripts: ModdedBattleScriptsData = {
 		this.modData('Learnsets', 'larvitar').learnset.chisel = ['9L1'];
 		this.modData('Learnsets', 'drednaw').learnset.chisel = ['9L1'];
 		this.modData('Learnsets', 'rockruff').learnset.chisel = ['9L1'];
+		this.modData('Learnsets', 'lycanrocdusk').learnset.chisel = ['9L1'];
 		this.modData('Learnsets', 'ironthorns').learnset.chisel = ['9L1'];
 		this.modData('Learnsets', 'carbink').learnset.chisel = ['9L1'];
 		this.modData('Learnsets', 'stonjourner').learnset.chisel = ['9L1'];
