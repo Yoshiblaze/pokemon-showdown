@@ -228,7 +228,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	sandforce: {
 		onBasePowerPriority: 21,
 		onBasePower(basePower, attacker, defender, move) {
-			if (this.field.isWeather('sandstorm') || pokemon.hasItem('sandclock')) {
+			if (this.field.isWeather('sandstorm') || attacker.hasItem('sandclock')) {
 				this.debug('Sand Force boost');
 				return this.chainModify([0x14CD, 0x1000]);
 			}
