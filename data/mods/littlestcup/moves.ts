@@ -26,7 +26,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
         this.add('-anim', source, "Wildbolt Storm", target);
       } else if (move.type === 'Fairy') {
         this.add('-anim', source, "Rock Polish", source);
-        this.add('-anim', source, "Misty Explosion", target);
+        this.add('-anim', source, "Springtide Storm", target);
       } else if (move.type === 'Flying') {
         this.add('-anim', source, "Rock Polish", source);
         this.add('-anim', source, "Aeroblast", target);
