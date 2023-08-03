@@ -54,6 +54,8 @@ export const Moves: {[k: string]: ModdedMoveData} = {
       } else if (move.type === 'Steel') {
         this.add('-anim', source, "Rock Polish", source);
         this.add('-anim', source, "Steel Beam", target);
+      } else if (move.type === 'Normal') {
+        this.add('-anim', source, "Tera Blast", target);
       }
     },
 	},
