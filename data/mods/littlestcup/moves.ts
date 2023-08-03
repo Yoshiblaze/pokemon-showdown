@@ -35,7 +35,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
         this.add('-anim', source, "Focus Blast", target);
       } else if (move.type === 'Ghost') {
         this.add('-anim', source, "Rock Polish", source);
-        this.add('-anim', source, "Polteageist", target);
+        this.add('-anim', source, "Poltergeist", target);
       } else if (move.type === 'Ground') {
         this.add('-anim', source, "Rock Polish", source);
         this.add('-anim', source, "Sandsear Storm", target);
