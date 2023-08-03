@@ -44,7 +44,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
         this.add('-anim', source, "Sheer Cold", target);
       } else if (move.type === 'Poison') {
         this.add('-anim', source, "Rock Polish", source);
-        this.add('-anim', source, "Sludge Bomb", target);
+        this.add('-anim', source, "Gunk Shot", target);
       } else if (move.type === 'Psychic') {
         this.add('-anim', source, "Rock Polish", source);
         this.add('-anim', source, "Psycho Boost", target);
