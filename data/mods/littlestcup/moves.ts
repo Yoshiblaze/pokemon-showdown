@@ -50,7 +50,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
         this.add('-anim', source, "Psycho Boost", target);
       } else if (move.type === 'Rock') {
         this.add('-anim', source, "Rock Polish", source);
-        this.add('-anim', source, "Power Gem", target);
+        this.add('-anim', source, "Ancient Power", target);
       } else if (move.type === 'Steel') {
         this.add('-anim', source, "Rock Polish", source);
         this.add('-anim', source, "Steel Beam", target);
