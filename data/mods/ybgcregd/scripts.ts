@@ -29,6 +29,7 @@ export const Scripts: ModdedBattleScriptsData = {
 		this.modData("Learnsets", "lurantis").learnset.knockoff = ["9L1"];
 		this.modData("Learnsets", "varoom").learnset.willowisp = ["9L1"];
 		this.modData("Learnsets", "varoom").learnset.highhorsepower = ["9L1"];
+		this.modData("Learnsets", "varoom").learnset.helpinghand = ["9L1"];
 		this.modData("Learnsets", "ironjugulis").learnset.swordsdance = ["9L1"];
 		this.modData("Learnsets", "ironjugulis").learnset.suckerpunch = ["9L1"];
 		this.modData("Learnsets", "ralts").learnset.fakeout = ["9L1"];
