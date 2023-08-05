@@ -193,6 +193,12 @@ export const Formats: FormatList = [
 		banlist: ['Sub-Legendary'],
 		unbanlist: ['Meowth-Galar', 'Wooper-Base', 'Quagsire', 'Perrserker', 'Charmander', 'Charmeleon', 'Charizard', 'Scorbunny', 'Raboot', 'Cinderace', 'Froakie', 'Frogadier', 'Greninja',],
    },
+	{
+		name: "[Gen 9] YBGC Regulation D",
+		mod: 'ybgcregd',
+		gameType: 'doubles',
+		ruleset: ['Flat Rules', '!! Adjust Level = 50', 'Min Source Gen = 9', 'VGC Timer', 'Open Team Sheets', 'Data Mod'],
+	},
   {		name: "[Gen 9] Multi Random Battle",
 
 		mod: 'gen9',
