@@ -98,22 +98,22 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		condition: {
 			onStart(target) {
 				this.add('-start', target, 'ability: Flock Rock');
-				this.add('-message', `${pokemon.name} is ready to rumble!`);
+				this.add('-message', `${target.name} is ready to rock!`);
 			},
 			onModifyAtkPriority: 5,
 			onModifyAtk(atk, pokemon) {
 				return this.chainModify(1.5);
 			},
-		  onModifyDefPriority: 6,
+		   onModifyDefPriority: 6,
 			onModifyDef(def, pokemon) {
 				return this.chainModify(1.5);
 			},
-  		onModifySpAPriority: 5,
-  		onModifySpA(spa, pokemon) {
+		   onModifySpAPriority: 5,
+		   onModifySpA(spa, pokemon) {
 				return this.chainModify(1.5);
-  		},
-		  onModifySpDPriority: 6,
-		  onModifySpD(spd, pokemon) {
+		   },
+		   onModifySpDPriority: 6,
+		   onModifySpD(spd, pokemon) {
 				return this.chainModify(1.5);
 			},
 			onModifySpe(spe, pokemon) {
