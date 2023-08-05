@@ -123,5 +123,21 @@ export const Scripts: ModdedBattleScriptsData = {
 		this.modData('Learnsets', 'growlithe').learnset.burnup = ['9L1'];
 		this.modData('Learnsets', 'growlithehisui').learnset.burnup = ['9L1'];
 		this.modData('Learnsets', 'scovillain').learnset.burnup = ['9L1'];
+		this.modData("Learnsets", "squawkabilly").learnset.assurance = ["9L1"];
+		this.modData("Learnsets", "squawkabilly").learnset.beatup = ["9L1"];
+		this.modData("Learnsets", "squawkabilly").learnset.darkpulse = ["9L1"];
+		this.modData("Learnsets", "squawkabilly").learnset.powertrip = ["9L1"];
+		this.modData("Learnsets", "squawkabilly").learnset.snarl = ["9L1"];
+		this.modData("Learnsets", "squawkabilly").learnset.throatchop = ["9L1"];
+		this.modData("Learnsets", "squawkabilly").learnset.brickbreak = ["9L1"];
+		this.modData("Learnsets", "squawkabilly").learnset.counter = ["9L1"];
+		this.modData("Learnsets", "squawkabilly").learnset.lowkick = ["9L1"];
+		this.modData("Learnsets", "squawkabilly").learnset.wideguard = ["9L1"];
+		this.modData("Learnsets", "squawkabilly").learnset.superpower = ["9L1"];
+		this.modData("Learnsets", "squawkabilly").learnset.revenge = ["9L1"];
+		this.modData("Learnsets", "squawkabilly").learnset.steelwing = ["9L1"];
+		this.modData("Learnsets", "squawkabilly").learnset.ironhead = ["9L1"];
+		this.modData("Learnsets", "squawkabilly").learnset.metalclaw = ["9L1"];
+		this.modData("Learnsets", "squawkabilly").learnset.steelbeam = ["9L1"];
   },
 };
