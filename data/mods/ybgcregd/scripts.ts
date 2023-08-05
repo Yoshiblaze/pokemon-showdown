@@ -139,5 +139,6 @@ export const Scripts: ModdedBattleScriptsData = {
 		this.modData("Learnsets", "squawkabilly").learnset.ironhead = ["9L1"];
 		this.modData("Learnsets", "squawkabilly").learnset.metalclaw = ["9L1"];
 		this.modData("Learnsets", "squawkabilly").learnset.steelbeam = ["9L1"];
+		this.modData("Learnsets", "beartic").learnset.freezedry = ["9L1"];
   },
 };
