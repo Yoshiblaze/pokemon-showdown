@@ -256,12 +256,12 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		zMove: {boost: {accuracy: 1}},
 		contestType: "Cool",
 	},
-	stormshards: {
+	splinters: {
 		accuracy: 100,
 		basePower: 80,
 		category: "Physical",
  		shortDesc: "30% chance to lower foe(s)'s Defense by 1 stage.", 
-		name: "Stormshards",
+		name: "Splinters",
 		pp: 10,
 		priority: 0,
 		flags: {contact: 1, protect: 1, mirror: 1},
