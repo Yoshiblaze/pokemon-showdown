@@ -4,7 +4,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onModifyMove(move) {
 			if (!move?.flags['slicing'] || move.target === 'self') return;
 			if (!move.secondaries) {
-				move.secondaries = [];
+				move.secondaries = []; 
 			}
 			move.secondaries.push({
 				chance: 30,
