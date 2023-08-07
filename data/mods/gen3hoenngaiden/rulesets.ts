@@ -37,6 +37,8 @@ export const Rulesets: {[k: string]: ModdedFormatData} = {
 			'Armaldo ++ Rapid Spin ++ Knock Off',
 			'Kabutops ++ Rapid Spin ++ Knock Off',
 			'Skarmory ++ Whirlwind ++ Drill Peck',
+			'Roselia ++ Sleep Powder ++ Spikes',
+			'Roserade ++ Sleep Powder ++ Spikes',
 		],
 	},
 	datamod: {
