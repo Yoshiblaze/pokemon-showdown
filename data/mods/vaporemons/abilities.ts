@@ -927,7 +927,9 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	},
 	battlespines: {
       onAfterMove(target, source, move) {
-			this.damage(source.baseMaxhp / 8, source, target);
+			if (target !== source && move.category !== 'Status') {
+				this.damage(source.baseMaxhp / 8, source, target);
+			}
 		},
 		name: "Battle Spines",
 		shortDesc: "This Pokemon’s attacks do an additional 1/8 of the target’s max HP in damage.",
