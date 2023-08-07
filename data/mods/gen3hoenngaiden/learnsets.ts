@@ -16,7 +16,7 @@ export const Learnsets: {[speciesid: string]: LearnsetData} = {
 			petaldance: ["3L49"],
 			poisonsting: ["3L9", "3S0"],
 			shadowball: ["3M"],
-			sleeppowder: ["3S0"],
+			sleeppowder: ["3L11", "3S0"],
 			spikes: ["3S1"],
 			sweetkiss: ["3E"],
 			sweetscent: ["3L37"],
@@ -512,6 +512,7 @@ export const Learnsets: {[speciesid: string]: LearnsetData} = {
 			thunderpunch: ["3L1"],
 			torment: ["3L1"],
 			toxic: ["3L1"],
+			swordsdance: ["3L1"],
 		},
 	},
 	geodudealola: {
@@ -1050,6 +1051,7 @@ export const Learnsets: {[speciesid: string]: LearnsetData} = {
 			thunderpunch: ["3L1"],
 			toxic: ["3L1"],
 			vinewhip: ["3L1"],
+			lowkick: ["3L1"],
 		},
 	},
 	cramorant: {
