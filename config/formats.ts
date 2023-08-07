@@ -81,13 +81,13 @@ export const Formats: FormatList = [
 				}
 			}
 		},
-	},
+	}, /*
 	{
 		name: "[Gen 9] Generation YB",
 		mod: 'generationyb',
 		ruleset: ['Standard', 'Terastal Clause', 'One Link Brace Limit'],
 		banlist: ['Uber', 'AG', 'Arena Trap', 'Moody', 'Sand Veil', 'Snow Cloak', 'King\'s Rock', 'Baton Pass', 'Power Construct', 'Clangorous Soul'],
-	},
+	}, */
 	{
 		name: "[Gen 3] Hoenn Gaiden",
 		desc: ["<b>Hoenn Gaiden</b>: A Gen 3 pet mod that aims to devamp Gen 4-8 Pokemon, moves and items into the Gen 3 mechanics."],
