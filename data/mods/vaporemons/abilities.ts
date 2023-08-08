@@ -927,7 +927,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	},
 	battlespines: {
       onAfterMove(target, source, move) {
-			if (target !== source && move.category !== 'Status') {
+			if (target !== source && move.category !== 'Status' && move.totalDamage) {
 				this.damage(source.baseMaxhp / 8, source, target);
 			}
 		},
