@@ -857,7 +857,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onSourceHit(target, source, move) {
 			if (!move || !target || source.types[1] || source.volatiles['outclass']) return;
 			let targetType = target.types[0]
-			if (target !== source && move.category !== 'Status' && !source.hasType(targetType) && source.addType(targetType)) {
+			if (target !== source && move.category !== 'Status' &&
+				 !source.hasType(targetType) && source.addType(targetType) && targetType !== '???') {
 					target.setType(target.getTypes(true).map(type => type === targetType ? "???" : type));
 					this.add('-start', target, 'typechange', target.types.join('/'));
 					this.add('-start', source, 'typeadd', targetType, '[from] ability: Outclass');
