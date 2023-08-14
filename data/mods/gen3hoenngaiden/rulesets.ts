@@ -34,11 +34,10 @@ export const Rulesets: {[k: string]: ModdedFormatData} = {
 			'Hoenn Gaiden Mod', 'Deoxys Camouflage Clause', 'Baton Pass Mod',
 		],
 		banlist: [
-			'Armaldo ++ Rapid Spin ++ Knock Off',
-			'Kabutops ++ Rapid Spin ++ Knock Off',
-			'Skarmory ++ Whirlwind ++ Drill Peck',
-			'Roselia ++ Sleep Powder ++ Spikes',
-			'Roserade ++ Sleep Powder ++ Spikes',
+			'Armaldo + Rapid Spin + Knock Off',
+			'Kabutops + Rapid Spin + Knock Off',
+			'Skarmory + Whirlwind + Drill Peck',
+			'Weavile + Calm Mind',
 		],
 	},
 	datamod: {
