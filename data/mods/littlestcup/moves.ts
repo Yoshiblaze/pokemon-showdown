@@ -2,7 +2,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 	terablast: {
 		inherit: true,
 		onPrepareHit(target, source, move) {
-			this.attrLastMove('[still]');
+			this.attrLastMove('[still]'); 
       if (move.type === 'Fire') {
         this.add('-anim', source, "Rock Polish", source);
         this.add('-anim', source, "Flamethrower", target);
