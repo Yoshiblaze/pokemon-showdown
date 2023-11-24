@@ -3,7 +3,7 @@ export const Scripts: ModdedBattleScriptsData = {
 	inherit: 'gen6',
 	pokemon: {
 		// for neutralizing gas
-		ignoringAbility() {
+		ignoringAbility() { 
 			if (this.battle.gen >= 5 && !this.isActive) return true;
 			if (this.getAbility().isPermanent) return false;
 			if (this.volatiles['gastroacid']) return true;
