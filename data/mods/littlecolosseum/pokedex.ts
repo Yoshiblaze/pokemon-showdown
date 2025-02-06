@@ -91,4 +91,9 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		inherit: true,
 		abilities: {0: "Thick Fat", 1: "Sheer Force", H: "Sliding Whale"},
 	},
+	eevee: {
+		inherit: true,
+		baseStats: {hp: 60, atk: 55, def: 50, spa: 45, spd: 65, spe: 55},
+		abilities: {0: "Run Away", 1: "Supreme Survivor", H: "Anticipation"},
+	},
 };
