@@ -349,6 +349,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 	{
 		name: "[Gen 9] Bad 'n Boosted",
 		desc: `A Gen 9 Ubers solomod where all base stats of 70 and lower are doubled.`,
+		searchShow: false,
 		ruleset: ['Standard', 'Bad \'n Boosted Mod'],
 		banlist: ['AG', 'Cyclizar', 'Espathra', 'Polteageist', 'Huge Power', 'Moody', 'Pure Power', 'Shadow Tag', 'Eviolite', 'King\'s Rock', 'Razor Fang', 'Baton Pass', 'Last Respects'],
 		onBegin() {
