@@ -35,7 +35,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		},
 		onImmunity(type, pokemon) {
 			if (this.dex.types.isName(type)) {
-				this.heal(target.baseMaxhp * 0.18);
+				this.heal(pokemon.baseMaxhp * 0.18);
 			}
 		},
 		flags: {},
@@ -57,7 +57,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 					activated = true;
 				}
 				target.addVolatile('asymmetry');
-				const createArray = n => Array.from({ length: n }, (_, i) => i);
+				const createArray = x => Array.from({ length: x }, (_, i) => i);
 				const pokemonArray = createArray(pokemon.moves.length);
 				const targetArray = createArray(target.moves.length);
 
@@ -138,14 +138,14 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 			onBeforeMove(pokemon, target, move) {
 				if (pokemon.moveSlots.filter(m => m.id === move.id).length === 0) {
 					const newMove = this.dex.moves.get(move);
-					this.actions.useMove(newMove, pokemon, target);
+					this.actions.useMove(newMove, pokemon);
 					return null;
 				}
 			},
 		},
 		flags: {},
 		name: "Asymmetry",
-		shortDesc: "On switchin, this Pokemon randomly swaps two of its moves with the opponent's.",
+		shortDesc: "On switch-in, this Pokemon randomly swaps two of its moves with the opponent's.",
 	},
 	backatya: {
 		onDamagingHit(damage, target, source, move) {
@@ -171,23 +171,23 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 				this.effectState.badpacing++;
 			},
 			onModifyAtkPriority: 5,
-			onModifyAtk(atk, attacker, defender, move) {
+			onModifyAtk(atk, pokemon) {
 				return this.chainModify(1 - 0.05 * this.effectState.badpacing);
 			},
 			onModifyDefPriority: 5,
-			onModifyDef(def, attacker, defender, move) {
+			onModifyDef(def, pokemon) {
 				return this.chainModify(1 - 0.05 * this.effectState.badpacing);
 			},
 			onModifySpAPriority: 5,
-			onModifySpA(atk, attacker, defender, move) {
+			onModifySpA(spa, pokemon) {
 				return this.chainModify(1 - 0.05 * this.effectState.badpacing);
 			},
 			onModifySpDPriority: 5,
-			onModifySpD(spd, attacker, defender, move) {
+			onModifySpD(spd, pokemon) {
 				return this.chainModify(1 - 0.05 * this.effectState.badpacing);
 			},
 			onModifySpePriority: 5,
-			onModifySpe(spe, attacker, defender, move) {
+			onModifySpe(spe, pokemon) {
 				return this.chainModify(1 - 0.05 * this.effectState.badpacing);
 			},
 		},
@@ -214,7 +214,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 			if (pokemon.adjacentFoes().length === 0) return;
 			const target = this.sample(pokemon.adjacentFoes());
 			const branchpoke = this.dex.getActiveMove('branchpoke');
-			this.actions.useMove(branchpoke, pokemon, target);
+			this.actions.useMove(branchpoke, pokemon);
 		},
 		flags: {},
 		name: "big stick",
@@ -229,7 +229,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 				}
 				pokemon.addVolatile('bloodsucking');
 				const leechlife = this.dex.getActiveMove('leechlife');
-				this.actions.useMove(leechlife, pokemon, target);
+				this.actions.useMove(leechlife, pokemon);
 			}
 		},
 		flags: {},
@@ -429,7 +429,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 	},
 	drawfour: {
 		shortDesc: "After knocking out target, if user knows less than 12 moves, it learns target's moves.",
-		onModifyDamage(damage, source, target, move) {
+		onDamage(damage, source, target, effect) {
 			if (damage >= target.hp) {
 				for (const moveSlot of target.moveSlots) {
 					if (moveSlot === null) return;
@@ -508,7 +508,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		onDamagingHitOrder: 1,
 		onDamagingHit(damage, target, source, move) {
 			const poisongas = this.dex.getActiveMove('poisongas');
-			this.actions.useMove(poisongas, target, source);
+			this.actions.useMove(poisongas, target);
 		},
 		flags: {},
 		name: "Fumigation",
