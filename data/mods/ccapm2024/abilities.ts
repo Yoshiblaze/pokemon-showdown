@@ -57,7 +57,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 					activated = true;
 				}
 				target.addVolatile('asymmetry');
-				const createArray = (n) => Array.from({ length: n }, _, i => i);
+				const createArray = n => Array.from({ length: n }, (_, i) => i);
 				const pokemonArray = createArray(pokemon.moves.length);
 				const targetArray = createArray(target.moves.length);
 
@@ -320,8 +320,8 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		onResidual(pokemon) {
 			this.add('-ability', pokemon, 'ability: Color Wheel');
 			const types = ['Bug', 'Dark', 'Dragon', 'Electric', 'Fairy', 'Fighting',
-								'Fire', 'Flying', 'Ghost', 'Grass', 'Ground', 'Ice',
-								'Normal', 'Poison', 'Psychic', 'Rock', 'Steel', 'Water'];
+				'Fire', 'Flying', 'Ghost', 'Grass', 'Ground', 'Ice',
+				'Normal', 'Poison', 'Psychic', 'Rock', 'Steel', 'Water'];
 			const newType1 = types[(types.indexOf(pokemon.types[0]) + 1) % 18];
 			let newTypes = [newType1];
 			if (pokemon.types.length > 1) {
@@ -727,7 +727,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 			if (target !== source && move.category !== 'Status' &&
 				 !source.hasType(targetType) && targetType !== '???' &&
 				 !(source.volatiles['outclass'] && !source.side.removeFishingTokens(1))) {
-					source.setType([source.types[0]]);
+				source.setType([source.types[0]]);
 				if (source.addType(targetType)) {
 					target.setType(target.getTypes(true).map(type => type === targetType ? "???" : type));
 					this.add('-start', target, 'typechange', target.types.join('/'));
@@ -743,7 +743,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		flags: {},
 		name: "Outclass",
 		shortDesc: "Fishing token or first contact: steals target primary type and replaces its own secondary type.",
-    },
+	},
 	peckingorder: {
 		name: "Pecking Order",
 		shortDesc: "On switch-in, this Pokemon lowers the Defense of adjacent opponents by 1 stage.",
@@ -765,15 +765,15 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 	},
 	polychrome: {
 		onBasePower(basePower, pokemon, target, move) {
-			if(!pokemon.hasType(move.type)) return this.chainModify(1.25);
+			if (!pokemon.hasType(move.type)) return this.chainModify(1.25);
 		},
 		name: "Polychrome",
 		shortDesc: "This Pokemon's non-STAB moves have 1.25x power.",
 	},
 	precognition: {
 		onBeforeTurn(pokemon) {
-			if (pokemon.adjacentFoes().length == 0) return;
-			let target = this.sample(pokemon.adjacentFoes());
+			if (pokemon.adjacentFoes().length === 0) return;
+			const target = this.sample(pokemon.adjacentFoes());
 			const targetAction = this.queue.willMove(target);
 			if (!targetAction) return;
 			const pokemonAction = this.queue.willMove(pokemon);
@@ -787,12 +787,12 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		},
 		flags: {},
 		name: "Precognition",
-		shortDesc: "If a foe selects the same type move as the user, the user uses Substitute at the beginning of the turn."
+		shortDesc: "If a foe selects the same type move as the user, the user uses Substitute at the beginning of the turn.",
 	},
 	preeminence: {
 		onModifyPriority(priority, pokemon, target, move) {
 			const basePowerAfterMultiplier = this.modify(move.basePower, this.event.modifier);
-			this.debug('Base Power: ' + basePowerAfterMultiplier);
+			this.debug('Base Power: ' basePowerAfterMultiplier);
 			if (basePowerAfterMultiplier <= 60) {
 				this.debug('Preeminence boost');
 				return priority + 1;
@@ -812,7 +812,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 			duration: 2,
 			onBasePower(basePower, attacker, defender, move) {
 				return this.chainModify(2);
-			}
+			},
 		},
 		name: "Preparation",
 		shortDesc: "Deals 2x damage the turn after using a status move.",
@@ -832,8 +832,8 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		onResidualOrder: 28,
 		onResidualSubOrder: 2,
 		onResidual(pokemon) {
-			if (pokemon.adjacentFoes().length == 0) return;
-			let target = this.sample(pokemon.adjacentFoes());
+			if (pokemon.adjacentFoes().length === 0) return;
+			const target = this.sample(pokemon.adjacentFoes());
 			if (target.volatiles['substitute']) this.damage(target.baseMaxhp / 8, target, pokemon);
 		},
 		onDamagingHitOrder: 1,
@@ -862,7 +862,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 				return this.chainModify(0.7);
 			}
 		},
-		flags: {breakable: 1},
+		flags: { breakable: 1 },
 		name: "Quick Thinking",
 		shortDesc: "This Pokemon deals 1.3x damage when moving first and takes 0.7x damage when moving last.",
 	},
@@ -883,15 +883,15 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		},
 		name: "Royal Guard",
 		shortDesc: "On switchin, this Pokemon uses Substitute. Once per battle.",
-    },
+	},
 	sealedoff: {
 		onStart(pokemon) {
 			this.add('-activate', pokemon, 'ability: Sealed Off');
 			this.actions.useMove("imprison", pokemon);
 		},
-        name: "Sealed Off",
-        shortDesc: "On switchin, this Pokemon uses Imprison.",
-    },
+		name: "Sealed Off",
+		shortDesc: "On switchin, this Pokemon uses Imprison.",
+	},
 	searingremark: {
 		onSourceDamagingHit(damage, target, source, move) {
 			if (move.flags['sound'] && this.randomChance(3, 10)) {
@@ -917,7 +917,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		},
 		flags: {},
 		name: "Snowhazard",
-		shortDesc: "When this Pokemon is hit by an attack, the effect of Snow begins."
+		shortDesc: "When this Pokemon is hit by an attack, the effect of Snow begins.",
 	},
 	spinthewheel: {
 		onResidual(pokemon) {
@@ -926,7 +926,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		},
 		flags: {},
 		name: "Spin the Wheel",
-		shortDesc: "This Pokemon uses Metronome at the end of each turn."
+		shortDesc: "This Pokemon uses Metronome at the end of each turn.",
 	},
 	statleeching: {
 		onFoeAfterBoost(boost, target, source, effect) {
@@ -935,25 +935,26 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 			const boosts: Partial<BoostsTable> = {};
 			let i: BoostID;
 			for (i in boost) {
-				boosts[i] = -boost[i];
+				boost[i]! *= -1;
+				boosts[i] = boost[i];
 			}
 			if (Object.keys(boosts).length < 1) return;
 			this.boost(boosts, pokemon);
 		},
 		flags: {},
 		name: "Stat Leeching",
-		shortDesc: "This Pokemon gains the opposite stat change as opposing Pokemon."
+		shortDesc: "This Pokemon gains the opposite stat change as opposing Pokemon.",
 	},
 	strongbreeze: {
-        onStart(pokemon) {
+		onStart(pokemon) {
 			if (pokemon.strongbreeze) return;
 			pokemon.strongbreeze = true;
 			this.add('-activate', pokemon, 'ability: Strong Breeze');
-            pokemon.side.addSideCondition('tailwind');
-        },
-        name: "Strong Breeze",
-        shortDesc: "On switchin, this Pokemon sets Tailwind. Once per battle.",
-    },
+			pokemon.side.addSideCondition('tailwind');
+		},
+		name: "Strong Breeze",
+		shortDesc: "On switchin, this Pokemon sets Tailwind. Once per battle.",
+	},
 	superrod: {
 		onAfterMove(target, source, move) {
 			if (move.type === 'Water' && target.side.fishingTokens > 0) {
@@ -966,10 +967,10 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 	treasurecraze: {
 		onAfterUseItem(item, pokemon) {
 			if (pokemon !== this.effectState.target) return;
-			this.boost({atk: 2}, pokemon, pokemon, null, false, true);
+			this.boost({ atk: 2 }, pokemon, pokemon, null, false, true);
 		},
 		onTakeItem(item, pokemon) {
-			this.boost({atk: 2}, pokemon, pokemon, null, false, true);
+			this.boost({ atk: 2 }, pokemon, pokemon, null, false, true);
 		},
 		flags: {},
 		name: "Treasure Craze",
