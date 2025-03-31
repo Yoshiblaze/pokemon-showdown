@@ -1,17 +1,5 @@
-export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
-	gen: 9,
-	teambuilderConfig: {
-		// for micrometas to only show custom tiers
-		excludeStandardTiers: true,
-		// only to specify the order of custom tiers
-		customTiers: ['CCAPM2024'],
-	},	
-	
-	init() {
-		
-	},
-	battle: {
-	},
+export const Scripts: ModdedBattleScriptsData = {
+	gen: 9,	
 	actions: {
 		secondaries(targets: SpreadMoveTargets, source: Pokemon, move: ActiveMove, moveData: ActiveMove, isSelf?: boolean) {
 			if (!moveData.secondaries) return;
@@ -117,8 +105,5 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 			this.battle.hint(`They now have ${this.fishingTokens} tokens.`);
 			return true;
 		},
-	},
-	pokemon: {
-		
 	},
 };
