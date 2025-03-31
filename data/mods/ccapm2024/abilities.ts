@@ -725,8 +725,8 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 			let sourceSecondaryType = '???';
 			if (source.types[1]) sourceSecondaryType = source.types[1];
 			if (target !== source && move.category !== 'Status' &&
-				 !source.hasType(targetType) && targetType !== '???' &&
-				 !(source.volatiles['outclass'] && !source.side.removeFishingTokens(1))) {
+				!source.hasType(targetType) && targetType !== '???' &&
+				!(source.volatiles['outclass'] && !source.side.removeFishingTokens(1))) {
 				source.setType([source.types[0]]);
 				if (source.addType(targetType)) {
 					target.setType(target.getTypes(true).map(type => type === targetType ? "???" : type));
