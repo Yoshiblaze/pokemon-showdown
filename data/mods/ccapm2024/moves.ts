@@ -10,7 +10,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		},
 	},
 
-	//fake move
+	// fake move
 	medic: {
 		accuracy: true,
 		basePower: 0,
@@ -18,7 +18,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		name: "medic",
 		pp: 20,
 		priority: 0,
-		flags: {reflectable: 1, nonsky: 1, metronome: 1, mustpressure: 1, nosketch: 1},
+		flags: { reflectable: 1, nonsky: 1, metronome: 1, mustpressure: 1, nosketch: 1 },
 		sideCondition: 'medic',
 		condition: {
 			// this is a side condition
@@ -27,15 +27,15 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 			},
 			onEntryHazard(pokemon) {
 				this.heal(pokemon.maxhp / 6);
-				if(pokemon.status) pokemon.cureStatus();
+				if (pokemon.status) pokemon.cureStatus();
 				pokemon.side.removeSideCondition('medic');
-				this.add('-sideend', pokemon.side, 'move: medic', '[of] ' + pokemon, '[silent]');
+				this.add('-sideend', pokemon.side, 'move: Medic', '[silent]');
 			},
 		},
 		secondary: null,
 		target: "allySide",
 		type: "Normal",
-		zMove: {boost: {def: 1}},
+		zMove: { boost: { def: 1 } },
 		contestType: "Clever",
 	},
 };
