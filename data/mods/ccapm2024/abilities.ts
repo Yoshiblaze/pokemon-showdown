@@ -792,7 +792,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 	preeminence: {
 		onModifyPriority(priority, pokemon, target, move) {
 			const basePowerAfterMultiplier = this.modify(move.basePower, this.event.modifier);
-			this.debug('Base Power: ' basePowerAfterMultiplier);
+			this.debug(`Base Power: ${basePowerAfterMultiplier}`);
 			if (basePowerAfterMultiplier <= 60) {
 				this.debug('Preeminence boost');
 				return priority + 1;
