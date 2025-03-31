@@ -22,7 +22,7 @@ export function getName(name: string): string {
 	const group = usergroups[userid] || ' ';
 	return group + name;
 }
-*/ 
+*/
 
 export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTable = {
 	absorber: {
@@ -57,22 +57,22 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 					activated = true;
 				}
 				target.addVolatile('asymmetry');
-				const createArray = (n) => Array.from({ length: n }, (_, i) => i);
+				const createArray = (n) => Array.from({ length: n }, _, i => i);
 				const pokemonArray = createArray(pokemon.moves.length);
 				const targetArray = createArray(target.moves.length);
-				
+
 				const pickNum1 = this.sample(pokemonArray);
 				pokemonArray.splice(pokemonArray.indexOf(pickNum1), 1);
 				let pickNum2;
 				if (pokemonArray.length === 0) pickNum2 = -1;
 				else pickNum2 = this.sample(pokemonArray);
-				
+
 				const pickNum3 = this.sample(targetArray);
 				targetArray.splice(targetArray.indexOf(pickNum3), 1);
 				let pickNum4;
 				if (targetArray.length === 0) pickNum4 = -1;
 				else pickNum4 = this.sample(targetArray);
-				
+
 				const pokemonMove1 = this.dex.moves.get(pokemon.moves[pickNum1]);
 				const realPokemonMove1 = {
 					move: pokemonMove1.name,
@@ -94,13 +94,13 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 					disabled: false,
 					used: false,
 					virtual: true,
-				};				
-				
+				};
+
 				pokemon.moveSlots[pickNum1] = realTargetMove1;
 				pokemon.baseMoveSlots[pickNum1] = realTargetMove1;
 				target.moveSlots[pickNum3] = realPokemonMove1;
 				target.baseMoveSlots[pickNum3] = realPokemonMove1;
-				
+
 				if (pickNum2 === -1 || pickNum4 === -1) return;
 				const pokemonMove2 = this.dex.moves.get(pokemon.moves[pickNum2]);
 				const realPokemonMove2 = {
@@ -124,7 +124,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 					used: false,
 					virtual: true,
 				};
-				
+
 				pokemon.moveSlots[pickNum2] = realTargetMove2;
 				pokemon.baseMoveSlots[pickNum2] = realTargetMove2;
 				target.moveSlots[pickNum4] = realPokemonMove2;
@@ -168,7 +168,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 				this.effectState.badpacing = 1;
 			},
 			onRestart() {
-				this.effectState.badpacing ++;
+				this.effectState.badpacing++;
 			},
 			onModifyAtkPriority: 5,
 			onModifyAtk(atk, attacker, defender, move) {
@@ -211,8 +211,8 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 	},
 	bigstick: {
 		onResidual(pokemon) {
-			if(pokemon.adjacentFoes().length == 0) return;
-			let target = this.sample(pokemon.adjacentFoes());
+			if (pokemon.adjacentFoes().length === 0) return;
+			const target = this.sample(pokemon.adjacentFoes());
 			const branchpoke = this.dex.getActiveMove('branchpoke');
 			this.actions.useMove(branchpoke, pokemon, target);
 		},
@@ -320,8 +320,8 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		onResidual(pokemon) {
 			this.add('-ability', pokemon, 'ability: Color Wheel');
 			const types = ['Bug', 'Dark', 'Dragon', 'Electric', 'Fairy', 'Fighting',
-						   'Fire', 'Flying', 'Ghost', 'Grass', 'Ground', 'Ice', 
-						   'Normal', 'Poison', 'Psychic', 'Rock', 'Steel', 'Water'];
+								'Fire', 'Flying', 'Ghost', 'Grass', 'Ground', 'Ice',
+								'Normal', 'Poison', 'Psychic', 'Rock', 'Steel', 'Water'];
 			const newType1 = types[(types.indexOf(pokemon.types[0]) + 1) % 18];
 			let newTypes = [newType1];
 			if (pokemon.types.length > 1) {
@@ -356,7 +356,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		shortDesc: "This Pokemon's non-volatile statuses transfer to Pokemon making contact with it.",
 	},
 	countermeasures: {
-		//coded in scripts/actions/secondaries
+		// coded in scripts/actions/secondaries
 		flags: {},
 		name: "Countermeasures",
 		shortDesc: "When an attacker's secondary activates, it loses HP equal to 100 - secondary chance.",
@@ -387,7 +387,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 	},
 	diceroller: {
 		onSourceDamagingHit(damage, target, source, move) {
-			if(!move.flags['bullet']) return;
+			if (!move.flags['bullet']) return;
 			const stats: BoostID[] = [];
 			let stat: BoostID;
 			for (stat in target.boosts) {
@@ -455,24 +455,24 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 	},
 	electromagneticmanipulation: {
 		onUpdate(pokemon) {
-			if (pokemon.adjacentFoes().length == 0) return;
-			let target = this.sample(pokemon.adjacentFoes());
+			if (pokemon.adjacentFoes().length === 0) return;
+			const target = this.sample(pokemon.adjacentFoes());
 			if (!target || target.types[0] === 'Electric') return;
 			target.addVolatile('electromagneticmanipulation');
 		},
 		condition: {
 			onStart(pokemon) {
-				let types = pokemon.types.length === 2 ? ['Electric', pokemon.types[1]] : ['Electric'];
+				const types = pokemon.types.length === 2 ? ['Electric', pokemon.types[1]] : ['Electric'];
 				pokemon.setType(types.join('/'));
 				this.add('-start', pokemon, 'typechange', types.join('/'));
 			},
 			onUpdate(pokemon) {
-				if (pokemon.adjacentFoes().length == 0) pokemon.removeVolatile('electromagneticmanipulation');
-				let target = this.sample(pokemon.adjacentFoes());
-				if (!target || !target.hasAbility('electromagneticmanipulation')) pokemon.removeVolatile('electromagneticmanipulation');
+				if (pokemon.adjacentFoes().length === 0) pokemon.removeVolatile('electromagneticmanipulation');
+				const target = this.sample(pokemon.adjacentFoes());
+				if (!target.hasAbility('electromagneticmanipulation')) pokemon.removeVolatile('electromagneticmanipulation');
 			},
 			onEnd(pokemon) {
-				let types = pokemon.baseSpecies.types;
+				const types = pokemon.baseSpecies.types;
 				console.log(types);
 				pokemon.setType(types);
 				this.add('-start', pokemon, 'typechange', types.join('/'));
@@ -529,7 +529,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		onResidualOrder: 28,
 		onResidualSubOrder: 2,
 		onResidual(pokemon) {
-			if(pokemon.status === 'slp') this.boost({def: 1, spd: 1});
+			if (pokemon.status === 'slp') this.boost({ def: 1, spd: 1 });
 		},
 		flags: {},
 		name: "Hibernation",
@@ -544,16 +544,6 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		shortDesc: "On switchin, this Pokemon's side gains a Fishing Token.",
 	},
 	magicmissile: {
-		/*
-		Need to test:
-		- any Berry
-		- Toxic Orb, Flame Orb or Light Ball (just one they're the same code)
-		- White Herb
-		- Mental Herb
-		- um, I guess making sure Razor Claw or Razor Fang (just one they're the same code) doesn't immediately crash,
-		but it would be basically impossible for them to cause a flinch in a singles context
-		(how does this behave with Instruct? maybe you could test with that if you're doing the doubles format Aquatic mentioned)
-		*/
 		name: "Magic Missile",
 		shortDesc: "Magician + when damaged, fling item for 25% max HP.",
 		onSourceHit(target, source, move) {
@@ -566,7 +556,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 					target.item = yourItem.id; // bypass setItem so we don't break choicelock or anything
 					return;
 				}
-				this.add('-item', source, yourItem, '[from] ability: Magic Missile', '[of] ' + target);
+				this.add('-item', source, yourItem, '[from] ability: Magic Missile', target);
 			}
 		},
 		onDamagingHit(damage, target, source, move) {
@@ -612,9 +602,9 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 						this.add('-clearnegativeboost', source, '[silent]');
 					}
 				} else {
-					if (item.fling && item.fling.status) {
+					if (item.fling.status) {
 						source.trySetStatus(item.fling.status, target);
-					} else if (item.fling && item.fling.volatileStatus) {
+					} else if (item.fling.volatileStatus) {
 						source.addVolatile(item.fling.volatileStatus, target);
 					}
 				}
@@ -639,9 +629,9 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		},
 		onAfterMove(pokemon, source, move) {
 			if (move.category === 'Status') {
-				if (pokemon.adjacentFoes().length == 0) return;
-				let target = this.sample(pokemon.adjacentFoes());
-				this.boost({spd: -1}, target, pokemon, null, true);
+				if (pokemon.adjacentFoes().length === 0) return;
+				const target = this.sample(pokemon.adjacentFoes());
+				this.boost({ spd: -1 }, target, pokemon, null, true);
 			}
 		},
 		flags: {},
@@ -703,15 +693,15 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 				return this.chainModify(0.5);
 			}
 		},
-		flags: {breakable: 1},
+		flags: { breakable: 1 },
 		name: "Night Light",
 		shortDesc: "This Pokemon takes halved damage from Dark and Ghost-type moves.",
 	},
-	nightmarch: {
+	nightmarch: { /* try later
 		onBasePower(basePower, pokemon, target, move) {
-			const allies = pokemon.side.pokemon.filter(p => p != pokemon && p.set.moves.toString().indexOf(move) != -1);
+			const allies = pokemon.side.pokemon.filter(p => p !== pokemon && p.set.moves.toString().indexOf(move) !== -1);
 			return basePower += 20 * allies.length;
-		},
+		}, */
 		name: "Night March",
 		shortDesc: "This Pokemon's attacks gain +20 power for each ally that also has that move.",
 	},
@@ -724,37 +714,35 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 				return null;
 			}
 		},
-		flags: {breakable: 1},
+		flags: { breakable: 1 },
 		name: "Nocturnal",
 		shortDesc: "This Pokemon heals 1/4 of its max HP when hit by Dark moves; Dark immunity.",
 	},
 	outclass: {
-        onSourceHit(target, source, move) {
-            if (!move || !target || target.hasItem('terashard')) return;
-            let targetType = target.types[0];
-            let sourceSecondaryType = '???'
-            if (source.types[1]) sourceSecondaryType = source.types[1];
-            if (target !== source && move.category !== 'Status' &&
-                 !source.hasType(targetType) && targetType !== '???' &&
-                 !(source.volatiles['outclass'] && !source.side.removeFishingTokens(1))) {
-                    source.setType([source.types[0]]);
-                    if (source.addType(targetType)) {
-                        target.setType(target.getTypes(true).map(type => type === targetType ? "???" : type));
-                        this.add('-start', target, 'typechange', target.types.join('/'));
-                        this.add('-start', source, 'typeadd', targetType, '[from] ability: Outclass');
-                        source.addVolatile('outclass');
-                    }
-                    else {
-                        this.debug('Failed to take target type.');
-                        if (sourceSecondaryType !== '???') source.setType([source.types[0], sourceSecondaryType]);
-                    }
-                }
-        },
-        condition: {},
-        flags: {},
-        name: "Outclass",
-        shortDesc: "Fishing token or first contact: steals target primary type and replaces its own secondary type.",
-        rating: 4,
+		onSourceHit(target, source, move) {
+			if (!move || !target) return;
+			const targetType = target.types[0];
+			let sourceSecondaryType = '???';
+			if (source.types[1]) sourceSecondaryType = source.types[1];
+			if (target !== source && move.category !== 'Status' &&
+				 !source.hasType(targetType) && targetType !== '???' &&
+				 !(source.volatiles['outclass'] && !source.side.removeFishingTokens(1))) {
+					source.setType([source.types[0]]);
+				if (source.addType(targetType)) {
+					target.setType(target.getTypes(true).map(type => type === targetType ? "???" : type));
+					this.add('-start', target, 'typechange', target.types.join('/'));
+					this.add('-start', source, 'typeadd', targetType, '[from] ability: Outclass');
+					source.addVolatile('outclass');
+				} else {
+					this.debug('Failed to take target type.');
+					if (sourceSecondaryType !== '???') source.setType([source.types[0], sourceSecondaryType]);
+				}
+			}
+		},
+		condition: {},
+		flags: {},
+		name: "Outclass",
+		shortDesc: "Fishing token or first contact: steals target primary type and replaces its own secondary type.",
     },
 	peckingorder: {
 		name: "Pecking Order",
@@ -762,8 +750,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		flags: {},
 		onStart(pokemon) {
 			let activated = false;
-			for (const target of pokemon.side.foe.active) {
-				if (!target || !target.isAdjacent(pokemon)) continue;
+			for (const target of pokemon.adjacentFoes()) {
 				if (!activated) {
 					this.add('-ability', pokemon, 'Pecking Order', 'boost');
 					activated = true;
@@ -771,7 +758,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 				if (target.volatiles['substitute']) {
 					this.add('-immune', target);
 				} else {
-					this.boost({def: -1}, target, pokemon, null, true);
+					this.boost({ def: -1 }, target, pokemon, null, true);
 				}
 			}
 		},
