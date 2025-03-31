@@ -212,7 +212,6 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 	bigstick: {
 		onResidual(pokemon) {
 			if (pokemon.adjacentFoes().length === 0) return;
-			const target = this.sample(pokemon.adjacentFoes());
 			const branchpoke = this.dex.getActiveMove('branchpoke');
 			this.actions.useMove(branchpoke, pokemon);
 		},
@@ -223,10 +222,8 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 	bloodsucking: {
 		onStart(pokemon) {
 			let activated = false;
-			for (const target of pokemon.adjacentFoes()) {
-				if (!activated) {
-					activated = true;
-				}
+			if (!activated) {
+				activated = true;
 				pokemon.addVolatile('bloodsucking');
 				const leechlife = this.dex.getActiveMove('leechlife');
 				this.actions.useMove(leechlife, pokemon);
