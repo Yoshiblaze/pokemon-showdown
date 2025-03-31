@@ -1,10 +1,11 @@
-import {FS} from '../../../lib';
-import {toID} from '../../../sim/dex-data';
-import {Pokemon} from "../../../sim/pokemon";
+/* // commenting this stuff out until i ask the original coder what it does
+import { FS } from '../../../lib';
+import { toID } from '../../../sim/dex-data';
+import { Pokemon } from "../../../sim/pokemon";
 
 // Similar to User.usergroups. Cannot import here due to users.ts requiring Chat
 // This also acts as a cache, meaning ranks will only update when a hotpatch/restart occurs
-const usergroups: {[userid: string]: string} = {};
+const usergroups: { [userid: string]: string } = { };
 const usergroupData = FS('config/usergroups.csv').readIfExistsSync().split('\n');
 for (const row of usergroupData) {
 	if (!toID(row)) continue;
@@ -21,16 +22,9 @@ export function getName(name: string): string {
 	const group = usergroups[userid] || ' ';
 	return group + name;
 }
+*/ 
 
-export const Abilities: {[k: string]: ModdedAbilityData} = {
-	/*
-	placeholder: {
-		
-		flags: {},
-		name: "",
-		shortDesc: "",
-	},
-	*/
+export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTable = {
 	absorber: {
 		name: "Absorber",
 		rating: 3,
@@ -895,13 +889,13 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		shortDesc: "On switchin, this Pokemon sets Rainbow on its side.",
 	},
 	royalguard: {
-        onStart(pokemon) {
+		onStart(pokemon) {
 			if (pokemon.royalguard) return;
 			pokemon.royalguard = true;
-            this.actions.useMove("substitute", pokemon);
-        },
-        name: "Royal Guard",
-        shortDesc: "On switchin, this Pokemon uses Substitute. Once per battle.",
+			this.actions.useMove("substitute", pokemon);
+		},
+		name: "Royal Guard",
+		shortDesc: "On switchin, this Pokemon uses Substitute. Once per battle.",
     },
 	sealedoff: {
 		onStart(pokemon) {
@@ -1007,4 +1001,4 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		name: "Troubled",
 		shortDesc: "This Pokemon cannot use the same move twice in a row.",
 	},
-}
+};
