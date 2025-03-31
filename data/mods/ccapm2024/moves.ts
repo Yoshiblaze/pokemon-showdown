@@ -1,23 +1,4 @@
-export const Moves: {[moveid: string]: ModdedMoveData} = {
-	/*
-	placeholder: {
-		name: "",
-		type: "",
-		category: "",
-		basePower: 0,
-		accuracy: 100,
-		pp: 10,
-		shortDesc: "",
-		priority: 0,
-		flags: {protect: 1, mirror: 1, metronome: 1},
-		onPrepareHit(target, pokemon, move) {
-			this.attrLastMove('[still]');
-			this.add('-anim', pokemon, "", target);
-		},
-		secondary: null,
-		target: "normal",
-	},
-	*/
+export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 	leechlife: {
 		inherit: true,
 		onModifyMove(move, pokemon) {
@@ -28,7 +9,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 			pokemon.removeVolatile('bloodsucking');
 		},
 	},
-	
+
 	//fake move
 	medic: {
 		accuracy: true,
@@ -57,4 +38,4 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		zMove: {boost: {def: 1}},
 		contestType: "Clever",
 	},
-}
+};
