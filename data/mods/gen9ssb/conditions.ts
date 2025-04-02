@@ -165,6 +165,35 @@ export const Conditions: { [id: IDEntry]: ModdedConditionData & { innateName?: s
 			pokemon.abilityState.berryWeaken = weakenBerries.includes(item.name);
 		},
 	},
+	april: {
+		noCopy: true,
+		onStart(pokemon) {
+			if (this.ruleTable.has('zmovesclause')) {
+				this.add(`c:|${getName('April')}|Fool's Day`);
+			} else {
+				this.add(`c:|${getName('April')}|I said, "Do you have something against dogs?"`);
+			}
+		},
+		onSwitchOut() {
+			if (this.ruleTable.has('zmovesclause')) {
+				this.add(`c:|${getName('April')}|Fool's Day`);
+			} else {
+				this.add(`c:|${getName('April')}|(Is it the chorus yet?)`);
+			}
+		},
+		onFaint() {
+			if (this.ruleTable.has('zmovesclause')) {
+				this.add(`c:|${getName('April')}|Fool's Day`);
+			} else {
+				this.add(`c:|${getName('April')}|Don't get too impressed, you might lose your breath...`);
+			}
+		},
+		onTryHit() {
+			if (this.ruleTable.has('zmovesclause')) {
+				this.add(`c:|${getName('April')}|Fool's Day`);
+			}
+		},
+	},
 	aqrator: {
 		noCopy: true,
 		onStart(pokemon) {
@@ -759,8 +788,8 @@ export const Conditions: { [id: IDEntry]: ModdedConditionData & { innateName?: s
 			return this.chainModify(0.75);
 		},
 		onModifyDamage(damage, source, target, move) {
-			if (target.illusion) return;
-			if (!target.m.stealth) return this.chainModify(1.1);
+			if (source.illusion) return;
+			if (!source.m.stealth) return this.chainModify(1.1);
 			return this.chainModify(0.5);
 		},
 	},
