@@ -536,7 +536,6 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		onStart(source) {
 			source.side.addFishingTokens(1);
 			const side = source.side;
-			const fishingTokens = side.sideConditions['fishingtokens'];
 			side.addSideCondition('fishingtokens', source);
 		},
 		flags: {},
