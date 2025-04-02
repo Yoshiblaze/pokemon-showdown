@@ -535,6 +535,9 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 	ironfistening: {
 		onStart(source) {
 			source.side.addFishingTokens(1);
+			const side = source.side;
+			const fishingTokens = side.sideConditions['fishingtokens'];
+			side.addSideCondition('fishingtokens', source);
 		},
 		flags: {},
 		name: "Iron Fistening",
@@ -723,7 +726,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 			if (source.types[1]) sourceSecondaryType = source.types[1];
 			if (target !== source && move.category !== 'Status' &&
 				!source.hasType(targetType) && targetType !== '???' &&
-				!(source.volatiles['outclass'] && !source.side.removeFishingTokens(1))) {
+				!(source.volatiles['outclass'] && !source.side.removeSideCondition('fishingtokens'))) {
 				source.setType([source.types[0]]);
 				if (source.addType(targetType)) {
 					target.setType(target.getTypes(true).map(type => type === targetType ? "???" : type));
@@ -954,8 +957,8 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 	},
 	superrod: {
 		onAfterMove(target, source, move) {
-			if (move.type === 'Water' && target.side.fishingTokens > 0) {
-				this.heal(target.baseMaxhp / 16 * target.side.fishingTokens);
+			if (move.type === 'Water' && target.side.sideConditions['fishingTokens'].layers > 0) {
+				this.heal(target.baseMaxhp / 16 * target.side.sideConditions['fishingTokens'].layers);
 			}
 		},
 		name: "Super Rod",
