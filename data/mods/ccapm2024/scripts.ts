@@ -1,5 +1,6 @@
 export const Scripts: ModdedBattleScriptsData = {
 	gen: 9,
+	/* // try later (or not)
 	actions: {
 		secondaries(targets: SpreadMoveTargets, source: Pokemon, move: ActiveMove, moveData: ActiveMove, isSelf?: boolean) {
 			if (!moveData.secondaries) return;
@@ -81,29 +82,5 @@ export const Scripts: ModdedBattleScriptsData = {
 				}
 			}
 		},
-	},
-	side: {
-		addFishingTokens(amount: number) {
-			if (amount === 0) return;
-			if (this.fishingTokens === undefined) this.fishingTokens = 0;
-			if (this.battle.field.isTerrain('fishingterrain')) amount *= 2;
-			this.fishingTokens += amount;
-			const word = (amount === 1) ? 'token was' : 'tokens were';
-			this.battle.add('-message', `${amount} fishing ${word} added to ${this.name}'s side!`);
-			this.battle.hint(`They now have ${this.fishingTokens} tokens.`);
-		},
-		removeFishingTokens(amount: number) {
-			if (amount === 0) return;
-			if (this.fishingTokens === undefined) this.fishingTokens = 0;
-			if (amount > this.fishingTokens) {
-				// this.add('-message', `There weren't enough fishing tokens on the field!`); (remove later)
-				return false;
-			}
-			this.fishingTokens -= amount;
-			const word = (amount === 1) ? 'token was' : 'tokens were';
-			this.battle.add('-message', `${amount} fishing ${word} removed from ${this.name}'s side!`);
-			this.battle.hint(`They now have ${this.fishingTokens} tokens.`);
-			return true;
-		},
-	},
+	}, */
 };
