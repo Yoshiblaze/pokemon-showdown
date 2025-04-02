@@ -48,7 +48,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		name: "Antimatter",
 		shortDesc: "This Pokemon's defending effectiveness is reversed.",
 	},
-	asymmetry: {
+	asymmetry: {/*
 		onStart(pokemon) {
 			let activated = false;
 			for (const target of pokemon.adjacentFoes()) {
@@ -142,7 +142,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 					return null;
 				}
 			},
-		},
+		},*/ // try later
 		flags: {},
 		name: "Asymmetry",
 		shortDesc: "On switch-in, this Pokemon randomly swaps two of its moves with the opponent's.",
@@ -425,7 +425,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		shortDesc: "This Pokemon's moves have a 30% chance to poison, but it loses 1/8 max HP every turn.",
 	},
 	drawfour: {
-		shortDesc: "After knocking out target, if user knows less than 12 moves, it learns target's moves.",
+		shortDesc: "After knocking out target, if user knows less than 12 moves, it learns target's moves.",/* // try later
 		onDamage(damage, source, target, effect) {
 			if (damage >= target.hp) {
 				for (const moveSlot of target.moveSlots) {
@@ -447,7 +447,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 					}
 				}
 			}
-		},
+		},*/
 		name: "Draw Four",
 	},
 	electromagneticmanipulation: {
@@ -542,7 +542,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 	},
 	magicmissile: {
 		name: "Magic Missile",
-		shortDesc: "Magician + when damaged, fling item for 25% max HP.",
+		shortDesc: "Magician + when damaged, fling item for 25% max HP.",/* try later
 		onSourceHit(target, source, move) {
 			if (!move || !target) return;
 			if (target !== source && move.category !== 'Status') {
@@ -606,7 +606,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 					}
 				}
 			}
-		},
+		},*/
 	},
 	medic: {
 		onSwitchOut(pokemon) {
@@ -779,7 +779,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 			const pokemonMove = this.dex.getActiveMove(pokemonAction.move.id);
 			if (!pokemon.volatiles['substitute'] && targetMove.type === pokemonMove.type) {
 				const substitute = this.dex.getActiveMove('substitute');
-				this.actions.useMove(substitute, pokemon, pokemon);
+				this.actions.useMove(substitute, pokemon);
 			}
 		},
 		flags: {},
@@ -874,8 +874,8 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 	},
 	royalguard: {
 		onStart(pokemon) {
-			if (pokemon.royalguard) return;
-			pokemon.royalguard = true;
+			if (this.effectState.royalguard) return;
+			this.effectState.royalguard = true;
 			this.actions.useMove("substitute", pokemon);
 		},
 		name: "Royal Guard",
@@ -944,8 +944,8 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 	},
 	strongbreeze: {
 		onStart(pokemon) {
-			if (pokemon.strongbreeze) return;
-			pokemon.strongbreeze = true;
+			if (this.effectState.strongbreeze) return;
+			this.effectState.strongbreeze = true;
 			this.add('-activate', pokemon, 'ability: Strong Breeze');
 			pokemon.side.addSideCondition('tailwind');
 		},
