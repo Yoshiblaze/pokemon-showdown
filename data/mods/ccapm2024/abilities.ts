@@ -142,7 +142,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 					return null;
 				}
 			},
-		},*/ // try later
+		}, */ // try later
 		flags: {},
 		name: "Asymmetry",
 		shortDesc: "On switch-in, this Pokemon randomly swaps two of its moves with the opponent's.",
@@ -447,7 +447,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 					}
 				}
 			}
-		},*/
+		}, */
 		name: "Draw Four",
 	},
 	electromagneticmanipulation: {
@@ -606,7 +606,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 					}
 				}
 			}
-		},*/
+		}, */
 	},
 	medic: {
 		onSwitchOut(pokemon) {
