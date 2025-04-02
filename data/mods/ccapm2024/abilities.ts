@@ -534,7 +534,6 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 	},
 	ironfistening: {
 		onStart(source) {
-			source.side.addFishingTokens(1);
 			const side = source.side;
 			side.addSideCondition('fishingtokens', source);
 		},
