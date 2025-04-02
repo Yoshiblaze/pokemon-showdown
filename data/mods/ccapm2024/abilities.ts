@@ -48,7 +48,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		name: "Antimatter",
 		shortDesc: "This Pokemon's defending effectiveness is reversed.",
 	},
-	asymmetry: {/*
+	asymmetry: { /*
 		onStart(pokemon) {
 			let activated = false;
 			for (const target of pokemon.adjacentFoes()) {
@@ -425,7 +425,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		shortDesc: "This Pokemon's moves have a 30% chance to poison, but it loses 1/8 max HP every turn.",
 	},
 	drawfour: {
-		shortDesc: "After knocking out target, if user knows less than 12 moves, it learns target's moves.",/* // try later
+		shortDesc: "After knocking out target, if user knows less than 12 moves, it learns target's moves.", /* // try later
 		onDamage(damage, source, target, effect) {
 			if (damage >= target.hp) {
 				for (const moveSlot of target.moveSlots) {
@@ -542,7 +542,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 	},
 	magicmissile: {
 		name: "Magic Missile",
-		shortDesc: "Magician + when damaged, fling item for 25% max HP.",/* try later
+		shortDesc: "Magician + when damaged, fling item for 25% max HP.", /* try later
 		onSourceHit(target, source, move) {
 			if (!move || !target) return;
 			if (target !== source && move.category !== 'Status') {
