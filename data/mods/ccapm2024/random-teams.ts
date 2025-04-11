@@ -1,6 +1,6 @@
 import RandomTeams from '../../random-battles/gen9/teams';
 
-export interface CCAPMSet {
+export interface CPMSet {
 	species: string;
 	ability: string | string[];
 	item: string | string[];
@@ -16,9 +16,9 @@ export interface CCAPMSet {
 	skip?: string;
 	teraType?: string | string[];
 }
-interface CCAPMSets { [k: string]: CCAPMSet }
+interface CPMSets { [k: string]: CPMSet }
 
-export const ccapmSets: CCAPMSets = {
+export const cpmSets: CPMSets = {
 	/*
 	// Example:
 	Username: {
@@ -1095,27 +1095,27 @@ export const ccapmSets: CCAPMSets = {
 	},
 };
 
-export class RandomCCAPMTeams extends RandomTeams {
-	randomCCAPMTeam(options: { inBattle?: boolean } = {}) {
+export class RandomCPMTeams extends RandomTeams {
+	randomCPMTeam(options: { inBattle?: boolean } = {}) {
 		this.enforceNoDirectCustomBanlistChanges();
 
 		const team: PokemonSet[] = [];
-		const debug: string[] = []; // Set this to a list of CCAPM sets to override the normal pool for debugging.
+		const debug: string[] = []; // Set this to a list of CPM sets to override the normal pool for debugging.
 		const ruleTable = this.dex.formats.getRuleTable(this.format);
 		const monotype = this.forceMonotype || (ruleTable.has('sametypeclause') ?
 			this.sample([...this.dex.types.names().filter(x => x !== 'Stellar')]) : false);
 
-		let pool = Object.keys(ccapmSets);
+		let pool = Object.keys(cpmSets);
 		if (debug.length) {
 			while (debug.length < 6) {
 				const staff = this.sampleNoReplace(pool);
-				if (debug.includes(staff) || ccapmSets[staff].skip) continue;
+				if (debug.includes(staff) || cpmSets[staff].skip) continue;
 				debug.push(staff);
 			}
 			pool = debug;
 		}
 		if (monotype && !debug.length) {
-			pool = pool.filter(x => this.dex.species.get(ccapmSets[x].species).types.includes(monotype));
+			pool = pool.filter(x => this.dex.species.get(cpmSets[x].species).types.includes(monotype));
 		}
 		if (global.Config?.disabledssbsets?.length) {
 			pool = pool.filter(x => !global.Config.disabledssbsets.includes(this.dex.toID(x)));
@@ -1123,15 +1123,15 @@ export class RandomCCAPMTeams extends RandomTeams {
 		const typePool: { [k: string]: number } = {};
 		let depth = 0;
 		while (pool.length && team.length < this.maxTeamSize) {
-			if (depth >= 200) throw new Error(`Infinite loop in CCAPM team generation.`);
+			if (depth >= 200) throw new Error(`Infinite loop in CPM team generation.`);
 			depth++;
 			const name = this.sampleNoReplace(pool);
-			const ccapmSet: CCAPMSet = this.dex.deepClone(ccapmSets[name]);
-			if (ccapmSet.skip) continue;
+			const cpmSet: CPMSet = this.dex.deepClone(cpmSets[name]);
+			if (cpmSet.skip) continue;
 
 			// Enforce typing limits
 			if (!(debug.length || monotype)) { // Type limits are ignored for debugging and monotype
-				const species = this.dex.species.get(ccapmSet.species);
+				const species = this.dex.species.get(cpmSet.species);
 
 				const weaknesses = [];
 				for (const type of this.dex.types.names()) {
@@ -1147,7 +1147,7 @@ export class RandomCCAPMTeams extends RandomTeams {
 						break;
 					}
 				}
-				if (ccapmSet.ability === 'Wonder Guard') {
+				if (cpmSet.ability === 'Wonder Guard') {
 					if (!typePool['wonderguard']) {
 						typePool['wonderguard'] = 1;
 					} else {
@@ -1162,37 +1162,37 @@ export class RandomCCAPMTeams extends RandomTeams {
 			}
 
 			let teraType: string | undefined;
-			if (ccapmSet.teraType) {
-				teraType = ccapmSet.teraType === 'Any' ?
+			if (cpmSet.teraType) {
+				teraType = cpmSet.teraType === 'Any' ?
 					this.sample(this.dex.types.names()) :
-					this.sampleIfArray(ccapmSet.teraType);
+					this.sampleIfArray(cpmSet.teraType);
 			}
 			const moves: string[] = [];
-			while (moves.length < 3 && ccapmSet.moves.length > 0) {
-				let move = this.sampleNoReplace(ccapmSet.moves);
+			while (moves.length < 3 && cpmSet.moves.length > 0) {
+				let move = this.sampleNoReplace(cpmSet.moves);
 				if (Array.isArray(move)) move = this.sampleNoReplace(move);
 				moves.push(this.dex.moves.get(move).name);
 			}
-			moves.push(this.dex.moves.get(ccapmSet.signatureMove).name);
-			const ivs = { ...{ hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 }, ...ccapmSet.ivs };
+			moves.push(this.dex.moves.get(cpmSet.signatureMove).name);
+			const ivs = { ...{ hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 }, ...cpmSet.ivs };
 			if (!moves.map(x => this.dex.moves.get(x)).some(x => x.category === 'Physical')) {
 				ivs.atk = 0;
 			}
 
 			const set: PokemonSet = {
 				name,
-				species: ccapmSet.species,
-				item: this.sampleIfArray(ccapmSet.item),
-				ability: this.sampleIfArray(ccapmSet.ability),
+				species: cpmSet.species,
+				item: this.sampleIfArray(cpmSet.item),
+				ability: this.sampleIfArray(cpmSet.ability),
 				moves,
-				nature: ccapmSet.nature ? Array.isArray(ccapmSet.nature) ? this.sampleNoReplace(ccapmSet.nature) : ccapmSet.nature : 'Serious',
-				gender: ccapmSet.gender ? this.sampleIfArray(ccapmSet.gender) : this.sample(['M', 'F', 'N']),
-				evs: ccapmSet.evs ? { ...{ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, ...ccapmSet.evs } :
+				nature: cpmSet.nature ? Array.isArray(cpmSet.nature) ? this.sampleNoReplace(cpmSet.nature) : cpmSet.nature : 'Serious',
+				gender: cpmSet.gender ? this.sampleIfArray(cpmSet.gender) : this.sample(['M', 'F', 'N']),
+				evs: cpmSet.evs ? { ...{ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, ...cpmSet.evs } :
 				{ hp: 84, atk: 84, def: 84, spa: 84, spd: 84, spe: 84 },
 				ivs,
-				level: this.adjustLevel || ccapmSet.level || 100,
-				happiness: typeof ccapmSet.happiness === 'number' ? ccapmSet.happiness : 255,
-				shiny: typeof ccapmSet.shiny === 'number' ? this.randomChance(1, ccapmSet.shiny) : !!ccapmSet.shiny,
+				level: this.adjustLevel || cpmSet.level || 100,
+				happiness: typeof cpmSet.happiness === 'number' ? cpmSet.happiness : 255,
+				shiny: typeof cpmSet.shiny === 'number' ? this.randomChance(1, cpmSet.shiny) : !!cpmSet.shiny,
 			};
 
 			// Any set specific tweaks occur here.
@@ -1226,4 +1226,4 @@ export class RandomCCAPMTeams extends RandomTeams {
 	}
 }
 
-export default RandomCCAPMTeams;
+export default RandomCPMTeams;
