@@ -1,6 +1,7 @@
+import Dex from "../../../sim/dex";
+
 export const Scripts: ModdedBattleScriptsData = {
 	gen: 9,
-	/* // try later (or not)
 	actions: {
 		secondaries(targets: SpreadMoveTargets, source: Pokemon, move: ActiveMove, moveData: ActiveMove, isSelf?: boolean) {
 			if (!moveData.secondaries) return;
@@ -15,8 +16,8 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (typeof secondary.chance === 'undefined' ||
 						secondaryRoll < (secondaryOverflow ? secondary.chance % 256 : secondary.chance)) {
 						let flag = true;
-						const canSetStatus = function (status, target, pokemon) {
-							if (!target || target === false || target.status) return false;
+						/* const canSetStatus = function (status: string, target: Pokemon | null, pokemon: Pokemon) {
+							if (!target || target.status) return false;
 							const cantStatus = {
 								brn: ['Fire', 'comatose', 'waterveil', 'waterbubble'],
 								frz: ['Ice', 'comatose', 'magmaarmor'],
@@ -35,22 +36,22 @@ export const Scripts: ModdedBattleScriptsData = {
 							if (target.hasType(cantStatus[status][0])) return false;
 							if (move.ignoreAbility) return true;
 							if (target.hasAbility('leafguard') && this.isWeather(['sunnyday', 'desolateland'])) return false;
-							if (target.hasAbility('shieldsdown') && target.template.speciesid === 'miniormeteor') return false;
+							if (target.hasAbility('shieldsdown') && target.species.id === 'miniormeteor') return false;
 							if (target.hasAbility(cantStatus[status])) return false;
 							return true;
-						};
-						if (moveData.secondary.status) flag = canSetStatus(moveData.secondary.status, foe, source);
-						if (moveData.secondary.volatileStatus) flag = !(moveData.secondary.volatileStatus in foe.volatiles);
-						if (moveData.secondary.volatileStatus === 'flinch') flag = flag && foe.activeTurns && !foe.moveThisTurn;
+						}; */
+						if (moveData.secondary && moveData.secondary.status && foe) flag = foe.setStatus(moveData.secondary.status, source);
+						if (moveData.secondary && moveData.secondary.volatileStatus&& foe) flag = !(moveData.secondary.volatileStatus in foe.volatiles);
+						if (moveData.secondary && moveData.secondary.volatileStatus === 'flinch' && foe) flag = flag && foe.activeTurns >= 1 && !foe.moveThisTurn;
 						this.moveHit(foe, source, move, secondary, true, isSelf);
-						if (moveData.secondary.self.boosts) {
-							Object.keys(moveData.secondary.self.boosts).forEach(boost => {
-								if (source.boosts[boost] === 6) flag = false;
+						if (moveData.secondary && moveData.secondary.self && moveData.secondary.self.boosts) {
+							Object.entries(moveData.secondary.self.boosts).forEach(([stat, boost]) => {
+								if (source.boosts[stat as BoostID] === 6) flag = false;
 							});
 						} else {
-							flag = flag && !(foe.hp === undefined || foe.hp <= 0);
+							if (foe) flag = flag && !(foe.hp === undefined || foe.hp <= 0);
 						}
-						if (moveData.target !== 'self' && moveData.secondary.boosts) {
+						if (moveData.target !== 'self' && moveData.secondary && moveData.secondary.boosts && foe) {
 							const cantLower = {
 								'atk': ['clearbody', 'fullmetalbody', 'hypercutter', 'whitesmoke'],
 								'def': ['bigpecks', 'clearbody', 'fullmetalbody', 'whitesmoke'],
@@ -58,23 +59,23 @@ export const Scripts: ModdedBattleScriptsData = {
 								'spd': ['clearbody', 'fullmetalbody', 'whitesmoke'],
 								'spe': ['clearbody', 'fullmetalbody', 'whitesmoke'],
 								'accuracy': ['clearbody', 'fullmetalbody', 'keeneye', 'whitesmoke'],
-							};
+								'evasion': [] };
 							for (const k in moveData.secondary.boosts) {
-								if (foe.boosts[k] === -6) {
+								if (foe.boosts[k as BoostID] === -6) {
 									flag = false;
 									continue;
 								}
-								if (moveData.secondary.boosts[k] < 0 && foe.hasAbility(cantLower[k]) && !move.ignoreAbility) {
+								if (foe.hasAbility(cantLower[k as BoostID]) && !move.ignoreAbility) {
 									flag = false;
 									break;
 								}
 							}
 						}
 						if (source.hasAbility('sheerforce')) flag = false;
-						if (foe && foe.hasAbility('shielddust') && !move.ignoreAbility && !move.secondary.self.boosts) {
+						if (foe && foe.hasAbility('shielddust') && !move.ignoreAbility && move.secondary && move.secondary.self && !move.secondary.self.boosts) {
 							flag = false;
 						}
-						if (flag && foe.hasAbility('countermeasures')) {
+						if (flag && foe && foe.hasAbility('countermeasures') && secondary.chance) {
 							this.battle.add('-activate', foe, 'ability: Countermeasures');
 							this.battle.damage(source.baseMaxhp * (100 - secondary.chance) / 100, source, foe);
 						}
@@ -82,5 +83,5 @@ export const Scripts: ModdedBattleScriptsData = {
 				}
 			}
 		},
-	}, */
+	},
 };

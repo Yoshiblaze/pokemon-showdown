@@ -1,7 +1,7 @@
+import { Pokemon } from "../../../sim/pokemon";
 /* // commenting this stuff out until i ask the original coder what it does
 import { FS } from '../../../lib';
 import { toID } from '../../../sim/dex-data';
-import { Pokemon } from "../../../sim/pokemon";
 
 // Similar to User.usergroups. Cannot import here due to users.ts requiring Chat
 // This also acts as a cache, meaning ranks will only update when a hotpatch/restart occurs
@@ -48,7 +48,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		name: "Antimatter",
 		shortDesc: "This Pokemon's defending effectiveness is reversed.",
 	},
-	asymmetry: { /*
+	asymmetry: {
 		onStart(pokemon) {
 			let activated = false;
 			for (const target of pokemon.adjacentFoes()) {
@@ -57,7 +57,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 					activated = true;
 				}
 				target.addVolatile('asymmetry');
-				const createArray = x => Array.from({ length: x }, (_, i) => i);
+				const createArray = (x: number) => Array.from({ length: x }, (_, i) => i);
 				const pokemonArray = createArray(pokemon.moves.length);
 				const targetArray = createArray(target.moves.length);
 
@@ -142,7 +142,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 					return null;
 				}
 			},
-		}, */ // try later
+		},
 		flags: {},
 		name: "Asymmetry",
 		shortDesc: "On switch-in, this Pokemon randomly swaps two of its moves with the opponent's.",
@@ -425,7 +425,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		shortDesc: "This Pokemon's moves have a 30% chance to poison, but it loses 1/8 max HP every turn.",
 	},
 	drawfour: {
-		shortDesc: "After knocking out target, if user knows less than 12 moves, it learns target's moves.", /* // try later
+		shortDesc: "After knocking out target, if user knows less than 12 moves, it learns target's moves.",
 		onDamage(damage, source, target, effect) {
 			if (damage >= target.hp) {
 				for (const moveSlot of target.moveSlots) {
@@ -433,21 +433,12 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 					if (source.moveSlots.length < 12) {
 						this.attrLastMove('[still]');
 						if (source.moveSlots.length < 0) return false;
-						const learnedMove = {
-							move: this.dex.moves.get(moveSlot.id),
-							id: moveSlot.id,
-							pp: moveSlot.pp,
-							maxpp: moveSlot.pp,
-							target: moveSlot.target,
-							disabled: false,
-							used: false,
-						};
-						source.moveSlots[source.moveSlots.length] = learnedMove;
-						source.baseMoveSlots[source.moveSlots.length - 1] = learnedMove;
+						source.moveSlots[source.moveSlots.length] = moveSlot;
+						source.baseMoveSlots[source.moveSlots.length - 1] = moveSlot;
 					}
 				}
 			}
-		}, */
+		},
 		name: "Draw Four",
 	},
 	electromagneticmanipulation: {
@@ -543,7 +534,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 	},
 	magicmissile: {
 		name: "Magic Missile",
-		shortDesc: "Magician + when damaged, fling item for 25% max HP.", /* try later
+		shortDesc: "Magician + when damaged, fling item for 25% max HP.",
 		onSourceHit(target, source, move) {
 			if (!move || !target) return;
 			if (target !== source && move.category !== 'Status') {
@@ -561,11 +552,11 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 			if (target.isSemiInvulnerable()) return;
 			if (target.ignoringItem()) return false;
 			const item = target.getItem();
-			if (!this.singleEvent('TakeItem', item, target.itemData, target, target, move, item)) return false;
+			if (!this.singleEvent('TakeItem', item, target.itemState, target, target, move, item)) return false;
 			if (item.id && !item.megaStone) {
 				this.damage(source.baseMaxhp / 4, source, target);
 				target.addVolatile('fling');
-				if (item.is
+				if (item.isBerry
 				) {
 					if (this.singleEvent('Eat', item, null, source, null, null)) {
 						this.runEvent('EatItem', source, null, null, item);
@@ -588,11 +579,11 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 				} else if (item.id === 'whiteherb') {
 					let activate = false;
 					const boosts: SparseBoostsTable = {};
-					let i: BoostName;
-					for (i in source.boosts) {
-						if (source.boosts[i] < 0) {
+					let boostName: BoostID;
+					for (boostName in source.boosts) {
+						if (source.boosts[boostName] < 0) {
 							activate = true;
-							boosts[i] = 0;
+							boosts[boostName] = 0;
 						}
 					}
 					if (activate) {
@@ -600,14 +591,14 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 						this.add('-clearnegativeboost', source, '[silent]');
 					}
 				} else {
-					if (item.fling.status) {
+					if (item.fling && item.fling.status) {
 						source.trySetStatus(item.fling.status, target);
-					} else if (item.fling.volatileStatus) {
+					} else if (item.fling && item.fling.volatileStatus) {
 						source.addVolatile(item.fling.volatileStatus, target);
 					}
 				}
 			}
-		}, */
+		},
 	},
 	medic: {
 		onSwitchOut(pokemon) {
@@ -695,11 +686,11 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		name: "Night Light",
 		shortDesc: "This Pokemon takes halved damage from Dark and Ghost-type moves.",
 	},
-	nightmarch: { /* try later
+	nightmarch: {
 		onBasePower(basePower, pokemon, target, move) {
-			const allies = pokemon.side.pokemon.filter(p => p !== pokemon && p.set.moves.toString().indexOf(move) !== -1);
+			const allies = pokemon.side.pokemon.filter(p => p !== pokemon && p.set.moves.indexOf(move.name) !== -1);
 			return basePower += 20 * allies.length;
-		}, */
+		},
 		name: "Night March",
 		shortDesc: "This Pokemon's attacks gain +20 power for each ally that also has that move.",
 	},
