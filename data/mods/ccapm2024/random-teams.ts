@@ -35,7 +35,6 @@ export const cpmSets: CPMSets = {
 	// You can also skip shiny, defaults to false. Level can be skipped (defaults to 100).
 	// Nature needs to be a valid nature with the first letter capitalized ex: Modest
 	*/
-	// Please keep sets organized alphabetically based on staff member name!
 	aegii: {
 		species: 'Scizor', ability: 'Unburden', item: 'Lansat Berry', gender: 'M',
 		moves: ['Acrobatics', 'Attack Order', ['Cross Chop', 'Night Slash']],
@@ -1108,9 +1107,9 @@ export class RandomCPMTeams extends RandomTeams {
 		let pool = Object.keys(cpmSets);
 		if (debug.length) {
 			while (debug.length < 6) {
-				const staff = this.sampleNoReplace(pool);
-				if (debug.includes(staff) || cpmSets[staff].skip) continue;
-				debug.push(staff);
+				const fakemon = this.sampleNoReplace(pool);
+				if (debug.includes(fakemon) || cpmSets[fakemon].skip) continue;
+				debug.push(fakemon);
 			}
 			pool = debug;
 		}
