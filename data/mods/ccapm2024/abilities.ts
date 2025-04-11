@@ -1,4 +1,3 @@
-import { Pokemon } from "../../../sim/pokemon";
 /* // commenting this stuff out until i ask the original coder what it does
 import { FS } from '../../../lib';
 import { toID } from '../../../sim/dex-data';
@@ -591,9 +590,9 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 						this.add('-clearnegativeboost', source, '[silent]');
 					}
 				} else {
-					if (item.fling && item.fling.status) {
+					if (item.fling?.status) {
 						source.trySetStatus(item.fling.status, target);
-					} else if (item.fling && item.fling.volatileStatus) {
+					} else if (item.fling?.volatileStatus) {
 						source.addVolatile(item.fling.volatileStatus, target);
 					}
 				}
@@ -688,8 +687,10 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 	},
 	nightmarch: {
 		onBasePower(basePower, pokemon, target, move) {
-			const allies = pokemon.side.pokemon.filter(p => p !== pokemon && p.set.moves.indexOf(move.name) !== -1);
-			return basePower += 20 * allies.length;
+			for (const ally of pokemon.side.pokemon)
+				if (ally !== pokemon && ally.set.moves.indexOf(move.name))
+					basePower += 20;
+			return;
 		},
 		name: "Night March",
 		shortDesc: "This Pokemon's attacks gain +20 power for each ally that also has that move.",

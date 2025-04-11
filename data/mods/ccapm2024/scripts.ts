@@ -1,4 +1,4 @@
-import Dex from "../../../sim/dex";
+import type Dex from "../../../sim/dex";
 
 export const Scripts: ModdedBattleScriptsData = {
 	gen: 9,
@@ -40,18 +40,18 @@ export const Scripts: ModdedBattleScriptsData = {
 							if (target.hasAbility(cantStatus[status])) return false;
 							return true;
 						}; */
-						if (moveData.secondary && moveData.secondary.status && foe) flag = foe.setStatus(moveData.secondary.status, source);
-						if (moveData.secondary && moveData.secondary.volatileStatus&& foe) flag = !(moveData.secondary.volatileStatus in foe.volatiles);
-						if (moveData.secondary && moveData.secondary.volatileStatus === 'flinch' && foe) flag = flag && foe.activeTurns >= 1 && !foe.moveThisTurn;
+						if (moveData.secondary?.status && foe) flag = foe.setStatus(moveData.secondary.status, source);
+						if (moveData.secondary?.volatileStatus && foe) flag = !(moveData.secondary.volatileStatus in foe.volatiles);
+						if (moveData.secondary?.volatileStatus === 'flinch' && foe) flag = flag && foe.activeTurns >= 1 && !foe.moveThisTurn;
 						this.moveHit(foe, source, move, secondary, true, isSelf);
-						if (moveData.secondary && moveData.secondary.self && moveData.secondary.self.boosts) {
+						if (moveData.secondary?.self?.boosts) {
 							Object.entries(moveData.secondary.self.boosts).forEach(([stat, boost]) => {
 								if (source.boosts[stat as BoostID] === 6) flag = false;
 							});
 						} else {
 							if (foe) flag = flag && !(foe.hp === undefined || foe.hp <= 0);
 						}
-						if (moveData.target !== 'self' && moveData.secondary && moveData.secondary.boosts && foe) {
+						if (moveData.target !== 'self' && moveData.secondary?.boosts && foe) {
 							const cantLower = {
 								'atk': ['clearbody', 'fullmetalbody', 'hypercutter', 'whitesmoke'],
 								'def': ['bigpecks', 'clearbody', 'fullmetalbody', 'whitesmoke'],
@@ -72,7 +72,8 @@ export const Scripts: ModdedBattleScriptsData = {
 							}
 						}
 						if (source.hasAbility('sheerforce')) flag = false;
-						if (foe && foe.hasAbility('shielddust') && !move.ignoreAbility && move.secondary && move.secondary.self && !move.secondary.self.boosts) {
+						if (foe && foe.hasAbility('shielddust') && !move.ignoreAbility &&
+							move.secondary && !move.secondary.self?.boosts) {
 							flag = false;
 						}
 						if (flag && foe && foe.hasAbility('countermeasures') && secondary.chance) {
