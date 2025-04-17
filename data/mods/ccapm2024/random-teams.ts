@@ -35,149 +35,137 @@ export const cpmSets: CPMSets = {
 	// You can also skip shiny, defaults to false. Level can be skipped (defaults to 100).
 	// Nature needs to be a valid nature with the first letter capitalized ex: Modest
 	*/
-	aegii: {
-		species: 'Scizor', ability: 'Unburden', item: 'Lansat Berry', gender: 'M',
-		moves: ['Acrobatics', 'Attack Order', ['Cross Chop', 'Night Slash']],
-		signatureMove: 'Equip Aegislash',
-		evs: { hp: 4, atk: 252, spe: 252 }, nature: 'Adamant', teraType: 'Flying',
+	Aesap: {
+		species: 'Aesap', ability: 'Exhaust', item: 'Lansat Berry', gender: '',
+		moves: ['Knock Off', 'U-turn', 'Strength Sap'],
+		signatureMove: 'Let\'s Snuggle Forever',
+		evs: { hp: 4, atk: 252, spe: 252 }, nature: 'Jolly', teraType: 'Flying',
 	},
-	Aelita: {
-		species: 'Melmetal', ability: 'Fortified Metal', item: 'Leftovers', gender: '',
-		moves: ['Heavy Slam', 'Bitter Blade', 'Liquidation'],
-		signatureMove: 'Smelt',
-		evs: { hp: 252, atk: 4, spd: 252 }, nature: 'Careful', teraType: 'Steel', shiny: true,
+	Anxiousoil: {
+		species: 'Anxiousoil', ability: 'Troubled', item: 'Leftovers', gender: '',
+		moves: [['Earthquake', 'Earth Power'], ['Shadow Ball', 'Poltergeist'], ['Ice Beam', 'Spikes', 'Moonblast']],
+		signatureMove: 'Taunt',
+		evs: { hp: 252, spa: 4, spe: 252 }, nature: 'Naive', teraType: 'Steel',
 	},
-	Aethernum: {
-		species: 'Giratina-Origin', ability: 'The Eminence in the Shadow', item: 'Griseous Core', gender: '',
-		moves: ['Fiery Wrath', 'Lunar Blessing', 'Dragon Energy'],
-		signatureMove: 'I. AM. ATOMIC.',
-		evs: { atk: 4, spa: 252, spe: 252 }, nature: 'Hasty', teraType: 'Dark', shiny: true,
+	Araquisis: {
+		species: 'Araquisis', ability: 'Precognition', item: 'Leftovers', gender: '',
+		moves: ['Zen Headbutt', ['Sticky Web', 'Trick Room'], ['Moonlight', 'Pursuit']],
+		signatureMove: 'Knock Off',
+		evs: { hp: 252, atk: 252, spd: 4 }, ivs: { spe: 0 }, nature: 'Adamant', teraType: 'Dark',
 	},
-	Akir: {
-		species: 'Slowbro', ability: 'Take it Slow', item: 'Heavy-Duty Boots', gender: 'M',
-		moves: ['Future Sight', 'Slack Off', 'Steam Eruption'],
-		signatureMove: 'Free Switch Button',
-		evs: { hp: 248, def: 8, spa: 252 }, ivs: { spe: 0 }, nature: 'Relaxed', teraType: 'Fairy',
+	Arthrostrike: {
+		species: 'Arthrostrike', ability: 'Preeminence', item: 'Leftovers', gender: '',
+		moves: ['Pin Missile', 'Earthquake', ['Fell Stinger', 'U-turn']],
+		signatureMove: 'Arm Thrust',
+		evs: { hp: 248, atk: 252, spe: 8 }, nature: 'Adamant', teraType: 'Fairy',
 	},
-	Alex: {
-		species: 'Sprigatito', ability: 'Pawprints', item: 'Eviolite', gender: '',
-		moves: [['Charm', 'Tickle'], 'Protect', 'Soak'],
-		signatureMove: 'Spicier Extract',
+	Bleyabat: {
+		species: 'Bleyabat', ability: 'Night Light', item: 'Heavy-Duty Boots', gender: '',
+		moves: ['Dual Wingbeat', 'Shadow Claw', 'Roost'],
+		signatureMove: 'Bulk Up',
 		evs: { hp: 252, def: 4, spd: 252 }, nature: 'Careful', teraType: 'Water',
 	},
-	Alexander489: {
-		species: 'Charizard', ability: 'Confirmed Town', item: 'Heavy-Duty Boots', gender: 'M',
-		moves: ['No Retreat', 'Bitter Blade', 'Dual Wingbeat'],
-		signatureMove: 'Scumhunt',
-		evs: { atk: 252, spa: 4, spe: 252 }, nature: 'Naughty', teraType: 'Fire', shiny: true,
+	Boillusk: {
+		species: 'Boillusk', ability: 'Absorber', item: 'Heavy-Duty Boots', gender: '',
+		moves: ['Steam Erupton', 'Earth Power', ['Scald', 'Stealth Rock', 'Overheat']],
+		signatureMove: 'Fire Blast',
+		evs: { hp: 252, spa: 252, spe: 4 }, nature: 'Modest', teraType: 'Fire',
 	},
-	Apple: {
-		species: 'Applin', ability: 'Orchard\'s Gift', item: 'Lum Berry', gender: ['M', 'F'],
-		moves: ['Apple Acid', 'Leech Seed', 'Dragon Pulse'],
-		signatureMove: 'Wopple or Flopple',
-		evs: { hp: 252, spa: 4, spd: 252 }, nature: 'Sassy', shiny: 2, teraType: 'Dragon',
+	Boogeymancer: {
+		species: 'Boogeymancer', ability: 'Broken Wand', item: 'Life Orb', gender: '',
+		moves: ['Shadow Ball', 'Energy Ball', ['Parting Shot', 'Calm Mind']],
+		signatureMove: 'Lava Plume',
+		evs: { atk: 4, spa: 252, spd: 252 }, nature: 'Timid', teraType: 'Dragon',
 	},
-	'Appletun a la Mode': {
-		species: 'Appletun', ability: 'Served Cold', item: 'Sitrus Berry', gender: 'F',
-		moves: ['Freeze-Dry', 'Apple Acid', 'Fickle Beam'],
-		signatureMove: "Extra Course",
-		evs: { hp: 252, spa: 4, spd: 252 }, nature: 'Calm', teraType: 'Ground',
+	Buffball: {
+		species: 'Buffball', ability: 'Preparation', item: 'Leftovers', gender: '',
+		moves: ['Leech Life', 'Knock Off', ['Bulk Up', 'Agility']],
+		signatureMove: "Close Combat",
+		evs: { hp: 4, atk: 252, spe: 252 }, nature: 'Adamant', teraType: 'Ground',
 	},
-	April: {
-		species: 'Leafeon', ability: 'Twin Fantasy', item: 'Leftovers', gender: 'F',
-		moves: ['Bitter Blade', ['Razor Shell', 'Strength Sap'], 'Tidy Up'],
-		signatureMove: "Herbal Dagger",
-		evs: { atk: 252, def: 4, spe: 252 }, nature: 'Jolly', teraType: 'Fire', shiny: 50,
+	Bugsome: {
+		species: 'Bugsome', ability: 'Stat Leeching', item: 'Heavy-Duty Boots', gender: '',
+		moves: ['Lunge', ['Crunch', 'Psychic Fangs'], 'Close Combat'],
+		signatureMove: "U-turn",
+		evs: { atk: 252, def: 4, spe: 252 }, nature: 'Jolly', teraType: 'Fire',
 	},
-	aQrator: {
-		species: 'Totodile', ability: 'Neverending fHunt', item: 'Eviolite', gender: 'F',
-		moves: ['Whirlpool', 'Noble Roar', 'Slack Off'],
-		signatureMove: "Tori's Stori",
-		evs: { hp: 252, def: 4, spd: 252 }, nature: 'Sassy', teraType: 'Fighting',
+	Cliffilisk: {
+		species: 'Cliffilisk', ability: 'Crumble', item: 'Leftovers', gender: '',
+		moves: ['Dragon Claw', ['Knock Off', 'Earthquake'], ['Stone Edge', 'Head Smash']],
+		signatureMove: "Collision Course",
+		evs: { hp: 252, atk: 252, spd: 4 }, nature: 'Adamant', teraType: 'Fighting',
 	},
-	'A Quag To The Past': {
-		species: 'Quagsire', ability: 'Quag of Ruin', item: 'Leftovers', gender: 'M',
-		moves: ['Surging Strikes', 'Precipice Blades', 'Gunk Shot'],
-		signatureMove: 'Sire Switch',
-		evs: { hp: 252, def: 4, spd: 252 }, nature: 'Careful', teraType: 'Water',
+	Cogwyld: {
+		species: 'Cogwyld', ability: 'Self-Repair', item: 'Heavy-Duty Boots', gender: '',
+		moves: ['Knock Off', 'Gear Grind', ['Heal Bell', 'Thunder Wave', 'Stealth Rock']],
+		signatureMove: 'Parting Shot',
+		evs: { hp: 252, def: 4, spe: 252 }, nature: 'Jolly', teraType: 'Water',
 	},
-	'A Quag To The Past-Clodsire': {
-		species: 'Clodsire', ability: 'Clod of Ruin', item: 'Leftovers', gender: 'M',
-		moves: ['Coil', 'Strength Sap', 'Toxic'],
-		signatureMove: 'Sire Switch',
-		evs: { hp: 252, def: 4, spd: 252 }, nature: 'Careful', teraType: 'Poison', skip: 'A Quag To The Past',
+	Contradox: {
+		species: 'Contradox', ability: 'Antimatter', item: 'Life Orb', gender: '',
+		moves: ['Psychic Fangs', ['Earthquake', 'Fire Punch', 'Ice Shard'], 'U-turn'],
+		signatureMove: 'Triple Axel',
+		evs: { atk: 252, def: 4, spe: 252 }, nature: 'Jolly', teraType: 'Poison'
 	},
-	Archas: {
-		species: 'Lilligant', ability: 'Saintly Bullet', item: 'Lilligantium Z', gender: 'F',
-		moves: ['Giga Drain', 'Snipe Shot', 'Aeroblast'],
-		signatureMove: 'Quiver Dance',
-		evs: { spa: 252, spd: 4, spe: 252 }, nature: 'Timid',
+	Cosmole: {
+		species: 'Cosmole', ability: 'Quick Thinking', item: 'Life Orb', gender: '',
+		moves: [['Swords Dance', 'Rapid Spin', 'Close Combat'], 'Earthquake', 'Psychic Fangs'],
+		signatureMove: 'Extreme Speed',
+		evs: { atk: 252, spd: 4, spe: 252 }, nature: 'Adamant', teraType: 'Ground'
 	},
-	Arcueid: {
-		species: 'Deoxys-Defense', ability: 'Marble Phantasm', item: 'Heavy-Duty Boots', gender: 'N',
-		moves: [['Lunar Blessing', 'Jungle Healing'], 'Body Press', ['Toxic', 'Will-O-Wisp', 'Topsy-Turvy']],
-		signatureMove: 'Funny Vamp',
-		evs: { hp: 248, def: 252, spd: 8 }, nature: 'Bold', teraType: 'Fairy', shiny: true,
+	Crashtank: {
+		species: 'Crashtank', ability: 'Brace for Impact', item: 'Heavy-Duty Boots', gender: 'N',
+		moves: ['Knock Off', 'Body Press', ['Rapid Spin', 'Spikes', 'U-turn']],
+		signatureMove: 'Body Slam',
+		evs: { hp: 248, def: 252, spd: 8 }, nature: 'Impish', teraType: 'Fairy',
 	},
-	'Arcueid-Attack': {
-		species: 'Deoxys-Attack', ability: 'Marble Phantasm', item: 'Heavy-Duty Boots', gender: 'N',
-		moves: ['Moonblast', 'Photon Geyser', 'Flamethrower'],
-		signatureMove: 'Funny Vamp',
-		evs: { hp: 4, spa: 252, spe: 252 }, nature: 'Timid', teraType: 'Fairy', shiny: true, skip: 'Arcueid',
+	Cryobser: {
+		species: 'Cryobser', ability: 'Medic', item: 'Heavy-Duty Boots', gender: '',
+		moves: ['Ice Beam', 'Heal Bell', ['Discharge', 'Body Slam']],
+		signatureMove: 'Revival Blessing',
+		evs: { hp: 252, spd: 252, spe: 4 }, nature: 'Calm', teraType: 'Fairy',
 	},
-	Arsenal: {
-		species: 'Rabsca', ability: 'Absorb Phys', item: 'Covert Cloak', gender: 'N',
-		moves: ['Recover', 'Calm Mind', 'Speed Swap'],
-		signatureMove: 'Megidolaon',
-		evs: { hp: 4, spa: 252, spd: 252 }, nature: 'Modest', teraType: 'Stellar', shiny: true,
+	Delirirak: {
+		species: 'Delirirak', ability: 'Fumigation', item: 'Heavy-Duty Boots', gender: '',
+		moves: ['Recover', 'Ice Beam', ['Earth Power', 'Toxic', 'Will-O-Wisp']],
+		signatureMove: 'Hex',
+		evs: { hp: 4, spa: 252, spd: 252 }, nature: 'Modest', teraType: 'Stellar',
 	},
-	Artemis: {
-		species: 'Genesect', ability: 'Supervised Learning', item: 'Choice Specs', gender: 'N',
-		moves: [],
-		signatureMove: 'Automated Response',
-		evs: { hp: 4, spa: 252, spe: 252 }, nature: 'Serious', shiny: true,
+	Depresloth: {
+		species: 'Depresloth', ability: 'Exhaust', item: 'Leftovers', gender: '',
+		moves: ['Thunderbolt', 'Shadow Ball', 'Volt Switch'],
+		signatureMove: 'Signal Beam',
+		evs: { hp: 252, def: 252, spa: 4 }, nature: 'Timid', teraType: 'Bug',
 	},
-	Arya: {
-		species: 'Flygon', ability: 'Tinted Lens', item: 'Flygonite', gender: 'F',
-		moves: ['Clanging Scales', 'Roost', 'Bug Buzz'],
-		signatureMove: 'Anyone can be killed',
-		evs: { spa: 252, spd: 4, spe: 252 }, nature: 'Timid',
+	Faellen: {
+		species: 'Faellen', ability: 'Broken Wand', item: 'Choice Specs', gender: '',
+		moves: [['U-turn', 'Trick'], 'Dark Pulse', ['Flamethrower', 'Moonblast']],
+		signatureMove: 'Light of Ruin',
+		evs: { spa: 252, spd: 4, spe: 252 }, nature: 'Timid', teraType: 'Ghost',
 	},
-	Audiino: {
-		species: 'Audino', ability: 'Mitosis', item: 'Leftovers', gender: 'N',
-		moves: ['Recover', 'Moongeist Beam', 'Hyper Voice'],
-		signatureMove: 'Thinking In Progress',
-		evs: { hp: 252, def: 4, spa: 252 }, nature: 'Modest', teraType: 'Ghost',
+	Fightinfly: {
+		species: 'Fightinfly', ability: 'Nocturnal', item: 'Choice Band', gender: '',
+		moves: ['Close Combat', ['Knock Off', 'Stone Edge'], ['Earthquake', 'Flare Blitz']],
+		signatureMove: 'U-turn',
+		evs: { hp: 4, atk: 252, spe: 252 }, nature: 'Jolly', teraType: 'Fairy',
 	},
-	autumn: {
-		species: 'Flutter Mane', ability: 'Protosynthesis', item: 'Booster Energy', gender: 'N',
-		moves: ['Moonblast', 'Taunt', 'Strength Sap'],
-		signatureMove: 'Season\'s Smite',
-		evs: { def: 8, spa: 244, spe: 252 }, nature: 'Timid', teraType: 'Fairy',
+	Folibower: {
+		species: 'Folibower', ability: 'Treasure Craze', item: 'Salac Berry', gender: '',
+		moves: ['Seed Bomb', 'Acrobatics', 'Recycle'],
+		signatureMove: 'Stuff Cheeks',
+		evs: { atk: 252, def: 4, spe: 252 }, nature: 'Jolly', teraType: 'Fairy',
 	},
-	ausma: {
-		species: 'Hatterene', ability: 'Cascade', item: 'Leftovers', gender: 'F',
-		moves: ['Light of Ruin', 'Strength Sap', 'Substitute'],
-		signatureMove: 'Sigil\'s Storm',
-		evs: { hp: 252, def: 4, spa: 252 }, ivs: { atk: 0, spe: 0 }, nature: 'Modest', teraType: 'Fairy',
+	Frenzaiai: {
+		species: 'Frenzaiai', ability: 'Asymmetry', item: 'Black Sludge', gender: '',
+		moves: ['Toxic', 'U-turn', 'Knock Off'],
+		signatureMove: 'Encore',
+		evs: { hp: 252, spd: 4, spe: 252 }, nature: 'Jolly', teraType: 'Fairy',
 	},
-	'ausma-Mismagius': {
-		species: 'Mismagius', ability: 'Levitate', item: 'Leftovers', gender: 'F',
-		moves: ['Light of Ruin', 'Strength Sap', 'Substitute'],
-		signatureMove: 'Sigil\'s Storm',
-		evs: { spa: 252, spd: 4, spe: 252 }, ivs: { atk: 0 }, nature: 'Modest', teraType: 'Fairy', skip: 'ausma',
-	},
-	'ausma-Fennekin': {
-		species: 'Fennekin', ability: 'Blaze', item: '', gender: '',
-		moves: ['Tackle', 'Growl'],
-		signatureMove: 'Ember',
-		evs: {}, skip: 'ausma',
-	},
-	AuzBat: {
-		species: 'Swoobat', ability: 'Magic Guard', item: 'Focus Sash', gender: 'M',
-		moves: ['Stored Power', 'Hurricane', ['Roost', 'Focus Blast']],
-		signatureMove: 'Prep Time',
-		evs: { hp: 4, spa: 252, spe: 252 }, nature: 'Timid', teraType: 'Psychic', shiny: 8192,
+	Fungemory: {
+		species: 'Fungemory', ability: 'Sealed Off', item: 'Leftovers', gender: 'M',
+		moves: ['Psychic Noise', 'Scald', ['Tidy Up', 'Teleport']],
+		signatureMove: 'Shadow Ball',
+		evs: { hp: 252, spa: 4, spd: 252 }, nature: 'Calm', teraType: 'Psychic',
 	},
 	avarice: {
 		species: 'Sinistcha-Masterpiece', ability: 'Serene Grace', item: ['Covert Cloak', 'Leftovers'], gender: 'N',
