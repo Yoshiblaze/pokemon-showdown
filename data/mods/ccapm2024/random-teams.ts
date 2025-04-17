@@ -348,7 +348,7 @@ export const cpmSets: CPMSets = {
 		evs: { hp: 252, spa: 252, spe: 4 }, nature: 'Modest', teraType: 'Dark',
 	},
 	Shail: {
-		species: 'Snowhazard', ability: 'Snowhazard', item: 'White Herb', gender: '',
+		species: 'Shail', ability: 'Snowhazard', item: 'White Herb', gender: '',
 		moves: ['Blizzard', 'Earth Power', 'Power Gem'],
 		signatureMove: 'Shell Smash',
 		evs: { spa: 252, spd: 4, spe: 252 }, nature: 'Timid', teraType: ['Dark', 'Poison', 'Ghost', 'Steel'],
