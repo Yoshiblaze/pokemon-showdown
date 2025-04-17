@@ -1300,19 +1300,52 @@ const commands: Chat.ChatCommands = {
 	tournaments: 'tournament',
 	tournament: {
 		''(target, room, user) {
-			room = this.requireRoom();
 			if (!this.runBroadcast()) return;
-			const update = [];
+			const tours = [];
 			for (const tourRoom of Rooms.rooms.values()) {
 				const tournament = tourRoom.getGame(Tournament);
 				if (!tournament) continue;
 				if (tourRoom.settings.isPrivate || tourRoom.settings.isPersonal || tourRoom.settings.staffRoom) continue;
-				update.push({
-					room: tourRoom.roomid, title: room.title, format: tournament.name,
-					generator: tournament.generator.name, isStarted: tournament.isTournamentStarted,
+				tours.push({
+					room: tourRoom.roomid, format: tournament.name, generator: tournament.generator.name,
+					isStarted: tournament.isTournamentStarted, players: tournament.players.length,
 				});
 			}
-			this.sendReply(`|tournaments|info|${JSON.stringify(update)}`);
+			if (!tours.length) {
+				throw new Chat.ErrorMessage(`No tournaments are currently running.`);
+			}
+			const started = Utils.sortBy(tours.filter(tour => tour.isStarted), tour => tour.room);
+			const signups = Utils.sortBy(tours.filter(tour => !tour.isStarted), tour => tour.room);
+
+			let buf = ``;
+			if (signups.length) {
+				buf += `<strong>Accepting Signups:</strong><ul class="roomlist">`;
+				for (const tour of signups) {
+					const formatName = Dex.formats.get(tour.format).exists ? Dex.formats.get(tour.format).name : tour.format;
+					const icon = tour.generator === 'Round Robin' ? '<i class="fa fa-th"></i>' :
+						tour.generator === 'Single Elimination' ? '<i class="fa fa-share-alt"></i>' :
+						'<i class="fa fa-share-alt"></i><i class="fa fa-share-alt"></i>';
+					const plural = tour.players !== 1 ? 's' : '';
+					buf += `<li><a href="/${tour.room}" class="blocklink">&laquo;<strong>${tour.room}</strong>&raquo;<small style="float:right">(${tour.players} player${plural})</small><br />${icon} <small>${Utils.escapeHTML(formatName)} ${tour.generator}</small></a></li>`;
+				}
+				buf += `</ul>`;
+			}
+			if (started.length) {
+				if (signups.length) buf += `<br />`;
+				buf += `<strong>Started:</strong><ul class="roomlist">`;
+				for (const tour of started) {
+					const formatName = Dex.formats.get(tour.format).exists ? Dex.formats.get(tour.format).name : tour.format;
+					const icon = tour.generator === 'Round Robin' ? '<i class="fa fa-th"></i>' :
+						tour.generator === 'Single Elimination' ? '<i class="fa fa-share-alt"></i>' :
+						'<i class="fa fa-share-alt"></i><i class="fa fa-share-alt"></i>';
+					const plural = tour.players !== 1 ? 's' : '';
+					buf += `<li><a href="/${tour.room}" class="blocklink">&laquo;<strong>${tour.room}</strong>&raquo;<small style="float:right">(${tour.players} player${plural})</small><br />${icon} <small>${Utils.escapeHTML(formatName)} ${tour.generator}</small></a></li>`;
+				}
+				buf += `</ul>`;
+			}
+			buf += ``;
+
+			this.sendReplyBox(buf);
 		},
 		help() {
 			return this.parse('/help tournament');
