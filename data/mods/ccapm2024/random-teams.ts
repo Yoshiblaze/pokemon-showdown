@@ -105,13 +105,13 @@ export const cpmSets: CPMSets = {
 		species: 'Contradox', ability: 'Antimatter', item: 'Life Orb', gender: '',
 		moves: ['Psychic Fangs', ['Earthquake', 'Fire Punch', 'Ice Shard'], 'U-turn'],
 		signatureMove: 'Triple Axel',
-		evs: { atk: 252, def: 4, spe: 252 }, nature: 'Jolly', teraType: 'Poison'
+		evs: { atk: 252, def: 4, spe: 252 }, nature: 'Jolly', teraType: 'Poison',
 	},
 	Cosmole: {
 		species: 'Cosmole', ability: 'Quick Thinking', item: 'Life Orb', gender: '',
 		moves: [['Swords Dance', 'Rapid Spin', 'Close Combat'], 'Earthquake', 'Psychic Fangs'],
 		signatureMove: 'Extreme Speed',
-		evs: { atk: 252, spd: 4, spe: 252 }, nature: 'Adamant', teraType: 'Ground'
+		evs: { atk: 252, spd: 4, spe: 252 }, nature: 'Adamant', teraType: 'Ground',
 	},
 	Crashtank: {
 		species: 'Crashtank', ability: 'Brace for Impact', item: 'Heavy-Duty Boots', gender: 'N',
