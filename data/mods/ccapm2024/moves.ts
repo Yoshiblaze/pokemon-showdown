@@ -11,7 +11,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 	},
 
 	// fake moves
-	medic: {
+	/* medic: {
 		accuracy: true,
 		basePower: 0,
 		category: "Status",
@@ -37,7 +37,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		type: "Normal",
 		zMove: { boost: { def: 1 } },
 		contestType: "Clever",
-	},
+	}, */
 	fishingtokens: {
 		accuracy: true,
 		basePower: 0,
