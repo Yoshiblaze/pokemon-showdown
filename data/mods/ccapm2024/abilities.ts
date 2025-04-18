@@ -961,7 +961,8 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 	},
 	superrod: {
 		onAfterMove(target, source, move) {
-			if (move.type === 'Water' && target.side.sideConditions['fishingTokens'].layers > 0) {
+			if (!target.side.sideConditions['fishingTokens']) return;
+			if (move.type === 'Water') {
 				this.heal(target.baseMaxhp / 16 * target.side.sideConditions['fishingTokens'].layers);
 			}
 		},
