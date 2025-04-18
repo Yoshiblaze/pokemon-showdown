@@ -441,6 +441,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		name: "Draw Four",
 	},
 	electromagneticmanipulation: {
+		// Broken, try to fix.
 		onUpdate(pokemon) {
 			if (pokemon.adjacentFoes().length === 0) return;
 			const target = this.sample(pokemon.adjacentFoes());
