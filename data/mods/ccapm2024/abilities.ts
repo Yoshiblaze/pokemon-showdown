@@ -441,7 +441,6 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		name: "Draw Four",
 	},
 	electromagneticmanipulation: {
-		// Broken, try to fix.
 		onUpdate(pokemon) {
 			if (pokemon.adjacentFoes().length === 0) return;
 			const target = this.sample(pokemon.adjacentFoes());
@@ -451,13 +450,15 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		condition: {
 			onStart(pokemon) {
 				const types = pokemon.types.length === 2 ? ['Electric', pokemon.types[1]] : ['Electric'];
-				pokemon.setType(types.join('/'));
+				pokemon.setType(types);
 				this.add('-start', pokemon, 'typechange', types.join('/'));
 			},
 			onUpdate(pokemon) {
 				if (pokemon.adjacentFoes().length === 0) pokemon.removeVolatile('electromagneticmanipulation');
-				const target = this.sample(pokemon.adjacentFoes()); // crashes
-				if (!target.hasAbility('electromagneticmanipulation')) pokemon.removeVolatile('electromagneticmanipulation');
+				else {
+					const target = this.sample(pokemon.adjacentFoes());
+					if (!target.hasAbility('electromagneticmanipulation')) pokemon.removeVolatile('electromagneticmanipulation');
+				}
 			},
 			onEnd(pokemon) {
 				const types = pokemon.baseSpecies.types;
