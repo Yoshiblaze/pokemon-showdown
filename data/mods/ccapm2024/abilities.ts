@@ -425,8 +425,8 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 	},
 	drawfour: {
 		shortDesc: "After knocking out target, if user knows less than 12 moves, it learns target's moves.",
-		onDamage(damage, source, target, effect) {
-			if (damage >= target.hp) {
+		onSourceDamagingHit(damage, source, target, effect) {
+			if (damage >= target.hp && effect && effect.effectType === 'Move') {
 				for (const moveSlot of target.moveSlots) {
 					if (moveSlot === null) return;
 					if (source.moveSlots.length < 12) {
@@ -602,6 +602,18 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 	medic: {
 		onSwitchOut(pokemon) {
 			pokemon.side.addSideCondition('medic');
+		},
+		condition: {
+			// this is a side condition
+			onSideStart(side) {
+				this.add('-sidestart', side, 'medic', '[silent]');
+			},
+			onEntryHazard(pokemon) {
+				this.heal(pokemon.maxhp / 6);
+				if (pokemon.status) pokemon.cureStatus();
+				pokemon.side.removeSideCondition('medic');
+				this.add('-sideend', pokemon.side, 'move: Medic', '[silent]');
+			},
 		},
 		flags: {},
 		name: "Medic",
