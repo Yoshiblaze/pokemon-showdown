@@ -265,7 +265,7 @@ export const cpmSets: CPMSets = {
 	},
 	Noyew: {
 		species: 'Noyew', ability: 'Back at Ya!', item: 'Leftovers', gender: '',
-		moves: ['Spikes', 'Toxic', 'Leech Seed'],
+		moves: ['Spikes', 'Toxic', 'Grass Knot'],
 		signatureMove: 'Leech Seed',
 		evs: { hp: 252, def: 128, spd: 128 }, nature: 'Careful', teraType: 'Fairy',
 	},
