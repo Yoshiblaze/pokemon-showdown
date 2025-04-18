@@ -455,7 +455,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 			},
 			onUpdate(pokemon) {
 				if (pokemon.adjacentFoes().length === 0) pokemon.removeVolatile('electromagneticmanipulation');
-				const target = this.sample(pokemon.adjacentFoes());
+				const target = this.sample(pokemon.adjacentFoes()); // crashes
 				if (!target.hasAbility('electromagneticmanipulation')) pokemon.removeVolatile('electromagneticmanipulation');
 			},
 			onEnd(pokemon) {
@@ -903,7 +903,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 	},
 	snowhazard: {
 		onDamagingHit(damage, target, source, move) {
-			this.field.setWeather('snow');
+			this.field.setWeather('snowscape');
 		},
 		flags: {},
 		name: "Snowhazard",
