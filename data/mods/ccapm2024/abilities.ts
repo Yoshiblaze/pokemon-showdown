@@ -427,13 +427,13 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		shortDesc: "After knocking out target, if user knows less than 12 moves, it learns target's moves.",
 		onSourceAfterFaint(length, source, target, effect) {
 			if (effect && effect.effectType === 'Move') {
-				for (const moveSlot of target.moveSlots) {
+				for (const moveSlot of source.moveSlots) {
 					if (moveSlot === null) return;
-					if (source.moveSlots.length < 12) {
+					if (target.moveSlots.length < 12) {
 						this.attrLastMove('[still]');
-						if (source.moveSlots.length < 0) return false;
-						source.moveSlots[source.moveSlots.length] = moveSlot;
-						source.baseMoveSlots[source.moveSlots.length - 1] = moveSlot;
+						if (target.moveSlots.length < 0) return false;
+						target.moveSlots[target.moveSlots.length] = moveSlot;
+						target.baseMoveSlots[target.moveSlots.length - 1] = moveSlot;
 					}
 				}
 			}
