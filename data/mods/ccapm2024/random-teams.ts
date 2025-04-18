@@ -67,7 +67,7 @@ export const cpmSets: CPMSets = {
 	},
 	Boillusk: {
 		species: 'Boillusk', ability: 'Absorber', item: 'Heavy-Duty Boots', gender: '',
-		moves: ['Steam Erupton', 'Earth Power', ['Scald', 'Stealth Rock', 'Overheat']],
+		moves: ['Steam Eruption', 'Earth Power', ['Scald', 'Stealth Rock', 'Overheat']],
 		signatureMove: 'Fire Blast',
 		evs: { hp: 252, spa: 252, spe: 4 }, nature: 'Modest', teraType: 'Fire',
 	},
