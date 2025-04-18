@@ -36,7 +36,7 @@ export const cpmSets: CPMSets = {
 	// Nature needs to be a valid nature with the first letter capitalized ex: Modest
 	*/
 	Aesap: {
-		species: 'Aesap', ability: 'Exhaust', item: 'Lansat Berry', gender: '',
+		species: 'Aesap', ability: 'Exhaust', item: 'Leppa Berry', gender: '',
 		moves: ['Knock Off', 'U-turn', 'Strength Sap'],
 		signatureMove: 'Let\'s Snuggle Forever',
 		evs: { hp: 4, atk: 252, spe: 252 }, nature: 'Jolly', teraType: 'Flying',
@@ -54,7 +54,7 @@ export const cpmSets: CPMSets = {
 		evs: { hp: 252, atk: 252, spd: 4 }, ivs: { spe: 0 }, nature: 'Adamant', teraType: 'Dark',
 	},
 	Arthrostrike: {
-		species: 'Arthrostrike', ability: 'Preeminence', item: 'Leftovers', gender: '',
+		species: 'Arthrostrike', ability: 'Preeminence', item: 'Loaded Dice', gender: '',
 		moves: ['Pin Missile', 'Earthquake', ['Fell Stinger', 'U-turn']],
 		signatureMove: 'Arm Thrust',
 		evs: { hp: 248, atk: 252, spe: 8 }, nature: 'Adamant', teraType: 'Fairy',
