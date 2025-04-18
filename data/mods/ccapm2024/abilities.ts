@@ -746,7 +746,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		condition: {},
 		flags: {},
 		name: "Outclass",
-		shortDesc: "Fishing token or first contact: steals target primary type and replaces its own secondary type.",
+		shortDesc: "Fishing token or first hit: steals target primary type and replaces its own secondary type.",
 	},
 	peckingorder: {
 		name: "Pecking Order",
@@ -961,9 +961,9 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 	},
 	superrod: {
 		onAfterMove(target, source, move) {
-			if (!target.side.sideConditions['fishingTokens']) return;
+			if (!source.side.sideConditions['fishingTokens']) return;
 			if (move.type === 'Water') {
-				this.heal(target.baseMaxhp / 16 * target.side.sideConditions['fishingTokens'].layers);
+				this.heal(source.baseMaxhp / 16 * source.side.sideConditions['fishingTokens'].layers);
 			}
 		},
 		name: "Super Rod",
