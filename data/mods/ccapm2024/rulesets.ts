@@ -8,34 +8,34 @@ export const Rulesets: import('../../../sim/dex-formats').ModdedFormatDataTable 
 				const species = this.dex.species.get(pokemon.species.name);
 				const baseSpecies = Dex.species.get(pokemon.species.name);
 				let modded = false;
-				for (const type in [0, 1]) {
+				for (const type of [0, 1]) {
 					if (species.types[type] !== baseSpecies.types[type]) {
 						modded = true;
 					}
 				}
 				modded = modded ||
-				 (species.baseStats.hp !== baseSpecies.baseStats.hp ||
-          species.baseStats.atk !== baseSpecies.baseStats.atk ||
-          species.baseStats.def !== baseSpecies.baseStats.def ||
-          species.baseStats.spa !== baseSpecies.baseStats.spa ||
-          species.baseStats.spd !== baseSpecies.baseStats.spd ||
-          species.baseStats.spe !== baseSpecies.baseStats.spe ||
-          species.abilities[0] !== baseSpecies.abilities[0] ||
-          species.abilities[1] !== baseSpecies.abilities[1] ||
-          species.abilities['H'] !== baseSpecies.abilities['H'] ||
-          species.abilities['S'] !== baseSpecies.abilities['S']);
+					(species.baseStats.hp !== baseSpecies.baseStats.hp ||
+						species.baseStats.atk !== baseSpecies.baseStats.atk ||
+					 	species.baseStats.def !== baseSpecies.baseStats.def ||
+					 	species.baseStats.spa !== baseSpecies.baseStats.spa ||
+					 	species.baseStats.spd !== baseSpecies.baseStats.spd ||
+					 	species.baseStats.spe !== baseSpecies.baseStats.spe ||
+					 	species.abilities[0] !== baseSpecies.abilities[0] ||
+					 	species.abilities[1] !== baseSpecies.abilities[1] ||
+					 	species.abilities['H'] !== baseSpecies.abilities['H'] ||
+					 	species.abilities['S'] !== baseSpecies.abilities['S']);
 				if (modded) {
 					pokemon.isModded = true;
 				}
 			}
 		},
 		onSwitchIn(pokemon) {
-			let species = this.dex.species.get(pokemon.species.name);
-			let switchedIn = pokemon.switchedIn;
-      if (!pokemon.isModded) return;
-      this.add('-start', pokemon, 'typechange', pokemon.getTypes(true).join('/'), '[silent]');
-      if (pokemon.switchedIn) return;
-      pokemon.switchedIn = true;
+			const species = this.dex.species.get(pokemon.species.name);
+			const switchedIn = pokemon.switchedIn;
+			if (!pokemon.isModded) return;
+			this.add('-start', pokemon, 'typechange', pokemon.getTypes(true).join('/'), '[silent]');
+			if (pokemon.switchedIn) return;
+			pokemon.switchedIn = true;
 			let abilities = species.abilities[0];
 			if (species.abilities[1]) {
 				abilities += ` / ${species.abilities[1]}`;
