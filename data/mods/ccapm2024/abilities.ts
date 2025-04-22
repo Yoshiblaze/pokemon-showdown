@@ -702,7 +702,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 	nightmarch: {
 		onBasePower(basePower, pokemon, target, move) {
 			for (const ally of pokemon.side.pokemon)
-				if (ally !== pokemon && ally.set.moves.indexOf(move.name))
+				if (ally !== pokemon && ally.set.moves.includes(move.name))
 					basePower += 20;
 			return;
 		},
@@ -828,7 +828,6 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		onAnyPrepareHitPriority: -1,
 		onAnyPrepareHit(source, target, move) {
 			const puppetmaster = this.effectState.puppetmaster;
-			console.log(move.sourceEffect);
 			if (!move || move.name !== 'Substitute' || move.isZ || move.isMax || move.sourceEffect === 'puppetmaster') return;
 			this.actions.useMove(move.id, puppetmaster);
 			return null;
