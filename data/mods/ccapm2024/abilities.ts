@@ -526,7 +526,6 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 	},
 	ironfistening: {
 		onStart(source) {
-			const side = source.side;
 			this.actions.useMove("Fishing Tokens", source);
 		},
 		flags: {},
