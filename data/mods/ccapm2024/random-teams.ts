@@ -19,22 +19,6 @@ export interface CPMSet {
 interface CPMSets { [k: string]: CPMSet }
 
 export const cpmSets: CPMSets = {
-	/*
-	// Example:
-	Username: {
-		species: 'Species', ability: 'Ability', item: 'Item', gender: '',
-		moves: ['Move Name', ['Move Name', 'Move Name']],
-		signatureMove: 'Move Name',
-		evs: {stat: number}, ivs: {stat: number}, nature: 'Nature', teraType: 'Type',
-	},
-	// Species, ability, and item need to be captialized properly ex: Ludicolo, Swift Swim, Life Orb
-	// Gender can be M, F, N, or left as an empty string
-	// each slot in moves needs to be a string (the move name, captialized properly ex: Hydro Pump), or an array of strings (also move names)
-	// signatureMove also needs to be capitalized properly ex: Scripting
-	// You can skip Evs (defaults to 84 all) and/or Ivs (defaults to 31 all), or just skip part of the Evs (skipped evs are 0) and/or Ivs (skipped Ivs are 31)
-	// You can also skip shiny, defaults to false. Level can be skipped (defaults to 100).
-	// Nature needs to be a valid nature with the first letter capitalized ex: Modest
-	*/
 	Aesap: {
 		species: 'Aesap', ability: 'Exhaust', item: 'Leppa Berry', gender: '',
 		moves: ['Knock Off', 'U-turn', 'Strength Sap'],
@@ -515,28 +499,10 @@ export class RandomCPMTeams extends RandomTeams {
 				shiny: typeof cpmSet.shiny === 'number' ? this.randomChance(1, cpmSet.shiny) : !!cpmSet.shiny,
 			};
 
-			// Any set specific tweaks occur here.
-			/* if (set.name === "Felucia") {
-				const cmIndex = set.moves.indexOf("Calm Mind");
-				if (cmIndex >= 0 && set.moves.includes("Night Shade")) {
-					set.moves[cmIndex] = this.sample(["Thief", "Toxic"]);
-				}
-			}
-			if (set.name === "Frostyicelad" && set.shiny) {
-				const moveIndex = Math.max(set.moves.indexOf('Dire Claw'),
-					set.moves.indexOf('Meteor Mash'), set.moves.indexOf('Bitter Malice'));
-				if (moveIndex >= 0) {
-					set.moves[moveIndex] = 'Fishious Rend';
-					teraType = 'Water';
-				}
-			} */
-
 			if (teraType) set.teraType = teraType;
 
 			team.push(set);
 
-			// Team specific tweaks occur here
-			// Swap last and second to last sets if last set has Illusion
 			if (team.length === this.maxTeamSize && (set.ability === 'Illusion')) {
 				team[this.maxTeamSize - 1] = team[this.maxTeamSize - 2];
 				team[this.maxTeamSize - 2] = set;
