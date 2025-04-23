@@ -16,30 +16,6 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (typeof secondary.chance === 'undefined' ||
 						secondaryRoll < (secondaryOverflow ? secondary.chance % 256 : secondary.chance)) {
 						let flag = true;
-						/* const canSetStatus = function (status: string, target: Pokemon | null, pokemon: Pokemon) {
-							if (!target || target.status) return false;
-							const cantStatus = {
-								brn: ['Fire', 'comatose', 'waterveil', 'waterbubble'],
-								frz: ['Ice', 'comatose', 'magmaarmor'],
-								par: ['Electric', 'comatose', 'limber'],
-								psn: ['comatose', 'immunity'],
-								slp: ['comatose', 'insomnia', 'vitalspirit'],
-								tox: ['comatose', 'immunity'],
-							};
-							if (target.hasType(['Poison', 'Steel']) && (status === 'psn' || status === 'tox')) {
-								if (pokemon.hasAbility('corrosion')) {
-									return true;
-								} else {
-									return false;
-								}
-							}
-							if (target.hasType(cantStatus[status][0])) return false;
-							if (move.ignoreAbility) return true;
-							if (target.hasAbility('leafguard') && this.isWeather(['sunnyday', 'desolateland'])) return false;
-							if (target.hasAbility('shieldsdown') && target.species.id === 'miniormeteor') return false;
-							if (target.hasAbility(cantStatus[status])) return false;
-							return true;
-						}; */
 						if (moveData.secondary?.status && foe) flag = foe.setStatus(moveData.secondary.status, source);
 						if (moveData.secondary?.volatileStatus && foe) flag = !(moveData.secondary.volatileStatus in foe.volatiles);
 						if (moveData.secondary?.volatileStatus === 'flinch' && foe) flag = flag && foe.activeTurns >= 1 && !foe.moveThisTurn;
