@@ -395,30 +395,6 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 			}
 		},
 	},
-	{
-		name: "[Gen 9] CCAPM 2024 Test Format",
-		mod: 'ccapm2024',
-		searchShow: false,
-		debug: true,
-		battle: { trunc: Math.trunc },
-		// no restrictions, for serious (other than team preview)
-		ruleset: ['Team Preview', 'Cancel Mod', 'Max Team Size = 24', 'Max Move Count = 24', 'Max Level = 9999', 'Default Level = 100'],
-	},
-	{
-		name: "[Gen 2] GSC Doubles",
-		desc: `A Gen 2 metagame that adds doubles to the game.`,
-		mod: 'gen2doubles',
-		gameType: 'doubles',
-		searchShow: false,
-		ruleset: ['Standard Doubles', 'Swagger Clause'],
-		banlist: ['Uber', 'Bright Powder', 'King\'s Rock', 'Quick Claw'],
-		onBegin() {
-			this.add('-message', `Welcome to GSC Doubles!`);
-			this.add('-message', `This is a Generation 2 Pet Mod that brings the Doubles game mode introduced in Generation 3 back in time to GSC.`);
-			this.add('-message', `You can find our metagame resources here:`);
-			this.add('-message', `https://www.smogon.com/forums/threads/3755811/`);
-		},
-	},
 
 	// Draft League
 	///////////////////////////////////////////////////////////////////
