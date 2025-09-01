@@ -783,9 +783,23 @@ export class RandomDNUTeams extends RandomTeams {
 			ivs.atk = 0;
 		}
 
-		if (moves.has('gyroball') || moves.has('trickroom') || moves.has('archaicglare')) {
-			evs.spe = 0;
-			ivs.spe = 0;
+		// Hidden Power Grass IVs
+		if (species.id === 'luvdisc') {
+			ivs.atk = 0;
+			ivs.spa = 30;
+		}
+
+		// Hidden Power Psychic IVs
+		if (species.id === 'unown') {
+			ivs.atk = 0;
+			ivs.spe = 30;
+		}
+
+		// Hidden Power Fire IVs
+		if (['fomantis', 'nincada', 'petilil'].includes(species.id)) {
+			ivs.atk = 0;
+			ivs.spa = 30;
+			ivs.spe = 30;
 		}
 
 		// Enforce Tera Type after all set generation is done to prevent infinite generation
