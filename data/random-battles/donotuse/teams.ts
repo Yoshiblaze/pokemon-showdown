@@ -227,6 +227,8 @@ export class RandomDNUTeams extends RandomTeams {
 			['dazzlinggleam', 'thunderwave'],
 			// Combee
 			['lunge', 'bugbuzz'],
+			// Nidoran-F
+			['sludgebomb', 'poisonjab'],
 		];
 
 		for (const pair of incompatiblePairs) this.incompatibleMoves(moves, movePool, pair[0], pair[1]);
@@ -786,6 +788,24 @@ export class RandomDNUTeams extends RandomTeams {
 		if (moves.has('gyroball') || moves.has('trickroom') || moves.has('archaicglare')) {
 			evs.spe = 0;
 			ivs.spe = 0;
+
+		// Hidden Power Grass IVs
+		if (species.id === 'luvdisc') {
+			ivs.atk = 0;
+			ivs.spa = 30;
+		}
+
+		// Hidden Power Psychic IVs
+		if (species.id === 'unown') {
+			ivs.atk = 0;
+			ivs.spe = 30;
+		}
+
+		// Hidden Power Fire IVs
+		if (['fomantis', 'nincada', 'petilil'].includes(species.id)) {
+			ivs.atk = 0;
+			ivs.spa = 30;
+			ivs.spe = 30;
 		}
 
 		// Enforce Tera Type after all set generation is done to prevent infinite generation
