@@ -796,7 +796,7 @@ export class RandomDNUTeams extends RandomTeams {
 		}
 
 		// Hidden Power Fire IVs
-		if (['fomantis', 'nincada', 'petilil'].includes(species.id)) {
+		if (['fomantis', 'nincada', 'petilil'].includes(species.id) && moves.has('hiddenpower')) {
 			ivs.atk = 0;
 			ivs.spa = 30;
 			ivs.spe = 30;
