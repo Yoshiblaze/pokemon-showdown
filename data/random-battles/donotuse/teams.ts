@@ -692,10 +692,6 @@ export class RandomDNUTeams extends RandomTeams {
 			return 'Sitrus Berry';
 		}
 		if (this.dex.getEffectiveness('Rock', species) >= 2) return 'Heavy-Duty Boots';
-		if (
-			moves.has('courtchange') ||
-			!isDoubles && (species.id === 'luvdisc' || (species.id === 'terapagos' && !moves.has('rest')))
-		) return 'Heavy-Duty Boots';
 		if (species.nfe) return 'Eviolite';
 	}
 
