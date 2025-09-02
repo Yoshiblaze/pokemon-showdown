@@ -655,7 +655,7 @@ export class RandomDNUTeams extends RandomTeams {
 		if (species.id === 'lechonk' && moves.has('stuffcheeks')) return 'Salac Berry';
 		if (species.id === 'spearow') return 'Razor Claw';
 		if (species.id === 'pidove' && moves.has('nightslash')) return 'Scope Lens';
-		if (species.id === 'shedinja') return 'Heavy-Duty Boots';
+		if (['shedinja', 'luvdisc', 'nymble'].includes(species.id)) return 'Heavy-Duty Boots';
 		if ((ability === 'Guts' || moves.has('facade')) && !moves.has('sleeptalk')) {
 			return (types.includes('Fire') || ability === 'Toxic Boost') ? 'Toxic Orb' : 'Flame Orb';
 		}
