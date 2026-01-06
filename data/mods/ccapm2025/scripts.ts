@@ -72,5 +72,9 @@ export const Scripts: ModdedBattleScriptsData = {
 		this.modData("Learnsets", "zeraora").learnset.highjumpkick = ["9L1"];
 		this.modData("Learnsets", "zeraora").learnset.quickattack = ["9L1"];
 		this.modData("Learnsets", "zeraora").learnset.charge = ["9L1"];
+		this.modData("Learnsets", "aurorus").learnset.primalpulse = ["9L1"];
+		this.modData("Learnsets", "cofagrigus").learnset.dragonscurse = ["9L1"];
+		this.modData("Learnsets", "dudunsparce").learnset.sixtongueemojis = ["9L1"];
+		this.modData("Learnsets", "kecleon").learnset.kaleidostorm = ["9L1"];
 	},
 };
