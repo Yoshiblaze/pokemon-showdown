@@ -277,19 +277,13 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		onAfterSubDamage(damage, target, source, move) {
 			if (!source.isAlly(target)) this.hint(move.category + " Razor Shell");
 		},
-		secondary: [
-			{
-				chance: 50,
-				boosts: {
-					def: -1,
-				},
-			}, {
-				chance: 50,
-				boosts: {
-					spd: -1,
-				},
-			}, 
-		],
+		secondary: {
+			chance: 50,
+			boosts: {
+				def: -1,
+				spd: -1,
+			},
+		},
 		target: "normal",
 		type: "Water",
 		contestType: "Cool",

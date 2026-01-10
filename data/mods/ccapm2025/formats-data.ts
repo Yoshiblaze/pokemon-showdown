@@ -320,7 +320,7 @@ export const FormatsData: import('../../../sim/dex-species').ModdedSpeciesFormat
 		tier: "Illegal",
 	},
 
-// mostly for advent mons
+	// mostly for advent mons
 	ogerponpixiedust: {
 		tier: "OU",
 		doublesTier: "DOU",

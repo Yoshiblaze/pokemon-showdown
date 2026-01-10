@@ -17,8 +17,6 @@ New sections will be added to the bottom of the specified column.
 The column value will be ignored for repeat sections.
 */
 
-import {Tags} from "../data/tags";
-
 export const Formats: import('../sim/dex-formats').FormatList = [
 
 	// Likeshop Spotlight
@@ -3235,8 +3233,8 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		banlist: ['Uber', 'AG', 'Arena Trap', 'Moody', 'Shadow Tag', 'King\'s Rock', 'Razor Fang', 'Baton Pass', 'Last Respects', 'Shed Tail'],
 		onValidateSet(set) {
 			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) {
-				const { outOfBattleSpecies, tierSpecies } = this.getValidationSpecies(set);
-				if (tierSpecies.isNonstandard != "CAP")
+				const { tierSpecies } = this.getValidationSpecies(set);
+				if (tierSpecies.isNonstandard !== "CAP")
 					return [`${set.name || set.species} does not exist in Pet Mods Advent.`];
 			};
 		},

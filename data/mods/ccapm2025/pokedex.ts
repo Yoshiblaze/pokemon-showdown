@@ -26,16 +26,16 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		baseStats: { hp: 90, atk: 60, def: 75, spa: 110, spd: 121, spe: 64 },
 		abilities: { 0: "Aroma Veil" },
 		otherFormes: [
-      "Alcremie-Sweetened", "Alcremie-Sweetened-Ruby-Cream", "Alcremie-Sweetened-Matcha-Cream",
-      "Alcremie-Sweetened-Mint-Cream", "Alcremie-Sweetened-Lemon-Cream", "Alcremie-Sweetened-Salted-Cream",
-      "Alcremie-Sweetened-Ruby-Swirl", "Alcremie-Sweetened-Caramel-Swirl", "Alcremie-Sweetened-Rainbow-Swirl",
-    ],
+			"Alcremie-Sweetened", "Alcremie-Sweetened-Ruby-Cream", "Alcremie-Sweetened-Matcha-Cream",
+			"Alcremie-Sweetened-Mint-Cream", "Alcremie-Sweetened-Lemon-Cream", "Alcremie-Sweetened-Salted-Cream",
+			"Alcremie-Sweetened-Ruby-Swirl", "Alcremie-Sweetened-Caramel-Swirl", "Alcremie-Sweetened-Rainbow-Swirl",
+		],
 		formeOrder: [
-      "Alcremie", "Alcremie-Ruby-Cream", "Alcremie-Matcha-Cream", "Alcremie-Mint-Cream", "Alcremie-Lemon-Cream", "Alcremie-Salted-Cream",
-      "Alcremie-Ruby-Swirl", "Alcremie-Caramel-Swirl", "Alcremie-Rainbow-Swirl", "Alcremie-Sweetened", "Alcremie-Sweetened-Ruby-Cream",
-      "Alcremie-Sweetened-Matcha-Cream", "Alcremie-Sweetened-Mint-Cream", "Alcremie-Sweetened-Lemon-Cream", "Alcremie-Sweetened-Salted-Cream",
-      "Alcremie-Sweetened-Ruby-Swirl", "Alcremie-Sweetened-Caramel-Swirl", "Alcremie-Sweetened-Rainbow-Swirl",
-    ],
+			"Alcremie", "Alcremie-Ruby-Cream", "Alcremie-Matcha-Cream", "Alcremie-Mint-Cream", "Alcremie-Lemon-Cream", "Alcremie-Salted-Cream",
+			"Alcremie-Ruby-Swirl", "Alcremie-Caramel-Swirl", "Alcremie-Rainbow-Swirl", "Alcremie-Sweetened", "Alcremie-Sweetened-Ruby-Cream",
+			"Alcremie-Sweetened-Matcha-Cream", "Alcremie-Sweetened-Mint-Cream", "Alcremie-Sweetened-Lemon-Cream", "Alcremie-Sweetened-Salted-Cream",
+			"Alcremie-Sweetened-Ruby-Swirl", "Alcremie-Sweetened-Caramel-Swirl", "Alcremie-Sweetened-Rainbow-Swirl",
+		],
 	},
 	alcremiesweetened: {
 		num: 869,
@@ -70,6 +70,7 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		name: "Alcremie-Sweetened-Matcha-Cream",
 		baseSpecies: "Alcremie",
 		forme: "Sweetened-Matcha-Cream",
+		types: ["Fairy"],
 		baseStats: { hp: 90, atk: 80, def: 95, spa: 130, spd: 141, spe: 84 },
 		abilities: { 0: "Heatproof" },
 		heightm: 0.3,
@@ -390,7 +391,7 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		baseStats: { hp: 125, atk: 110, def: 80, spa: 85, spd: 75, spe: 55 },
 		abilities: { 0: "Serene Grace" },
 		otherFormes: ["Dudunsparce-Three-Segment", "Du-Dudunsparce", "Dudunsparce-tongueemoji"],
-		formeOrder: ["Dudunsparce", "Dudunsparce-Three-Segment", "Du-Dudunsparce", "Dudunsparce-tongueemoji"]
+		formeOrder: ["Dudunsparce", "Dudunsparce-Three-Segment", "Du-Dudunsparce", "Dudunsparce-tongueemoji"],
 	},
 	dududunsparce: {
 		num: 982,
@@ -515,13 +516,13 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		baseStats: { hp: 71, atk: 120, def: 95, spa: 120, spd: 95, spe: 99 },
 		abilities: { 0: "Mega Launcher" },
 		otherFormes: [
-      "Genesect-Douse", "Genesect-Shock", "Genesect-Burn", "Genesect-Chill",
-      "Genesect-Core", "Genesect-Rust", "Genesect-Airborne", "Genesect-Luminous",
-    ],
+			"Genesect-Douse", "Genesect-Shock", "Genesect-Burn", "Genesect-Chill",
+			"Genesect-Core", "Genesect-Rust", "Genesect-Airborne", "Genesect-Luminous",
+		],
 		formeOrder: [
-      "Genesect", "Genesect-Douse", "Genesect-Shock", "Genesect-Burn", "Genesect-Chill",
-      "Genesect-Core", "Genesect-Rust", "Genesect-Airborne", "Genesect-Luminous",
-    ],
+			"Genesect", "Genesect-Douse", "Genesect-Shock", "Genesect-Burn", "Genesect-Chill",
+			"Genesect-Core", "Genesect-Rust", "Genesect-Airborne", "Genesect-Luminous",
+		],
 	},
 	genesectcore: {
 		num: 649,
@@ -825,7 +826,7 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		name: "Lilligant-Hisui",
 		baseSpecies: "Lilligant",
 		forme: "Hisui",
-    types: ["Grass", "Fairy"],
+		types: ["Grass", "Fairy"],
 		baseStats: { hp: 70, atk: 60, def: 60, spa: 110, spd: 60, spe: 120 },
 		abilities: { 0: "Drought" },
 		heightm: 1.2,
@@ -839,8 +840,8 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		types: ["Fighting", "Steel"],
 		baseStats: { hp: 70, atk: 110, def: 70, spa: 115, spd: 70, spe: 90 },
 		abilities: { 0: "Inner Focus" },
-		otherFormes: ["Lucario-Mega", /*"Lucario-Mega-Z",*/ "Lucario-Aura Bond"],
-		formeOrder: ["Lucario", "Lucario-Mega", /*"Lucario-Mega-Z",*/ "Lucario-Aura Bond"],
+		otherFormes: ["Lucario-Mega", "Lucario-Aura Bond"],
+		formeOrder: ["Lucario", "Lucario-Mega", "Lucario-Aura Bond"],
 	},
 	lucarioaurabond: {
 		num: 448,
@@ -1018,13 +1019,13 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 	ogerpon: {
 		inherit: true,
 		otherFormes: [
-      "Ogerpon-Wellspring", "Ogerpon-Hearthflame", "Ogerpon-Cornerstone", "Ogerpon-Teal-Tera", "Ogerpon-Wellspring-Tera",
-      "Ogerpon-Hearthflame-Tera", "Ogerpon-Cornerstone-Tera", "Ogerpon-Pixiedust", "Ogerpon-Pixiedust-Tera",
-    ],
+			"Ogerpon-Wellspring", "Ogerpon-Hearthflame", "Ogerpon-Cornerstone", "Ogerpon-Teal-Tera", "Ogerpon-Wellspring-Tera",
+			"Ogerpon-Hearthflame-Tera", "Ogerpon-Cornerstone-Tera", "Ogerpon-Pixiedust", "Ogerpon-Pixiedust-Tera",
+		],
 		formeOrder: [
-      "Ogerpon", "Ogerpon-Wellspring", "Ogerpon-Hearthflame", "Ogerpon-Cornerstone", "Ogerpon-Teal-Tera", "Ogerpon-Wellspring-Tera",
-      "Ogerpon-Hearthflame-Tera", "Ogerpon-Cornerstone-Tera", "Ogerpon-Pixiedust", "Ogerpon-Pixiedust-Tera",
-    ],
+			"Ogerpon", "Ogerpon-Wellspring", "Ogerpon-Hearthflame", "Ogerpon-Cornerstone", "Ogerpon-Teal-Tera", "Ogerpon-Wellspring-Tera",
+			"Ogerpon-Hearthflame-Tera", "Ogerpon-Cornerstone-Tera", "Ogerpon-Pixiedust", "Ogerpon-Pixiedust-Tera",
+		],
 	},
 	ogerponpixiedust: {
 		num: 1017,
@@ -1508,10 +1509,14 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		num: 637,
 		name: "Volcarona-Raidant",
 		baseSpecies: "Volcarona",
-		forme: "Raidant",
+		forme: "Radiant",
 		types: ["Fire", "Psychic"],
 		baseStats: { hp: 85, atk: 70, def: 75, spa: 150, spd: 105, spe: 115 },
 		abilities: { 0: "Desolate Land" },
+		heightm: 1.6,
+		weightkg: 46,
+		color: "White",
+		eggGroups: ["Bug"],
 		requiredMove: "Fiery Dance",
 		battleOnly: "Volcarona",
 	},
@@ -1593,8 +1598,8 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		types: ["Electric", "Fighting"],
 		baseStats: { hp: 88, atk: 112, def: 75, spa: 102, spd: 80, spe: 143 },
 		abilities: { 0: "Electromorphosis" },
-		otherFormes: [/*"Zeraora-Mega",*/ "Zeraora-Big"],
-		formeOrder: ["Zeraora", /*"Zeraora-Mega",*/ "Zeraora-Big"],
+		otherFormes: ["Zeraora-Big"],
+		formeOrder: ["Zeraora", "Zeraora-Big"],
 	},
 	zeraorabig: {
 		num: 807,
@@ -1611,5 +1616,5 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		eggGroups: ["Undiscovered"],
 		battleOnly: "Zeraora",
 	},
-  // Advent mons later
+	// Advent mons later
 };
