@@ -1,24 +1,23 @@
-import {ActiveMove} from "../../../sim/dex-moves";
-
 export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 	// Changed Moves
 	diamondstorm: {
 		inherit: true,
 		onModifyMove(move, source) {
 			const item = source.getItem();
-			if(!item?.isGem) return;
+			if (!item?.isGem) return;
 
 			move.type = item.name.split(' ')[0];
 
-			if(source.ability !== "geminfusion" || !move) return;
+			if (source.ability !== "geminfusion" || !move) return;
 
-			move.onEffectiveness = function (this: Battle, typeMod: number, target: Pokemon | null, type: string, move: ActiveMove) {
-				return typeMod + this.dex.getEffectiveness('Rock', type);
-			};
+			move.onEffectiveness =
+				function (this: Battle, typeMod: number, target: Pokemon | null, type: string, move: ActiveMove) {
+					return typeMod + this.dex.getEffectiveness('Rock', type);
+				};
 		},
 		onHit(target, pokemon, move) {
 			const item = pokemon.getItem();
-			if(!item?.isGem) return;
+			if (!item?.isGem) return;
 
 			if (pokemon.species.id === 'diancie' && !pokemon.transformed) {
 				move.willChangeForme = true;
@@ -507,7 +506,8 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 			},
 			onSwitchIn(pokemon) {
 				const source = this.effectState.source;
-				const type = source.ability === "geminfusion" && source.getItem()?.isGem ? source.getItem().name.split(' ')[0] : this.dex.getActiveMove('stealthrock').type;
+				const type = source.ability === "geminfusion" &&
+					source.getItem()?.isGem ? source.getItem().name.split(' ')[0] : this.dex.getActiveMove('stealthrock').type;
 				const typeMod = this.clampIntRange(pokemon.runEffectiveness(type), -6, 6);
 				this.damage(pokemon.maxhp * (2 ** typeMod) / 8);
 			},
@@ -686,7 +686,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		name: "Yin-Yang Blast",
 		pp: 1,
 		priority: 0,
-		flags: {},
+		flags: { },
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
@@ -748,16 +748,20 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		inherit: true,
 		onModifyType(move, pokemon) {
 			switch (pokemon.species.name) {
-			case 'Ogerpon-Wellspring': case 'Ogerpon-Wellspring-Tera':
+			case 'Ogerpon-Wellspring':
+			case 'Ogerpon-Wellspring-Tera':
 				move.type = 'Water';
 				break;
-			case 'Ogerpon-Hearthflame': case 'Ogerpon-Hearthflame-Tera':
+			case 'Ogerpon-Hearthflame':
+			case 'Ogerpon-Hearthflame-Tera':
 				move.type = 'Fire';
 				break;
-			case 'Ogerpon-Cornerstone': case 'Ogerpon-Cornerstone-Tera':
+			case 'Ogerpon-Cornerstone':
+			case 'Ogerpon-Cornerstone-Tera':
 				move.type = 'Rock';
 				break;
-			case 'Ogerpon-Pixiedust': case 'Ogerpon-Pixiedust-Tera':
+			case 'Ogerpon-Pixiedust':
+			case 'Ogerpon-Pixiedust-Tera':
 				move.type = 'Fairy';
 				break;
 			}
