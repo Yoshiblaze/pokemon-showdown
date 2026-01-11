@@ -11,7 +11,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 			if (source.ability !== "geminfusion" || !move) return;
 
 			move.onEffectiveness =
-				function (this: Battle, typeMod: number, target: Pokemon | null, type: string, move: ActiveMove) {
+				function (this: Battle, typeMod: number, target: Pokemon | null, type: string, ActiveMove) {
 					return typeMod + this.dex.getEffectiveness('Rock', type);
 				};
 		},
