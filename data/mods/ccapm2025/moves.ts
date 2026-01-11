@@ -1,4 +1,519 @@
+import {ActiveMove} from "../../../sim/dex-moves";
+
 export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
+	// Changed Moves
+	diamondstorm: {
+		inherit: true,
+		onModifyMove(move, source) {
+			const item = source.getItem();
+			if(!item?.isGem) return;
+
+			move.type = item.name.split(' ')[0];
+
+			if(source.ability !== "geminfusion" || !move) return;
+
+			move.onEffectiveness = function (this: Battle, typeMod: number, target: Pokemon | null, type: string, move: ActiveMove) {
+				return typeMod + this.dex.getEffectiveness('Rock', type);
+			};
+		},
+		onHit(target, pokemon, move) {
+			const item = pokemon.getItem();
+			if(!item?.isGem) return;
+
+			if (pokemon.species.id === 'diancie' && !pokemon.transformed) {
+				move.willChangeForme = true;
+			}
+		},
+		onAfterMoveSecondarySelf(pokemon, target, move) {
+			if (move.willChangeForme) {
+				pokemon.formeChange('Diancie-Infused', this.effect, true, '0', '[msg]');
+			}
+		},
+	},
+	diamondstormbug: {
+		num: 591,
+		accuracy: 95,
+		basePower: 100,
+		category: "Physical",
+		realMove: "Diamond Storm",
+		name: "Diamond Storm Bug",
+		pp: 5,
+		priority: 0,
+		flags: { protect: 1, mirror: 1 },
+		self: {
+			chance: 50,
+			boosts: {
+				def: 2,
+			},
+		},
+		secondary: {
+			// Sheer Force negates the self even though it is not secondary
+		},
+		onEffectiveness(typeMod, target, type, move) {
+			return typeMod + this.dex.getEffectiveness('Rock', type);
+		},
+		target: "allAdjacentFoes",
+		type: "Bug",
+		contestType: "Beautiful",
+	},
+	diamondstormdark: {
+		num: 591,
+		accuracy: 95,
+		basePower: 100,
+		category: "Physical",
+		realMove: "Diamond Storm",
+		name: "Diamond Storm Dark",
+		pp: 5,
+		priority: 0,
+		flags: { protect: 1, mirror: 1 },
+		self: {
+			chance: 50,
+			boosts: {
+				def: 2,
+			},
+		},
+		secondary: {
+			// Sheer Force negates the self even though it is not secondary
+		},
+		onEffectiveness(typeMod, target, type, move) {
+			return typeMod + this.dex.getEffectiveness('Rock', type);
+		},
+		target: "allAdjacentFoes",
+		type: "Dark",
+		contestType: "Beautiful",
+	},
+	diamondstormdragon: {
+		num: 591,
+		accuracy: 95,
+		basePower: 100,
+		category: "Physical",
+		realMove: "Diamond Storm",
+		name: "Diamond Storm Dragon",
+		pp: 5,
+		priority: 0,
+		flags: { protect: 1, mirror: 1 },
+		self: {
+			chance: 50,
+			boosts: {
+				def: 2,
+			},
+		},
+		secondary: {
+			// Sheer Force negates the self even though it is not secondary
+		},
+		onEffectiveness(typeMod, target, type, move) {
+			return typeMod + this.dex.getEffectiveness('Rock', type);
+		},
+		target: "allAdjacentFoes",
+		type: "Dragon",
+		contestType: "Beautiful",
+	},
+	diamondstormelectric: {
+		num: 591,
+		accuracy: 95,
+		basePower: 100,
+		category: "Physical",
+		realMove: "Diamond Storm",
+		name: "Diamond Storm Electric",
+		pp: 5,
+		priority: 0,
+		flags: { protect: 1, mirror: 1 },
+		self: {
+			chance: 50,
+			boosts: {
+				def: 2,
+			},
+		},
+		secondary: {
+			// Sheer Force negates the self even though it is not secondary
+		},
+		onEffectiveness(typeMod, target, type, move) {
+			return typeMod + this.dex.getEffectiveness('Rock', type);
+		},
+		target: "allAdjacentFoes",
+		type: "Electric",
+		contestType: "Beautiful",
+	},
+	diamondstormfairy: {
+		num: 591,
+		accuracy: 95,
+		basePower: 100,
+		category: "Physical",
+		realMove: "Diamond Storm",
+		name: "Diamond Storm Fairy",
+		pp: 5,
+		priority: 0,
+		flags: { protect: 1, mirror: 1 },
+		self: {
+			chance: 50,
+			boosts: {
+				def: 2,
+			},
+		},
+		secondary: {
+			// Sheer Force negates the self even though it is not secondary
+		},
+		onEffectiveness(typeMod, target, type, move) {
+			return typeMod + this.dex.getEffectiveness('Rock', type);
+		},
+		target: "allAdjacentFoes",
+		type: "Fairy",
+		contestType: "Beautiful",
+	},
+	diamondstormfighting: {
+		num: 591,
+		accuracy: 95,
+		basePower: 100,
+		category: "Physical",
+		realMove: "Diamond Storm",
+		name: "Diamond Storm Fighting",
+		pp: 5,
+		priority: 0,
+		flags: { protect: 1, mirror: 1 },
+		self: {
+			chance: 50,
+			boosts: {
+				def: 2,
+			},
+		},
+		secondary: {
+			// Sheer Force negates the self even though it is not secondary
+		},
+		onEffectiveness(typeMod, target, type, move) {
+			return typeMod + this.dex.getEffectiveness('Rock', type);
+		},
+		target: "allAdjacentFoes",
+		type: "Fighting",
+		contestType: "Beautiful",
+	},
+	diamondstormfire: {
+		num: 591,
+		accuracy: 95,
+		basePower: 100,
+		category: "Physical",
+		realMove: "Diamond Storm",
+		name: "Diamond Storm Fire",
+		pp: 5,
+		priority: 0,
+		flags: { protect: 1, mirror: 1 },
+		self: {
+			chance: 50,
+			boosts: {
+				def: 2,
+			},
+		},
+		secondary: {
+			// Sheer Force negates the self even though it is not secondary
+		},
+		onEffectiveness(typeMod, target, type, move) {
+			return typeMod + this.dex.getEffectiveness('Rock', type);
+		},
+		target: "allAdjacentFoes",
+		type: "Fire",
+		contestType: "Beautiful",
+	},
+	diamondstormflying: {
+		num: 591,
+		accuracy: 95,
+		basePower: 100,
+		category: "Physical",
+		realMove: "Diamond Storm",
+		name: "Diamond Storm Flying",
+		pp: 5,
+		priority: 0,
+		flags: { protect: 1, mirror: 1 },
+		self: {
+			chance: 50,
+			boosts: {
+				def: 2,
+			},
+		},
+		secondary: {
+			// Sheer Force negates the self even though it is not secondary
+		},
+		onEffectiveness(typeMod, target, type, move) {
+			return typeMod + this.dex.getEffectiveness('Rock', type);
+		},
+		target: "allAdjacentFoes",
+		type: "Flying",
+		contestType: "Beautiful",
+	},
+	diamondstormghost: {
+		num: 591,
+		accuracy: 95,
+		basePower: 100,
+		category: "Physical",
+		realMove: "Diamond Storm",
+		name: "Diamond Storm Ghost",
+		pp: 5,
+		priority: 0,
+		flags: { protect: 1, mirror: 1 },
+		self: {
+			chance: 50,
+			boosts: {
+				def: 2,
+			},
+		},
+		secondary: {
+			// Sheer Force negates the self even though it is not secondary
+		},
+		onEffectiveness(typeMod, target, type, move) {
+			return typeMod + this.dex.getEffectiveness('Rock', type);
+		},
+		target: "allAdjacentFoes",
+		type: "Ghost",
+		contestType: "Beautiful",
+	},
+	diamondstormgrass: {
+		num: 591,
+		accuracy: 95,
+		basePower: 100,
+		category: "Physical",
+		realMove: "Diamond Storm",
+		name: "Diamond Storm Grass",
+		pp: 5,
+		priority: 0,
+		flags: { protect: 1, mirror: 1 },
+		self: {
+			chance: 50,
+			boosts: {
+				def: 2,
+			},
+		},
+		secondary: {
+			// Sheer Force negates the self even though it is not secondary
+		},
+		onEffectiveness(typeMod, target, type, move) {
+			return typeMod + this.dex.getEffectiveness('Rock', type);
+		},
+		target: "allAdjacentFoes",
+		type: "Grass",
+		contestType: "Beautiful",
+	},
+	diamondstormground: {
+		num: 591,
+		accuracy: 95,
+		basePower: 100,
+		category: "Physical",
+		realMove: "Diamond Storm",
+		name: "Diamond Storm Ground",
+		pp: 5,
+		priority: 0,
+		flags: { protect: 1, mirror: 1 },
+		self: {
+			chance: 50,
+			boosts: {
+				def: 2,
+			},
+		},
+		secondary: {
+			// Sheer Force negates the self even though it is not secondary
+		},
+		onEffectiveness(typeMod, target, type, move) {
+			return typeMod + this.dex.getEffectiveness('Rock', type);
+		},
+		target: "allAdjacentFoes",
+		type: "Ground",
+		contestType: "Beautiful",
+	},
+	diamondstormice: {
+		num: 591,
+		accuracy: 95,
+		basePower: 100,
+		category: "Physical",
+		realMove: "Diamond Storm",
+		name: "Diamond Storm Ice",
+		pp: 5,
+		priority: 0,
+		flags: { protect: 1, mirror: 1 },
+		self: {
+			chance: 50,
+			boosts: {
+				def: 2,
+			},
+		},
+		secondary: {
+			// Sheer Force negates the self even though it is not secondary
+		},
+		onEffectiveness(typeMod, target, type, move) {
+			return typeMod + this.dex.getEffectiveness('Rock', type);
+		},
+		target: "allAdjacentFoes",
+		type: "Ice",
+		contestType: "Beautiful",
+	},
+	diamondstormnormal: {
+		num: 591,
+		accuracy: 95,
+		basePower: 100,
+		category: "Physical",
+		realMove: "Diamond Storm",
+		name: "Diamond Storm Normal",
+		pp: 5,
+		priority: 0,
+		flags: { protect: 1, mirror: 1 },
+		self: {
+			chance: 50,
+			boosts: {
+				def: 2,
+			},
+		},
+		secondary: {
+			// Sheer Force negates the self even though it is not secondary
+		},
+		onEffectiveness(typeMod, target, type, move) {
+			return typeMod + this.dex.getEffectiveness('Rock', type);
+		},
+		target: "allAdjacentFoes",
+		type: "Normal",
+		contestType: "Beautiful",
+	},
+	diamondstormpoison: {
+		num: 591,
+		accuracy: 95,
+		basePower: 100,
+		category: "Physical",
+		realMove: "Diamond Storm",
+		name: "Diamond Storm Poison",
+		pp: 5,
+		priority: 0,
+		flags: { protect: 1, mirror: 1 },
+		self: {
+			chance: 50,
+			boosts: {
+				def: 2,
+			},
+		},
+		secondary: {
+			// Sheer Force negates the self even though it is not secondary
+		},
+		onEffectiveness(typeMod, target, type, move) {
+			return typeMod + this.dex.getEffectiveness('Rock', type);
+		},
+		target: "allAdjacentFoes",
+		type: "Poison",
+		contestType: "Beautiful",
+	},
+	diamondstormpsychic: {
+		num: 591,
+		accuracy: 95,
+		basePower: 100,
+		category: "Physical",
+		realMove: "Diamond Storm",
+		name: "Diamond Storm Psychic",
+		pp: 5,
+		priority: 0,
+		flags: { protect: 1, mirror: 1 },
+		self: {
+			chance: 50,
+			boosts: {
+				def: 2,
+			},
+		},
+		secondary: {
+			// Sheer Force negates the self even though it is not secondary
+		},
+		onEffectiveness(typeMod, target, type, move) {
+			return typeMod + this.dex.getEffectiveness('Rock', type);
+		},
+		target: "allAdjacentFoes",
+		type: "Psychic",
+		contestType: "Beautiful",
+	},
+	diamondstormrock: {
+		num: 591,
+		accuracy: 95,
+		basePower: 100,
+		category: "Physical",
+		realMove: "Diamond Storm",
+		name: "Diamond Storm Rock",
+		pp: 5,
+		priority: 0,
+		flags: { protect: 1, mirror: 1 },
+		self: {
+			chance: 50,
+			boosts: {
+				def: 2,
+			},
+		},
+		secondary: {
+			// Sheer Force negates the self even though it is not secondary
+		},
+		onEffectiveness(typeMod, target, type, move) {
+			return typeMod + this.dex.getEffectiveness('Rock', type);
+		},
+		target: "allAdjacentFoes",
+		type: "Rock",
+		contestType: "Beautiful",
+	},
+	diamondstormsteel: {
+		num: 591,
+		accuracy: 95,
+		basePower: 100,
+		category: "Physical",
+		realMove: "Diamond Storm",
+		name: "Diamond Storm Steel",
+		pp: 5,
+		priority: 0,
+		flags: { protect: 1, mirror: 1 },
+		self: {
+			chance: 50,
+			boosts: {
+				def: 2,
+			},
+		},
+		secondary: {
+			// Sheer Force negates the self even though it is not secondary
+		},
+		onEffectiveness(typeMod, target, type, move) {
+			return typeMod + this.dex.getEffectiveness('Rock', type);
+		},
+		target: "allAdjacentFoes",
+		type: "Steel",
+		contestType: "Beautiful",
+	},
+	diamondstormwater: {
+		num: 591,
+		accuracy: 95,
+		basePower: 100,
+		category: "Physical",
+		realMove: "Diamond Storm",
+		name: "Diamond Storm Water",
+		pp: 5,
+		priority: 0,
+		flags: { protect: 1, mirror: 1 },
+		self: {
+			chance: 50,
+			boosts: {
+				def: 2,
+			},
+		},
+		secondary: {
+			// Sheer Force negates the self even though it is not secondary
+		},
+		onEffectiveness(typeMod, target, type, move) {
+			return typeMod + this.dex.getEffectiveness('Rock', type);
+		},
+		target: "allAdjacentFoes",
+		type: "Water",
+		contestType: "Beautiful",
+	},
+	stealthrock: {
+		inherit: true,
+		condition: {
+			// this is a side condition
+			onSideStart(side) {
+				this.add('-sidestart', side, 'move: Stealth Rock');
+			},
+			onSwitchIn(pokemon) {
+				const source = this.effectState.source;
+				const type = source.ability === "geminfusion" && source.getItem()?.isGem ? source.getItem().name.split(' ')[0] : this.dex.getActiveMove('stealthrock').type;
+				const typeMod = this.clampIntRange(pokemon.runEffectiveness(type), -6, 6);
+				this.damage(pokemon.maxhp * (2 ** typeMod) / 8);
+			},
+		},
+	},
+
 	// New Moves
 	primalpulse: {
 		accuracy: 100,
