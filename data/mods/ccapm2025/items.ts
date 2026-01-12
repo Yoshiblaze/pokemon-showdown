@@ -3,13 +3,13 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 		inherit: true,
 		isNonstandard: null,
 		onTakeItem(item, pokemon, source) {
-			if (source?.ability === "geminfusion" || pokemon.ability === "geminfusion") {
+			if (source.name === "Diancie" || source?.ability === "geminfusion" || pokemon.ability === "geminfusion") {
 				return false;
 			}
 			return true;
 		},
 		onUseItem(item, pokemon) {
-			if (pokemon?.ability === "geminfusion" && item?.isGem) {
+			if ((pokemon.name === "Diancie" || pokemon?.ability === "geminfusion") && item?.isGem) {
 				return false;
 			}
 		},
@@ -26,13 +26,13 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 		inherit: true,
 		isNonstandard: null,
 		onTakeItem(item, pokemon, source) {
-			if (source?.ability === "geminfusion" || pokemon.ability === "geminfusion") {
+			if (source.name === "Diancie" || source?.ability === "geminfusion" || pokemon.ability === "geminfusion") {
 				return false;
 			}
 			return true;
 		},
 		onUseItem(item, pokemon) {
-			if (pokemon?.ability === "geminfusion" && item?.isGem) {
+			if ((pokemon.name === "Diancie" || pokemon?.ability === "geminfusion") && item?.isGem) {
 				return false;
 			}
 		},
@@ -49,13 +49,13 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 		inherit: true,
 		isNonstandard: null,
 		onTakeItem(item, pokemon, source) {
-			if (source?.ability === "geminfusion" || pokemon.ability === "geminfusion") {
+			if (source.name === "Diancie" || source?.ability === "geminfusion" || pokemon.ability === "geminfusion") {
 				return false;
 			}
 			return true;
 		},
 		onUseItem(item, pokemon) {
-			if (pokemon?.ability === "geminfusion" && item?.isGem) {
+			if ((pokemon.name === "Diancie" || pokemon?.ability === "geminfusion") && item?.isGem) {
 				return false;
 			}
 		},
@@ -72,13 +72,13 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 		inherit: true,
 		isNonstandard: null,
 		onTakeItem(item, pokemon, source) {
-			if (source?.ability === "geminfusion" || pokemon.ability === "geminfusion") {
+			if (source.name === "Diancie" || source?.ability === "geminfusion" || pokemon.ability === "geminfusion") {
 				return false;
 			}
 			return true;
 		},
 		onUseItem(item, pokemon) {
-			if (pokemon?.ability === "geminfusion" && item?.isGem) {
+			if ((pokemon.name === "Diancie" || pokemon?.ability === "geminfusion") && item?.isGem) {
 				return false;
 			}
 		},
@@ -95,13 +95,13 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 		inherit: true,
 		isNonstandard: null,
 		onTakeItem(item, pokemon, source) {
-			if (source?.ability === "geminfusion" || pokemon.ability === "geminfusion") {
+			if (source.name === "Diancie" || source?.ability === "geminfusion" || pokemon.ability === "geminfusion") {
 				return false;
 			}
 			return true;
 		},
 		onUseItem(item, pokemon) {
-			if (pokemon?.ability === "geminfusion" && item?.isGem) {
+			if ((pokemon.name === "Diancie" || pokemon?.ability === "geminfusion") && item?.isGem) {
 				return false;
 			}
 		},
@@ -118,13 +118,13 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 		inherit: true,
 		isNonstandard: null,
 		onTakeItem(item, pokemon, source) {
-			if (source?.ability === "geminfusion" || pokemon.ability === "geminfusion") {
+			if (source.name === "Diancie" || source?.ability === "geminfusion" || pokemon.ability === "geminfusion") {
 				return false;
 			}
 			return true;
 		},
 		onUseItem(item, pokemon) {
-			if (pokemon?.ability === "geminfusion" && item?.isGem) {
+			if ((pokemon.name === "Diancie" || pokemon?.ability === "geminfusion") && item?.isGem) {
 				return false;
 			}
 		},
@@ -141,13 +141,13 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 		inherit: true,
 		isNonstandard: null,
 		onTakeItem(item, pokemon, source) {
-			if (source?.ability === "geminfusion" || pokemon.ability === "geminfusion") {
+			if (source.name === "Diancie" || source?.ability === "geminfusion" || pokemon.ability === "geminfusion") {
 				return false;
 			}
 			return true;
 		},
 		onUseItem(item, pokemon) {
-			if (pokemon?.ability === "geminfusion" && item?.isGem) {
+			if ((pokemon.name === "Diancie" || pokemon?.ability === "geminfusion") && item?.isGem) {
 				return false;
 			}
 		},
@@ -164,13 +164,13 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 		inherit: true,
 		isNonstandard: null,
 		onTakeItem(item, pokemon, source) {
-			if (source?.ability === "geminfusion" || pokemon.ability === "geminfusion") {
+			if (source.name === "Diancie" || source?.ability === "geminfusion" || pokemon.ability === "geminfusion") {
 				return false;
 			}
 			return true;
 		},
 		onUseItem(item, pokemon) {
-			if (pokemon?.ability === "geminfusion" && item?.isGem) {
+			if ((pokemon.name === "Diancie" || pokemon?.ability === "geminfusion") && item?.isGem) {
 				return false;
 			}
 		},
@@ -187,13 +187,13 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 		inherit: true,
 		isNonstandard: null,
 		onTakeItem(item, pokemon, source) {
-			if (source?.ability === "geminfusion" || pokemon.ability === "geminfusion") {
+			if (source.name === "Diancie" || source?.ability === "geminfusion" || pokemon.ability === "geminfusion") {
 				return false;
 			}
 			return true;
 		},
 		onUseItem(item, pokemon) {
-			if (pokemon?.ability === "geminfusion" && item?.isGem) {
+			if ((pokemon.name === "Diancie" || pokemon?.ability === "geminfusion") && item?.isGem) {
 				return false;
 			}
 		},
@@ -210,13 +210,13 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 		inherit: true,
 		isNonstandard: null,
 		onTakeItem(item, pokemon, source) {
-			if (source?.ability === "geminfusion" || pokemon.ability === "geminfusion") {
+			if (source.name === "Diancie" || source?.ability === "geminfusion" || pokemon.ability === "geminfusion") {
 				return false;
 			}
 			return true;
 		},
 		onUseItem(item, pokemon) {
-			if (pokemon?.ability === "geminfusion" && item?.isGem) {
+			if ((pokemon.name === "Diancie" || pokemon?.ability === "geminfusion") && item?.isGem) {
 				return false;
 			}
 		},
@@ -233,13 +233,13 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 		inherit: true,
 		isNonstandard: null,
 		onTakeItem(item, pokemon, source) {
-			if (source?.ability === "geminfusion" || pokemon.ability === "geminfusion") {
+			if (source.name === "Diancie" || source?.ability === "geminfusion" || pokemon.ability === "geminfusion") {
 				return false;
 			}
 			return true;
 		},
 		onUseItem(item, pokemon) {
-			if (pokemon?.ability === "geminfusion" && item?.isGem) {
+			if ((pokemon.name === "Diancie" || pokemon?.ability === "geminfusion") && item?.isGem) {
 				return false;
 			}
 		},
@@ -256,13 +256,13 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 		inherit: true,
 		isNonstandard: null,
 		onTakeItem(item, pokemon, source) {
-			if (source?.ability === "geminfusion" || pokemon.ability === "geminfusion") {
+			if (source.name === "Diancie" || source?.ability === "geminfusion" || pokemon.ability === "geminfusion") {
 				return false;
 			}
 			return true;
 		},
 		onUseItem(item, pokemon) {
-			if (pokemon?.ability === "geminfusion" && item?.isGem) {
+			if ((pokemon.name === "Diancie" || pokemon?.ability === "geminfusion") && item?.isGem) {
 				return false;
 			}
 		},
@@ -279,13 +279,13 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 		inherit: true,
 		isNonstandard: null,
 		onTakeItem(item, pokemon, source) {
-			if (source?.ability === "geminfusion" || pokemon.ability === "geminfusion") {
+			if (source.name === "Diancie" || source?.ability === "geminfusion" || pokemon.ability === "geminfusion") {
 				return false;
 			}
 			return true;
 		},
 		onUseItem(item, pokemon) {
-			if (pokemon?.ability === "geminfusion" && item?.isGem) {
+			if ((pokemon.name === "Diancie" || pokemon?.ability === "geminfusion") && item?.isGem) {
 				return false;
 			}
 		},
@@ -302,13 +302,13 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 		inherit: true,
 		isNonstandard: null,
 		onTakeItem(item, pokemon, source) {
-			if (source?.ability === "geminfusion" || pokemon.ability === "geminfusion") {
+			if (source.name === "Diancie" || source?.ability === "geminfusion" || pokemon.ability === "geminfusion") {
 				return false;
 			}
 			return true;
 		},
 		onUseItem(item, pokemon) {
-			if (pokemon?.ability === "geminfusion" && item?.isGem) {
+			if ((pokemon.name === "Diancie" || pokemon?.ability === "geminfusion") && item?.isGem) {
 				return false;
 			}
 		},
@@ -325,13 +325,13 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 		inherit: true,
 		isNonstandard: null,
 		onTakeItem(item, pokemon, source) {
-			if (source?.ability === "geminfusion" || pokemon.ability === "geminfusion") {
+			if (source.name === "Diancie" || source?.ability === "geminfusion" || pokemon.ability === "geminfusion") {
 				return false;
 			}
 			return true;
 		},
 		onUseItem(item, pokemon) {
-			if (pokemon?.ability === "geminfusion" && item?.isGem) {
+			if ((pokemon.name === "Diancie" || pokemon?.ability === "geminfusion") && item?.isGem) {
 				return false;
 			}
 		},
@@ -348,13 +348,13 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 		inherit: true,
 		isNonstandard: null,
 		onTakeItem(item, pokemon, source) {
-			if (source?.ability === "geminfusion" || pokemon.ability === "geminfusion") {
+			if (source.name === "Diancie" || source?.ability === "geminfusion" || pokemon.ability === "geminfusion") {
 				return false;
 			}
 			return true;
 		},
 		onUseItem(item, pokemon) {
-			if (pokemon?.ability === "geminfusion" && item?.isGem) {
+			if ((pokemon.name === "Diancie" || pokemon?.ability === "geminfusion") && item?.isGem) {
 				return false;
 			}
 		},
@@ -371,13 +371,13 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 		inherit: true,
 		isNonstandard: null,
 		onTakeItem(item, pokemon, source) {
-			if (source?.ability === "geminfusion" || pokemon.ability === "geminfusion") {
+			if (source.name === "Diancie" || source?.ability === "geminfusion" || pokemon.ability === "geminfusion") {
 				return false;
 			}
 			return true;
 		},
 		onUseItem(item, pokemon) {
-			if (pokemon?.ability === "geminfusion" && item?.isGem) {
+			if ((pokemon.name === "Diancie" || pokemon?.ability === "geminfusion") && item?.isGem) {
 				return false;
 			}
 		},

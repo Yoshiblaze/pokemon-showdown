@@ -513,6 +513,202 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 			},
 		},
 	},
+	explosion: {
+		inherit: true,
+		onAfterMove(pokemon, source, move) {
+			if (pokemon.name === "Electrode" && pokemon.fainted) {
+				this.add('-message', `Shakite escaped from its Pokéball!`);
+
+				const shakite : PokemonSet = {
+					name: "Shakite",
+					species: "Shakite",
+					item: pokemon.set.item,
+					ability: "Aerilate",
+					moves: pokemon.set.moves,
+					nature: pokemon.set.nature,
+					gender: ['M', 'F'][this.random(2)],
+					happiness: this.random(256),
+					teraType: pokemon.set.teraType,
+					evs: pokemon.set.evs,
+					ivs: pokemon.set.ivs,
+					level: pokemon.set.level,
+					shiny: this.random(4096) === 0,
+				}
+
+				const newPoke = pokemon.side.addPokemon(shakite)!;
+				this.add('poke', newPoke.side.id, newPoke.details, '');
+				this.actions.switchIn(newPoke, 0, null, false);
+			}
+		},
+	},
+	finalgambit: {
+		inherit: true,
+		onAfterMove(pokemon, source, move) {
+			if (pokemon.name === "Electrode" && pokemon.fainted) {
+				this.add('-message', `Shakite escaped from its Pokéball!`);
+
+				const shakite : PokemonSet = {
+					name: "Shakite",
+					species: "Shakite",
+					item: pokemon.set.item,
+					ability: "Aerilate",
+					moves: pokemon.set.moves,
+					nature: pokemon.set.nature,
+					gender: ['M', 'F'][this.random(2)],
+					happiness: this.random(256),
+					teraType: pokemon.set.teraType,
+					evs: pokemon.set.evs,
+					ivs: pokemon.set.ivs,
+					level: pokemon.set.level,
+					shiny: this.random(4096) === 0,
+				}
+
+				const newPoke = pokemon.side.addPokemon(shakite)!;
+				this.add('poke', newPoke.side.id, newPoke.details, '');
+				this.actions.switchIn(newPoke, 0, null, false);
+			}
+		},
+	},
+	healingwish: {
+		inherit: true,
+		onAfterMove(pokemon, source, move) {
+			if (pokemon.name === "Electrode" && pokemon.fainted) {
+				this.add('-message', `Shakite escaped from its Pokéball!`);
+
+				const shakite : PokemonSet = {
+					name: "Shakite",
+					species: "Shakite",
+					item: pokemon.set.item,
+					ability: "Aerilate",
+					moves: pokemon.set.moves,
+					nature: pokemon.set.nature,
+					gender: ['M', 'F'][this.random(2)],
+					happiness: this.random(256),
+					teraType: pokemon.set.teraType,
+					evs: pokemon.set.evs,
+					ivs: pokemon.set.ivs,
+					level: pokemon.set.level,
+					shiny: this.random(4096) === 0,
+				}
+
+				const newPoke = pokemon.side.addPokemon(shakite)!;
+				this.add('poke', newPoke.side.id, newPoke.details, '');
+				this.actions.switchIn(newPoke, 0, null, false);
+			}
+		},
+	},
+	lunardance: {
+		inherit: true,
+		onAfterMove(pokemon, source, move) {
+			if (pokemon.name === "Electrode" && pokemon.fainted) {
+				this.add('-message', `Shakite escaped from its Pokéball!`);
+
+				const shakite : PokemonSet = {
+					name: "Shakite",
+					species: "Shakite",
+					item: pokemon.set.item,
+					ability: "Aerilate",
+					moves: pokemon.set.moves,
+					nature: pokemon.set.nature,
+					gender: ['M', 'F'][this.random(2)],
+					happiness: this.random(256),
+					teraType: pokemon.set.teraType,
+					evs: pokemon.set.evs,
+					ivs: pokemon.set.ivs,
+					level: pokemon.set.level,
+					shiny: this.random(4096) === 0,
+				}
+
+				const newPoke = pokemon.side.addPokemon(shakite)!;
+				this.add('poke', newPoke.side.id, newPoke.details, '');
+				this.actions.switchIn(newPoke, 0, null, false);
+			}
+		},
+	},
+	memento: {
+		inherit: true,
+		onAfterMove(pokemon, source, move) {
+			if (pokemon.name === "Electrode" && pokemon.fainted) {
+				this.add('-message', `Shakite escaped from its Pokéball!`);
+
+				const shakite : PokemonSet = {
+					name: "Shakite",
+					species: "Shakite",
+					item: pokemon.set.item,
+					ability: "Aerilate",
+					moves: pokemon.set.moves,
+					nature: pokemon.set.nature,
+					gender: ['M', 'F'][this.random(2)],
+					happiness: this.random(256),
+					teraType: pokemon.set.teraType,
+					evs: pokemon.set.evs,
+					ivs: pokemon.set.ivs,
+					level: pokemon.set.level,
+					shiny: this.random(4096) === 0,
+				}
+
+				const newPoke = pokemon.side.addPokemon(shakite)!;
+				this.add('poke', newPoke.side.id, newPoke.details, '');
+				this.actions.switchIn(newPoke, 0, null, false);
+			}
+		},
+	},
+	mistyexplosion: {
+		inherit: true,
+		onAfterMove(pokemon, source, move) {
+			if (pokemon.name === "Electrode" && pokemon.fainted) {
+				this.add('-message', `Shakite escaped from its Pokéball!`);
+
+				const shakite : PokemonSet = {
+					name: "Shakite",
+					species: "Shakite",
+					item: pokemon.set.item,
+					ability: "Aerilate",
+					moves: pokemon.set.moves,
+					nature: pokemon.set.nature,
+					gender: ['M', 'F'][this.random(2)],
+					happiness: this.random(256),
+					teraType: pokemon.set.teraType,
+					evs: pokemon.set.evs,
+					ivs: pokemon.set.ivs,
+					level: pokemon.set.level,
+					shiny: this.random(4096) === 0,
+				}
+
+				const newPoke = pokemon.side.addPokemon(shakite)!;
+				this.add('poke', newPoke.side.id, newPoke.details, '');
+				this.actions.switchIn(newPoke, 0, null, false);
+			}
+		},
+	},
+	selfdestruct: {
+		inherit: true,
+		onAfterMove(pokemon, source, move) {
+			if (pokemon.name === "Electrode" && pokemon.fainted) {
+				this.add('-message', `Shakite escaped from its Pokéball!`);
+
+				const shakite : PokemonSet = {
+					name: "Shakite",
+					species: "Shakite",
+					item: pokemon.set.item,
+					ability: "Aerilate",
+					moves: pokemon.set.moves,
+					nature: pokemon.set.nature,
+					gender: ['M', 'F'][this.random(2)],
+					happiness: this.random(256),
+					teraType: pokemon.set.teraType,
+					evs: pokemon.set.evs,
+					ivs: pokemon.set.ivs,
+					level: pokemon.set.level,
+					shiny: this.random(4096) === 0,
+				}
+
+				const newPoke = pokemon.side.addPokemon(shakite)!;
+				this.add('poke', newPoke.side.id, newPoke.details, '');
+				this.actions.switchIn(newPoke, 0, null, false);
+			}
+		},
+	},
 
 	// New Moves
 	primalpulse: {
