@@ -3,6 +3,8 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 	diamondstorm: {
 		inherit: true,
 		onModifyMove(move, source) {
+			if(this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
+
 			const item = source.getItem();
 			if (!item?.isGem) return;
 
@@ -16,6 +18,8 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 				};
 		},
 		onHit(target, pokemon, move) {
+			if(this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
+
 			const item = pokemon.getItem();
 			if (!item?.isGem) return;
 
@@ -24,6 +28,8 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 			}
 		},
 		onAfterMoveSecondarySelf(pokemon, target, move) {
+			if(this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
+
 			if (move.willChangeForme) {
 				pokemon.formeChange('Diancie-Infused', this.effect, true, '0', '[msg]');
 			}
@@ -516,6 +522,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 	explosion: {
 		inherit: true,
 		onAfterMove(pokemon, source, move) {
+			if(this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if (pokemon.name === "Electrode" && pokemon.fainted) {
 				this.add('-message', `Shakite escaped from its Pokéball!`);
 
@@ -544,6 +551,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 	finalgambit: {
 		inherit: true,
 		onAfterMove(pokemon, source, move) {
+			if(this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if (pokemon.name === "Electrode" && pokemon.fainted) {
 				this.add('-message', `Shakite escaped from its Pokéball!`);
 
@@ -572,6 +580,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 	healingwish: {
 		inherit: true,
 		onAfterMove(pokemon, source, move) {
+			if(this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if (pokemon.name === "Electrode" && pokemon.fainted) {
 				this.add('-message', `Shakite escaped from its Pokéball!`);
 
@@ -600,6 +609,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 	lunardance: {
 		inherit: true,
 		onAfterMove(pokemon, source, move) {
+			if(this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if (pokemon.name === "Electrode" && pokemon.fainted) {
 				this.add('-message', `Shakite escaped from its Pokéball!`);
 
@@ -628,6 +638,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 	memento: {
 		inherit: true,
 		onAfterMove(pokemon, source, move) {
+			if(this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if (pokemon.name === "Electrode" && pokemon.fainted) {
 				this.add('-message', `Shakite escaped from its Pokéball!`);
 
@@ -656,6 +667,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 	mistyexplosion: {
 		inherit: true,
 		onAfterMove(pokemon, source, move) {
+			if(this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if (pokemon.name === "Electrode" && pokemon.fainted) {
 				this.add('-message', `Shakite escaped from its Pokéball!`);
 
@@ -684,6 +696,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 	selfdestruct: {
 		inherit: true,
 		onAfterMove(pokemon, source, move) {
+			if(this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if (pokemon.name === "Electrode" && pokemon.fainted) {
 				this.add('-message', `Shakite escaped from its Pokéball!`);
 
