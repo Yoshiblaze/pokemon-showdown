@@ -77,4 +77,17 @@ export const Scripts: ModdedBattleScriptsData = {
 		this.modData("Learnsets", "dudunsparce").learnset.sixtongueemojis = ["9L1"];
 		this.modData("Learnsets", "kecleon").learnset.kaleidostorm = ["9L1"];
 	},
+	actions: {
+		inherit: true,
+	  	canUltraBurst(pokemon: Pokemon) {
+			if (['Necrozma-Dawn-Wings', 'Necrozma-Dusk-Mane'].includes(pokemon.baseSpecies.name) &&
+				pokemon.getItem().id === 'ultranecroziumz') {
+				return "Necrozma-Ultra";
+			} else if (pokemon.baseSpecies.name === 'Simisear' &&
+	  			pokemon.getItem().id === 'ultrasimiseariumz') {
+	  			return "Simisear-Ultra";
+	  		}
+	  		return null;
+	  	},
+	},
 };
