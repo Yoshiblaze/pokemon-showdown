@@ -1,4 +1,727 @@
 export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
+	// Changed Moves
+	diamondstorm: {
+		inherit: true,
+		onModifyMove(move, source) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
+
+			const item = source.getItem();
+			if (!item?.isGem) return;
+
+			move.type = item.name.split(' ')[0];
+
+			if (source.ability !== "geminfusion" || !move) return;
+
+			move.onEffectiveness =
+				function (this: Battle, typeMod: number, target: Pokemon | null, type: string, ActiveMove) {
+					return typeMod + this.dex.getEffectiveness('Rock', type);
+				};
+		},
+		onHit(target, pokemon, move) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
+
+			const item = pokemon.getItem();
+			if (!item?.isGem) return;
+
+			if (pokemon.species.id === 'diancie' && !pokemon.transformed) {
+				move.willChangeForme = true;
+			}
+		},
+		onAfterMoveSecondarySelf(pokemon, target, move) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
+
+			if (move.willChangeForme) {
+				pokemon.formeChange('Diancie-Infused', this.effect, true, '0', '[msg]');
+			}
+		},
+	},
+	diamondstormbug: {
+		num: 591,
+		accuracy: 95,
+		basePower: 100,
+		category: "Physical",
+		realMove: "Diamond Storm",
+		name: "Diamond Storm Bug",
+		pp: 5,
+		priority: 0,
+		flags: { protect: 1, mirror: 1 },
+		self: {
+			chance: 50,
+			boosts: {
+				def: 2,
+			},
+		},
+		secondary: {
+			// Sheer Force negates the self even though it is not secondary
+		},
+		onEffectiveness(typeMod, target, type, move) {
+			return typeMod + this.dex.getEffectiveness('Rock', type);
+		},
+		target: "allAdjacentFoes",
+		type: "Bug",
+		contestType: "Beautiful",
+	},
+	diamondstormdark: {
+		num: 591,
+		accuracy: 95,
+		basePower: 100,
+		category: "Physical",
+		realMove: "Diamond Storm",
+		name: "Diamond Storm Dark",
+		pp: 5,
+		priority: 0,
+		flags: { protect: 1, mirror: 1 },
+		self: {
+			chance: 50,
+			boosts: {
+				def: 2,
+			},
+		},
+		secondary: {
+			// Sheer Force negates the self even though it is not secondary
+		},
+		onEffectiveness(typeMod, target, type, move) {
+			return typeMod + this.dex.getEffectiveness('Rock', type);
+		},
+		target: "allAdjacentFoes",
+		type: "Dark",
+		contestType: "Beautiful",
+	},
+	diamondstormdragon: {
+		num: 591,
+		accuracy: 95,
+		basePower: 100,
+		category: "Physical",
+		realMove: "Diamond Storm",
+		name: "Diamond Storm Dragon",
+		pp: 5,
+		priority: 0,
+		flags: { protect: 1, mirror: 1 },
+		self: {
+			chance: 50,
+			boosts: {
+				def: 2,
+			},
+		},
+		secondary: {
+			// Sheer Force negates the self even though it is not secondary
+		},
+		onEffectiveness(typeMod, target, type, move) {
+			return typeMod + this.dex.getEffectiveness('Rock', type);
+		},
+		target: "allAdjacentFoes",
+		type: "Dragon",
+		contestType: "Beautiful",
+	},
+	diamondstormelectric: {
+		num: 591,
+		accuracy: 95,
+		basePower: 100,
+		category: "Physical",
+		realMove: "Diamond Storm",
+		name: "Diamond Storm Electric",
+		pp: 5,
+		priority: 0,
+		flags: { protect: 1, mirror: 1 },
+		self: {
+			chance: 50,
+			boosts: {
+				def: 2,
+			},
+		},
+		secondary: {
+			// Sheer Force negates the self even though it is not secondary
+		},
+		onEffectiveness(typeMod, target, type, move) {
+			return typeMod + this.dex.getEffectiveness('Rock', type);
+		},
+		target: "allAdjacentFoes",
+		type: "Electric",
+		contestType: "Beautiful",
+	},
+	diamondstormfairy: {
+		num: 591,
+		accuracy: 95,
+		basePower: 100,
+		category: "Physical",
+		realMove: "Diamond Storm",
+		name: "Diamond Storm Fairy",
+		pp: 5,
+		priority: 0,
+		flags: { protect: 1, mirror: 1 },
+		self: {
+			chance: 50,
+			boosts: {
+				def: 2,
+			},
+		},
+		secondary: {
+			// Sheer Force negates the self even though it is not secondary
+		},
+		onEffectiveness(typeMod, target, type, move) {
+			return typeMod + this.dex.getEffectiveness('Rock', type);
+		},
+		target: "allAdjacentFoes",
+		type: "Fairy",
+		contestType: "Beautiful",
+	},
+	diamondstormfighting: {
+		num: 591,
+		accuracy: 95,
+		basePower: 100,
+		category: "Physical",
+		realMove: "Diamond Storm",
+		name: "Diamond Storm Fighting",
+		pp: 5,
+		priority: 0,
+		flags: { protect: 1, mirror: 1 },
+		self: {
+			chance: 50,
+			boosts: {
+				def: 2,
+			},
+		},
+		secondary: {
+			// Sheer Force negates the self even though it is not secondary
+		},
+		onEffectiveness(typeMod, target, type, move) {
+			return typeMod + this.dex.getEffectiveness('Rock', type);
+		},
+		target: "allAdjacentFoes",
+		type: "Fighting",
+		contestType: "Beautiful",
+	},
+	diamondstormfire: {
+		num: 591,
+		accuracy: 95,
+		basePower: 100,
+		category: "Physical",
+		realMove: "Diamond Storm",
+		name: "Diamond Storm Fire",
+		pp: 5,
+		priority: 0,
+		flags: { protect: 1, mirror: 1 },
+		self: {
+			chance: 50,
+			boosts: {
+				def: 2,
+			},
+		},
+		secondary: {
+			// Sheer Force negates the self even though it is not secondary
+		},
+		onEffectiveness(typeMod, target, type, move) {
+			return typeMod + this.dex.getEffectiveness('Rock', type);
+		},
+		target: "allAdjacentFoes",
+		type: "Fire",
+		contestType: "Beautiful",
+	},
+	diamondstormflying: {
+		num: 591,
+		accuracy: 95,
+		basePower: 100,
+		category: "Physical",
+		realMove: "Diamond Storm",
+		name: "Diamond Storm Flying",
+		pp: 5,
+		priority: 0,
+		flags: { protect: 1, mirror: 1 },
+		self: {
+			chance: 50,
+			boosts: {
+				def: 2,
+			},
+		},
+		secondary: {
+			// Sheer Force negates the self even though it is not secondary
+		},
+		onEffectiveness(typeMod, target, type, move) {
+			return typeMod + this.dex.getEffectiveness('Rock', type);
+		},
+		target: "allAdjacentFoes",
+		type: "Flying",
+		contestType: "Beautiful",
+	},
+	diamondstormghost: {
+		num: 591,
+		accuracy: 95,
+		basePower: 100,
+		category: "Physical",
+		realMove: "Diamond Storm",
+		name: "Diamond Storm Ghost",
+		pp: 5,
+		priority: 0,
+		flags: { protect: 1, mirror: 1 },
+		self: {
+			chance: 50,
+			boosts: {
+				def: 2,
+			},
+		},
+		secondary: {
+			// Sheer Force negates the self even though it is not secondary
+		},
+		onEffectiveness(typeMod, target, type, move) {
+			return typeMod + this.dex.getEffectiveness('Rock', type);
+		},
+		target: "allAdjacentFoes",
+		type: "Ghost",
+		contestType: "Beautiful",
+	},
+	diamondstormgrass: {
+		num: 591,
+		accuracy: 95,
+		basePower: 100,
+		category: "Physical",
+		realMove: "Diamond Storm",
+		name: "Diamond Storm Grass",
+		pp: 5,
+		priority: 0,
+		flags: { protect: 1, mirror: 1 },
+		self: {
+			chance: 50,
+			boosts: {
+				def: 2,
+			},
+		},
+		secondary: {
+			// Sheer Force negates the self even though it is not secondary
+		},
+		onEffectiveness(typeMod, target, type, move) {
+			return typeMod + this.dex.getEffectiveness('Rock', type);
+		},
+		target: "allAdjacentFoes",
+		type: "Grass",
+		contestType: "Beautiful",
+	},
+	diamondstormground: {
+		num: 591,
+		accuracy: 95,
+		basePower: 100,
+		category: "Physical",
+		realMove: "Diamond Storm",
+		name: "Diamond Storm Ground",
+		pp: 5,
+		priority: 0,
+		flags: { protect: 1, mirror: 1 },
+		self: {
+			chance: 50,
+			boosts: {
+				def: 2,
+			},
+		},
+		secondary: {
+			// Sheer Force negates the self even though it is not secondary
+		},
+		onEffectiveness(typeMod, target, type, move) {
+			return typeMod + this.dex.getEffectiveness('Rock', type);
+		},
+		target: "allAdjacentFoes",
+		type: "Ground",
+		contestType: "Beautiful",
+	},
+	diamondstormice: {
+		num: 591,
+		accuracy: 95,
+		basePower: 100,
+		category: "Physical",
+		realMove: "Diamond Storm",
+		name: "Diamond Storm Ice",
+		pp: 5,
+		priority: 0,
+		flags: { protect: 1, mirror: 1 },
+		self: {
+			chance: 50,
+			boosts: {
+				def: 2,
+			},
+		},
+		secondary: {
+			// Sheer Force negates the self even though it is not secondary
+		},
+		onEffectiveness(typeMod, target, type, move) {
+			return typeMod + this.dex.getEffectiveness('Rock', type);
+		},
+		target: "allAdjacentFoes",
+		type: "Ice",
+		contestType: "Beautiful",
+	},
+	diamondstormnormal: {
+		num: 591,
+		accuracy: 95,
+		basePower: 100,
+		category: "Physical",
+		realMove: "Diamond Storm",
+		name: "Diamond Storm Normal",
+		pp: 5,
+		priority: 0,
+		flags: { protect: 1, mirror: 1 },
+		self: {
+			chance: 50,
+			boosts: {
+				def: 2,
+			},
+		},
+		secondary: {
+			// Sheer Force negates the self even though it is not secondary
+		},
+		onEffectiveness(typeMod, target, type, move) {
+			return typeMod + this.dex.getEffectiveness('Rock', type);
+		},
+		target: "allAdjacentFoes",
+		type: "Normal",
+		contestType: "Beautiful",
+	},
+	diamondstormpoison: {
+		num: 591,
+		accuracy: 95,
+		basePower: 100,
+		category: "Physical",
+		realMove: "Diamond Storm",
+		name: "Diamond Storm Poison",
+		pp: 5,
+		priority: 0,
+		flags: { protect: 1, mirror: 1 },
+		self: {
+			chance: 50,
+			boosts: {
+				def: 2,
+			},
+		},
+		secondary: {
+			// Sheer Force negates the self even though it is not secondary
+		},
+		onEffectiveness(typeMod, target, type, move) {
+			return typeMod + this.dex.getEffectiveness('Rock', type);
+		},
+		target: "allAdjacentFoes",
+		type: "Poison",
+		contestType: "Beautiful",
+	},
+	diamondstormpsychic: {
+		num: 591,
+		accuracy: 95,
+		basePower: 100,
+		category: "Physical",
+		realMove: "Diamond Storm",
+		name: "Diamond Storm Psychic",
+		pp: 5,
+		priority: 0,
+		flags: { protect: 1, mirror: 1 },
+		self: {
+			chance: 50,
+			boosts: {
+				def: 2,
+			},
+		},
+		secondary: {
+			// Sheer Force negates the self even though it is not secondary
+		},
+		onEffectiveness(typeMod, target, type, move) {
+			return typeMod + this.dex.getEffectiveness('Rock', type);
+		},
+		target: "allAdjacentFoes",
+		type: "Psychic",
+		contestType: "Beautiful",
+	},
+	diamondstormrock: {
+		num: 591,
+		accuracy: 95,
+		basePower: 100,
+		category: "Physical",
+		realMove: "Diamond Storm",
+		name: "Diamond Storm Rock",
+		pp: 5,
+		priority: 0,
+		flags: { protect: 1, mirror: 1 },
+		self: {
+			chance: 50,
+			boosts: {
+				def: 2,
+			},
+		},
+		secondary: {
+			// Sheer Force negates the self even though it is not secondary
+		},
+		onEffectiveness(typeMod, target, type, move) {
+			return typeMod + this.dex.getEffectiveness('Rock', type);
+		},
+		target: "allAdjacentFoes",
+		type: "Rock",
+		contestType: "Beautiful",
+	},
+	diamondstormsteel: {
+		num: 591,
+		accuracy: 95,
+		basePower: 100,
+		category: "Physical",
+		realMove: "Diamond Storm",
+		name: "Diamond Storm Steel",
+		pp: 5,
+		priority: 0,
+		flags: { protect: 1, mirror: 1 },
+		self: {
+			chance: 50,
+			boosts: {
+				def: 2,
+			},
+		},
+		secondary: {
+			// Sheer Force negates the self even though it is not secondary
+		},
+		onEffectiveness(typeMod, target, type, move) {
+			return typeMod + this.dex.getEffectiveness('Rock', type);
+		},
+		target: "allAdjacentFoes",
+		type: "Steel",
+		contestType: "Beautiful",
+	},
+	diamondstormwater: {
+		num: 591,
+		accuracy: 95,
+		basePower: 100,
+		category: "Physical",
+		realMove: "Diamond Storm",
+		name: "Diamond Storm Water",
+		pp: 5,
+		priority: 0,
+		flags: { protect: 1, mirror: 1 },
+		self: {
+			chance: 50,
+			boosts: {
+				def: 2,
+			},
+		},
+		secondary: {
+			// Sheer Force negates the self even though it is not secondary
+		},
+		onEffectiveness(typeMod, target, type, move) {
+			return typeMod + this.dex.getEffectiveness('Rock', type);
+		},
+		target: "allAdjacentFoes",
+		type: "Water",
+		contestType: "Beautiful",
+	},
+	stealthrock: {
+		inherit: true,
+		condition: {
+			// this is a side condition
+			onSideStart(side) {
+				this.add('-sidestart', side, 'move: Stealth Rock');
+			},
+			onSwitchIn(pokemon) {
+				const source = this.effectState.source;
+				const type = source.ability === "geminfusion" &&
+					source.getItem()?.isGem ? source.getItem().name.split(' ')[0] : this.dex.getActiveMove('stealthrock').type;
+				const typeMod = this.clampIntRange(pokemon.runEffectiveness(type), -6, 6);
+				this.damage(pokemon.maxhp * (2 ** typeMod) / 8);
+			},
+		},
+	},
+	explosion: {
+		inherit: true,
+		onAfterMove(pokemon, source, move) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
+			if (pokemon.name === "Electrode" && pokemon.fainted) {
+				this.add('-message', `Shakite escaped from its Pokéball!`);
+
+				const shakite: PokemonSet = {
+					name: "Shakite",
+					species: "Shakite",
+					item: pokemon.set.item,
+					ability: "Aerilate",
+					moves: pokemon.set.moves,
+					nature: pokemon.set.nature,
+					gender: ['M', 'F'][this.random(2)],
+					happiness: this.random(256),
+					teraType: pokemon.set.teraType,
+					evs: pokemon.set.evs,
+					ivs: pokemon.set.ivs,
+					level: pokemon.set.level,
+					shiny: this.random(4096) === 0,
+				};
+
+				const newPoke = pokemon.side.addPokemon(shakite)!;
+				this.add('poke', newPoke.side.id, newPoke.details, '');
+				this.actions.switchIn(newPoke, 0, null, false);
+			}
+		},
+	},
+	finalgambit: {
+		inherit: true,
+		onAfterMove(pokemon, source, move) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
+			if (pokemon.name === "Electrode" && pokemon.fainted) {
+				this.add('-message', `Shakite escaped from its Pokéball!`);
+
+				const shakite: PokemonSet = {
+					name: "Shakite",
+					species: "Shakite",
+					item: pokemon.set.item,
+					ability: "Aerilate",
+					moves: pokemon.set.moves,
+					nature: pokemon.set.nature,
+					gender: ['M', 'F'][this.random(2)],
+					happiness: this.random(256),
+					teraType: pokemon.set.teraType,
+					evs: pokemon.set.evs,
+					ivs: pokemon.set.ivs,
+					level: pokemon.set.level,
+					shiny: this.random(4096) === 0,
+				};
+
+				const newPoke = pokemon.side.addPokemon(shakite)!;
+				this.add('poke', newPoke.side.id, newPoke.details, '');
+				this.actions.switchIn(newPoke, 0, null, false);
+			}
+		},
+	},
+	healingwish: {
+		inherit: true,
+		onAfterMove(pokemon, source, move) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
+			if (pokemon.name === "Electrode" && pokemon.fainted) {
+				this.add('-message', `Shakite escaped from its Pokéball!`);
+
+				const shakite: PokemonSet = {
+					name: "Shakite",
+					species: "Shakite",
+					item: pokemon.set.item,
+					ability: "Aerilate",
+					moves: pokemon.set.moves,
+					nature: pokemon.set.nature,
+					gender: ['M', 'F'][this.random(2)],
+					happiness: this.random(256),
+					teraType: pokemon.set.teraType,
+					evs: pokemon.set.evs,
+					ivs: pokemon.set.ivs,
+					level: pokemon.set.level,
+					shiny: this.random(4096) === 0,
+				};
+
+				const newPoke = pokemon.side.addPokemon(shakite)!;
+				this.add('poke', newPoke.side.id, newPoke.details, '');
+				this.actions.switchIn(newPoke, 0, null, false);
+			}
+		},
+	},
+	lunardance: {
+		inherit: true,
+		onAfterMove(pokemon, source, move) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
+			if (pokemon.name === "Electrode" && pokemon.fainted) {
+				this.add('-message', `Shakite escaped from its Pokéball!`);
+
+				const shakite: PokemonSet = {
+					name: "Shakite",
+					species: "Shakite",
+					item: pokemon.set.item,
+					ability: "Aerilate",
+					moves: pokemon.set.moves,
+					nature: pokemon.set.nature,
+					gender: ['M', 'F'][this.random(2)],
+					happiness: this.random(256),
+					teraType: pokemon.set.teraType,
+					evs: pokemon.set.evs,
+					ivs: pokemon.set.ivs,
+					level: pokemon.set.level,
+					shiny: this.random(4096) === 0,
+				};
+
+				const newPoke = pokemon.side.addPokemon(shakite)!;
+				this.add('poke', newPoke.side.id, newPoke.details, '');
+				this.actions.switchIn(newPoke, 0, null, false);
+			}
+		},
+	},
+	memento: {
+		inherit: true,
+		onAfterMove(pokemon, source, move) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
+			if (pokemon.name === "Electrode" && pokemon.fainted) {
+				this.add('-message', `Shakite escaped from its Pokéball!`);
+
+				const shakite: PokemonSet = {
+					name: "Shakite",
+					species: "Shakite",
+					item: pokemon.set.item,
+					ability: "Aerilate",
+					moves: pokemon.set.moves,
+					nature: pokemon.set.nature,
+					gender: ['M', 'F'][this.random(2)],
+					happiness: this.random(256),
+					teraType: pokemon.set.teraType,
+					evs: pokemon.set.evs,
+					ivs: pokemon.set.ivs,
+					level: pokemon.set.level,
+					shiny: this.random(4096) === 0,
+				};
+
+				const newPoke = pokemon.side.addPokemon(shakite)!;
+				this.add('poke', newPoke.side.id, newPoke.details, '');
+				this.actions.switchIn(newPoke, 0, null, false);
+			}
+		},
+	},
+	mistyexplosion: {
+		inherit: true,
+		onAfterMove(pokemon, source, move) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
+			if (pokemon.name === "Electrode" && pokemon.fainted) {
+				this.add('-message', `Shakite escaped from its Pokéball!`);
+
+				const shakite: PokemonSet = {
+					name: "Shakite",
+					species: "Shakite",
+					item: pokemon.set.item,
+					ability: "Aerilate",
+					moves: pokemon.set.moves,
+					nature: pokemon.set.nature,
+					gender: ['M', 'F'][this.random(2)],
+					happiness: this.random(256),
+					teraType: pokemon.set.teraType,
+					evs: pokemon.set.evs,
+					ivs: pokemon.set.ivs,
+					level: pokemon.set.level,
+					shiny: this.random(4096) === 0,
+				};
+
+				const newPoke = pokemon.side.addPokemon(shakite)!;
+				this.add('poke', newPoke.side.id, newPoke.details, '');
+				this.actions.switchIn(newPoke, 0, null, false);
+			}
+		},
+	},
+	selfdestruct: {
+		inherit: true,
+		onAfterMove(pokemon, source, move) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
+			if (pokemon.name === "Electrode" && pokemon.fainted) {
+				this.add('-message', `Shakite escaped from its Pokéball!`);
+
+				const shakite: PokemonSet = {
+					name: "Shakite",
+					species: "Shakite",
+					item: pokemon.set.item,
+					ability: "Aerilate",
+					moves: pokemon.set.moves,
+					nature: pokemon.set.nature,
+					gender: ['M', 'F'][this.random(2)],
+					happiness: this.random(256),
+					teraType: pokemon.set.teraType,
+					evs: pokemon.set.evs,
+					ivs: pokemon.set.ivs,
+					level: pokemon.set.level,
+					shiny: this.random(4096) === 0,
+				};
+
+				const newPoke = pokemon.side.addPokemon(shakite)!;
+				this.add('poke', newPoke.side.id, newPoke.details, '');
+				this.actions.switchIn(newPoke, 0, null, false);
+			}
+		},
+	},
 	// New Moves
 	primalpulse: {
 		accuracy: 100,
@@ -171,7 +894,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		name: "Yin-Yang Blast",
 		pp: 1,
 		priority: 0,
-		flags: {},
+		flags: { },
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
@@ -233,16 +956,20 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		inherit: true,
 		onModifyType(move, pokemon) {
 			switch (pokemon.species.name) {
-			case 'Ogerpon-Wellspring': case 'Ogerpon-Wellspring-Tera':
+			case 'Ogerpon-Wellspring':
+			case 'Ogerpon-Wellspring-Tera':
 				move.type = 'Water';
 				break;
-			case 'Ogerpon-Hearthflame': case 'Ogerpon-Hearthflame-Tera':
+			case 'Ogerpon-Hearthflame':
+			case 'Ogerpon-Hearthflame-Tera':
 				move.type = 'Fire';
 				break;
-			case 'Ogerpon-Cornerstone': case 'Ogerpon-Cornerstone-Tera':
+			case 'Ogerpon-Cornerstone':
+			case 'Ogerpon-Cornerstone-Tera':
 				move.type = 'Rock';
 				break;
-			case 'Ogerpon-Pixiedust': case 'Ogerpon-Pixiedust-Tera':
+			case 'Ogerpon-Pixiedust':
+			case 'Ogerpon-Pixiedust-Tera':
 				move.type = 'Fairy';
 				break;
 			}
@@ -277,19 +1004,13 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		onAfterSubDamage(damage, target, source, move) {
 			if (!source.isAlly(target)) this.hint(move.category + " Razor Shell");
 		},
-		secondary: [
-			{
-				chance: 50,
-				boosts: {
-					def: -1,
-				},
-			}, {
-				chance: 50,
-				boosts: {
-					spd: -1,
-				},
-			}, 
-		],
+		secondary: {
+			chance: 50,
+			boosts: {
+				def: -1,
+				spd: -1,
+			},
+		},
 		target: "normal",
 		type: "Water",
 		contestType: "Cool",
