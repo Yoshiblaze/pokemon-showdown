@@ -79,15 +79,15 @@ export const Scripts: ModdedBattleScriptsData = {
 	},
 	actions: {
 		inherit: true,
-	  	canUltraBurst(pokemon: Pokemon) {
+		canUltraBurst(pokemon: Pokemon) {
 			if (['Necrozma-Dawn-Wings', 'Necrozma-Dusk-Mane'].includes(pokemon.baseSpecies.name) &&
 				pokemon.getItem().id === 'ultranecroziumz') {
 				return "Necrozma-Ultra";
 			} else if (pokemon.baseSpecies.name === 'Simisear' &&
-	  			pokemon.getItem().id === 'ultrasimiseariumz') {
-	  			return "Simisear-Ultra";
-	  		}
-	  		return null;
-	  	},
+				pokemon.getItem().id === 'ultrasimiseariumz') {
+				return "Simisear-Ultra";
+			}
+			return null;
+		},
 	},
 };

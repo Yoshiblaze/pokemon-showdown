@@ -25,7 +25,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 	embodyaspectwellspring: {
 		onStart(pokemon) {
 			if ((pokemon.baseSpecies.name === 'Ogerpon-Wellspring-Tera' ||
-				  pokemon.baseSpecies.name === 'Ogerpon-Pixiedust-Tera') &&
+				pokemon.baseSpecies.name === 'Ogerpon-Pixiedust-Tera') &&
 				pokemon.terastallized &&
 				!this.effectState.embodied) {
 				this.effectState.embodied = true;
@@ -42,8 +42,8 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		onModifyMove(move, attacker, defender) {
 			if (attacker.species.baseSpecies !== 'Aegislash' || attacker.transformed) return;
 			if (move.category === 'Status' && move.id !== 'kingsshield') return;
-			const targetForme = (move.id === 'soulboundslash' ? 'Aegislash-Soulbound' : 'Aegislash-Blade');
-			const targetForme = (move.id === 'kingsshield' ? 'Aegislash' : 'Aegislash-Blade');
+			const targetForme = (move.id === 'soulboundslash' ? 'Aegislash-Soulbound' :
+				(move.id === 'kingsshield' ? 'Aegislash' : 'Aegislash-Blade'));
 			if (attacker.species.name !== targetForme) attacker.formeChange(targetForme);
 		},
 		flags: { failroleplay: 1, noreceiver: 1, noentrain: 1, notrace: 1, failskillswap: 1, cantsuppress: 1 },
@@ -233,7 +233,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		},
 		onModifyMove(move) {
 			if (move.flags['bullet']) {
-				move.category === 'Physical';
+				move.category = 'Physical';
 				move.accuracy = true;
 			}
 		},
@@ -303,10 +303,10 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		onSourceModifyAccuracyPriority: -1,
 		onSourceModifyAccuracy(accuracy) {
 			this.debug('focusedfire - enhancing accuracy');
-			return true;
+			return this.chainModify(10, 1);
 		},
 		onModifyPriority(priority, pokemon, target, move) {
-			if (move?) return priority - 1;
+			if (move) return priority - 1;
 		},
 		onModifyCritRatio(critRatio, source, target) {
 			return 5;
@@ -316,19 +316,19 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		rating: 3,
 		shortDesc: "User's attacks have -1 priority but can't miss and always crit.",
 	},
-	shroomndoom: {
-		onStart(pokemon) {
-			pokemon.addVolatile('focusenergy');
-		},
-		onModifyDamage(damage, source, target, move) {
-			if (target.getMoveHitData(move).crit) {
-				this.debug('Sniper boost');
-				return this.chainModify(1.5);
-			}
-		},
-		flags: {},
-		name: "Guided Missiles",
-		rating: 5,
-		shortDesc: "Effects of Sniper + Uses Focus Energy on switch-in.",
-	},
+	// shroomndoom: {
+	// 	onStart(pokemon) {
+	// 		pokemon.addVolatile('focusenergy');
+	// 	},
+	// 	onModifyDamage(damage, source, target, move) {
+	// 		if (target.getMoveHitData(move).crit) {
+	// 			this.debug('Sniper boost');
+	// 			return this.chainModify(1.5);
+	// 		}
+	// 	},
+	// 	flags: {},
+	// 	name: "Guided Missiles",
+	// 	rating: 5,
+	// 	shortDesc: "Effects of Sniper + Uses Focus Energy on switch-in.",
+	// },
 };

@@ -933,15 +933,15 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 			duration: 1,
 			onStart(target) {
 				this.add('-singleturn', target, 'Protect');
-				this.add('-start', pokemon, 'Stack Shield');
-				const newatk = pokemon.storedStats.def;
-				const newdef = pokemon.storedStats.atk;
-				const newspa = pokemon.storedStats.spd;
-				const newspd = pokemon.storedStats.spa;
-				pokemon.storedStats.atk = newatk;
-				pokemon.storedStats.def = newdef;
-				pokemon.storedStats.spa = newspa;
-				pokemon.storedStats.spd = newspd;
+				this.add('-start', target, 'Stack Shield');
+				const newatk = target.storedStats.def;
+				const newdef = target.storedStats.atk;
+				const newspa = target.storedStats.spd;
+				const newspd = target.storedStats.spa;
+				target.storedStats.atk = newatk;
+				target.storedStats.def = newdef;
+				target.storedStats.spa = newspa;
+				target.storedStats.spd = newspd;
 			},
 			onCopy(pokemon) {
 				const newatk = pokemon.storedStats.def;
