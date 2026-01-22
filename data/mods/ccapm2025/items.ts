@@ -1,4 +1,79 @@
 export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
+	darminitanite: {
+		name: "Darminitanite",
+		spritenum: 576,
+		megaStone: "Darmanitan-Mega",
+		megaEvolves: "Darmanitan",
+		itemUser: ["Darmanitan"],
+		onTakeItem(item, source) {
+			if (item.megaEvolves === source.baseSpecies.baseSpecies) return false;
+			return true;
+		},
+		gen: 9,
+    shortDesc: "If held by a Darmanitan, this item allows it to Mega Evolve in battle.",
+    num: -1,
+	},
+	emolgite: {
+		name: "Emolgite",
+		spritenum: 576,
+		megaStone: "Emolga-Mega",
+		megaEvolves: "Emolga",
+		itemUser: ["Emolga"],
+		onTakeItem(item, source) {
+			if (item.megaEvolves === source.baseSpecies.baseSpecies) return false;
+			return true;
+		},
+		gen: 9,
+    shortDesc: "If held by an Emolga, this item allows it to Mega Evolve in battle.",
+    num: -2,
+	},
+	flygonite: {
+		name: "Flygonite",
+		spritenum: 576,
+		megaStone: "Flygon-Mega",
+		megaEvolves: "Flygon",
+		itemUser: ["Flygon"],
+		onTakeItem(item, source) {
+			if (item.megaEvolves === source.baseSpecies.baseSpecies) return false;
+			return true;
+		},
+		gen: 9,
+    shortDesc: "If held by a Flygon, this item allows it to Mega Evolve in battle.",
+    num: -3,
+	},
+	pixiedustmask: {
+		name: "Pixiedust Mask",
+		spritenum: 759,
+		fling: {
+			basePower: 60,
+		},
+		onBasePowerPriority: 15,
+		onBasePower(basePower, user, target, move) {
+			if (user.baseSpecies.name.startsWith('Ogerpon-Pixiedust')) {
+				return this.chainModify([4915, 4096]);
+			}
+		},
+		onTakeItem(item, source) {
+			if (source.baseSpecies.baseSpecies === 'Ogerpon') return false;
+			return true;
+		},
+		forcedForme: "Ogerpon-Pixiedust",
+		itemUser: ["Ogerpon-Pixiedust"],
+    shortDesc: "Ogerpon-Pixiedust: 1.2x power attacks; Terastallize to gain Embody Aspect.",
+    num: -4,
+		gen: 9,
+	},
+	ultrasimiseariumz: {
+		name: "Ultrasimisearium Z",
+		spritenum: 687,
+		onTakeItem: false,
+		zMove: "Yin-Yang Blast",
+		zMoveFrom: "Fire Blast",
+		itemUser: ["Simisear-Ultra"],
+    shortDesc: "Simisear: Ultra Burst, then Z-Move w/ Fire Blast.",
+    num: -4,
+		gen: 9,
+  },
 	buggem: {
 		inherit: true,
 		isNonstandard: null,

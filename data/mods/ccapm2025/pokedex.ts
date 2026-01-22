@@ -1250,7 +1250,7 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		weightkg: 75,
 		color: "Red",
 		eggGroups: ["Field"],
-		requiredItem: "Ultranecrozium Z",
+		requiredItem: "Ultrasimisearium Z",
 		battleOnly: "Simisear",
 	},
 	slowking: {
