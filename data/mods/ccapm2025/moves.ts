@@ -913,6 +913,90 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		desc: "This move's type effectiveness against Water is changed to be super effective no matter what this move's type is.",
 		shortDesc: "Super effective on Water.",
 	},
+	stackshield: {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		name: "Stack Shield",
+		pp: 10,
+		priority: 4,
+		flags: { noassist: 1, failcopycat: 1 },
+		stallingMove: true,
+		volatileStatus: 'stackshield',
+		onPrepareHit(pokemon) {
+			return !!this.queue.willAct() && this.runEvent('StallMove', pokemon);
+		},
+		onHit(pokemon) {
+			pokemon.addVolatile('stall');
+		},
+		condition: {
+			duration: 1,
+			onStart(target) {
+				this.add('-singleturn', target, 'Protect');
+				this.add('-start', pokemon, 'Stack Shield');
+				const newatk = pokemon.storedStats.def;
+				const newdef = pokemon.storedStats.atk;
+				const newspa = pokemon.storedStats.spd;
+				const newspd = pokemon.storedStats.spa;
+				pokemon.storedStats.atk = newatk;
+				pokemon.storedStats.def = newdef;
+				pokemon.storedStats.spa = newspa;
+				pokemon.storedStats.spd = newspd;
+			},
+			onCopy(pokemon) {
+				const newatk = pokemon.storedStats.def;
+				const newdef = pokemon.storedStats.atk;
+				const newspa = pokemon.storedStats.spd;
+				const newspd = pokemon.storedStats.spa;
+				pokemon.storedStats.atk = newatk;
+				pokemon.storedStats.def = newdef;
+				pokemon.storedStats.spa = newspa;
+				pokemon.storedStats.spd = newspd;
+			},
+			onEnd(pokemon) {
+				this.add('-end', pokemon, 'Stack Shield');
+				const newatk = pokemon.storedStats.def;
+				const newdef = pokemon.storedStats.atk;
+				const newspa = pokemon.storedStats.spd;
+				const newspd = pokemon.storedStats.spa;
+				pokemon.storedStats.atk = newatk;
+				pokemon.storedStats.def = newdef;
+				pokemon.storedStats.spa = newspa;
+				pokemon.storedStats.spd = newspd;
+			},
+			onRestart(pokemon) {
+				pokemon.removeVolatile('Stack Shield');
+			},
+			onTryHitPriority: 3,
+			onTryHit(target, source, move) {
+				if (!move.flags['protect']) {
+					if (['gmaxoneblow', 'gmaxrapidflow'].includes(move.id)) return;
+					if (move.isZ || move.isMax) target.getMoveHitData(move).zBrokeProtect = true;
+					return;
+				}
+				if (move.smartTarget) {
+					move.smartTarget = false;
+				} else {
+					this.add('-activate', target, 'move: Protect');
+				}
+				const lockedmove = source.getVolatile('lockedmove');
+				if (lockedmove) {
+					// Outrage counter is reset
+					if (source.volatiles['lockedmove'].duration === 2) {
+						delete source.volatiles['lockedmove'];
+					}
+				}
+				return this.NOT_FAIL;
+			},
+		},
+		secondary: null,
+		target: "self",
+		type: "Normal",
+		zMove: { effect: 'clearnegativeboost' },
+		contestType: "Cute",
+		desc: "Protects the user and flips its offenses and defenses.",
+		shortDesc: "Protects the user and flips its offenses and defenses.",
+	},
 	// Old Moves
 	kingsshield: {
 		inherit: true,
