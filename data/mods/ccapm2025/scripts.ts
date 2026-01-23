@@ -93,13 +93,13 @@ export const Scripts: ModdedBattleScriptsData = {
 			return null;
 		},
 		runSwitch(pokemon: Pokemon) {
-			if (pokemon.name === 'Iron Valiant' && !pokemon.battle.ruleTable.tagRules.includes("+pokemontag:cap"))
+			if (pokemon.species.name === 'Iron Valiant' && !pokemon.battle.ruleTable.tagRules.includes("+pokemontag:cap"))
 				pokemon.m.usedMoves = [];
 			return true;
 		},
 		useMove(move: Move, pokemon: Pokemon) {
 			const success = this.useMoveInner(move, pokemon);
-			if (success && pokemon.name === 'Iron Valiant' && !pokemon.battle.ruleTable.tagRules.includes("+pokemontag:cap"))
+			if (success && pokemon.species.name === 'Iron Valiant' && !pokemon.battle.ruleTable.tagRules.includes("+pokemontag:cap"))
 			{
 				if (!pokemon.m.usedMoves) pokemon.m.usedMoves = [];
 				if (!pokemon.m.usedMoves.includes(move.id)) pokemon.m.usedMoves.push(move.id);
@@ -127,7 +127,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			faintData = this.faintQueue.shift()!;
 			const pokemon: Pokemon = faintData.target;
 			if (!pokemon.fainted && this.runEvent('BeforeFaint', pokemon, faintData.source, faintData.effect)) {
-				if (pokemon.name === 'Kecleon' && !this.ruleTable.tagRules.includes("+pokemontag:cap")){
+				if (pokemon.species.name === 'Kecleon' && !this.ruleTable.tagRules.includes("+pokemontag:cap")){
 					let forme = 'None';
 					switch (pokemon.types[0]) {
 					case 'Fire':

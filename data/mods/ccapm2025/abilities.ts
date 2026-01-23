@@ -6,7 +6,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 			if (effect.id === 'psn' || effect.id === 'tox') {
 				const toHeal = Math.min(target.baseMaxhp / 8, target.baseMaxhp - target.hp);
 				this.heal(toHeal);
-				if (target.name === "Gliscor" && !this.ruleTable.tagRules.includes("+pokemontag:cap")) {
+				if (target.species.name === "Gliscor" && !this.ruleTable.tagRules.includes("+pokemontag:cap")) {
 					if (!this.effectState.phCounter) this.effectState.phCounter = 0;
 					this.effectState.phCounter += toHeal;
 					if (this.effectState.phCounter >= target.baseMaxhp)

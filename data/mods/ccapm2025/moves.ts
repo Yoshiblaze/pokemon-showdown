@@ -1,5 +1,54 @@
+import {Dex} from "../../../sim";
+
 export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 	// Changed Moves
+	acupressure: {
+		inherit: true,
+		onHit(target) {
+			if (target.species.name === "Regigigas" && !this.ruleTable.tagRules.includes("+pokemontag:cap")) {
+				if (!target.m.stats) {
+					const allStats: BoostID[] = [];
+					let stat: BoostID;
+					for (stat in target.boosts) {
+						allStats.push(stat);
+					}
+
+					target.m.stats = allStats;
+					target.m.stats.pop();
+					target.m.stats.pop();
+					this.prng.shuffle(target.m.stats);
+				}
+
+				if (target.m.stats.length) {
+					const randomStat = target.m.stats.pop();
+					const boost: SparseBoostsTable = {};
+					boost[randomStat as BoostID] = 2;
+					this.boost(boost);
+				} else {
+					return false;
+				}
+
+				if (target.m.stats.length === 0)
+					target.formeChange('Regigigas-Colossal', null, true);
+			} else {
+				const stats: BoostID[] = [];
+				let stat: BoostID;
+				for (stat in target.boosts) {
+					if (target.boosts[stat] < 6) {
+						stats.push(stat);
+					}
+				}
+				if (stats.length) {
+					const randomStat = this.sample(stats);
+					const boost: SparseBoostsTable = {};
+					boost[randomStat] = 2;
+					this.boost(boost);
+				} else {
+					return false;
+				}
+			}
+		},
+	},
 	diamondstorm: {
 		inherit: true,
 		onModifyMove(move, source) {
@@ -523,7 +572,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		inherit: true,
 		onAfterMove(pokemon, source, move) {
 			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
-			if (pokemon.name === "Electrode" && pokemon.fainted) {
+			if (pokemon.species.name === "Electrode" && pokemon.fainted) {
 				this.add('-message', `Shakite escaped from its Pokéball!`);
 
 				const shakite: PokemonSet = {
@@ -552,7 +601,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		inherit: true,
 		onAfterMove(pokemon, source, move) {
 			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
-			if (pokemon.name === "Electrode" && pokemon.fainted) {
+			if (pokemon.species.name === "Electrode" && pokemon.fainted) {
 				this.add('-message', `Shakite escaped from its Pokéball!`);
 
 				const shakite: PokemonSet = {
@@ -581,7 +630,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		inherit: true,
 		onAfterMove(pokemon, source, move) {
 			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
-			if (pokemon.name === "Electrode" && pokemon.fainted) {
+			if (pokemon.species.name === "Electrode" && pokemon.fainted) {
 				this.add('-message', `Shakite escaped from its Pokéball!`);
 
 				const shakite: PokemonSet = {
@@ -610,7 +659,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		inherit: true,
 		onAfterMove(pokemon, source, move) {
 			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
-			if (pokemon.name === "Electrode" && pokemon.fainted) {
+			if (pokemon.species.name === "Electrode" && pokemon.fainted) {
 				this.add('-message', `Shakite escaped from its Pokéball!`);
 
 				const shakite: PokemonSet = {
@@ -639,7 +688,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		inherit: true,
 		onAfterMove(pokemon, source, move) {
 			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
-			if (pokemon.name === "Electrode" && pokemon.fainted) {
+			if (pokemon.species.name === "Electrode" && pokemon.fainted) {
 				this.add('-message', `Shakite escaped from its Pokéball!`);
 
 				const shakite: PokemonSet = {
@@ -668,7 +717,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		inherit: true,
 		onAfterMove(pokemon, source, move) {
 			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
-			if (pokemon.name === "Electrode" && pokemon.fainted) {
+			if (pokemon.species.name === "Electrode" && pokemon.fainted) {
 				this.add('-message', `Shakite escaped from its Pokéball!`);
 
 				const shakite: PokemonSet = {
@@ -697,7 +746,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		inherit: true,
 		onAfterMove(pokemon, source, move) {
 			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
-			if (pokemon.name === "Electrode" && pokemon.fainted) {
+			if (pokemon.species.name === "Electrode" && pokemon.fainted) {
 				this.add('-message', `Shakite escaped from its Pokéball!`);
 
 				const shakite: PokemonSet = {
