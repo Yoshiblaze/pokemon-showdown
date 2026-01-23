@@ -4,13 +4,13 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		inherit: true,
 		onDamage(damage, target, source, effect) {
 			if (effect.id === 'psn' || effect.id === 'tox') {
-				const toHeal = Math.min(target.baseMaxhp / 2, target.baseMaxhp - target.hp);
+				const toHeal = Math.min(target.baseMaxhp / 8, target.baseMaxhp - target.hp);
 				this.heal(toHeal);
 				if (target.name === "Gliscor" && !this.ruleTable.tagRules.includes("+pokemontag:cap")) {
 					if (!this.effectState.phCounter) this.effectState.phCounter = 0;
 					this.effectState.phCounter += toHeal;
 					if (this.effectState.phCounter >= target.baseMaxhp)
-						target.formeChange('Gliscor-Sated');
+						target.formeChange('Gliscor-Sated', null, true);
 				}
 				return false;
 			}

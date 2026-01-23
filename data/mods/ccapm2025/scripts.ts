@@ -1,4 +1,5 @@
 import {Pokemon} from "../../../sim";
+import {BattleActions} from "../../../sim/battle-actions";
 
 export const Scripts: ModdedBattleScriptsData = {
 	gen: 9,
@@ -91,8 +92,23 @@ export const Scripts: ModdedBattleScriptsData = {
 			}
 			return null;
 		},
+		runSwitch(pokemon: Pokemon) {
+			if (pokemon.name === 'Iron Valiant' && !pokemon.battle.ruleTable.tagRules.includes("+pokemontag:cap"))
+				pokemon.m.usedMoves = [];
+			return true;
+		},
+		useMove(move: Move, pokemon: Pokemon) {
+			const success = this.useMoveInner(move, pokemon);
+			if (success && pokemon.name === 'Iron Valiant' && !pokemon.battle.ruleTable.tagRules.includes("+pokemontag:cap"))
+			{
+				if (!pokemon.m.usedMoves) pokemon.m.usedMoves = [];
+				if (!pokemon.m.usedMoves.includes(move.id)) pokemon.m.usedMoves.push(move.id);
+				if (pokemon.moves.filter(name => pokemon.m.usedMoves.includes(name)).toString() === pokemon.moves.toString())
+					pokemon.formeChange('Iron Valiant-High-Judge', null, true);
+			}
+			return success;
+		},
 	},
-
 	faintMessages(lastFirst = false, forceCheck = false, checkWin = true) {
 		if (this.ended) return;
 		const length = this.faintQueue.length;
@@ -113,11 +129,6 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (!pokemon.fainted && this.runEvent('BeforeFaint', pokemon, faintData.source, faintData.effect)) {
 				if (pokemon.name === 'Kecleon' && !this.ruleTable.tagRules.includes("+pokemontag:cap")){
 					let forme = 'None';
-					// -Wild	Faint as a Grass, Bug, or Poison type
-					// -Luminous	Faint as an Electric, Fairy, or Psychic type
-					// -Storybook	Faint as a Ghost, Dragon, or Steel type
-					// -Phasic	Faint as an Ice, Water, or Flying type
-					// -Ruffian	Faint as a Normal, Fighting, or Dark type
 					switch (pokemon.types[0]) {
 					case 'Fire':
 					case 'Rock':
