@@ -1,5 +1,52 @@
 export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 	// Changed Moves
+	acupressure: {
+		inherit: true,
+		onHit(target) {
+			if (target.species.name === "Regigigas" && !this.ruleTable.tagRules.includes("+pokemontag:cap")) {
+				if (!target.m.stats) {
+					const allStats: BoostID[] = [];
+					let stat: BoostID;
+					for (stat in target.boosts) {
+						allStats.push(stat);
+					}
+
+					target.m.stats = allStats;
+					target.m.stats.pop();
+					target.m.stats.pop();
+					this.prng.shuffle(target.m.stats);
+				}
+
+				if (target.m.stats.length) {
+					const randomStat = target.m.stats.pop();
+					const boost: SparseBoostsTable = {};
+					boost[randomStat as BoostID] = 2;
+					this.boost(boost);
+				} else {
+					return false;
+				}
+
+				if (target.m.stats.length === 0)
+					target.formeChange('Regigigas-Colossal', null, true);
+			} else {
+				const stats: BoostID[] = [];
+				let stat: BoostID;
+				for (stat in target.boosts) {
+					if (target.boosts[stat] < 6) {
+						stats.push(stat);
+					}
+				}
+				if (stats.length) {
+					const randomStat = this.sample(stats);
+					const boost: SparseBoostsTable = {};
+					boost[randomStat] = 2;
+					this.boost(boost);
+				} else {
+					return false;
+				}
+			}
+		},
+	},
 	diamondstorm: {
 		inherit: true,
 		onModifyMove(move, source) {
@@ -933,15 +980,15 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 			duration: 1,
 			onStart(target) {
 				this.add('-singleturn', target, 'Protect');
-				this.add('-start', pokemon, 'Stack Shield');
-				const newatk = pokemon.storedStats.def;
-				const newdef = pokemon.storedStats.atk;
-				const newspa = pokemon.storedStats.spd;
-				const newspd = pokemon.storedStats.spa;
-				pokemon.storedStats.atk = newatk;
-				pokemon.storedStats.def = newdef;
-				pokemon.storedStats.spa = newspa;
-				pokemon.storedStats.spd = newspd;
+				this.add('-start', target, 'Stack Shield');
+				const newatk = target.storedStats.def;
+				const newdef = target.storedStats.atk;
+				const newspa = target.storedStats.spd;
+				const newspd = target.storedStats.spa;
+				target.storedStats.atk = newatk;
+				target.storedStats.def = newdef;
+				target.storedStats.spa = newspa;
+				target.storedStats.spd = newspd;
 			},
 			onCopy(pokemon) {
 				const newatk = pokemon.storedStats.def;
