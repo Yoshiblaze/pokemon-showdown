@@ -111,7 +111,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			faintData = this.faintQueue.shift()!;
 			const pokemon: Pokemon = faintData.target;
 			if (!pokemon.fainted && this.runEvent('BeforeFaint', pokemon, faintData.source, faintData.effect)) {
-				if (pokemon.name === 'Kecleon'){
+				if (pokemon.name === 'Kecleon' && !this.ruleTable.tagRules.includes("+pokemontag:cap")){
 					let forme = 'None';
 					// -Wild	Faint as a Grass, Bug, or Poison type
 					// -Luminous	Faint as an Electric, Fairy, or Psychic type
