@@ -1046,6 +1046,53 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		desc: "Protects the user and flips its offenses and defenses.",
 		shortDesc: "Protects the user and flips its offenses and defenses.",
 	},
+	ribbonshift: {
+		accuracy: 100,
+		basePower: 100,
+		category: "Physical",
+		name: "Ribbon Shift",
+		pp: 5,
+		flags: { protect: 1, mirror: 1, metronome: 1 },
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Swift', target);
+		},
+		onEffectiveness(typeMod, target, type, move) {
+			return typeMod + this.dex.getEffectiveness('Psychic', type);
+		},
+		onHit(target, pokemon, move) {
+			if (pokemon.baseSpecies.baseSpecies === 'Sylveon' && !pokemon.transformed) {
+				move.willChangeForme = true;
+			}
+		},
+		onAfterMoveSecondarySelf(pokemon, target, move) {
+			if (move.willChangeForme) {
+				const sylveForme = pokemon.species.id === 'sylveonlumineon' ? '' : '-Lumineon';
+				pokemon.formeChange('Sylveon' + sylveForme, this.effect, false, '0', '[msg]');
+			}
+		},
+		onTry(source) {
+			if (source.species.name === 'Sylveon') {
+				return;
+			}
+			this.hint("Only a Pokemon whose form is base Sylveon can use this move.");
+			if (source.species.name === 'Sylveon-Lumineon') {
+				this.attrLastMove('[still]');
+				this.add('-fail', source, 'move: Ribbon Shift', '[forme]');
+				return null;
+			}
+			this.attrLastMove('[still]');
+			this.add('-fail', source, 'move: Ribbon Shift');
+			return null;
+		},
+		priority: 0,
+		secondary: null,
+		target: "normal",
+		type: "Fairy",
+		zMove: { basePower: 170 },
+		contestType: "Cute",
+		desc: "Combined type effectiveness with Psychic. Sylveon transforms. Unusable in Lumineon forme.",
+		shortDesc: "Combined type effectiveness with Psychic. Sylveon transforms. Unusable in Lumineon forme.",
+	},
 	// Old Moves
 	kingsshield: {
 		inherit: true,
@@ -1180,5 +1227,51 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		target: "normal",
 		type: "Electric",
 		contestType: "Cool",
+	},
+	morningsun: {
+		num: 234,
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		name: "Morning Sun",
+		pp: 5,
+		priority: 0,
+		flags: { snatch: 1, heal: 1, metronome: 1 },
+		onHit(target, pokemon, move) {
+			let factor = 0.5;
+			switch (pokemon.effectiveWeather()) {
+			case 'sunnyday':
+			case 'desolateland':
+				factor = 0.667;
+				break;
+			case 'raindance':
+			case 'primordialsea':
+			case 'sandstorm':
+			case 'hail':
+			case 'snowscape':
+				factor = 0.25;
+				break;
+			}
+			const success = !!this.heal(this.modify(pokemon.maxhp, factor));
+			if (!success) {
+				this.add('-fail', pokemon, 'heal');
+				return this.NOT_FAIL;
+			}
+			return success;
+			if (pokemon.baseSpecies.baseSpecies === 'Volcarona' && !pokemon.transformed) {
+				move.willChangeForme = true;
+			}
+		},
+		onAfterMoveSecondarySelf(pokemon, target, move) {
+			if (move.willChangeForme) {
+				const volcaForme = pokemon.species.id === 'volcaronasolstice' ? '' : '-Solstice';
+				pokemon.formeChange('Volcarona' + volcaForme, this.effect, false, '0', '[msg]');
+			}
+		},
+		secondary: null,
+		target: "self",
+		type: "Normal",
+		zMove: { effect: 'clearnegativeboost' },
+		contestType: "Beautiful",
 	},
 };
