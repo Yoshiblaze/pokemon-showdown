@@ -891,7 +891,13 @@ export class RandomC25Teams extends RandomTeams {
 		const teamDetails: RandomTeamsTypes.TeamDetails = {};
 		let numMaxLevelPokemon = 0;
 
-		const pokemonList = Object.keys(this.randomSets);
+		let pokemonList = Object.keys(this.randomSets);
+		const CAPTiers = ["CAP", "CAP NFE", "CAP LC"];
+		if (ruleTable.tagRules.includes("+pokemontag:cap"))
+			pokemonList = pokemonList.filter(mon => CAPTiers.includes(this.dex.species.get(mon).tier));
+		else
+			pokemonList = pokemonList.filter(mon => !CAPTiers.includes(this.dex.species.get(mon).tier));
+
 		const [pokemonPool, baseSpeciesPool] = this.getPokemonPool(type, pokemon, isMonotype, pokemonList);
 
 		let leadsRemaining = this.format.gameType === 'doubles' ? 2 : 1;
