@@ -1,3 +1,5 @@
+import { Dex } from "../../../sim";
+
 export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 	// Changed Moves
 	acupressure: {
