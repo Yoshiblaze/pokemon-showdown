@@ -1150,4 +1150,35 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		desc: "Has a 50% chance to lower the target's Defense and a 50% chance to lower the target's Special Attack. This move becomes a special attack that doesn't make contact if the value of ((((2 * the user's level / 5 + 2) * 90 * X) / Y) / 50), where X is the user's Attack stat and Y is the target's Defense stat, is greater than the same value where X is the user's Special Attack stat and Y is the target's Special Defense stat. No stat modifiers other than stat stage changes are considered for this purpose. If the two values are equal, this move chooses a damage category at random.",
 		shortDesc: "50% -1 Def, -50% -SpD. Special+non-contact if it would be stronger.",
 	},
+	plasmafists: {
+		num: 721,
+		accuracy: 100,
+		basePower: 100,
+		category: "Physical",
+		isNonstandard: "Past",
+		name: "Plasma Fists",
+		pp: 15,
+		priority: 0,
+		flags: { contact: 1, protect: 1, mirror: 1, punch: 1 },
+		pseudoWeather: 'iondeluge',
+		onHit(target, pokemon, move) {
+			if (this.effectState.bigZera) return;
+			if (pokemon.baseSpecies.baseSpecies === 'Zeraora' &&
+				 pokemon.volatiles['charge'] &&
+				 !pokemon.transformed) {
+				move.willChangeForme = true;
+				this.effectState.bigZera = true;
+			}
+		},
+		onAfterMoveSecondarySelf(pokemon, target, move) {
+			if (move.willChangeForme) {
+				const zeraForme = pokemon.species.id === 'zeraorabig' ? '' : '-Big';
+				pokemon.formeChange('Zeraora' + zeraForme, this.effect, false, '0', '[msg]');
+			}
+		},
+		secondary: null,
+		target: "normal",
+		type: "Electric",
+		contestType: "Cool",
+	},
 };
