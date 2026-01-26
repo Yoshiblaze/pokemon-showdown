@@ -1,5 +1,3 @@
-import {Dex} from "../../../sim";
-
 export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 	// Changed Moves
 	acupressure: {
@@ -47,6 +45,29 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 					return false;
 				}
 			}
+		},
+	},
+	aromatherapy: {
+		inherit: true,
+		onHit(target, source, move) {
+			this.add('-activate', source, 'move: Aromatherapy');
+			let success = false;
+			const allies = [...target.side.pokemon, ...target.side.allySide?.pokemon || []];
+			for (const ally of allies) {
+				if (ally !== source && !this.suppressingAbility(ally)) {
+					if (ally.hasAbility('sapsipper')) {
+						this.add('-immune', ally, '[from] ability: Sap Sipper');
+						continue;
+					}
+					if (ally.hasAbility('goodasgold')) {
+						this.add('-immune', ally, '[from] ability: Good as Gold');
+						continue;
+					}
+					if (ally.volatiles['substitute'] && !move.infiltrates) continue;
+				}
+				if ((ally as any).cureStatus(false, source)) success = true;
+			}
+			return success;
 		},
 	},
 	diamondstorm: {
@@ -552,22 +573,6 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		type: "Water",
 		contestType: "Beautiful",
 	},
-	stealthrock: {
-		inherit: true,
-		condition: {
-			// this is a side condition
-			onSideStart(side) {
-				this.add('-sidestart', side, 'move: Stealth Rock');
-			},
-			onSwitchIn(pokemon) {
-				const source = this.effectState.source;
-				const type = source.ability === "geminfusion" &&
-					source.getItem()?.isGem ? source.getItem().name.split(' ')[0] : this.dex.getActiveMove('stealthrock').type;
-				const typeMod = this.clampIntRange(pokemon.runEffectiveness(type), -6, 6);
-				this.damage(pokemon.maxhp * (2 ** typeMod) / 8);
-			},
-		},
-	},
 	explosion: {
 		inherit: true,
 		onAfterMove(pokemon, source, move) {
@@ -626,6 +631,45 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 			}
 		},
 	},
+	gmaxsweetness: {
+		inherit: true,
+		self: {
+			onHit(source) {
+				for (const ally of source.side.pokemon) {
+					(ally as any).cureStatus(false, source);
+				}
+			},
+		},
+	},
+	healbell: {
+		inherit: true,
+		onHit(target, source) {
+			this.add('-activate', source, 'move: Heal Bell');
+			let success = false;
+			const allies = [...target.side.pokemon, ...target.side.allySide?.pokemon || []];
+			for (const ally of allies) {
+				if (ally !== source && !this.suppressingAbility(ally)) {
+					if (ally.hasAbility('soundproof')) {
+						this.add('-immune', ally, '[from] ability: Soundproof');
+						continue;
+					}
+					if (ally.hasAbility('goodasgold')) {
+						this.add('-immune', ally, '[from] ability: Good as Gold');
+						continue;
+					}
+				}
+				if ((ally as any).cureStatus(false, source)) success = true;
+			}
+			return success;
+		},
+	},
+	junglehealing: {
+		inherit: true,
+		onHit(pokemon) {
+			const success = !!this.heal(this.modify(pokemon.maxhp, 0.25));
+			return ((pokemon as any).cureStatus(false, pokemon)) || success;
+		},
+	},
 	healingwish: {
 		inherit: true,
 		onAfterMove(pokemon, source, move) {
@@ -653,6 +697,13 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 				this.add('poke', newPoke.side.id, newPoke.details, '');
 				this.actions.switchIn(newPoke, 0, null, false);
 			}
+		},
+	},
+	lunarblessing: {
+		inherit: true,
+		onHit(pokemon) {
+			const success = !!this.heal(this.modify(pokemon.maxhp, 0.25));
+			return (pokemon as any).cureStatus(false, pokemon) || success;
 		},
 	},
 	lunardance: {
@@ -742,6 +793,32 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 			}
 		},
 	},
+	psychoshift: {
+		inherit: true,
+		self: {
+			onHit(pokemon) {
+				(pokemon as any).cureStatus(false, pokemon);
+			},
+		},
+	},
+	purify: {
+		inherit: true,
+		onHit(target, source) {
+			if (!(target as any).cureStatus(false, source)) {
+				this.add('-fail', source);
+				this.attrLastMove('[still]');
+				return this.NOT_FAIL;
+			}
+			this.heal(Math.ceil(source.maxhp * 0.5), source);
+		},
+	},
+	refresh: {
+		inherit: true,
+		onHit(pokemon) {
+			if (['', 'slp', 'frz'].includes(pokemon.status)) return false;
+			(pokemon as any).cureStatus(false, pokemon);
+		},
+	},
 	selfdestruct: {
 		inherit: true,
 		onAfterMove(pokemon, source, move) {
@@ -771,6 +848,98 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 			}
 		},
 	},
+	smellingsalts: {
+		inherit: true,
+		onHit(target, source, move) {
+			if (target.status === 'par') (target as any).cureStatus(false, source);
+		},
+	},
+	sparklingaria: {
+		inherit: true,
+		onAfterMove(source, target, move) {
+			if (source.fainted || !move.hitTargets || move.hasSheerForce) {
+				// make sure the volatiles are cleared
+				for (const pokemon of this.getAllActive()) delete pokemon.volatiles['sparklingaria'];
+				return;
+			}
+			const numberTargets = move.hitTargets.length;
+			for (const pokemon of move.hitTargets) {
+				// bypasses Shield Dust when hitting multiple targets
+				if (pokemon !== source && pokemon.isActive && (pokemon.removeVolatile('sparklingaria') || numberTargets > 1) &&
+					pokemon.status === 'brn') {
+					(pokemon as any).cureStatus(false, source);
+				}
+			}
+		},
+	},
+	sparklyswirl: {
+		inherit: true,
+		self: {
+			onHit(pokemon, source, move) {
+				this.add('-activate', source, 'move: Aromatherapy');
+				for (const ally of source.side.pokemon) {
+					if (ally !== source && (ally.volatiles['substitute'] && !move.infiltrates)) {
+						continue;
+					}
+					(ally as any).cureStatus(false, source);
+				}
+			},
+		},
+	},
+	stealthrock: {
+		inherit: true,
+		condition: {
+			// this is a side condition
+			onSideStart(side) {
+				this.add('-sidestart', side, 'move: Stealth Rock');
+			},
+			onSwitchIn(pokemon) {
+				const source = this.effectState.source;
+				const type = source.ability === "geminfusion" &&
+				source.getItem()?.isGem ? source.getItem().name.split(' ')[0] : this.dex.getActiveMove('stealthrock').type;
+				const typeMod = this.clampIntRange(pokemon.runEffectiveness(type), -6, 6);
+				this.damage(pokemon.maxhp * (2 ** typeMod) / 8);
+			},
+		},
+	},
+	takeheart: {
+		inherit: true,
+		onHit(pokemon) {
+			const success = !!this.boost({ spa: 1, spd: 1 });
+			return (pokemon as any).cureStatus(false, pokemon) || success;
+		},
+	},
+	uproar: {
+		inherit: true,
+		onTryHit(target, source, move) {
+			const activeTeam = target.side.activeTeam();
+			const foeActiveTeam = target.side.foe.activeTeam();
+			for (const [i, allyActive] of activeTeam.entries()) {
+				if (allyActive && allyActive.status === 'slp') (allyActive as any).cureStatus(false, source);
+				const foeActive = foeActiveTeam[i];
+				if (foeActive && foeActive.status === 'slp') (foeActive as any).cureStatus(false, source);
+			}
+		},
+		secondary: null,
+		target: "randomNormal",
+		type: "Normal",
+		contestType: "Cute",
+	},
+	wakeupslap: {
+		inherit: true,
+		onHit(target, source, move) {
+			if (target.status === 'slp') (target as any).cureStatus(false, source);
+		},
+	},
+	worryseed: {
+		inherit: true,
+		onHit(target, source) {
+			const oldAbility = target.setAbility('insomnia');
+			if (!oldAbility) return oldAbility as false | null;
+			if (target.status === 'slp') (target as any).cureStatus(false, source);
+		},
+	},
+
 	// New Moves
 	primalpulse: {
 		accuracy: 100,

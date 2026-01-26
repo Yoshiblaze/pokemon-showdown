@@ -1,5 +1,4 @@
-import {Pokemon} from "../../../sim";
-import {BattleActions} from "../../../sim/battle-actions";
+import type { Pokemon } from "../../../sim";
 
 export const Scripts: ModdedBattleScriptsData = {
 	gen: 9,
@@ -99,8 +98,8 @@ export const Scripts: ModdedBattleScriptsData = {
 		},
 		useMove(move: Move, pokemon: Pokemon) {
 			const success = this.useMoveInner(move, pokemon);
-			if (success && pokemon.species.name === 'Iron Valiant' && !pokemon.battle.ruleTable.tagRules.includes("+pokemontag:cap"))
-			{
+			if (success && pokemon.species.name === 'Iron Valiant' &&
+				!pokemon.battle.ruleTable.tagRules.includes("+pokemontag:cap")) {
 				if (!pokemon.m.usedMoves) pokemon.m.usedMoves = [];
 				if (!pokemon.m.usedMoves.includes(move.id)) pokemon.m.usedMoves.push(move.id);
 				if (pokemon.moves.filter(name => pokemon.m.usedMoves.includes(name)).toString() === pokemon.moves.toString())
@@ -127,7 +126,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			faintData = this.faintQueue.shift()!;
 			const pokemon: Pokemon = faintData.target;
 			if (!pokemon.fainted && this.runEvent('BeforeFaint', pokemon, faintData.source, faintData.effect)) {
-				if (pokemon.species.name === 'Kecleon' && !this.ruleTable.tagRules.includes("+pokemontag:cap")){
+				if (pokemon.species.name === 'Kecleon' && !this.ruleTable.tagRules.includes("+pokemontag:cap")) {
 					let forme = 'None';
 					switch (pokemon.types[0]) {
 					case 'Fire':
@@ -239,5 +238,21 @@ export const Scripts: ModdedBattleScriptsData = {
 			this.runEvent('AfterFaint', faintData.target, faintData.source, faintData.effect, length);
 		}
 		return false;
-	}
+	},
+	pokemon: {
+		cureStatus(this: Pokemon, silent?: boolean, source: Pokemon | null = null) {
+			if (!this.hp || !this.status) return false;
+			this.battle.add('-curestatus', this, this.status, silent ? '[silent]' : '[msg]');
+			if (this.status === 'slp' && this.removeVolatile('nightmare')) {
+				this.battle.add('-end', this, 'Nightmare', '[silent]');
+			}
+			this.setStatus('');
+
+			if (source?.species.name === 'Zarude' && !source.battle.ruleTable.tagRules.includes("+pokemontag:cap")) {
+				source.formeChange('Zarude-Alchemist', null, true);
+			}
+
+			return true;
+		},
+	},
 };
