@@ -896,7 +896,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 			onSwitchIn(pokemon) {
 				const source = this.effectState.source;
 				const type = source.ability === "geminfusion" &&
-				source.getItem()?.isGem ? source.getItem().name.split(' ')[0] : this.dex.getActiveMove('stealthrock').type;
+					source.getItem()?.isGem ? source.getItem().name.split(' ')[0] : this.dex.getActiveMove('stealthrock').type;
 				const typeMod = this.clampIntRange(pokemon.runEffectiveness(type), -6, 6);
 				this.damage(pokemon.maxhp * (2 ** typeMod) / 8);
 			},
