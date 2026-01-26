@@ -1274,4 +1274,53 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		zMove: { effect: 'clearnegativeboost' },
 		contestType: "Beautiful",
 	},
+	chillyreception: {
+		num: 881,
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		name: "Chilly Reception",
+		pp: 10,
+		priority: 0,
+		flags: {},
+		priorityChargeCallback(source) {
+			source.addVolatile('chillyreception');
+		},
+		weather: 'snowscape',
+		selfSwitch: true,
+		onHit(target, pokemon, move) {
+			if (this.effectState.frostKing) return;
+			if (pokemon.baseSpecies.baseSpecies === 'Slowking' && !pokemon.transformed) {
+				move.willChangeForme = true;
+				this.effectState.frostKing = true;
+			}
+		},
+		onAfterMoveSecondarySelf(pokemon, target, move) {
+			if (move.willChangeForme) {
+				const slowForme = pokemon.species.id === 'slowkingfrostking' ? '' : '-Frostking';
+				pokemon.formeChange('Slowking' + slowForme, this.effect, false, '0', '[msg]');
+			}
+		},
+		secondary: null,
+		condition: {
+			duration: 1,
+			onBeforeMovePriority: 100,
+			onBeforeMove(source, target, move) {
+				if (move.id !== 'chillyreception') return;
+				this.add('-prepare', source, 'Chilly Reception', '[premajor]');
+			},
+		},
+		target: "all",
+		type: "Ice",
+	},
+	synthesis: {
+		inherit: true,
+		beforeMoveCallback(pokemon) {
+			if (pokemon.species.name === 'Shaymin') {
+				pokemon.formeChange('Shaymin-Sky', null, true);
+				pokemon.setAbility('serenegrace', pokemon, true);
+				return true;
+			}
+		},
+	},
 };
