@@ -1050,7 +1050,7 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		types: ["Grass", "Fairy"],
 		gender: "F",
 		baseStats: { hp: 80, atk: 120, def: 84, spa: 60, spd: 96, spe: 110 },
-		abilities: { 0: "Embody Aspect (Wellspring)" },
+		abilities: { 0: "Embody Aspect (Pixiedust)" },
 		heightm: 1.2,
 		weightkg: 39.8,
 		color: "Pink",
