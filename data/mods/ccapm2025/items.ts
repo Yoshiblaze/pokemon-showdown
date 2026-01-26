@@ -10,8 +10,8 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 			return true;
 		},
 		gen: 9,
-    shortDesc: "If held by a Darmanitan, this item allows it to Mega Evolve in battle.",
-    num: -1,
+    	shortDesc: "If held by a Darmanitan, this item allows it to Mega Evolve in battle.",
+    	num: -1,
 	},
 	emolgite: {
 		name: "Emolgite",
@@ -24,8 +24,8 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 			return true;
 		},
 		gen: 9,
-    shortDesc: "If held by an Emolga, this item allows it to Mega Evolve in battle.",
-    num: -2,
+    	shortDesc: "If held by an Emolga, this item allows it to Mega Evolve in battle.",
+    	num: -2,
 	},
 	flygonite: {
 		name: "Flygonite",
@@ -38,8 +38,8 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 			return true;
 		},
 		gen: 9,
-    shortDesc: "If held by a Flygon, this item allows it to Mega Evolve in battle.",
-    num: -3,
+    	shortDesc: "If held by a Flygon, this item allows it to Mega Evolve in battle.",
+    	num: -3,
 	},
 	pixiedustmask: {
 		name: "Pixiedust Mask",
@@ -59,8 +59,8 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 		},
 		forcedForme: "Ogerpon-Pixiedust",
 		itemUser: ["Ogerpon-Pixiedust"],
-    shortDesc: "Ogerpon-Pixiedust: 1.2x power attacks; Terastallize to gain Embody Aspect.",
-    num: -4,
+    	shortDesc: "Ogerpon-Pixiedust: 1.2x power attacks; Terastallize to gain Embody Aspect.",
+    	num: -4,
 		gen: 9,
 	},
 	ultrasimiseariumz: {
@@ -70,10 +70,33 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 		zMove: "Yin-Yang Blast",
 		zMoveFrom: "Fire Blast",
 		itemUser: ["Simisear-Ultra"],
-    shortDesc: "Simisear: Ultra Burst, then Z-Move w/ Fire Blast.",
-    num: -4,
+    	shortDesc: "Simisear: Ultra Burst, then Z-Move w/ Fire Blast.",
+    	num: -4,
 		gen: 9,
   },
+	drearymushroom: {
+		name: "Dreary Mushroom",
+		spritenum: 609,
+		fling: {
+			basePower: 30,
+		},
+		onDamagePriority: 1,
+		onDamage(damage, target, source, effect) {
+			if (effect?.effectType === 'Move' &&
+				 !move.damage && !move.damageCallback &&
+				 target.getMoveHitData(move).typeMod > 0 &&
+				 !target.transformed) {
+				return 0;
+				target.formeChange('Parasect-Wicked', this.effect, true);
+				this.damage(target.baseMaxhp / 8);
+				target.addVolatile('berserk'); // change to trySetStatus if that's how we end up coding it
+				target.useItem();
+			}
+		},
+    	shortDesc: "Parasect: Blocks 1 SE move, loses 1/8 HP instead, changes form, and becomes Berserk. Single use.",
+		num: -5,
+		gen: 9,
+	},
 	buggem: {
 		inherit: true,
 		isNonstandard: null,
