@@ -242,11 +242,36 @@ export const Scripts: ModdedBattleScriptsData = {
 	pokemon: {
 		cureStatus(this: Pokemon, silent?: boolean, source: Pokemon | null = null) {
 			if (!this.hp || !this.status) return false;
+
+			if (source?.ability === 'herbalelixir') {
+				switch (this.status) {
+				case 'psn':
+				case 'tox':
+					this.setAbility('poisonheal');
+					this.baseAbility = this.ability;
+					return false;
+				case 'brn':
+					this.setAbility('guts');
+					this.baseAbility = this.ability;
+					return false;
+				case 'par':
+					this.setAbility('quickfeet');
+					this.baseAbility = this.ability;
+					return false;
+				case 'ber':
+					this.setAbility('marvelscale');
+					this.baseAbility = this.ability;
+					return false;
+				default:
+					break;
+				}
+			}
+
+			this.setStatus('');
 			this.battle.add('-curestatus', this, this.status, silent ? '[silent]' : '[msg]');
 			if (this.status === 'slp' && this.removeVolatile('nightmare')) {
 				this.battle.add('-end', this, 'Nightmare', '[silent]');
 			}
-			this.setStatus('');
 
 			if (source?.species.name === 'Zarude' && !source.battle.ruleTable.tagRules.includes("+pokemontag:cap")) {
 				source.formeChange('Zarude-Alchemist', null, true);
