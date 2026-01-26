@@ -166,7 +166,7 @@
                 "role": "Wallbreaker",
                 "movepool": ["sixtongueemojis", "Earthquake", "Ice Spinner", "Dual Wingbeat"],
                 "abilities": ["Serene Grace"]
-            },
+            }
         ]
     },
 	"electrode": {
@@ -805,3 +805,4 @@
         ]
     }
 }
+ 
