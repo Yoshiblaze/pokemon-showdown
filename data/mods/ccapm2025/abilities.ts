@@ -61,20 +61,17 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		rating: 4,
 		num: 1001,
 	},
-	embodyaspectwellspring: {
+	embodyaspectpixiedust: {
 		onStart(pokemon) {
-			if ((pokemon.baseSpecies.name === 'Ogerpon-Wellspring-Tera' ||
-				pokemon.baseSpecies.name === 'Ogerpon-Pixiedust-Tera') &&
-				pokemon.terastallized &&
+			if (pokemon.baseSpecies.name === 'Ogerpon-Pixiedust-Tera' && pokemon.terastallized &&
 				!this.effectState.embodied) {
 				this.effectState.embodied = true;
 				this.boost({ spd: 1 }, pokemon);
 			}
 		},
 		flags: { failroleplay: 1, noreceiver: 1, noentrain: 1, notrace: 1, failskillswap: 1, notransform: 1 },
-		name: "Embody Aspect (Wellspring)",
+		name: "Embody Aspect (Pixiedust)",
 		rating: 3.5,
-		num: 302,
 	},
 	stancechange: {
 		onModifyMovePriority: 1,
@@ -466,7 +463,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		onBeforeMove(pokemon) {
 			if (!pokemon.volatiles['backbeat']) {
 				pokemon.addVolatile('backbeat');
-			} else if if (pokemon.volatiles['backbeat']) {
+			} else if (pokemon.volatiles['backbeat']) {
 				pokemon.removeVolatile('backbeat');
 			}
 		},
