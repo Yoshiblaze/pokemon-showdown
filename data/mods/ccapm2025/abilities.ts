@@ -466,7 +466,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		onBeforeMove(pokemon) {
 			if (!pokemon.volatiles['backbeat']) {
 				pokemon.addVolatile('backbeat');
-			} else if if (pokemon.volatiles['backbeat']) {
+			} else if (pokemon.volatiles['backbeat']) {
 				pokemon.removeVolatile('backbeat');
 			}
 		},
@@ -731,5 +731,17 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		name: "Burnout",
 		rating: 3.5,
 		shortDesc: "Blaziken-Wildfire: 1.5x Atk & SpA. Reverts to base Blaziken after 2 turns.",
+	},
+	embodyaspectpixiedust: {
+		onStart(pokemon) {
+			if (pokemon.baseSpecies.name === 'Ogerpon-Pixiedust-Tera' && pokemon.terastallized &&
+				!this.effectState.embodied) {
+				this.effectState.embodied = true;
+				this.boost({ spd: 1 }, pokemon);
+			}
+		},
+		flags: { failroleplay: 1, noreceiver: 1, noentrain: 1, notrace: 1, failskillswap: 1, notransform: 1 },
+		name: "Embody Aspect (Pixiedust)",
+		rating: 3.5,
 	},
 };
