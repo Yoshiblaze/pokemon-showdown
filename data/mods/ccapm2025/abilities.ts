@@ -16,6 +16,26 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 			}
 		},
 	},
+	wonderguard: {
+		onTryHit(target, source, move) {
+			if (target === source || move.category === 'Status' || move.id === 'struggle') return;
+			if (move.id === 'skydrop' && !source.volatiles['skydrop']) return;
+			this.debug('Wonder Guard immunity: ' + move.id);
+			if (target.runEffectiveness(move) <= 0 || !target.runImmunity(move)) {
+				if (move.smartTarget) {
+					move.smartTarget = false;
+				} else {
+					this.add('-immune', target, '[from] ability: Wonder Guard');
+					target.formeChange('Shedinja-Escaped', null, true);
+				}
+				return null;
+			}
+		},
+		flags: { failroleplay: 1, noreceiver: 1, noentrain: 1, failskillswap: 1, breakable: 1 },
+		name: "Wonder Guard",
+		rating: 5,
+		num: 25,
+	},
 
 	// New Abilities
 	geminfusion: {
@@ -703,8 +723,8 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 			onEnd(pokemon) {
 				// message here
 				pokemon.formeChange('Blaziken');
-			pokemon.setAbility('toughclaws', pokemon, true);
-			this.add('-activate', pokemon, 'ability: Tough Claws');
+				pokemon.setAbility('toughclaws', pokemon, true);
+				this.add('-activate', pokemon, 'ability: Tough Claws');
 			},
 		},
 		flags: { failroleplay: 1, noreceiver: 1, noentrain: 1, notrace: 1, failskillswap: 1, cantsuppress: 1 },
