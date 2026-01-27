@@ -1501,4 +1501,160 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 			}
 		},
 	},
+	technoblast: {
+		num: 546,
+		accuracy: 100,
+		basePower: 120,
+		category: "Special",
+		isNonstandard: "Past",
+		name: "Techno Blast",
+		pp: 5,
+		priority: 0,
+		flags: { protect: 1, mirror: 1 },
+		onModifyType(move, pokemon) {
+			if (pokemon.ignoringItem()) return;
+			move.type = this.runEvent('Drive', pokemon, null, move, 'Normal');
+		},
+		onAfterMoveSecondarySelf(pokemon, target, move) {
+			if (this.effectState.geneSect) return;
+			if (pokemon.species.name === 'Genesect-Burn') {
+				pokemon.formeChange('Genesect-Core', null, true);
+				pokemon.setAbility('martialize', pokemon, true);
+				this.effectState.geneSect = true;
+			} else if (pokemon.species.name === 'Genesect-Douse') {
+				pokemon.formeChange('Genesect-Rust', null, true);
+				pokemon.setAbility('intoxicate', pokemon, true);
+				this.effectState.geneSect = true;
+			} else if (pokemon.species.name === 'Genesect-Shock') {
+				pokemon.formeChange('Genesect-Airborne', null, true);
+				pokemon.setAbility('aerilate', pokemon, true);
+				this.effectState.geneSect = true;
+			} else if (pokemon.species.name === 'Genesect-Chill') {
+				pokemon.formeChange('Genesect-Luminous', null, true);
+				pokemon.setAbility('pixilate', pokemon, true);
+				this.effectState.geneSect = true;
+			}
+		},
+		secondary: null,
+		target: "normal",
+		type: "Normal",
+		contestType: "Cool",
+	},
+	shellsmash: {
+		num: 504,
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		name: "Shell Smash",
+		pp: 15,
+		priority: 0,
+		flags: { snatch: 1, metronome: 1 },
+		onAfterMoveSecondarySelf(pokemon, target, move) {
+			if (this.effectState.rockInn) return;
+			if (pokemon.species.name === 'Crustle') {
+				pokemon.formeChange('Crustle-Crawler', null, true);
+				pokemon.setAbility('sharpness', pokemon, true);
+				this.effectState.rockInn = true;
+			}
+		},
+		boosts: {
+			def: -1,
+			spd: -1,
+			atk: 2,
+			spa: 2,
+			spe: 2,
+		},
+		secondary: null,
+		target: "self",
+		type: "Normal",
+		zMove: { effect: 'clearnegativeboost' },
+		contestType: "Tough",
+	},
+	curse: {
+		num: 174,
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		name: "Curse",
+		pp: 10,
+		priority: 0,
+		flags: { bypasssub: 1, metronome: 1 },
+		volatileStatus: 'curse',
+		onModifyMove(move, source, target) {
+			if (!source.hasType('Ghost')) {
+				move.target = move.nonGhostTarget!;
+			} else if (source.isAlly(target)) {
+				move.target = 'randomNormal';
+			}
+		},
+		onTryHit(target, source, move) {
+			if (!source.hasType('Ghost')) {
+				delete move.volatileStatus;
+				delete move.onHit;
+				move.self = { boosts: { spe: -1, atk: 1, def: 1 } };
+			} else if (move.volatileStatus && target.volatiles['curse']) {
+				return false;
+			}
+		},
+		onHit(target, source) {
+			this.directDamage(source.maxhp / 2, source, source);
+		},
+		onAfterMoveSecondarySelf(pokemon, target, move) {
+			if (this.effectState.griGus) return;
+			if (pokemon.species.name === 'Cofagrigus') {
+				pokemon.formeChange('Cofagrigus-Unchained', null, true);
+				pokemon.setAbility('darkmagic', pokemon, true);
+				this.effectState.griGus = true;
+			}
+		},
+		condition: {
+			onStart(pokemon, source) {
+				this.add('-start', pokemon, 'Curse', `[of] ${source}`);
+			},
+			onResidualOrder: 12,
+			onResidual(pokemon) {
+				this.damage(pokemon.baseMaxhp / 4);
+			},
+		},
+		secondary: null,
+		target: "normal",
+		nonGhostTarget: "self",
+		type: "Ghost",
+		zMove: { effect: 'curse' },
+		contestType: "Tough",
+	},
+	phantomforce: {
+		num: 566,
+		accuracy: 100,
+		basePower: 90,
+		category: "Physical",
+		name: "Phantom Force",
+		pp: 10,
+		priority: 0,
+		flags: { contact: 1, charge: 1, mirror: 1, metronome: 1, nosleeptalk: 1, noassist: 1, failinstruct: 1 },
+		breaksProtect: true,
+		onTryMove(attacker, defender, move) {
+			if (attacker.removeVolatile(move.id)) {
+				return;
+			}
+			if (attacker.species.name === 'Dragapult' && !attacker.transformed) {
+				attacker.formeChange('Dragapult-Manifest', move);
+				attacker.setAbility('analytic', pokemon, true);
+			}
+			this.add('-prepare', attacker, move.name);
+			if (!this.runEvent('ChargeMove', attacker, defender, move)) {
+				return;
+			}
+			attacker.addVolatile('twoturnmove', defender);
+			return null;
+		},
+		condition: {
+			duration: 2,
+			onInvulnerability: false,
+		},
+		secondary: null,
+		target: "normal",
+		type: "Ghost",
+		contestType: "Cool",
+	},
 };
