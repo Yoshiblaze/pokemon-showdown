@@ -15,7 +15,7 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		heightm: 1.8,
 		weightkg: 152,
 		color: "Blue",
-		prevo: null,
+		prevo: '',
 		eggGroups: ["Water 1", "Dragon"],
 	},
 	kingdrabrinepool: {
@@ -29,7 +29,7 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		heightm: 1.8,
 		weightkg: 152,
 		color: "Blue",
-		prevo: null,
+		prevo: '',
 		eggGroups: ["Water 1", "Dragon"],
 	},
 	kingdradruid: {
@@ -43,7 +43,7 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		heightm: 1.8,
 		weightkg: 152,
 		color: "Blue",
-		prevo: null,
+		prevo: '',
 		eggGroups: ["Water 1", "Dragon"],
 	},
 	kingdrabard: {
@@ -57,7 +57,7 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		heightm: 1.8,
 		weightkg: 152,
 		color: "Blue",
-		prevo: null,
+		prevo: '',
 		eggGroups: ["Water 1", "Dragon"],
 	},
 	kingdragourmet: {
@@ -71,7 +71,7 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		heightm: 1.8,
 		weightkg: 152,
 		color: "Blue",
-		prevo: null,
+		prevo: '',
 		eggGroups: ["Water 1", "Dragon"],
 	},
 	kingdraancient: {
@@ -85,7 +85,7 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		heightm: 1.8,
 		weightkg: 152,
 		color: "Blue",
-		prevo: null,
+		prevo: '',
 		eggGroups: ["Water 1", "Dragon"],
 	},
 	nidoqueen: {
@@ -105,7 +105,7 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		heightm: 1.3,
 		weightkg: 60,
 		color: "Blue",
-		prevo: null,
+		prevo: '',
 		eggGroups: ["Undiscovered"],
 	},
 	nidoqueenerudite: {
@@ -120,7 +120,7 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		heightm: 1.3,
 		weightkg: 60,
 		color: "Blue",
-		prevo: null,
+		prevo: '',
 		eggGroups: ["Undiscovered"],
 	},
 	nidoqueenvolcanic: {
@@ -135,7 +135,7 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		heightm: 1.3,
 		weightkg: 60,
 		color: "Blue",
-		prevo: null,
+		prevo: '',
 		eggGroups: ["Undiscovered"],
 	},
 	nidoqueenrosegold: {
@@ -150,7 +150,7 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		heightm: 1.3,
 		weightkg: 60,
 		color: "Blue",
-		prevo: null,
+		prevo: '',
 		eggGroups: ["Undiscovered"],
 	},
 	nidoqueenshaman: {
@@ -165,7 +165,7 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		heightm: 1.3,
 		weightkg: 60,
 		color: "Blue",
-		prevo: null,
+		prevo: '',
 		eggGroups: ["Undiscovered"],
 	},
 	nidoqueenjasper: {
@@ -180,7 +180,7 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		heightm: 1.3,
 		weightkg: 60,
 		color: "Blue",
-		prevo: null,
+		prevo: '',
 		eggGroups: ["Undiscovered"],
 	},
 	bisharp: {
@@ -199,8 +199,8 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		heightm: 1.6,
 		weightkg: 70,
 		color: "Red",
-		prevo: null,
-		evos: null,
+		prevo: '',
+		evos: '',
 		eggGroups: ["Human-Like"],
 	},
 	bisharpsavage: {
@@ -214,8 +214,8 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		heightm: 1.6,
 		weightkg: 70,
 		color: "Red",
-		prevo: null,
-		evos: null,
+		prevo: '',
+		evos: '',
 		eggGroups: ["Human-Like"],
 	},
 	bisharpronin: {
@@ -229,8 +229,8 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		heightm: 1.6,
 		weightkg: 70,
 		color: "Red",
-		prevo: null,
-		evos: null,
+		prevo: '',
+		evos: '',
 		eggGroups: ["Human-Like"],
 	},
 	bisharpmantis: {
@@ -244,8 +244,8 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		heightm: 1.6,
 		weightkg: 70,
 		color: "Red",
-		prevo: null,
-		evos: null,
+		prevo: '',
+		evos: '',
 		eggGroups: ["Human-Like"],
 	},
 	bisharprevenant: {
@@ -259,8 +259,8 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		heightm: 1.6,
 		weightkg: 70,
 		color: "Red",
-		prevo: null,
-		evos: null,
+		prevo: '',
+		evos: '',
 		eggGroups: ["Human-Like"],
 	},
 	bisharpassassin: {
@@ -274,8 +274,8 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		heightm: 1.6,
 		weightkg: 70,
 		color: "Red",
-		prevo: null,
-		evos: null,
+		prevo: '',
+		evos: '',
 		eggGroups: ["Human-Like"],
 	},
 	corviknight: {
@@ -294,7 +294,7 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		heightm: 2.2,
 		weightkg: 75,
 		color: "Purple",
-		prevo: null,
+		prevo: '',
 		eggGroups: ["Flying"],
 	},
 	corviknightgenie: {
@@ -308,7 +308,7 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		heightm: 2.2,
 		weightkg: 75,
 		color: "Purple",
-		prevo: null,
+		prevo: '',
 		eggGroups: ["Flying"],
 	},
 	corviknightyeti: {
@@ -322,7 +322,7 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		heightm: 2.2,
 		weightkg: 75,
 		color: "Purple",
-		prevo: null,
+		prevo: '',
 		eggGroups: ["Flying"],
 	},
 	corviknightanalytical: {
@@ -336,7 +336,7 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		heightm: 2.2,
 		weightkg: 75,
 		color: "Purple",
-		prevo: null,
+		prevo: '',
 		eggGroups: ["Flying"],
 	},
 	corviknightmartian: {
@@ -350,7 +350,7 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		heightm: 2.2,
 		weightkg: 75,
 		color: "Purple",
-		prevo: null,
+		prevo: '',
 		eggGroups: ["Flying"],
 	},
 	corviknightfalcon: {
@@ -364,7 +364,7 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		heightm: 2.2,
 		weightkg: 75,
 		color: "Purple",
-		prevo: null,
+		prevo: '',
 		eggGroups: ["Flying"],
 	},
 	krookodile: {
@@ -383,7 +383,7 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		heightm: 1.5,
 		weightkg: 96.3,
 		color: "Red",
-		prevo: null,
+		prevo: '',
 		eggGroups: ["Field"],
 	},
 	krookodileabyssal: {
@@ -397,7 +397,7 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		heightm: 1.5,
 		weightkg: 96.3,
 		color: "Red",
-		prevo: null,
+		prevo: '',
 		eggGroups: ["Field"],
 	},
 	krookodilewetlander: {
@@ -411,7 +411,7 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		heightm: 1.5,
 		weightkg: 96.3,
 		color: "Red",
-		prevo: null,
+		prevo: '',
 		eggGroups: ["Field"],
 	},
 	krookodilecavedweller: {
@@ -425,7 +425,7 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		heightm: 1.5,
 		weightkg: 96.3,
 		color: "Red",
-		prevo: null,
+		prevo: '',
 		eggGroups: ["Field"],
 	},
 	krookodilecliffside: {
@@ -439,7 +439,7 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		heightm: 1.5,
 		weightkg: 96.3,
 		color: "Red",
-		prevo: null,
+		prevo: '',
 		eggGroups: ["Field"],
 	},
 	krookodilequantum: {
@@ -453,7 +453,7 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		heightm: 1.5,
 		weightkg: 96.3,
 		color: "Red",
-		prevo: null,
+		prevo: '',
 		eggGroups: ["Field"],
 	},
 	ogerpon: {
