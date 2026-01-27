@@ -200,7 +200,6 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		weightkg: 70,
 		color: "Red",
 		prevo: '',
-		evos: '',
 		eggGroups: ["Human-Like"],
 	},
 	bisharpsavage: {
@@ -215,7 +214,6 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		weightkg: 70,
 		color: "Red",
 		prevo: '',
-		evos: '',
 		eggGroups: ["Human-Like"],
 	},
 	bisharpronin: {
@@ -230,7 +228,6 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		weightkg: 70,
 		color: "Red",
 		prevo: '',
-		evos: '',
 		eggGroups: ["Human-Like"],
 	},
 	bisharpmantis: {
@@ -245,7 +242,6 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		weightkg: 70,
 		color: "Red",
 		prevo: '',
-		evos: '',
 		eggGroups: ["Human-Like"],
 	},
 	bisharprevenant: {
@@ -260,7 +256,6 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		weightkg: 70,
 		color: "Red",
 		prevo: '',
-		evos: '',
 		eggGroups: ["Human-Like"],
 	},
 	bisharpassassin: {
@@ -275,7 +270,6 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		weightkg: 70,
 		color: "Red",
 		prevo: '',
-		evos: '',
 		eggGroups: ["Human-Like"],
 	},
 	corviknight: {
