@@ -1137,6 +1137,50 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		desc: "Always does 40 damage. Boosts the user's Attack by 2 stages. Landorus transforms.",
 		shortDesc: "Always does 40 damage. Boosts the user's Attack by 2 stages. Landorus transforms.",
 	},
+	generationaldeevolution: {
+		accuracy: 100,
+		basePower: 0,
+		damage: 40,
+		category: "Special",
+		name: "Generational De-Evolution",
+		pp: 30,
+		priority: 0,
+		flags: { protect: 1, mirror: 1, metronome: 1 },
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Dragon Rage', target);
+		},
+		/* onHit(target, pokemon, move) {
+			if (this.effectState.bigZera) return;
+			if (pokemon.baseSpecies.baseSpecies === 'Zeraora' &&
+				 pokemon.volatiles['charge'] &&
+				 !pokemon.transformed) {
+				move.willChangeForme = true;
+				this.effectState.bigZera = true;
+			}
+		},
+		onAfterMoveSecondarySelf(pokemon, target, move) {
+			if (move.willChangeForme) {
+				const zeraForme = pokemon.species.id === 'zeraorabig' ? '' : '-Big';
+				pokemon.formeChange('Zeraora' + zeraForme, this.effect, false, '0', '[msg]');
+			}
+		}, */
+		secondary: {
+			chance: 100,
+			self: {
+				boosts: {
+					spa: 2,
+				},
+			},
+		},
+		target: "normal",
+		type: "Normal",
+		contestType: "Cool",
+		desc: "Always does 40 damage. Boosts the user's SpA by 2 stages. Landorus transforms.",
+		shortDesc: "Always does 40 damage. Boosts the user's SpA by 2 stages. Landorus transforms.",
+	},
 	// Old Moves
 	kingsshield: {
 		inherit: true,
