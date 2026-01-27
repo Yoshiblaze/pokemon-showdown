@@ -1,10 +1,10 @@
 export const FormatsData: import('../../../sim/dex-species').ModdedSpeciesFormatsDataTable = {
-  kingdraclassic: {
+	kingdraclassic: {
 		tier: "OU",
 	},
-  kingdrabrinepool: {
+	kingdrabrinepool: {
 		tier: "OU",
-	}, 
+	},
 	kingdradruid: {
 		tier: "OU",
 	},
@@ -22,7 +22,7 @@ export const FormatsData: import('../../../sim/dex-species').ModdedSpeciesFormat
 	},
 	nidoqueenerudite: {
 		tier: "OU",
-	},  
+	},
 	nidoqueenvolcanic: {
 		tier: "OU",
 	},
@@ -38,7 +38,7 @@ export const FormatsData: import('../../../sim/dex-species').ModdedSpeciesFormat
 	bisharpcenturion: {
 		tier: "OU",
 	},
-  bisharpsavage: {
+	bisharpsavage: {
 		tier: "OU",
 	},
 	bisharpronin: {

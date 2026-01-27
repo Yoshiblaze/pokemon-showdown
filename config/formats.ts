@@ -3337,7 +3337,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		desc: `A Gen 9 micrometa featuring only 6 Pokemon with 6 forms each.`,
 		mod: 'sixbysix',
 		searchShow: false,
-		ruleset: ['Standard', 'Sleep Moves Clause', '!Sleep Clause Mod',  'Terastal Clause', 'Data Preview', 'Sprite Viewer'],
+		ruleset: ['Standard', 'Sleep Moves Clause', '!Sleep Clause Mod', 'Terastal Clause', 'Data Preview', 'Sprite Viewer'],
 		banlist: [
 			'All Pokemon', 'Last Respects', 'Shed Tail',
 			'King\'s Rock', 'Razor Fang', 'Baton Pass',
