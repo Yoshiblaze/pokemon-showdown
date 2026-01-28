@@ -49,6 +49,13 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 	},
 	aromatherapy: {
 		inherit: true,
+ 		beforeMoveCallback(pokemon) {
+			if (pokemon.species.name === 'Shaymin') {
+				pokemon.formeChange('Shaymin-Sky', null, true);
+				pokemon.setAbility('serenegrace', pokemon, true);
+				return true;
+			}
+		},
 		onHit(target, source, move) {
 			this.add('-activate', source, 'move: Aromatherapy');
 			let success = false;
@@ -1215,6 +1222,141 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		desc: "Protects the user and flips its offenses and defenses.",
 		shortDesc: "Protects the user and flips its offenses and defenses.",
 	},
+	ribbonshift: {
+		accuracy: 100,
+		basePower: 100,
+		category: "Physical",
+		name: "Ribbon Shift",
+		pp: 5,
+		flags: { protect: 1, mirror: 1, metronome: 1 },
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Swift', target);
+		},
+		onEffectiveness(typeMod, target, type, move) {
+			return typeMod + this.dex.getEffectiveness('Psychic', type);
+		},
+		onHit(target, pokemon, move) {
+			if (pokemon.baseSpecies.baseSpecies === 'Sylveon' && !pokemon.transformed) {
+				move.willChangeForme = true;
+			}
+		},
+		onAfterMoveSecondarySelf(pokemon, target, move) {
+			if (move.willChangeForme) {
+				const sylveForme = pokemon.species.id === 'sylveonlumineon' ? '' : '-Lumineon';
+				pokemon.formeChange('Sylveon' + sylveForme, this.effect, false, '0', '[msg]');
+			}
+		},
+		onTry(source) {
+			if (source.species.name === 'Sylveon') {
+				return;
+			}
+			this.hint("Only a Pokemon whose form is base Sylveon can use this move.");
+			if (source.species.name === 'Sylveon-Lumineon') {
+				this.attrLastMove('[still]');
+				this.add('-fail', source, 'move: Ribbon Shift', '[forme]');
+				return null;
+			}
+			this.attrLastMove('[still]');
+			this.add('-fail', source, 'move: Ribbon Shift');
+			return null;
+		},
+		priority: 0,
+		secondary: null,
+		target: "normal",
+		type: "Fairy",
+		zMove: { basePower: 170 },
+		contestType: "Cute",
+		desc: "Combined type effectiveness with Psychic. Sylveon transforms. Unusable in Lumineon forme.",
+		shortDesc: "Combined type effectiveness with Psychic. Sylveon transforms. Unusable in Lumineon forme.",
+	},
+	generationalevolution: {
+		accuracy: 100,
+		basePower: 0,
+		damage: 40,
+		category: "Physical",
+		name: "Generational Evolution",
+		pp: 30,
+		priority: 0,
+		flags: { protect: 1, mirror: 1, metronome: 1 },
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Dragon Rage', target);
+		},
+		/* onHit(target, pokemon, move) {
+			if (this.effectState.bigZera) return;
+			if (pokemon.baseSpecies.baseSpecies === 'Zeraora' &&
+				 pokemon.volatiles['charge'] &&
+				 !pokemon.transformed) {
+				move.willChangeForme = true;
+				this.effectState.bigZera = true;
+			}
+		},
+		onAfterMoveSecondarySelf(pokemon, target, move) {
+			if (move.willChangeForme) {
+				const zeraForme = pokemon.species.id === 'zeraorabig' ? '' : '-Big';
+				pokemon.formeChange('Zeraora' + zeraForme, this.effect, false, '0', '[msg]');
+			}
+		}, */
+		secondary: {
+			chance: 100,
+			self: {
+				boosts: {
+					atk: 2,
+				},
+			},
+		},
+		target: "normal",
+		type: "Normal",
+		contestType: "Cool",
+		desc: "Always does 40 damage. Boosts the user's Attack by 2 stages. Landorus transforms.",
+		shortDesc: "Always does 40 damage. Boosts the user's Attack by 2 stages. Landorus transforms.",
+	},
+	generationaldeevolution: {
+		accuracy: 100,
+		basePower: 0,
+		damage: 40,
+		category: "Special",
+		name: "Generational De-Evolution",
+		pp: 30,
+		priority: 0,
+		flags: { protect: 1, mirror: 1, metronome: 1 },
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Dragon Rage', target);
+		},
+		/* onHit(target, pokemon, move) {
+			if (this.effectState.bigZera) return;
+			if (pokemon.baseSpecies.baseSpecies === 'Zeraora' &&
+				 pokemon.volatiles['charge'] &&
+				 !pokemon.transformed) {
+				move.willChangeForme = true;
+				this.effectState.bigZera = true;
+			}
+		},
+		onAfterMoveSecondarySelf(pokemon, target, move) {
+			if (move.willChangeForme) {
+				const zeraForme = pokemon.species.id === 'zeraorabig' ? '' : '-Big';
+				pokemon.formeChange('Zeraora' + zeraForme, this.effect, false, '0', '[msg]');
+			}
+		}, */
+		secondary: {
+			chance: 100,
+			self: {
+				boosts: {
+					spa: 2,
+				},
+			},
+		},
+		target: "normal",
+		type: "Normal",
+		contestType: "Cool",
+		desc: "Always does 40 damage. Boosts the user's SpA by 2 stages. Landorus transforms.",
+		shortDesc: "Always does 40 damage. Boosts the user's SpA by 2 stages. Landorus transforms.",
+	},
 	// Old Moves
 	kingsshield: {
 		inherit: true,
@@ -1318,5 +1460,367 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		contestType: "Cool",
 		desc: "Has a 50% chance to lower the target's Defense and a 50% chance to lower the target's Special Attack. This move becomes a special attack that doesn't make contact if the value of ((((2 * the user's level / 5 + 2) * 90 * X) / Y) / 50), where X is the user's Attack stat and Y is the target's Defense stat, is greater than the same value where X is the user's Special Attack stat and Y is the target's Special Defense stat. No stat modifiers other than stat stage changes are considered for this purpose. If the two values are equal, this move chooses a damage category at random.",
 		shortDesc: "50% -1 Def, -50% -SpD. Special+non-contact if it would be stronger.",
+	},
+	plasmafists: {
+		num: 721,
+		accuracy: 100,
+		basePower: 100,
+		category: "Physical",
+		isNonstandard: "Past",
+		name: "Plasma Fists",
+		pp: 15,
+		priority: 0,
+		flags: { contact: 1, protect: 1, mirror: 1, punch: 1 },
+		pseudoWeather: 'iondeluge',
+		onHit(target, pokemon, move) {
+			if (this.effectState.bigZera) return;
+			if (pokemon.baseSpecies.baseSpecies === 'Zeraora' &&
+				 pokemon.volatiles['charge'] &&
+				 !pokemon.transformed) {
+				move.willChangeForme = true;
+				this.effectState.bigZera = true;
+			}
+		},
+		onAfterMoveSecondarySelf(pokemon, target, move) {
+			if (move.willChangeForme) {
+				const zeraForme = pokemon.species.id === 'zeraorabig' ? '' : '-Big';
+				pokemon.formeChange('Zeraora' + zeraForme, this.effect, false, '0', '[msg]');
+			}
+		},
+		secondary: null,
+		target: "normal",
+		type: "Electric",
+		contestType: "Cool",
+	},
+	morningsun: {
+		num: 234,
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		name: "Morning Sun",
+		pp: 5,
+		priority: 0,
+		flags: { snatch: 1, heal: 1, metronome: 1 },
+		onHit(target, pokemon, move) {
+			let factor = 0.5;
+			switch (pokemon.effectiveWeather()) {
+			case 'sunnyday':
+			case 'desolateland':
+				factor = 0.667;
+				break;
+			case 'raindance':
+			case 'primordialsea':
+			case 'sandstorm':
+			case 'hail':
+			case 'snowscape':
+				factor = 0.25;
+				break;
+			}
+			const success = !!this.heal(this.modify(pokemon.maxhp, factor));
+			if (!success) {
+				this.add('-fail', pokemon, 'heal');
+				return this.NOT_FAIL;
+			}
+			return success;
+			if (pokemon.baseSpecies.baseSpecies === 'Volcarona' && !pokemon.transformed) {
+				move.willChangeForme = true;
+			}
+		},
+		onAfterMoveSecondarySelf(pokemon, target, move) {
+			if (move.willChangeForme) {
+				const volcaForme = pokemon.species.id === 'volcaronasolstice' ? '' : '-Solstice';
+				pokemon.formeChange('Volcarona' + volcaForme, this.effect, false, '0', '[msg]');
+			}
+		},
+		secondary: null,
+		target: "self",
+		type: "Normal",
+		zMove: { effect: 'clearnegativeboost' },
+		contestType: "Beautiful",
+	},
+	chillyreception: {
+		num: 881,
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		name: "Chilly Reception",
+		pp: 10,
+		priority: 0,
+		flags: {},
+		priorityChargeCallback(source) {
+			source.addVolatile('chillyreception');
+		},
+		weather: 'snowscape',
+		selfSwitch: true,
+		onHit(target, pokemon, move) {
+			if (this.effectState.frostKing) return;
+			if (pokemon.baseSpecies.baseSpecies === 'Slowking' && !pokemon.transformed) {
+				move.willChangeForme = true;
+				this.effectState.frostKing = true;
+			}
+		},
+		onAfterMoveSecondarySelf(pokemon, target, move) {
+			if (move.willChangeForme) {
+				const slowForme = pokemon.species.id === 'slowkingfrostking' ? '' : '-Frostking';
+				pokemon.formeChange('Slowking' + slowForme, this.effect, false, '0', '[msg]');
+			}
+		},
+		secondary: null,
+		condition: {
+			duration: 1,
+			onBeforeMovePriority: 100,
+			onBeforeMove(source, target, move) {
+				if (move.id !== 'chillyreception') return;
+				this.add('-prepare', source, 'Chilly Reception', '[premajor]');
+			},
+		},
+		target: "all",
+		type: "Ice",
+	},
+	synthesis: {
+		inherit: true,
+		beforeMoveCallback(pokemon) {
+			if (pokemon.species.name === 'Shaymin') {
+				pokemon.formeChange('Shaymin-Sky', null, true);
+				pokemon.setAbility('serenegrace', pokemon, true);
+				return true;
+			}
+		},
+	},
+	flowershield: {
+		inherit: true,
+		beforeMoveCallback(pokemon) {
+			if (pokemon.species.name === 'Shaymin') {
+				pokemon.formeChange('Shaymin-Sky', null, true);
+				pokemon.setAbility('serenegrace', pokemon, true);
+				return true;
+			}
+		},
+	},
+	floralhealing: {
+		inherit: true,
+		beforeMoveCallback(pokemon) {
+			if (pokemon.species.name === 'Shaymin') {
+				pokemon.formeChange('Shaymin-Sky', null, true);
+				pokemon.setAbility('serenegrace', pokemon, true);
+				return true;
+			}
+		},
+	},
+	strengthsap: {
+		inherit: true,
+		beforeMoveCallback(pokemon) {
+			if (pokemon.species.name === 'Shaymin') {
+				pokemon.formeChange('Shaymin-Sky', null, true);
+				pokemon.setAbility('serenegrace', pokemon, true);
+				return true;
+			}
+		},
+	},
+	worryseed: {
+		inherit: true,
+		beforeMoveCallback(pokemon) {
+			if (pokemon.species.name === 'Shaymin') {
+				pokemon.formeChange('Shaymin-Sky', null, true);
+				pokemon.setAbility('serenegrace', pokemon, true);
+				return true;
+			}
+		},
+	},
+	seedflare: {
+		inherit: true,
+		beforeMoveCallback(pokemon) {
+			if (pokemon.species.name === 'Shaymin-Sky') {
+				pokemon.formeChange('Shaymin', null, true);
+				pokemon.setAbility('flowerveil', pokemon, true);
+				return true;
+			}
+		},
+	},
+	gigadrain: {
+		inherit: true,
+		beforeMoveCallback(pokemon) {
+			if (pokemon.species.name === 'Shaymin-Sky') {
+				pokemon.formeChange('Shaymin', null, true);
+				pokemon.setAbility('flowerveil', pokemon, true);
+				return true;
+			}
+		},
+	},
+	flowertrick: {
+		inherit: true,
+		beforeMoveCallback(pokemon) {
+			if (pokemon.species.name === 'Shaymin-Sky') {
+				pokemon.formeChange('Shaymin', null, true);
+				pokemon.setAbility('flowerveil', pokemon, true);
+				return true;
+			}
+		},
+	},
+	sappyseed: {
+		inherit: true,
+		beforeMoveCallback(pokemon) {
+			if (pokemon.species.name === 'Shaymin-Sky') {
+				pokemon.formeChange('Shaymin', null, true);
+				pokemon.setAbility('flowerveil', pokemon, true);
+				return true;
+			}
+		},
+	},
+	technoblast: {
+		num: 546,
+		accuracy: 100,
+		basePower: 120,
+		category: "Special",
+		isNonstandard: "Past",
+		name: "Techno Blast",
+		pp: 5,
+		priority: 0,
+		flags: { protect: 1, mirror: 1 },
+		onModifyType(move, pokemon) {
+			if (pokemon.ignoringItem()) return;
+			move.type = this.runEvent('Drive', pokemon, null, move, 'Normal');
+		},
+		onAfterMoveSecondarySelf(pokemon, target, move) {
+			if (this.effectState.geneSect) return;
+			if (pokemon.species.name === 'Genesect-Burn') {
+				pokemon.formeChange('Genesect-Core', null, true);
+				pokemon.setAbility('martialize', pokemon, true);
+				this.effectState.geneSect = true;
+			} else if (pokemon.species.name === 'Genesect-Douse') {
+				pokemon.formeChange('Genesect-Rust', null, true);
+				pokemon.setAbility('intoxicate', pokemon, true);
+				this.effectState.geneSect = true;
+			} else if (pokemon.species.name === 'Genesect-Shock') {
+				pokemon.formeChange('Genesect-Airborne', null, true);
+				pokemon.setAbility('aerilate', pokemon, true);
+				this.effectState.geneSect = true;
+			} else if (pokemon.species.name === 'Genesect-Chill') {
+				pokemon.formeChange('Genesect-Luminous', null, true);
+				pokemon.setAbility('pixilate', pokemon, true);
+				this.effectState.geneSect = true;
+			}
+		},
+		secondary: null,
+		target: "normal",
+		type: "Normal",
+		contestType: "Cool",
+	},
+	shellsmash: {
+		num: 504,
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		name: "Shell Smash",
+		pp: 15,
+		priority: 0,
+		flags: { snatch: 1, metronome: 1 },
+		onAfterMoveSecondarySelf(pokemon, target, move) {
+			if (this.effectState.rockInn) return;
+			if (pokemon.species.name === 'Crustle') {
+				pokemon.formeChange('Crustle-Crawler', null, true);
+				pokemon.setAbility('sharpness', pokemon, true);
+				this.effectState.rockInn = true;
+			}
+		},
+		boosts: {
+			def: -1,
+			spd: -1,
+			atk: 2,
+			spa: 2,
+			spe: 2,
+		},
+		secondary: null,
+		target: "self",
+		type: "Normal",
+		zMove: { effect: 'clearnegativeboost' },
+		contestType: "Tough",
+	},
+	curse: {
+		num: 174,
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		name: "Curse",
+		pp: 10,
+		priority: 0,
+		flags: { bypasssub: 1, metronome: 1 },
+		volatileStatus: 'curse',
+		onModifyMove(move, source, target) {
+			if (!source.hasType('Ghost')) {
+				move.target = move.nonGhostTarget!;
+			} else if (source.isAlly(target)) {
+				move.target = 'randomNormal';
+			}
+		},
+		onTryHit(target, source, move) {
+			if (!source.hasType('Ghost')) {
+				delete move.volatileStatus;
+				delete move.onHit;
+				move.self = { boosts: { spe: -1, atk: 1, def: 1 } };
+			} else if (move.volatileStatus && target.volatiles['curse']) {
+				return false;
+			}
+		},
+		onHit(target, source) {
+			this.directDamage(source.maxhp / 2, source, source);
+		},
+		onAfterMoveSecondarySelf(pokemon, target, move) {
+			if (this.effectState.griGus) return;
+			if (pokemon.species.name === 'Cofagrigus') {
+				pokemon.formeChange('Cofagrigus-Unchained', null, true);
+				pokemon.setAbility('darkmagic', pokemon, true);
+				this.effectState.griGus = true;
+			}
+		},
+		condition: {
+			onStart(pokemon, source) {
+				this.add('-start', pokemon, 'Curse', `[of] ${source}`);
+			},
+			onResidualOrder: 12,
+			onResidual(pokemon) {
+				this.damage(pokemon.baseMaxhp / 4);
+			},
+		},
+		secondary: null,
+		target: "normal",
+		nonGhostTarget: "self",
+		type: "Ghost",
+		zMove: { effect: 'curse' },
+		contestType: "Tough",
+	},
+	phantomforce: {
+		num: 566,
+		accuracy: 100,
+		basePower: 90,
+		category: "Physical",
+		name: "Phantom Force",
+		pp: 10,
+		priority: 0,
+		flags: { contact: 1, charge: 1, mirror: 1, metronome: 1, nosleeptalk: 1, noassist: 1, failinstruct: 1 },
+		breaksProtect: true,
+		onTryMove(attacker, defender, move) {
+			if (attacker.removeVolatile(move.id)) {
+				return;
+			}
+			if (attacker.species.name === 'Dragapult' && !attacker.transformed) {
+				attacker.formeChange('Dragapult-Manifest', move);
+				attacker.setAbility('analytic', pokemon, true);
+			}
+			this.add('-prepare', attacker, move.name);
+			if (!this.runEvent('ChargeMove', attacker, defender, move)) {
+				return;
+			}
+			attacker.addVolatile('twoturnmove', defender);
+			return null;
+		},
+		condition: {
+			duration: 2,
+			onInvulnerability: false,
+		},
+		secondary: null,
+		target: "normal",
+		type: "Ghost",
+		contestType: "Cool",
 	},
 };
