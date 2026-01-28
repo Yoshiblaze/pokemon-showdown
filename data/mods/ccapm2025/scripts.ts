@@ -79,25 +79,6 @@ export const Scripts: ModdedBattleScriptsData = {
 		this.modData("Learnsets", "dudunsparce").learnset.sixtongueemojis = ["9L1"];
 		this.modData("Learnsets", "kecleon").learnset.kaleidostorm = ["9L1"];
 	},
- 	pokemon: {
-		inherit: true,
-		isGrounded(negateImmunity = false) {
-			if ('gravity' in this.battle.field.pseudoWeather) return true;
-			if ('ingrain' in this.volatiles && this.battle.gen >= 4) return true;
-			if ('smackdown' in this.volatiles) return true;
-			const item = (this.ignoringItem() ? '' : this.item);
-			if (item === 'ironball') return true;
-			// If a Fire/Flying type uses Burn Up and Roost, it becomes ???/Flying-type, but it's still grounded.
-			if (!negateImmunity && this.hasType('Flying') && !(this.hasType('???') && 'roost' in this.volatiles)) return false;
-			if ((this.hasAbility('levitate') || this.hasAbility('interdimensionalmissle')) &&
-				 !this.battle.suppressingAbility(this)) {
-				return null;
-			}
-			if ('magnetrise' in this.volatiles) return false;
-			if ('telekinesis' in this.volatiles) return false;
-			return item !== 'airballoon';
-		},
-	},
 	actions: {
 		inherit: true,
 		canUltraBurst(pokemon: Pokemon) {
@@ -259,6 +240,23 @@ export const Scripts: ModdedBattleScriptsData = {
 		return false;
 	},
 	pokemon: {
+		inherit: true,
+		isGrounded(negateImmunity = false) {
+			if ('gravity' in this.battle.field.pseudoWeather) return true;
+			if ('ingrain' in this.volatiles && this.battle.gen >= 4) return true;
+			if ('smackdown' in this.volatiles) return true;
+			const item = (this.ignoringItem() ? '' : this.item);
+			if (item === 'ironball') return true;
+			// If a Fire/Flying type uses Burn Up and Roost, it becomes ???/Flying-type, but it's still grounded.
+			if (!negateImmunity && this.hasType('Flying') && !(this.hasType('???') && 'roost' in this.volatiles)) return false;
+			if ((this.hasAbility('levitate') || this.hasAbility('interdimensionalmissle')) &&
+				 !this.battle.suppressingAbility(this)) {
+				return null;
+			}
+			if ('magnetrise' in this.volatiles) return false;
+			if ('telekinesis' in this.volatiles) return false;
+			return item !== 'airballoon';
+		},
 		cureStatus(this: Pokemon, silent?: boolean, source: Pokemon | null = null) {
 			if (!this.hp || !this.status) return false;
 
