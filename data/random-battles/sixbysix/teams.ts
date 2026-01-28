@@ -834,6 +834,7 @@ export class Random6x6Teams extends RandomTeams {
 		let leadsRemaining = this.format.gameType === 'doubles' ? 2 : 1;
 		while (baseSpeciesPool.length && pokemon.length < this.maxTeamSize) {
 			const baseSpecies = this.sampleNoReplace(baseSpeciesPool);
+			let z = 0;
 			const species = this.dex.species.get(this.sample(pokemonPool[baseSpecies]));
 			if (!species.exists) continue;
 
@@ -842,9 +843,6 @@ export class Random6x6Teams extends RandomTeams {
 
 			// Treat Ogerpon formes and Terapagos like the Tera Blast user role; reject if team has one already
 			if (['ogerpon', 'ogerponhearthflame', 'terapagos'].includes(species.id) && teamDetails.teraBlast) continue;
-
-			// Illusion shouldn't be on the last slot
-			if (species.baseSpecies === 'Sorrowcean' && pokemon.length >= (this.maxTeamSize - 1)) continue;
 
 			const types = species.types;
 			const typeCombo = types.slice().sort().join();
@@ -877,13 +875,13 @@ export class Random6x6Teams extends RandomTeams {
 					pokemon.push(set);
 				} else {
 					set = this.randomSet(species, teamDetails, true, isDoubles);
-					if (teamDetails.teraBlast) continue;
+					// if (teamDetails.teraBlast) continue;
 					pokemon.unshift(set);
 					leadsRemaining--;
 				}
 			} else {
 				set = this.randomSet(species, teamDetails, false, isDoubles);
-				if (teamDetails.teraBlast) continue;
+				// if (teamDetails.teraBlast) continue;
 				pokemon.push(set);
 			}
 
