@@ -815,7 +815,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 	},
 	aeoliandrift: {
 		onStart(source) {
-         source.side.addSideCondition('tailwind');
+			source.side.addSideCondition('tailwind');
 		},
 		flags: {},
 		name: "Aeolian Drift",
@@ -852,7 +852,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 	},
 	burnout: {
 		onStart(pokemon) {
-         pokemon.addVolatile('burnout');
+			pokemon.addVolatile('burnout');
 		},
 		condition: {
 			duration: 3,
@@ -872,7 +872,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 			onEnd(pokemon) {
 				// message here
 				pokemon.formeChange('Blaziken');
-				pokemon.setAbility('toughclaws', pokemon, true);
+				pokemon.setAbility('toughclaws', pokemon);
 				this.add('-activate', pokemon, 'ability: Tough Claws');
 			},
 		},
