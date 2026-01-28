@@ -68,6 +68,29 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 		num: -4,
 		gen: 9,
 	},
+	drearymushroom: {
+		name: "Dreary Mushroom",
+		spritenum: 609,
+		fling: {
+			basePower: 30,
+		},
+		onDamagePriority: 1,
+		onDamage(damage, target, source, effect) {
+			if (effect?.effectType === 'Move' &&
+				 !move.damage && !move.damageCallback &&
+				 target.getMoveHitData(move).typeMod > 0 &&
+				 !target.transformed) {
+				return 0;
+				target.formeChange('Parasect-Wicked', this.effect, true);
+				this.damage(target.baseMaxhp / 8);
+				target.addVolatile('berserk'); // change to trySetStatus if that's how we end up coding it
+				target.useItem();
+			}
+		},
+    	shortDesc: "Parasect: Blocks 1 SE move, loses 1/8 HP instead, changes form, and becomes Berserk. Single use.",
+		num: -5,
+		gen: 9,
+	},
 	buggem: {
 		inherit: true,
 		isNonstandard: null,
