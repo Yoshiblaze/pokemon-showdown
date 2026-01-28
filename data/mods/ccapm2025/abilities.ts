@@ -489,21 +489,21 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		rating: 3,
 		shortDesc: "User's attacks have -1 priority but can't miss and always crit.",
 	},
-  guidedmissiles: {
-    onStart(pokemon) {
-      pokemon.addVolatile('focusenergy');
-    },
-    onModifyDamage(damage, source, target, move) {
-      if (target.getMoveHitData(move).crit) {
-        this.debug('Sniper boost');
-        return this.chainModify(1.5);
-      }
-    },
-    flags: {},
-    name: "Guided Missiles",
-    rating: 5,
-    shortDesc: "Effects of Sniper + Uses Focus Energy on switch-in.",
-  },
+	guidedmissiles: {
+		onStart(pokemon) {
+			pokemon.addVolatile('focusenergy');
+		},
+		onModifyDamage(damage, source, target, move) {
+			if (target.getMoveHitData(move).crit) {
+				this.debug('Sniper boost');
+				return this.chainModify(1.5);
+			}
+		},
+		flags: {},
+		name: "Guided Missiles",
+		rating: 5,
+		shortDesc: "Effects of Sniper + Uses Focus Energy on switch-in.",
+	},
 	rampage: {
 		onModifySpAPriority: 5,
 		onModifySpA(atk, attacker, defender, move) {
