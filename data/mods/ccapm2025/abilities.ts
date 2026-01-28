@@ -1,5 +1,96 @@
 export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTable = {
 	// Modified Abilities
+	healer: {
+		inherit: true,
+		onResidual(pokemon) {
+			for (const allyActive of pokemon.adjacentAllies()) {
+				if (allyActive.status && this.randomChance(3, 10)) {
+					this.add('-activate', pokemon, 'ability: Healer');
+					(allyActive as any).cureStatus(false, pokemon);
+				}
+			}
+		},
+	},
+	hydration: {
+		inherit: true,
+		onResidual(pokemon) {
+			if (pokemon.status && ['raindance', 'primordialsea'].includes(pokemon.effectiveWeather())) {
+				this.debug('hydration');
+				this.add('-activate', pokemon, 'ability: Hydration');
+				(pokemon as any).cureStatus?.(false, pokemon);
+			}
+		},
+	},
+	immunity: {
+		inherit: true,
+		onUpdate(pokemon) {
+			if (pokemon.status === 'psn' || pokemon.status === 'tox') {
+				this.add('-activate', pokemon, 'ability: Immunity');
+				(pokemon as any).cureStatus(false, pokemon);
+			}
+		},
+	},
+	insomnia: {
+		inherit: true,
+		onUpdate(pokemon) {
+			if (pokemon.status === 'slp') {
+				this.add('-activate', pokemon, 'ability: Insomnia');
+				(pokemon as any).cureStatus(false, pokemon);
+			}
+		},
+	},
+	limber: {
+		inherit: true,
+		onUpdate(pokemon) {
+			if (pokemon.status === 'par') {
+				this.add('-activate', pokemon, 'ability: Limber');
+				(pokemon as any).cureStatus(false, pokemon);
+			}
+		},
+	},
+	magmaarmor: {
+		inherit: true,
+		onUpdate(pokemon) {
+			if (pokemon.status === 'frz') {
+				this.add('-activate', pokemon, 'ability: Magma Armor');
+				(pokemon as any).cureStatus(false, pokemon);
+			}
+		},
+	},
+	naturalcure: {
+		inherit: true,
+		onSwitchOut(pokemon) {
+			if (!pokemon.status) return;
+
+			// if pokemon.showCure is undefined, it was skipped because its ability
+			// is known
+			if (pokemon.showCure === undefined) pokemon.showCure = true;
+
+			if (pokemon.showCure) this.add('-curestatus', pokemon, pokemon.status, '[from] ability: Natural Cure');
+			(pokemon as any).cureStatus(pokemon.showCure, pokemon);
+
+			// only reset .showCure if it's false
+			// (once you know a Pokemon has Natural Cure, its cures are always known)
+			if (!pokemon.showCure) pokemon.showCure = undefined;
+		},
+	},
+	pastelveil: {
+		inherit: true,
+		onStart(pokemon) {
+			for (const ally of pokemon.alliesAndSelf()) {
+				if (['psn', 'tox'].includes(ally.status)) {
+					this.add('-activate', pokemon, 'ability: Pastel Veil');
+					(ally as any).cureStatus(false, pokemon);
+				}
+			}
+		},
+		onUpdate(pokemon) {
+			if (['psn', 'tox'].includes(pokemon.status)) {
+				this.add('-activate', pokemon, 'ability: Pastel Veil');
+				(pokemon as any).cureStatus(false, pokemon);
+			}
+		},
+	},
 	poisonheal: {
 		inherit: true,
 		onDamage(damage, target, source, effect) {
@@ -13,6 +104,52 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 						target.formeChange('Gliscor-Sated', null, true);
 				}
 				return false;
+			}
+		},
+	},
+	shedskin: {
+		inherit: true,
+		onResidual(pokemon) {
+			if (pokemon.hp && pokemon.status && this.randomChance(33, 100)) {
+				this.debug('shed skin');
+				this.add('-activate', pokemon, 'ability: Shed Skin');
+				(pokemon as any).cureStatus(false, pokemon);
+			}
+		},
+	},
+	thermalexchange: {
+		inherit: true,
+		onUpdate(pokemon) {
+			if (pokemon.status === 'brn') {
+				this.add('-activate', pokemon, 'ability: Thermal Exchange');
+				(pokemon as any).cureStatus(false, pokemon);
+			}
+		},
+	},
+	vitalspirit: {
+		inherit: true,
+		onUpdate(pokemon) {
+			if (pokemon.status === 'slp') {
+				this.add('-activate', pokemon, 'ability: Vital Spirit');
+				(pokemon as any).cureStatus(false, pokemon);
+			}
+		},
+	},
+	waterbubble: {
+		inherit: true,
+		onUpdate(pokemon) {
+			if (pokemon.status === 'brn') {
+				this.add('-activate', pokemon, 'ability: Water Bubble');
+				(pokemon as any).cureStatus(false, pokemon);
+			}
+		},
+	},
+	waterveil: {
+		inherit: true,
+		onUpdate(pokemon) {
+			if (pokemon.status === 'brn') {
+				this.add('-activate', pokemon, 'ability: Water Veil');
+				(pokemon as any).cureStatus(false, pokemon);
 			}
 		},
 	},
@@ -351,6 +488,21 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		name: "Focused Fire",
 		rating: 3,
 		shortDesc: "User's attacks have -1 priority but can't miss and always crit.",
+	},
+	guidedmissiles: {
+		onStart(pokemon) {
+			pokemon.addVolatile('focusenergy');
+		},
+		onModifyDamage(damage, source, target, move) {
+			if (target.getMoveHitData(move).crit) {
+				this.debug('Sniper boost');
+				return this.chainModify(1.5);
+			}
+		},
+		flags: {},
+		name: "Guided Missiles",
+		rating: 5,
+		shortDesc: "Effects of Sniper + Uses Focus Energy on switch-in.",
 	},
 	rampage: {
 		onModifySpAPriority: 5,

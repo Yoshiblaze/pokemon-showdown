@@ -479,10 +479,10 @@
         "sets": [
             {
                 "role": "Setup Sweeper",
-                "movepool": ["Ivy Cudgel", "Stomping Tantrum","Trailblaze", "Swords Dance"],
+                "movepool": ["Ivy Cudgel", "Stomping Tantrum", "Trailblaze", "Swords Dance"],
                 "abilities": ["Shield Dust"]
             },
-              {
+            {
                 "role": "Fast Support",
                 "movepool": ["Ivy Cudgel", "Spikes", "U-turn", "Synthesis"],
                 "abilities": ["Shield Dust"]

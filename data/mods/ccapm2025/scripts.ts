@@ -1,5 +1,4 @@
 import type { Pokemon } from "../../../sim";
-import type { BattleActions } from "../../../sim/battle-actions";
 
 export const Scripts: ModdedBattleScriptsData = {
 	gen: 9,
@@ -80,25 +79,6 @@ export const Scripts: ModdedBattleScriptsData = {
 		this.modData("Learnsets", "dudunsparce").learnset.sixtongueemojis = ["9L1"];
 		this.modData("Learnsets", "kecleon").learnset.kaleidostorm = ["9L1"];
 	},
-	pokemon: {
-		inherit: true,
-		isGrounded(negateImmunity = false) {
-			if ('gravity' in this.battle.field.pseudoWeather) return true;
-			if ('ingrain' in this.volatiles && this.battle.gen >= 4) return true;
-			if ('smackdown' in this.volatiles) return true;
-			const item = (this.ignoringItem() ? '' : this.item);
-			if (item === 'ironball') return true;
-			// If a Fire/Flying type uses Burn Up and Roost, it becomes ???/Flying-type, but it's still grounded.
-			if (!negateImmunity && this.hasType('Flying') && !(this.hasType('???') && 'roost' in this.volatiles)) return false;
-			if ((this.hasAbility('levitate') || this.hasAbility('interdimensionalmissle')) &&
-				 !this.battle.suppressingAbility(this)) {
-				return null;
-			}
-			if ('magnetrise' in this.volatiles) return false;
-			if ('telekinesis' in this.volatiles) return false;
-			return item !== 'airballoon';
-		},
-	},
 	actions: {
 		inherit: true,
 		canUltraBurst(pokemon: Pokemon) {
@@ -112,16 +92,14 @@ export const Scripts: ModdedBattleScriptsData = {
 			return null;
 		},
 		runSwitch(pokemon: Pokemon) {
-			if (pokemon.species.name === 'Iron Valiant' &&
-				 !pokemon.battle.ruleTable.tagRules.includes("+pokemontag:cap")) {
+			if (pokemon.species.name === 'Iron Valiant' && !pokemon.battle.ruleTable.tagRules.includes("+pokemontag:cap"))
 				pokemon.m.usedMoves = [];
-			}
 			return true;
 		},
 		useMove(move: Move, pokemon: Pokemon) {
 			const success = this.useMoveInner(move, pokemon);
 			if (success && pokemon.species.name === 'Iron Valiant' &&
-				 !pokemon.battle.ruleTable.tagRules.includes("+pokemontag:cap")) {
+				!pokemon.battle.ruleTable.tagRules.includes("+pokemontag:cap")) {
 				if (!pokemon.m.usedMoves) pokemon.m.usedMoves = [];
 				if (!pokemon.m.usedMoves.includes(move.id)) pokemon.m.usedMoves.push(move.id);
 				if (pokemon.moves.filter(name => pokemon.m.usedMoves.includes(name)).toString() === pokemon.moves.toString())
@@ -260,5 +238,63 @@ export const Scripts: ModdedBattleScriptsData = {
 			this.runEvent('AfterFaint', faintData.target, faintData.source, faintData.effect, length);
 		}
 		return false;
+	},
+	pokemon: {
+		inherit: true,
+		isGrounded(negateImmunity = false) {
+			if ('gravity' in this.battle.field.pseudoWeather) return true;
+			if ('ingrain' in this.volatiles && this.battle.gen >= 4) return true;
+			if ('smackdown' in this.volatiles) return true;
+			const item = (this.ignoringItem() ? '' : this.item);
+			if (item === 'ironball') return true;
+			// If a Fire/Flying type uses Burn Up and Roost, it becomes ???/Flying-type, but it's still grounded.
+			if (!negateImmunity && this.hasType('Flying') && !(this.hasType('???') && 'roost' in this.volatiles)) return false;
+			if ((this.hasAbility('levitate') || this.hasAbility('interdimensionalmissle')) &&
+				 !this.battle.suppressingAbility(this)) {
+				return null;
+			}
+			if ('magnetrise' in this.volatiles) return false;
+			if ('telekinesis' in this.volatiles) return false;
+			return item !== 'airballoon';
+		},
+		cureStatus(this: Pokemon, silent?: boolean, source: Pokemon | null = null) {
+			if (!this.hp || !this.status) return false;
+
+			if (source?.ability === 'herbalelixir') {
+				switch (this.status) {
+				case 'psn':
+				case 'tox':
+					this.setAbility('poisonheal');
+					this.baseAbility = this.ability;
+					return false;
+				case 'brn':
+					this.setAbility('guts');
+					this.baseAbility = this.ability;
+					return false;
+				case 'par':
+					this.setAbility('quickfeet');
+					this.baseAbility = this.ability;
+					return false;
+				case 'ber':
+					this.setAbility('marvelscale');
+					this.baseAbility = this.ability;
+					return false;
+				default:
+					break;
+				}
+			}
+
+			this.setStatus('');
+			this.battle.add('-curestatus', this, this.status, silent ? '[silent]' : '[msg]');
+			if (this.status === 'slp' && this.removeVolatile('nightmare')) {
+				this.battle.add('-end', this, 'Nightmare', '[silent]');
+			}
+
+			if (source?.species.name === 'Zarude' && !source.battle.ruleTable.tagRules.includes("+pokemontag:cap")) {
+				source.formeChange('Zarude-Alchemist', null, true);
+			}
+
+			return true;
+		},
 	},
 };

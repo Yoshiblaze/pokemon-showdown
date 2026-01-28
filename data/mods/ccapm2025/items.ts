@@ -2,44 +2,38 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 	darminitanite: {
 		name: "Darminitanite",
 		spritenum: 576,
-		megaStone: "Darmanitan-Mega",
-		megaEvolves: "Darmanitan",
+		megaStone: { "Darmanitan": "Darmanitan-Mega" },
 		itemUser: ["Darmanitan"],
 		onTakeItem(item, source) {
-			if (item.megaEvolves === source.baseSpecies.baseSpecies) return false;
-			return true;
+			return !item.megaStone?.[source.baseSpecies.baseSpecies];
 		},
 		gen: 9,
-    	shortDesc: "If held by a Darmanitan, this item allows it to Mega Evolve in battle.",
-    	num: -1,
+		shortDesc: "If held by a Darmanitan, this item allows it to Mega Evolve in battle.",
+		num: -1,
 	},
 	emolgite: {
 		name: "Emolgite",
 		spritenum: 576,
-		megaStone: "Emolga-Mega",
-		megaEvolves: "Emolga",
+		megaStone: { "Emolga": "Emolga-Mega" },
 		itemUser: ["Emolga"],
 		onTakeItem(item, source) {
-			if (item.megaEvolves === source.baseSpecies.baseSpecies) return false;
-			return true;
+			return !item.megaStone?.[source.baseSpecies.baseSpecies];
 		},
 		gen: 9,
-    	shortDesc: "If held by an Emolga, this item allows it to Mega Evolve in battle.",
-    	num: -2,
+		shortDesc: "If held by an Emolga, this item allows it to Mega Evolve in battle.",
+		num: -2,
 	},
 	flygonite: {
 		name: "Flygonite",
 		spritenum: 576,
-		megaStone: "Flygon-Mega",
-		megaEvolves: "Flygon",
+		megaStone: { "Flygon": "Flygon-Mega" },
 		itemUser: ["Flygon"],
 		onTakeItem(item, source) {
-			if (item.megaEvolves === source.baseSpecies.baseSpecies) return false;
-			return true;
+			return !item.megaStone?.[source.baseSpecies.baseSpecies];
 		},
 		gen: 9,
-    	shortDesc: "If held by a Flygon, this item allows it to Mega Evolve in battle.",
-    	num: -3,
+		shortDesc: "If held by a Flygon, this item allows it to Mega Evolve in battle.",
+		num: -3,
 	},
 	pixiedustmask: {
 		name: "Pixiedust Mask",
@@ -59,8 +53,8 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 		},
 		forcedForme: "Ogerpon-Pixiedust",
 		itemUser: ["Ogerpon-Pixiedust"],
-    	shortDesc: "Ogerpon-Pixiedust: 1.2x power attacks; Terastallize to gain Embody Aspect.",
-    	num: -4,
+		shortDesc: "Ogerpon-Pixiedust: 1.2x power attacks; Terastallize to gain Embody Aspect.",
+		num: -4,
 		gen: 9,
 	},
 	ultrasimiseariumz: {
@@ -70,10 +64,10 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 		zMove: "Yin-Yang Blast",
 		zMoveFrom: "Fire Blast",
 		itemUser: ["Simisear-Ultra"],
-    	shortDesc: "Simisear: Ultra Burst, then Z-Move w/ Fire Blast.",
-    	num: -4,
+		shortDesc: "Simisear: Ultra Burst, then Z-Move w/ Fire Blast.",
+		num: -4,
 		gen: 9,
-  },
+	},
 	drearymushroom: {
 		name: "Dreary Mushroom",
 		spritenum: 609,
