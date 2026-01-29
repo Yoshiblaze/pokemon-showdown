@@ -75,19 +75,16 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 			basePower: 30,
 		},
 		onDamagePriority: 1,
-		onDamage(damage, target, source, effect) {
-			if (effect?.effectType === 'Move' &&
-				 !move.damage && !move.damageCallback &&
-				 target.getMoveHitData(move).typeMod > 0 &&
-				 !target.transformed) {
-				return 0;
+		onModifyDamage(damage, source, target, move) {
+			if (move && target.getMoveHitData(move).typeMod > 0 && !target.transformed) {
 				target.formeChange('Parasect-Wicked', this.effect, true);
 				this.damage(target.baseMaxhp / 8);
 				target.addVolatile('berserk'); // change to trySetStatus if that's how we end up coding it
 				target.useItem();
+				return 0;
 			}
 		},
-    	shortDesc: "Parasect: Blocks 1 SE move, loses 1/8 HP instead, changes form, and becomes Berserk. Single use.",
+		shortDesc: "Parasect: Blocks 1 SE move, loses 1/8 HP instead, changes form, and becomes Berserk. Single use.",
 		num: -5,
 		gen: 9,
 	},

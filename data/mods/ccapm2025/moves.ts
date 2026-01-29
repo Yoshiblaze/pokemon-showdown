@@ -49,10 +49,10 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 	},
 	aromatherapy: {
 		inherit: true,
- 		beforeMoveCallback(pokemon) {
+		beforeMoveCallback(pokemon) {
 			if (pokemon.species.name === 'Shaymin') {
 				pokemon.formeChange('Shaymin-Sky', null, true);
-				pokemon.setAbility('serenegrace', pokemon, true);
+				pokemon.setAbility('serenegrace', pokemon);
 				return true;
 			}
 		},
@@ -945,6 +945,13 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 			if (!oldAbility) return oldAbility as false | null;
 			if (target.status === 'slp') (target as any).cureStatus(false, source);
 		},
+		beforeMoveCallback(pokemon) {
+			if (pokemon.species.name === 'Shaymin') {
+				pokemon.formeChange('Shaymin-Sky', null, true);
+				pokemon.setAbility('serenegrace', pokemon);
+				return true;
+			}
+		},
 	},
 
 	// New Moves
@@ -1475,8 +1482,8 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		onHit(target, pokemon, move) {
 			if (this.effectState.bigZera) return;
 			if (pokemon.baseSpecies.baseSpecies === 'Zeraora' &&
-				 pokemon.volatiles['charge'] &&
-				 !pokemon.transformed) {
+				pokemon.volatiles['charge'] &&
+				!pokemon.transformed) {
 				move.willChangeForme = true;
 				this.effectState.bigZera = true;
 			}
@@ -1522,9 +1529,9 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 				return this.NOT_FAIL;
 			}
 			return success;
-			if (pokemon.baseSpecies.baseSpecies === 'Volcarona' && !pokemon.transformed) {
-				move.willChangeForme = true;
-			}
+			// if (pokemon.baseSpecies.baseSpecies === 'Volcarona' && !pokemon.transformed) {
+			// 	move.willChangeForme = true;
+			// }
 		},
 		onAfterMoveSecondarySelf(pokemon, target, move) {
 			if (move.willChangeForme) {
@@ -1582,7 +1589,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		beforeMoveCallback(pokemon) {
 			if (pokemon.species.name === 'Shaymin') {
 				pokemon.formeChange('Shaymin-Sky', null, true);
-				pokemon.setAbility('serenegrace', pokemon, true);
+				pokemon.setAbility('serenegrace', pokemon);
 				return true;
 			}
 		},
@@ -1592,7 +1599,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		beforeMoveCallback(pokemon) {
 			if (pokemon.species.name === 'Shaymin') {
 				pokemon.formeChange('Shaymin-Sky', null, true);
-				pokemon.setAbility('serenegrace', pokemon, true);
+				pokemon.setAbility('serenegrace', pokemon);
 				return true;
 			}
 		},
@@ -1602,7 +1609,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		beforeMoveCallback(pokemon) {
 			if (pokemon.species.name === 'Shaymin') {
 				pokemon.formeChange('Shaymin-Sky', null, true);
-				pokemon.setAbility('serenegrace', pokemon, true);
+				pokemon.setAbility('serenegrace', pokemon);
 				return true;
 			}
 		},
@@ -1612,17 +1619,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		beforeMoveCallback(pokemon) {
 			if (pokemon.species.name === 'Shaymin') {
 				pokemon.formeChange('Shaymin-Sky', null, true);
-				pokemon.setAbility('serenegrace', pokemon, true);
-				return true;
-			}
-		},
-	},
-	worryseed: {
-		inherit: true,
-		beforeMoveCallback(pokemon) {
-			if (pokemon.species.name === 'Shaymin') {
-				pokemon.formeChange('Shaymin-Sky', null, true);
-				pokemon.setAbility('serenegrace', pokemon, true);
+				pokemon.setAbility('serenegrace', pokemon);
 				return true;
 			}
 		},
@@ -1632,7 +1629,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		beforeMoveCallback(pokemon) {
 			if (pokemon.species.name === 'Shaymin-Sky') {
 				pokemon.formeChange('Shaymin', null, true);
-				pokemon.setAbility('flowerveil', pokemon, true);
+				pokemon.setAbility('flowerveil', pokemon);
 				return true;
 			}
 		},
@@ -1642,7 +1639,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		beforeMoveCallback(pokemon) {
 			if (pokemon.species.name === 'Shaymin-Sky') {
 				pokemon.formeChange('Shaymin', null, true);
-				pokemon.setAbility('flowerveil', pokemon, true);
+				pokemon.setAbility('flowerveil', pokemon);
 				return true;
 			}
 		},
@@ -1652,7 +1649,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		beforeMoveCallback(pokemon) {
 			if (pokemon.species.name === 'Shaymin-Sky') {
 				pokemon.formeChange('Shaymin', null, true);
-				pokemon.setAbility('flowerveil', pokemon, true);
+				pokemon.setAbility('flowerveil', pokemon);
 				return true;
 			}
 		},
@@ -1662,7 +1659,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		beforeMoveCallback(pokemon) {
 			if (pokemon.species.name === 'Shaymin-Sky') {
 				pokemon.formeChange('Shaymin', null, true);
-				pokemon.setAbility('flowerveil', pokemon, true);
+				pokemon.setAbility('flowerveil', pokemon);
 				return true;
 			}
 		},
@@ -1685,19 +1682,19 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 			if (this.effectState.geneSect) return;
 			if (pokemon.species.name === 'Genesect-Burn') {
 				pokemon.formeChange('Genesect-Core', null, true);
-				pokemon.setAbility('martialize', pokemon, true);
+				pokemon.setAbility('martialize', pokemon);
 				this.effectState.geneSect = true;
 			} else if (pokemon.species.name === 'Genesect-Douse') {
 				pokemon.formeChange('Genesect-Rust', null, true);
-				pokemon.setAbility('intoxicate', pokemon, true);
+				pokemon.setAbility('intoxicate', pokemon);
 				this.effectState.geneSect = true;
 			} else if (pokemon.species.name === 'Genesect-Shock') {
 				pokemon.formeChange('Genesect-Airborne', null, true);
-				pokemon.setAbility('aerilate', pokemon, true);
+				pokemon.setAbility('aerilate', pokemon);
 				this.effectState.geneSect = true;
 			} else if (pokemon.species.name === 'Genesect-Chill') {
 				pokemon.formeChange('Genesect-Luminous', null, true);
-				pokemon.setAbility('pixilate', pokemon, true);
+				pokemon.setAbility('pixilate', pokemon);
 				this.effectState.geneSect = true;
 			}
 		},
@@ -1719,7 +1716,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 			if (this.effectState.rockInn) return;
 			if (pokemon.species.name === 'Crustle') {
 				pokemon.formeChange('Crustle-Crawler', null, true);
-				pokemon.setAbility('sharpness', pokemon, true);
+				pokemon.setAbility('sharpness', pokemon);
 				this.effectState.rockInn = true;
 			}
 		},
@@ -1769,7 +1766,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 			if (this.effectState.griGus) return;
 			if (pokemon.species.name === 'Cofagrigus') {
 				pokemon.formeChange('Cofagrigus-Unchained', null, true);
-				pokemon.setAbility('darkmagic', pokemon, true);
+				pokemon.setAbility('darkmagic', pokemon);
 				this.effectState.griGus = true;
 			}
 		},
@@ -1805,7 +1802,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 			}
 			if (attacker.species.name === 'Dragapult' && !attacker.transformed) {
 				attacker.formeChange('Dragapult-Manifest', move);
-				attacker.setAbility('analytic', pokemon, true);
+				attacker.setAbility('analytic', attacker);
 			}
 			this.add('-prepare', attacker, move.name);
 			if (!this.runEvent('ChargeMove', attacker, defender, move)) {

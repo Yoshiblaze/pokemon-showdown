@@ -587,20 +587,20 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 			if (move.category === 'Status' || move.multihit || move.flags['noparentalbond'] || move.flags['charge'] ||
 				move.flags['futuremove'] || move.spreadHit || move.isZ || move.isMax) return;
 			move.multihit = 2;
-			move.multihitType = 'aurapartner';
+			move.multihitType = 'parentalbond';
 		},
 		onBasePowerPriority: 7,
 		onBasePower(basePower, pokemon, target, move) {
-			if (move.multihitType === 'aurapartner' && move.hit > 1) return this.chainModify(0.25);
+			if (move.multihitType === 'parentalbond' && move.hit > 1) return this.chainModify(0.25);
 		},
 		onModifyTypePriority: -1,
 		onModifyType(move, pokemon) {
-			if (move.multihitType === 'aurapartner' && move.hit > 1) { // hardcode
+			if (move.multihitType === 'parentalbond' && move.hit > 1) { // hardcode
 				move.type = 'Ghost';
 			}
 		},
 		onSourceModifySecondaries(secondaries, target, source, move) {
-			if (move.multihitType === 'aurapartner' && move.id === 'secretpower' && move.hit < 2) {
+			if (move.multihitType === 'parentalbond' && move.id === 'secretpower' && move.hit < 2) {
 				// hack to prevent accidentally suppressing King's Rock/Razor Fang
 				return secondaries.filter(effect => effect.volatileStatus === 'flinch');
 			}
@@ -815,7 +815,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 	},
 	aeoliandrift: {
 		onStart(source) {
-         source.side.addSideCondition('tailwind');
+			source.side.addSideCondition('tailwind');
 		},
 		flags: {},
 		name: "Aeolian Drift",
@@ -852,7 +852,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 	},
 	burnout: {
 		onStart(pokemon) {
-         pokemon.addVolatile('burnout');
+			pokemon.addVolatile('burnout');
 		},
 		condition: {
 			duration: 3,
@@ -872,7 +872,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 			onEnd(pokemon) {
 				// message here
 				pokemon.formeChange('Blaziken');
-				pokemon.setAbility('toughclaws', pokemon, true);
+				pokemon.setAbility('toughclaws', pokemon);
 				this.add('-activate', pokemon, 'ability: Tough Claws');
 			},
 		},
