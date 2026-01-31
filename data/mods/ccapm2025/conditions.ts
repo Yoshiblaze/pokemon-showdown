@@ -28,12 +28,14 @@ export const Conditions: import('../../../sim/dex-conditions').ModdedConditionDa
 			this.add('-weather', 'Snowscape', '[upkeep]');
 			if (this.field.isWeather('snowscape')) this.eachEvent('Weather');
 		},
-		onFieldEnd(field, source, effect) {
+		onFieldEnd() {
 			this.add('-weather', 'none');
-			if (source.species.id === 'wyrdeer') {
-				source.formeChange('Wyrdeer-Snowblind', this.effect, true);
-				source.setAbility('heartofcold', source, true);
-				this.add('-activate', source, 'ability: Heart of Cold');
+			for (const pokemon of this.getAllPokemon()) {
+				if (pokemon.species.id === 'wyrdeer') {
+					pokemon.formeChange('Wyrdeer-Snowblind', this.effect, true);
+					pokemon.setAbility('heartofcold', pokemon, true);
+					this.add('-activate', pokemon, 'ability: Heart of Cold');
+				}
 			}
 		},
 	},
@@ -107,6 +109,24 @@ export const Conditions: import('../../../sim/dex-conditions').ModdedConditionDa
 					opponent.formeChange('Mesprit', this.effect, false);
 				}
 			}
+    },
+  },
+	restoring: {
+		name: 'Restoring',
+		duration: 1,
+		onStart(target, source, sourceEffect) {
+			this.add('-start', target, 'restoring');
+		},
+		onEnd(target) {
+			if (target.species.id === 'aurorus') {
+				target.formeChange('Aurorus-Glorious', this.effect, true);
+				target.setAbility('megalauncher', source, true);
+				this.add('-activate', target, 'ability: Mega Launcher');
+				if (this.field.isWeather(['hail', 'snowscape'])) {
+					target.heal(pokemon.baseMaxhp / 2);
+				}
+			}
+			this.add('-end', target, 'restoring');
 		},
 	},
 };
