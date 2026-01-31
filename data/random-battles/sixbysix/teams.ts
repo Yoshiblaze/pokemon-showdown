@@ -834,7 +834,7 @@ export class Random6x6Teams extends RandomTeams {
 		let leadsRemaining = this.format.gameType === 'doubles' ? 2 : 1;
 		while (baseSpeciesPool.length && pokemon.length < this.maxTeamSize) {
 			const baseSpecies = this.sampleNoReplace(baseSpeciesPool);
-			let z = 0;
+			// const z = 0;
 			const species = this.dex.species.get(this.sample(pokemonPool[baseSpecies]));
 			if (!species.exists) continue;
 
