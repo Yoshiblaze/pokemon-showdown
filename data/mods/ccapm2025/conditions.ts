@@ -28,12 +28,14 @@ export const Conditions: import('../../../sim/dex-conditions').ModdedConditionDa
 			this.add('-weather', 'Snowscape', '[upkeep]');
 			if (this.field.isWeather('snowscape')) this.eachEvent('Weather');
 		},
-		onFieldEnd(field, source, effect) {
+		onFieldEnd() {
 			this.add('-weather', 'none');
-			if (source.species.id === 'wyrdeer') {
-				source.formeChange('Wyrdeer-Snowblind', this.effect, true);
-				source.setAbility('heartofcold', source, true);
-				this.add('-activate', source, 'ability: Heart of Cold');
+			for (const pokemon of this.getAllPokemon()) {
+				if (pokemon.species.id === 'wyrdeer') {
+					pokemon.formeChange('Wyrdeer-Snowblind', this.effect, true);
+					pokemon.setAbility('heartofcold', pokemon, true);
+					this.add('-activate', pokemon, 'ability: Heart of Cold');
+				}
 			}
 		},
 	},
