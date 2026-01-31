@@ -88,6 +88,21 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 		num: -5,
 		gen: 9,
 	},
+	restorationcapsule: {
+		name: "Restoration Capsule",
+		spritenum: 6,
+		fling: {
+			basePower: 10,
+		},
+		onStart(target) {
+			this.add('-item', target, 'Restoration Capsule');
+			target.addVolatile('restoring');
+		},
+		// hazard immunity implemented in moves.ts
+		shortDesc: "Aurorus: Hazard immunity, changes its form after 1 turn.",
+		num: -6,
+		gen: 9,
+	},
 	buggem: {
 		inherit: true,
 		isNonstandard: null,
