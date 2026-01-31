@@ -37,4 +37,22 @@ export const Conditions: import('../../../sim/dex-conditions').ModdedConditionDa
 			}
 		},
 	},
+	restoring: {
+		name: 'Restoring',
+		duration: 1,
+		onStart(target, source, sourceEffect) {
+			this.add('-start', target, 'restoring');
+		},
+		onEnd(target) {
+			if (target.species.id === 'aurorus') {
+				target.formeChange('Aurorus-Glorious', this.effect, true);
+				target.setAbility('megalauncher', source, true);
+				this.add('-activate', target, 'ability: Mega Launcher');
+				if (this.field.isWeather(['hail', 'snowscape'])) {
+					target.heal(pokemon.baseMaxhp / 2);
+				}
+			}
+			this.add('-end', target, 'restoring');
+		},
+	},
 };
