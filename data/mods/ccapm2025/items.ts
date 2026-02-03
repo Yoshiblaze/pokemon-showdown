@@ -1,4 +1,20 @@
 export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
+	// Changed Items
+	berserkgene: {
+		inherit: true,
+		onUpdate(pokemon) {
+			if (pokemon.status === '' && pokemon.useItem())
+			{
+				pokemon.trySetStatus('ber', pokemon)
+			}
+		},
+		boosts: {},
+		num: 0,
+		gen: 2,
+		isNonstandard: null,
+	},
+
+	// Custom Items
 	darminitanite: {
 		name: "Darminitanite",
 		spritenum: 576,
