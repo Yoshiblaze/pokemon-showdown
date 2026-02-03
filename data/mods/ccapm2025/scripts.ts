@@ -1,5 +1,4 @@
 import type { Pokemon } from "../../../sim";
-
 export const Scripts: ModdedBattleScriptsData = {
 	gen: 9,
 	init() {
@@ -92,8 +91,23 @@ export const Scripts: ModdedBattleScriptsData = {
 			return null;
 		},
 		runSwitch(pokemon: Pokemon) {
-			if (pokemon.species.name === 'Iron Valiant' && !pokemon.battle.ruleTable.tagRules.includes("+pokemontag:cap"))
-				pokemon.m.usedMoves = [];
+			const switchersIn = [pokemon];
+			while (this.battle.queue.peek()?.choice === 'runSwitch') {
+				const nextSwitch = this.battle.queue.shift();
+				switchersIn.push(nextSwitch!.pokemon!);
+			}
+			const allActive = this.battle.getAllActive(true);
+			this.battle.speedSort(allActive);
+			this.battle.speedOrder = allActive.map(a => a.side.n * a.battle.sides.length + a.position);
+			this.battle.fieldEvent('SwitchIn', switchersIn);
+
+			for (const poke of switchersIn) {
+				if (!poke.hp) continue;
+				poke.isStarted = true;
+				poke.draggedIn = null;
+				if (poke.species.name === 'Iron Valiant' && !pokemon.battle.ruleTable.tagRules.includes("+pokemontag:cap"))
+					pokemon.m.usedMoves = [];
+			}
 			return true;
 		},
 		useMove(move: Move, pokemon: Pokemon) {

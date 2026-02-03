@@ -132,10 +132,9 @@ export const Rulesets: import('../../../sim/dex-formats').ModdedFormatDataTable 
 				}
 			} else if (source.species.name === "Octillery") {
 				if (effect && effect.effectType === 'Move' &&
-					source.formeChange('Octillery-Sharpshooter', null, true);
+					source.formeChange('Octillery-Sharpshooter', null, true))
 					source.setAbility('focusedfire', target);
 				}
 			}
 		},
-	},
-};
+	};
