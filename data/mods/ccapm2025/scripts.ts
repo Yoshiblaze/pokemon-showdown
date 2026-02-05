@@ -1,4 +1,5 @@
 import type { Pokemon } from "../../../sim";
+import {RESTORATIVE_BERRIES} from "../../../sim/pokemon";
 export const Scripts: ModdedBattleScriptsData = {
 	gen: 9,
 	init() {
@@ -310,5 +311,113 @@ export const Scripts: ModdedBattleScriptsData = {
 
 			return true;
 		},
+		eatItem(this: Pokemon, force?: boolean, source?: Pokemon, sourceEffect?: Effect) {
+			if (!this.item) return false;
+			if ((!this.hp && this.item !== 'jabocaberry' && this.item !== 'rowapberry') || !this.isActive) return false;
+
+			if (!sourceEffect && this.battle.effect) sourceEffect = this.battle.effect;
+			if (!source && this.battle.event?.target) source = this.battle.event.target;
+			const item = this.getItem();
+			if (sourceEffect?.effectType === 'Item' && this.item !== sourceEffect.id && source === this) {
+				// if an item is telling us to eat it but we aren't holding it, we probably shouldn't eat what we are holding
+				return false;
+			}
+			if (
+				this.battle.runEvent('UseItem', this, null, null, item) &&
+				(force || this.battle.runEvent('TryEatItem', this, null, null, item))
+			) {
+				this.battle.add('-enditem', this, item, '[eat]');
+
+				this.battle.singleEvent('Eat', item, this.itemState, this, source, sourceEffect);
+				this.battle.runEvent('EatItem', this, source, sourceEffect, item);
+
+				if (RESTORATIVE_BERRIES.has(item.id)) {
+					switch (this.pendingStaleness) {
+					case 'internal':
+						if (this.staleness !== 'external') this.staleness = 'internal';
+						break;
+					case 'external':
+						this.staleness = 'external';
+						break;
+					}
+					this.pendingStaleness = undefined;
+				}
+
+				this.lastItem = this.item;
+				this.item = '';
+				this.battle.clearEffectState(this.itemState);
+				this.usedItemThisTurn = true;
+				this.ateBerry = true;
+				if (this.species.baseSpecies === 'Alcremie' && !this.battle.ruleTable.tagRules.includes("+pokemontag:cap")) {
+					switch(this.species.id) {
+					case "alcremierubycream":
+						this.formeChange('Alcremie-Sweetened-Ruby-Cream', null, true);
+						break;
+					case "alcremiematchacream":
+						this.formeChange('Alcremie-Sweetened-Matcha-Cream', null, true);
+						break;
+					case "alcremiemintcream":
+						this.formeChange('Alcremie-Sweetened-Mint-Cream', null, true);
+						break;
+					case "alcremielemoncream":
+						this.formeChange('Alcremie-Sweetened-Lemon-Cream', null, true);
+						break;
+					case "alcremiesaltedcream":
+						this.formeChange('Alcremie-Sweetened-Salted-Cream', null, true);
+						break;
+					case "alcremierubyswirl":
+						this.formeChange('Alcremie-Sweetened-Ruby-Swirl', null, true);
+						break;
+					case "alcremiecaramelswirl":
+						this.formeChange('Alcremie-Sweetened-Caramel-Swirl', null, true);
+						break;
+					case "alcremierainbowswirl":
+						this.formeChange('Alcremie-Sweetened-Rainbow-Swirl', null, true);
+						break;
+					default:
+						this.formeChange('Alcremie-Sweetened', null, true);
+						break;
+					}
+
+					switch(this.lastItem) {
+					case "aguavberry":
+						this.battle.boost({ spd: 1 }, this);
+						break;
+					case "enigmaberry":
+						const type = this.battle.dex.types.names()[this.battle.random(18)];
+						if (this.hasType(type)) return false;
+						if (!this.addType(type)) return false;
+						this.battle.add('-start', this, 'typeadd', type);
+						break;
+					case "figyberry":
+						this.battle.boost({ atk: 1 }, this);
+						break;
+					case "iapapaberry":
+						this.battle.boost({ def: 1 }, this);
+						break;
+					case "magoberry":
+						this.battle.boost({ spe: 1 }, this);
+						break;
+					case "oranberry":
+						this.heal(this.maxhp);
+						break;
+					case "sitrusberry":
+						const side = this.side.foe
+						if (!side.sideConditions['stickyweb']) {
+							side.addSideCondition('toxicspikes', this.foes()[0]);
+						}
+						break;
+					case "wikiberry":
+						this.battle.boost({ spa: 1 }, this);
+						break;
+					default:
+						break;
+					}
+				}
+				this.battle.runEvent('AfterUseItem', this, null, null, item);
+				return true;
+			}
+			return false;
+		}
 	},
 };
