@@ -1614,5 +1614,604 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		eggGroups: ["Undiscovered"],
 		battleOnly: "Zeraora",
 	},
-	// Advent mons later
+	// Advent mons now
+	strobite: {
+		num: 2000,
+		name: "Strobite",
+		types: ["Electric"],
+		baseStats: { hp: 100, atk: 130, def: 110, spa: 50, spd: 70, spe: 65 },
+		abilities: { 0: "Lightning Rod", 1: "Strong Jaw", H: "Intimidate" },
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+	},
+	xurkitree: {
+		inherit: true,
+		otherFormes: ["Xurkitree-Sinnoh"],
+		formeOrder: ["Xurkitree", "Zeraora-Sinnoh"],
+	},
+	xurkitreesinnoh: {
+		num: 796,
+		name: "Xurkitree-Sinnoh",
+		baseSpecies: "Xurkitree",
+		forme: "Sinnoh",
+		types: ["Electric", "Fairy"],
+		baseStats: { hp: 83, atk: 67, def: 89, spa: 127, spd: 103, spe: 71 },
+		abilities: { 0: "Lighting Rod", 1: "Tangling Hair", H: "Sap Sipper" },
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+	},
+	sandta: {
+		num: 2002,
+		name: "Sandta",
+		types: ["Ground", "Water"],
+		baseStats: { hp: 110, atk: 75, def: 85, spa: 95, spd: 85, spe: 75 },
+		abilities: { 0: "Water Compaction", 1: "Water Veil", H: "Water Absorb" },
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+	},
+	eiscue: {
+		inherit: true,
+		otherFormes: ["Eiscue-Noice", "Eiscue-Snowcone", "Eiscue-Snowcone-Nosnow"],
+		formeOrder: ["Eiscue", "Eiscue-Noice", "Eiscue-Snowcone", "Eiscue-Snowcone-Nosnow"],
+	},
+	eiscuesnowcone: {
+		num: 875,
+		name: "Eiscue-Snowcone",
+		baseSpecies: "Eiscue",
+		forme: "Snowcone",
+		types: ["Water", "Ice"],
+		baseStats: { hp: 75, atk: 105, def: 95, spa: 65, spd: 115, spe: 50 },
+		abilities: { 0: "Snow Face" },
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+	},
+	eiscuesnowconenosnow: {
+		num: 875,
+		name: "Eiscue-Snowcone-Nosnow",
+		baseSpecies: "Eiscue",
+		forme: "Snowcone-Nosnow",
+		types: ["Water", "Psychic"],
+		baseStats: { hp: 75, atk: 105, def: 75, spa: 65, spd: 55, spe: 130 },
+		abilities: { 0: "Ice Face" },
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+		requiredAbility: "Snow Face",
+		battleOnly: "Eiscue-Snowcone",
+	},
+	cardemelli: {
+		num: 2004,
+		name: "Cardemelli",
+		types: ["Fairy", "Ground"],
+		baseStats: { hp: 95, atk: 61, def: 120, spa: 89, spd: 76, spe: 54 },
+		abilities: { 0: "Aroma Veil", H: "Magic Bounce" },
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+	},
+	gingertar: {
+		num: 2005,
+		name: "Gingertar",
+		types: ["Fire", "Dark"],
+		baseStats: { hp: 100, atk: 134, def: 100, spa: 95, spd: 110, spe: 61 },
+		abilities: { 0: "Ginger Stream", H: "Sturdy" },
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+		otherFormes: ["Gingertar-Mega"],
+		formeOrder: ["Gingertar", "Gingertar-Mega"],
+	},
+	gingertarmega: {
+		num: 2005,
+		name: "Gingertar-Mega",
+		baseSpecies: "Gingertar",
+		forme: "Mega",
+		types: ["Fire", "Dark"],
+		baseStats: { hp: 100, atk: 164, def: 120, spa: 95, spd: 150, spe: 71 },
+		abilities: { 0: "Ginger Stream" },
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+		requiredItem: "Gingerite",
+	},
+	nuzcracker: {
+		num: 2007,
+		name: "Nuzcracker",
+		types: ["Grass", "Fighting"],
+		baseStats: { hp: 90, atk: 105, def: 75, spa: 70, spd: 60, spe: 80 },
+		abilities: { 0: "Chlorophyll", 1: "Dancer", H: "Little Soldier" },
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+	},
+	smorgasbag: {
+		num: 2008,
+		name: "Smorgasbag",
+		types: ["Poison"],
+		baseStats: { hp: 138, atk: 65, def: 65, spa: 85, spd: 90, spe: 50 },
+		abilities: { 0: "Gluttony", H: "Toxic Debris" },
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+	},
+	sableye: {
+		inherit: true,
+		otherFormes: ["Sableye-Mega", "Sableye-Festive", "Sableye-Festive-Mega"],
+		formeOrder: ["Sableye", "Sableye-Mega", "Sableye-Festive", "Sableye-Festive-Mega"],
+	},
+	sableyefestive: {
+		num: 302,
+		name: "Sableye-Festive",
+		baseSpecies: "Sableye",
+		forme: "Festive",
+		types: ["Dark", "Grass"],
+		baseStats: { hp: 70, atk: 75, def: 75, spa: 65, spd: 65, spe: 70 },
+		abilities: { 0: "Pickpocket", 1: "Slush Rush", H: "Prankster" },
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+	},
+	sableyefestivemega: {
+		num: 302,
+		name: "Sableye-Festive-Mega",
+		baseSpecies: "Sableye",
+		forme: "Festive-Mega",
+		types: ["Dark", "Steel"],
+		baseStats: { hp: 70, atk: 85, def: 125, spa: 85, spd: 115, spe: 40 },
+		abilities: { 0: "Filter" },
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+		requiredItem: "Sablenite",
+	},
+	mariahcarey: {
+		num: 2010,
+		name: "Mariah Carey",
+		types: ["Normal", "Ice"],
+		baseStats: { hp: 78, atk: 98, def: 70, spa: 114, spd: 70, spe: 95 },
+		abilities: { 0: "Merciless", H: "Chilling Voice" },
+		weightkg: 50, // i don't feel like googling it.
+		eggGroups: ["Human-Like"], // yeah.
+	},
+	draydol: {
+		num: 2011,
+		name: "Draydol",
+		types: ["Ground", "Rock"],
+		baseStats: { hp: 60, atk: 105, def: 75, spa: 70, spd: 70, spe: 120 },
+		abilities: { 0: "Serene Grace" },
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+	},
+	gamesi: {
+		num: 2012,
+		name: "Gamesi",
+		types: ["Dark", "Electric"],
+		baseStats: { hp: 100, atk: 109, def: 70, spa: 109, spd: 70, spe: 60 },
+		abilities: { 0: "Download", H: "Static" },
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+	},
+	vipux: {
+		num: 2013,
+		name: "Vipux",
+		types: ["Dragon", "Grass"],
+		baseStats: { hp: 80, atk: 138, def: 84, spa: 122, spd: 100, spe: 100 },
+		abilities: { 0: "Equal Share", 1: "Swindling", H: "Pickpocket" },
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+	},
+	popsicelf: {
+		num: 2014,
+		name: "Popsicelf",
+		types: ["Ice", "Fire"],
+		baseStats: { hp: 68, atk: 111, def: 60, spa: 70, spd: 65, spe: 121 },
+		abilities: { 0: "Flame Body", 1: "Clear Body", H: "Sweet Freezing" },
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+	},
+	bellbeque: {
+		num: 2015,
+		name: "Bellbeque",
+		types: ["Fire", "Steel"],
+		baseStats: { hp: 75, atk: 60, def: 140, spa: 90, spd: 80, spe: 40 },
+		abilities: { 0: "Mirror Armor", 1: "Anticipation", H: "Filter" },
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+	},
+	chorislam: {
+		num: 2016,
+		name: "Chorislam",
+		types: ["Normal", "Fighting"],
+		baseStats: { hp: 80, atk: 105, def: 110, spa: 65, spd: 50, spe: 105 },
+		abilities: { 0: "WellBaked Body" },
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+	},
+	gholdengo: {
+		inherit: true,
+		otherFormes: ["Gholdengo-Festive"],
+		formeOrder: ["Gholdengo", "Gholdengo-Festive"],
+	},
+	gholdengofestive: {
+		num: 1000,
+		name: "Gholdengo-Festive",
+		baseSpecies: "Gholdengo",
+		forme: "Festive",
+		types: ["Grass", "Steel"],
+		baseStats: { hp: 87, atk: 60, def: 96, spa: 123, spd: 101, spe: 84 },
+		abilities: { 0: "Serene Grace" },
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+	},
+	indeedee: {
+		inherit: true,
+		otherFormes: ["Indeedee-F", "Indeedee-Cook"],
+		formeOrder: ["Indeedee", "Indeedee-F", "Indeedee-Cook"],
+	},
+	indeedeecook: {
+		num: 876,
+		name: "Indeedee-Cook",
+		baseSpecies: "Indeedee",
+		forme: "Cook",
+		types: ["Psychic", "Fire"],
+		baseStats: { hp: 70, atk: 55, def: 85, spa: 95, spd: 110, spe: 85 },
+		abilities: { 0: "Aroma Veil", 1: "Gluttony", H: "Psychic Simmer" },
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+	},
+	dulceirene: {
+		num: 2019,
+		name: "Dulceirene",
+		types: ["Fairy"],
+		baseStats: { hp: 76, atk: 70, def: 86, spa: 113, spd: 131, spe: 64 },
+		abilities: { 0: "Fragilité Shield", H: "Aroma Veil" },
+		otherFormes: ["Dulceirene-Mega"],
+		formeOrder: ["Dulceirene", "Dulceirene-Mega"],
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+	},
+	dulceirenemega: {
+		num: 2019,
+		name: "Dulceirene-Mega",
+		baseSpecies: "Dulceirene",
+		forme: "Mega",
+		types: ["Fairy", "Ice"],
+		baseStats: { hp: 76, atk: 70, def: 86, spa: 163, spd: 141, spe: 104 },
+		abilities: { 0: "Filter" },
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+		requiredItem: "Dulceirenite",
+	},
+	wreith: {
+		num: 2021,
+		name: "Wreith",
+		types: ["Grass", "Ghost"],
+		baseStats: { hp: 72, atk: 85, def: 130, spa: 85, spd: 86, spe: 44 },
+		abilities: { 0: "Bristle" },
+		otherFormes: ["Eternal Flower Wreith"],
+		formeOrder: ["Wreith", "Eternal Flower Wreith"],
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+	},
+	eternalflowerwreith: {
+		num: 2021,
+		name: "Eternal Flower Wreith",
+		types: ["Fairy", "Poison"],
+		baseStats: { hp: 72, atk: 104, def: 86, spa: 95, spd: 130, spe: 64 },
+		abilities: { 0: "Ange Halo", H: "Flower Veil" },
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+	},
+	clamperl: {
+		inherit: true,
+		otherFormes: ["Clamperl-Alola"],
+		formeOrder: ["Clamperl", "Clamperl-Alola"],
+	},
+	clamperlalola: {
+		num: 366,
+		name: "Clamperl-Alola",
+		baseSpecies: "Clamperl",
+		forme: "Alola",
+		types: ["Rock"],
+		baseStats: { hp: 35, atk: 54, def: 45, spa: 74, spd: 55, spe: 82 },
+		abilities: { 0: "Shell Armor", H: "Insomnia" },
+		evos: ["Goodybyss", "Naughtail"],
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+	},
+	goodybyss: {
+		num: 2024,
+		name: "Goodybyss",
+		types: ["Rock", "Dragon"],
+		baseStats: { hp: 55, atk: 84, def: 52, spa: 114, spd: 75, spe: 105 },
+		abilities: { 0: "Swift Swim", H: "Good as Gold" },
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+	},
+	naughtail: {
+		num: 2025,
+		name: "Naughtail",
+		types: ["Rock", "Dark"],
+		baseStats: { hp: 55, atk: 105, def: 52, spa: 114, spd: 75, spe: 84 },
+		abilities: { 0: "Swift Swim", H: "Rock Head" },
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+	},
+	gospiel: {
+		num: 2026,
+		name: "Gospiel",
+		types: ["Psychic"],
+		baseStats: { hp: 80, atk: 40, def: 95, spa: 75, spd: 100, spe: 30 },
+		abilities: { 0: "Telepathy", H: "Levitate" },
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+	},
+	rusalvia: {
+		num: 2027,
+		name: "Rusalvia",
+		types: ["Psychic", "Water"],
+		baseStats: { hp: 80, atk: 65, def: 100, spa: 130, spd: 105, spe: 50 },
+		abilities: { 0: "Telepathy", H: "Liquid Voice" },
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+	},
+	seraphexe: {
+		num: 2028,
+		name: "Seraphexe",
+		types: ["Psychic", "Fire"],
+		baseStats: { hp: 80, atk: 65, def: 105, spa: 100, spd: 130, spe: 50 },
+		abilities: { 0: "Telepathy", H: "Trace" },
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+	},
+	mirrelette: {
+		num: 2029,
+		name: "Mirrelette",
+		types: ["Steel", "Ice"],
+		baseStats: { hp: 70, atk: 60, def: 80, spa: 100, spd: 105, spe: 95 },
+		abilities: { 0: "Shattered Reflection", 1: "Levitate", H: "Mirror Armor" },
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+	},
+	klefki: {
+		inherit: true,
+		otherFormes: ["Klefki-McCallister"],
+		formeOrder: ["Klefki", "Klefki-McCallister"],
+	},
+	klefkimccallister: {
+		num: 707,
+		name: "Klefki-McCallister",
+		baseSpecies: "Klefki",
+		forme: "McCallister",
+		types: ["Steel", "Fire"],
+		baseStats: { hp: 57, atk: 80, def: 91, spa: 80, spd: 87, spe: 75 },
+		abilities: { 0: "Prankstwr", 1: "Flame Body", H: "Entrapment" },
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+	},
+	sacchamorte: {
+		num: 2001,
+		name: "Sacchamorte",
+		types: ["Dark", "Poison"],
+		baseStats: { hp: 77, atk: 112, def: 81, spa: 80, spd: 70, spe: 105 },
+		abilities: { 0: "Dancer", 1: "Sweet Veil", H: "Regenerator" },
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+	},
+	treench: {
+		num: 2002,
+		name: "Treench",
+		types: ["Dark", "Grass"],
+		baseStats: { hp: 75, atk: 106, def: 80, spa: 50, spd: 80, spe: 114 },
+		abilities: { 0: "Gift Stealer", H: "Mimicry" },
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+	},
+	grincheartcaged: {
+		num: 2003,
+		name: "Grincheart-Caged",
+		types: ["Fairy", "Steel"],
+		baseStats: { hp: 100, atk: 65, def: 105, spa: 65, spd: 80, spe: 50 },
+		abilities: { 0: "Heart Cage" },
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+		otherFormes: ["Grincheart-Grown"],
+		formeOrder: ["Grincheart-Caged", "Grincheart-Grown"],
+	},
+	grincheartgrown: {
+		num: 2003,
+		name: "Grincheart-Grown",
+		baseSpecies: "Grincheart-Caged",
+		forme: "Grown",
+		types: ["Fairy", "Fighting"],
+		baseStats: { hp: 100, atk: 150, def: 95, spa: 115, spd: 70, spe: 100 },
+		abilities: { 0: "Heart Cage" },
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+	},
+	lelitoccia: {
+		num: 2005,
+		name: "Lelitoccia",
+		types: ["Ghost", "Rock"],
+		baseStats: { hp: 61, atk: 43, def: 89, spa: 113, spd: 167, spe: 97 },
+		abilities: { 0: "Beast Boost" },
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+	},
+	deckherd: {
+		num: 2006,
+		name: "Deckherd",
+		types: ["Normal", "Dark"],
+		baseStats: { hp: 79, atk: 109, def: 109, spa: 89, spd: 99, spe: 49 },
+		abilities: { 0: "Fluffy", 1: "Technician", H: "Cash Infusion" },
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+	},
+	caneine: {
+		num: 2007,
+		name: "Caneine",
+		types: ["Rock", "Fairy"],
+		baseStats: { hp: 111, atk: 112, def: 93, spa: 74, spd: 65, spe: 86 },
+		abilities: { 0: "Guard Dog", 1: "Stamina", H: "Tough Claws" },
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+	},
+	picktreebel: {
+		num: 2008,
+		name: "Picktreebel",
+		types: ["Grass", "Rock"],
+		baseStats: { hp: 80, atk: 105, def: 65, spa: 100, spd: 70, spe: 80 },
+		abilities: { 0: "Chlorophyll", 1: "Quick Draw", H: "Crystalize" },
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+		otherFormes: ["Picktreebel-Mega"],
+		formeOrder: ["Picktreebel-Mega", "Picktreebel-Mega"],
+	},
+	picktreebelmega: {
+		num: 2008,
+		name: "Picktreebel-Mega",
+		baseSpecies: "Picktreebel",
+		forme: "Mega",
+		types: ["Grass", "Rock"],
+		baseStats: { hp: 80, atk: 135, def: 85, spa: 125, spd: 95, spe: 80 },
+		abilities: { 0: "Crystalize" },
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+		requiredItem: "Picktreelite",
+	},
+	twinklingshade: {
+		num: 2011,
+		name: "Twinkling Shade",
+		types: ["Dark", "Flying"],
+		baseStats: { hp: 104, atk: 70, def: 86, spa: 92, spd: 100, spe: 118 },
+		abilities: { 0: "Protosynthesis" },
+		tags: ["Paradox"],
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+	},
+	irontwilight: {
+		num: 2010,
+		name: "Iron Twilight",
+		types: ["Steel", "Dark"],
+		baseStats: { hp: 96, atk: 76, def: 66, spa: 138, spd: 92, spe: 122 },
+		abilities: { 0: "Quark Drive" },
+		tags: ["Paradox"],
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+	},
+	faerwork: {
+		num: 2012,
+		name: "Faerwork",
+		types: ["Fire", "Fairy"],
+		baseStats: { hp: 60, atk: 60, def: 80, spa: 105, spd: 80, spe: 105 },
+		abilities: { 0: "Illuminate", 1: "Flash Fire", H: "Sheer Force" },
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+	},
+	antaron: {
+		num: 2013,
+		name: "Antaron",
+		types: ["Dragon", "Fire"],
+		baseStats: { hp: 88, atk: 69, def: 85, spa: 143, spd: 97, spe: 79 },
+		abilities: { 0: "Berserk", 1: "Dancer", H: "Good as Gold" },
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+	},
+	snowglob: {
+		num: 2014,
+		name: "Snowglob",
+		types: ["Ice", "Grass"],
+		baseStats: { hp: 75, atk: 50, def: 60, spa: 90, spd: 120, spe: 90 },
+		abilities: { 0: "Snow Warning" },
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+	},
+	dinjingle: {
+		num: 2015,
+		name: "Dinjingle",
+		types: ["Steel", "Fairy"],
+		baseStats: { hp: 90, atk: 50, def: 100, spa: 110, spd: 90, spe: 70 },
+		abilities: { 0: "Bell Choir" },
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+	},
+	guywithsweater: {
+		num: 2016,
+		name: "Guywithsweater",
+		types: ["Normal", "Fairy"],
+		baseStats: { hp: 85, atk: 110, def: 110, spa: 50, spd: 70, spe: 65 },
+		abilities: { 0: "Thick Fat", 1: "Rough Skin", H: "Stench" },
+		weightkg: 50, // placeholder
+		eggGroups: ["Human-Like"], // placeholder
+	},
+	gristletoe: {
+		num: 2017,
+		name: "Gristletoe",
+		types: ["Poison", "Dark"],
+		baseStats: { hp: 105, atk: 95, def: 90, spa: 50, spd: 110, spe: 70 },
+		abilities: { 0: "Earth Eater", 1: "Poison Touch", H: "Corrosion" },
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+	},
+	aegibashpolar: {
+		num: 2018,
+		name: "Aegibash-Polar",
+		baseSpecies: "Aegibash",
+		forme: "Polar",
+		types: ["Steel", "Electric"],
+		baseStats: { hp: 60, atk: 50, def: 110, spa: 140, spd: 80, spe: 60 },
+		abilities: { 0: "Magnet Pull", 1: "Minus", H: "No Guard" },
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+	},
+	gingermason: {
+		num: 2019,
+		name: "Gingermason",
+		types: ["Fire", "Ground"],
+		baseStats: { hp: 68, atk: 98, def: 87, spa: 66, spd: 93, spe: 98 },
+		abilities: { 0: "WellBaked Body", 1: "Ice Body", H: "Simple" },
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+	},
+	swadloonfestive: {
+		inherit: true,
+		otherFormes: ["Swadloon-Festive"],
+		formeOrder: ["Swadloon", "Swadloon-Festive"],
+	},
+	swadloonfestive: {
+		num: 541,
+		name: "Swadloon-Festive",
+		baseSpecies: "Swadloon",
+		forme: "Festive",
+		types: ["Bug", "Grass"],
+		baseStats: { hp: 55, atk: 63, def: 90, spa: 50, spd: 80, spe: 42 },
+		abilities: { 0: "Social Retreat", 1: "Slush Rush", H: "Snow Cloak" },
+		evos: ["Leavanny-Festive"],
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+	},
+	leavanny: {
+		inherit: true,
+		otherFormes: ["Leavanny-Festive"],
+		formeOrder: ["Leavanny", "Leavanny-Festive"],
+	},
+	leavannyfestive: {
+		num: 542,
+		name: "Leavanny-Festive",
+		baseSpecies: "Leavanny",
+		forme: "Festive",
+		types: ["Bug", "Grass"],
+		baseStats: { hp: 75, atk: 103, def: 70, spa: 75, spd: 70, spe: 108 },
+		abilities: { 0: "Aroma Veil", 1: "Slush Rush", H: "Snow Cloak" },
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+	},
+	maushold: {
+		inherit: true,
+		otherFormes: ["Maushold-Four", "Maushold-Dysfunctional"],
+		formeOrder: ["Maushold", "Maushold-Four", "Maushold-Dysfunctional"],
+	},
+	mausholddysfunctional: {
+		num: 925,
+		name: "Maushold-Dysfunctional",
+		baseSpecies: "Maushold",
+		forme: "Dysfunctional",
+		types: ["Normal", "Rock"],
+		baseStats: { hp: 74, atk: 95, def: 83, spa: 65, spd: 77, spe: 111 },
+		abilities: { 0: "Technician", H: "Parental Bond" },
+		weightkg: 50, // placeholder
+		eggGroups: ["Undiscovered"], // placeholder
+	},
 };

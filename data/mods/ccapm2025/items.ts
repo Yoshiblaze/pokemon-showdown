@@ -494,4 +494,46 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 			}
 		},
 	},
+	// advent
+	gingerite: {
+		name: "Gingerite",
+		spritenum: 576,
+		megaStone: { "Gingertar": "Gingertar-Mega" },
+		itemUser: ["Gingertar"],
+		onTakeItem(item, source) {
+			return !item.megaStone?.[source.baseSpecies.baseSpecies];
+		},
+		gen: 9,
+		shortDesc: "If held by a Gingertar, this item allows it to Mega Evolve in battle.",
+		num: -1000,
+	},
+	dulceirenite: {
+		name: "Dulceirenite",
+		spritenum: 576,
+		megaStone: { "Dulceirene": "Dulceirene-Mega" },
+		itemUser: ["Dulceirene"],
+		onTakeItem(item, source) {
+			return !item.megaStone?.[source.baseSpecies.baseSpecies];
+		},
+		gen: 9,
+		shortDesc: "If held by a Dulceirene, this item allows it to Mega Evolve in battle.",
+		num: -1001,
+	},
+	picktreelite: {
+		name: "Picktreelite",
+		spritenum: 576,
+		megaStone: { "Picktreebel": "Picktreebel-Mega" },
+		itemUser: ["Picktreebel"],
+		onTakeItem(item, source) {
+			return !item.megaStone?.[source.baseSpecies.baseSpecies];
+		},
+		gen: 9,
+		shortDesc: "If held by a Picktreebel, this item allows it to Mega Evolve in battle.",
+		num: -1002,
+	},
+	sablenite: {
+		inherit: true,
+		megaStone: { "Sableye-Festive": "Sableye-Festive-Mega" },
+		itemUser: ["Sableye-Festive"],
+	},
 };
