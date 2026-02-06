@@ -15,7 +15,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		inherit: true,
 		onResidual(pokemon) {
 			if (pokemon.status && ['raindance', 'primordialsea'].includes(pokemon.effectiveWeather())) {
-				this.debug('hydration');
+				this.debug('hydration cure');
 				this.add('-activate', pokemon, 'ability: Hydration');
 				(pokemon as any).cureStatus?.(false, pokemon);
 			}
