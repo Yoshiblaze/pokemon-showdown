@@ -881,4 +881,371 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		rating: 3.5,
 		shortDesc: "Blaziken-Wildfire: 1.5x Atk & SpA. Reverts to base Blaziken after 2 turns.",
 	},
+	// advent
+	snowface: {
+		onSwitchInPriority: -2,
+		onStart(pokemon) {
+			if (this.field.isWeather(['hail', 'snowscape']) && pokemon.species.id === 'eiscuesnowconenosnow') {
+				this.add('-activate', pokemon, 'ability: Snow Face');
+				this.effectState.busted = false;
+				pokemon.formeChange('Eiscue-Snowcone', this.effect, true);
+			}
+		},
+		onDamagePriority: 1,
+		onDamage(damage, target, source, effect) {
+			if (effect?.effectType === 'Move' && effect.category === 'Special' && target.species.id === 'eiscuesnowcone') {
+				this.add('-activate', target, 'ability: Snow Face');
+				this.effectState.busted = true;
+				return 0;
+			}
+		},
+		onCriticalHit(target, type, move) {
+			if (!target) return;
+			if (move.category !== 'Special' || target.species.id !== 'eiscuesnowcone') return;
+			if (target.volatiles['substitute'] && !(move.flags['bypasssub'] || move.infiltrates)) return;
+			if (!target.runImmunity(move)) return;
+			return false;
+		},
+		onEffectiveness(typeMod, target, type, move) {
+			if (!target) return;
+			if (move.category !== 'Special' || target.species.id !== 'eiscuesnowcone') return;
+			const hitSub = target.volatiles['substitute'] && !move.flags['bypasssub'] && !(move.infiltrates && this.gen >= 6);
+			if (hitSub) return;
+			if (!target.runImmunity(move)) return;
+			return 0;
+		},
+		onUpdate(pokemon) {
+			if (pokemon.species.id === 'eiscuesnowcone' && this.effectState.busted) {
+				pokemon.formeChange('Eiscue-Snowcone-Nosnow', this.effect, true);
+			}
+		},
+		onWeatherChange(pokemon, source, sourceEffect) {
+			// snow/hail resuming because Cloud Nine/Air Lock ended does not trigger Ice Face
+			if ((sourceEffect as Ability)?.suppressWeather) return;
+			if (!pokemon.hp) return;
+			if (this.field.isWeather(['hail', 'snowscape']) && pokemon.species.id === 'eiscuesnowconenosnow') {
+				this.add('-activate', pokemon, 'ability: Snow Face');
+				this.effectState.busted = false;
+				pokemon.formeChange('Eiscue-Snowcone', this.effect, true);
+			}
+		},
+		flags: {
+			failroleplay: 1, noreceiver: 1, noentrain: 1, notrace: 1, failskillswap: 1, cantsuppress: 1,
+			breakable: 1, notransform: 1,
+		},
+		name: "Snow Face",
+		rating: 3,
+		shortDesc: "Eiscue-Snowcone: The first special hit it takes deals 0 damage. Effect is restored in Snow.",
+	},
+	gingerstream: {
+		onStart(source) {
+			this.field.setWeather('gingerstorm');
+		},
+		flags: {},
+		name: "Ginger Stream",
+		rating: 4,
+		shortDesc: "On switch-in, this Pokemon summons Gingerstorm.",
+	},
+	littlesoldier: {
+		onModifyDamage(damage, source, target, move) {
+			if (target.baseSpecies.bst > source.baseSpecies.bst) {
+				this.debug('Little Soldier boost');
+				return this.chainModify(1.3);
+			}
+		},
+		flags: {},
+		name: "Little Soldier",
+		rating: 2,
+		shortDesc: "This Pokemon's attacks do 1.3x damage to foes with a higher BST.",
+	},
+	chillingvoice: {
+		onModifyTypePriority: -1,
+		onModifyType(move, pokemon) {
+			if (move.flags['sound'] && !pokemon.volatiles['dynamax']) { // hardcode
+				move.type = 'Ice';
+			}
+		},
+		flags: {},
+		name: "Chilling Voice",
+		rating: 1.5,
+		shortDesc: "This Pokemon's sound moves become Ice-type.",
+	},
+	equalshare: {
+		onModifyAtkPriority: 5,
+		onModifyAtk(atk, attacker, defender, move) {
+			const screens = [
+				'lightscreen', 'reflect', 'auroraveil',
+			];
+			if (defender.side.getSideCondition(screens)) {
+				this.debug('Equal Share boost');
+				return this.chainModify(1.5);
+			}
+			const yourSide = attacker.side;
+			let allLayers = 0;
+			if (yourSide.getSideCondition('stealthrock')) allLayers++;
+			if (yourSide.getSideCondition('bristles')) allLayers++;
+			if (yourSide.getSideCondition('stickyweb')) allLayers++;
+			if (yourSide.sideConditions['spikes']) {
+				allLayers += yourSide.sideConditions['spikes'].layers;
+			}
+			if (yourSide.sideConditions['toxicspikes']) {
+				allLayers += yourSide.sideConditions['toxicspikes'].layers;
+			}
+			const theLayers = Math.min(allLayers, 5);
+			const powMod = [4096, 4506, 4915, 5325, 5734, 6144];
+			return this.chainModify([powMod[theLayers], 4096]);
+		},
+		onModifySpAPriority: 5,
+		onModifySpA(atk, attacker, defender, move) {
+			const screens = [
+				'lightscreen', 'reflect', 'auroraveil',
+			];
+			if (defender.side.getSideCondition(screens)) {
+				this.debug('Equal Share boost');
+				return this.chainModify(1.5);
+			}
+			const yourSide = attacker.side;
+			let allLayers = 0;
+			if (yourSide.getSideCondition('stealthrock')) allLayers++;
+			if (yourSide.getSideCondition('bristles')) allLayers++;
+			if (yourSide.getSideCondition('stickyweb')) allLayers++;
+			if (yourSide.sideConditions['spikes']) {
+				allLayers += yourSide.sideConditions['spikes'].layers;
+			}
+			if (yourSide.sideConditions['toxicspikes']) {
+				allLayers += yourSide.sideConditions['toxicspikes'].layers;
+			}
+			const theLayers = Math.min(allLayers, 5);
+			const powMod = [4096, 4506, 4915, 5325, 5734, 6144];
+			return this.chainModify([powMod[theLayers], 4096]);
+		},
+		flags: {},
+		name: "Equal Share",
+		rating: 2,
+		shortDesc: "10% boost to offensive stats for each layer of hazards on user's side. 50% boost if the foe has screens.",
+	},
+	swindling: {
+		// placeholder
+		flags: {},
+		name: "Swindling",
+		rating: 1.5,
+		shortDesc: "This Pokemon steals the items from Pokemon holding the same item.",
+	},
+	sweetfreezing: {
+		onResidualOrder: 29,
+		onResidual(pokemon) {
+			this.heal(pokemon.baseMaxhp / 16);
+		},
+		flags: {},
+		name: "Sweet Freezing",
+		rating: 1,
+		shortDesc: "User heals 1/16th of its max HP each turn.",
+	},
+	psychicsimmer: {
+		onStart(source) {
+			this.field.setTerrain('psychicterrain');
+		},
+		onSourceDamagingHit(damage, target, source, move) {
+			// Despite not being a secondary, Shield Dust / Covert Cloak block Poison Touch's effect
+			if (target.hasAbility('shielddust') || target.hasItem('covertcloak')) return;
+			if (move.type === 'Psychic' && this.field.isTerrain('psychicterrain') && source.isGrounded()) {
+				if (this.randomChance(2, 10)) {
+					target.trySetStatus('brn', source);
+				}
+			}
+		},
+		flags: {},
+		name: "Psychic Simmer",
+		rating: 4,
+		shortDesc: "Summons Psychic Terrain. Psychic moves in Psychic Terrain have a 20% burn chance.",
+	},
+	fragiliteshield: {
+		onDamagingHit(damage, target, source, move) {
+			this.field.setTerrain('mistyterrain');
+		},
+		flags: {},
+		name: "Fragilite\u0301 Shield",
+		rating: 2.5,
+		shortDesc: "When this Pokemon is hit by an attack, the effect of Misty Terrain begins.",
+	},
+	bristle: {
+		onDamage(damage, target, source, effect) {
+			if (
+				effect.effectType === "Move" &&
+				!effect.multihit &&
+				!(effect.hasSheerForce && source.hasAbility('sheerforce') &&
+				effect.category === 'Physical')
+			) {
+				this.effectState.checkedBristle = false;
+			} else {
+				this.effectState.checkedBristle = true;
+			}
+		},
+		onTryEatItem(item) {
+			const healingItems = [
+				'aguavberry', 'enigmaberry', 'figyberry', 'iapapaberry', 'magoberry', 'sitrusberry', 'wikiberry', 'oranberry', 'berryjuice',
+			];
+			if (healingItems.includes(item.id)) {
+				return this.effectState.checkedBristle;
+			}
+			return true;
+		},
+		onAfterMoveSecondary(target, source, move) {
+			this.effectState.checkedBristle = true;
+			if (!source || source === target || !target.hp || !move.totalDamage) return;
+			const lastAttackedBy = target.getLastAttackedBy();
+			if (!lastAttackedBy) return;
+			const damage = move.multihit && !move.smartTarget ? move.totalDamage : lastAttackedBy.damage;
+			if (target.hp <= target.maxhp / 2 && target.hp + damage > target.maxhp / 2) {
+				this.add('-activate', target, 'ability: Bristle');
+				side.addSideCondition('bristles', target);
+			}
+		},
+		flags: {},
+		name: "Bristle",
+		rating: 2,
+		shortDesc: "If this Pokemon is brought below 50% HP by a physical move, sets up Bristles.",
+	},
+	angehalo: {
+		gen: 9,
+		shortDesc: "Foe have 1/16 (1/8 for Megas) of their max HP drained every turn.",
+		onResidualOrder: 5,
+		onResidualSubOrder: 4,
+		onResidual(pokemon) {
+			if (!pokemon.hp) return;
+			const megaFoes = [];
+			for (const target of pokemon.foes()) {
+				if (target.baseSpecies.isMega) megaFoes.push(target);
+			}
+			if (megaFoes.length) {
+				for (const target of megaFoes) {
+					this.damage(target.baseMaxhp / 8, target, pokemon);
+					this.heal(target.baseMaxhp / 8);
+				}
+			} else {
+				for (const target of pokemon.foes()) {
+					this.damage(target.baseMaxhp / 16, target, pokemon);
+					this.heal(target.baseMaxhp / 16);
+				}
+			}
+		},
+		name: "Ange Halo",
+	},
+	shatteredreflection: {
+		// placeholder, might have to be hardcoded into type changing effects?
+		flags: {},
+		name: "Shattered Reflection",
+		rating: 1.5,
+		shortDesc: "When this Pokemon's type is changed, imprisons foe and becomes center of attention.",
+	},
+	entrapment: {
+		onStart(pokemon) {
+			this.add('-ability', pokemon, 'Entrapment');
+			for (const target of pokemon.adjacentFoes()) {
+				side.addSideCondition('spikes', target);
+			}
+		},
+		flags: {},
+		name: "Entrapment",
+		rating: 5,
+		shortDesc: "On switch-in, sets a layer of Spikes on the foe's side of the field.",
+	},
+	giftstealer: {
+		onAfterMoveSecondarySelf(source, target, move) {
+			if (!move || source.switchFlag === true || !move.hitTargets || source.item || source.volatiles['gem'] ||
+				move.id === 'fling' || move.category === 'Status') return;
+			const hitTargets = move.hitTargets;
+			this.speedSort(hitTargets);
+			for (const pokemon of hitTargets) {
+				if (pokemon !== source) {
+					const yourItem = pokemon.takeItem(source);
+					if (!yourItem) continue;
+					if (!source.setItem(yourItem)) {
+						pokemon.item = yourItem.id; // bypass setItem so we don't break choicelock or anything
+						continue;
+					}
+					this.add('-item', source, yourItem, '[from] ability: Gift Stealer', `[of] ${pokemon}`);
+					return;
+				}
+			}
+		},
+		onResidualOrder: 5,
+		onResidualSubOrder: 4,
+		onResidual(pokemon) {
+			if (!pokemon.hp) return;
+			this.actions.useMove("Fling", pokemon);
+		},
+		flags: {},
+		name: "Gift Stealer",
+		rating: 3,
+		shortDesc: "Effects of Magician. This Pokemon uses Fling at the end of every turn.",
+	},
+	heartcage: {
+		// placeholder
+		/* const heartMoves = [
+			'heartstamp', 'heartswap', 'takeheart',
+		]; */
+		onModifyDamage(damage, source, target, move) {
+			if (move.id === 'heartstamp') {
+				this.debug('Heart Cage boost');
+				return this.chainModify(1.5);
+			}
+		},
+		flags: { failroleplay: 1, noreceiver: 1, noentrain: 1, notrace: 1, failskillswap: 1, cantsuppress: 1 },
+		name: "Heart Cage",
+		rating: 1.5,
+		shortDesc: "Grincheart: Using 3 Heart moves changes for the Grincheart-Grown. Heart Stamp has 1.5x power.",
+	},
+	cashinfusion: {
+		// placeholder, would have to add the in-game formula for this to pay day & make it rain
+		flags: {},
+		name: "Cash Infusion",
+		rating: 1.5,
+		shortDesc: "This Pokémon receives a damage boost equal to 2% of the Pokémon Dollars scattered throughout a battle.",
+	},
+	crystalize: {
+		onAfterMoveSecondarySelf(source, target, move) {
+			if (this.queue.willMove(target)) {
+				source.addVolatile('crystalize');
+			}
+		},
+		condition: {
+			noCopy: true, // doesn't get copied by Baton Pass
+			duration: 1,
+			onStart(target) {
+				this.add('-start', target, 'ability: Crystalize');
+				this.effectState.damage = 0;
+			},
+			onDamagingHitOrder: 1,
+			onDamagingHit(damage, target, source, move) {
+				this.effectState.damage = 1.5 * damage;
+				this.damage(this.effectState.damage, source, target);
+			},
+			onEnd(target) {
+				this.add('-end', target, 'ability: Crystalize', '[silent]');
+			},
+		},
+		flags: {},
+		name: "Crystalize",
+		rating: 3,
+		shortDesc: "If this Pokémon uses a Rock-type move before the foe attacks, return 1.5x damage received to attackers for the rest of this turn.",
+	},
+	bellchoir: {
+		onAfterMoveSecondarySelf(source, target, move) {
+			if (move.flags['sound']) {
+				this.field.setTerrain('mistyterrain');
+			}
+		},
+		flags: {},
+		name: "Bell Choir",
+		rating: 3,
+		shortDesc: "Summons Misty Terrain after using a sound move.",
+	},
+	socialretreat: {
+		// placeholder
+		flags: {},
+		name: "Social Retreat",
+		rating: 3,
+		shortDesc: "Changes this Pokemon's secondary type to what best matches up against incoming moves.",
+	},
 };
