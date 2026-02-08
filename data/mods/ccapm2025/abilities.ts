@@ -117,6 +117,28 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 			}
 		},
 	},
+	stench: {
+		inherit: true,
+		onModifyMove(move) {
+			if (move.category !== "Status") {
+				this.debug('Adding Stench flinch');
+				if (!move.secondaries) move.secondaries = [];
+				for (const secondary of move.secondaries) {
+					if (secondary.volatileStatus === 'flinch') return;
+				}
+				move.secondaries.push({
+					chance: 10,
+					volatileStatus: 'flinch',
+					onHit(target, source, move) {
+						if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
+						if (source.species.name === 'Trubbish') {
+							source.formeChange('Trubbish-Mega-Dragon', this.effect, true);
+						}
+					},
+				});
+			}
+		},
+	},
 	thermalexchange: {
 		inherit: true,
 		onUpdate(pokemon) {
@@ -223,14 +245,6 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		name: "Stance Change",
 		rating: 4,
 		num: 176,
-	},
-	moltencore: {
-		/* onStart(pokemon) {
-		}, */
-		flags: { failroleplay: 1, noreceiver: 1, noentrain: 1, notrace: 1, failskillswap: 1, cantsuppress: 1 },
-		name: "Molten Core",
-		rating: 3.5,
-		shortDesc: "Magcargo: On switch-in, absorbs 1 layer of hazards and transforms; Hazard immunity.",
 	},
 	stackchange: {
 		onModifyMovePriority: 1,
@@ -897,9 +911,10 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 				pokemon.formeChange('Magcargo-Fractured', this.effect, false);
 			}
 		},
-		flags: { failroleplay: 1, noreceiver: 1, noentrain: 1, notrace: 1, failskillswap: 1, cantsuppress: 1, notransform: 1 },
-		name: "Tera Shift",
-		rating: 3,
+		name: "Molten Core",
+		rating: 3.5,
 		num: 307,
+		flags: { failroleplay: 1, noreceiver: 1, noentrain: 1, notrace: 1, failskillswap: 1, cantsuppress: 1 },
+		shortDesc: "Magcargo: On switch-in, absorbs 1 layer of hazards and transforms; Hazard immunity.",
 	},
 };

@@ -63,7 +63,7 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 		},
 		onAfterMoveSecondarySelf(pokemon, target, move) {
 			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
-			if (move.totalDamage == target.maxhp) {
+			if (pokemon.species.name === 'Mamoswine' && move.totalDamage == target.maxhp) {
 				pokemon.formeChange('Mamoswine-Overflow', this.effect, true);
 			}
 		},

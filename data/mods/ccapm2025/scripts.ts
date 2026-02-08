@@ -115,7 +115,6 @@ export const Scripts: ModdedBattleScriptsData = {
 			return true;
 		},
 		useMove(move: Move, pokemon: Pokemon) {
-
 			const success = this.useMoveInner(move, pokemon);
 			if (success && pokemon.species.name === 'Iron Valiant' &&
 				!pokemon.battle.ruleTable.tagRules.includes("+pokemontag:cap")) {
@@ -123,6 +122,13 @@ export const Scripts: ModdedBattleScriptsData = {
 				if (!pokemon.m.usedMoves.includes(move.id)) pokemon.m.usedMoves.push(move.id);
 				if (pokemon.moves.filter(name => pokemon.m.usedMoves.includes(name)).toString() === pokemon.moves.toString())
 					pokemon.formeChange('Iron Valiant-High-Judge', null, true);
+			}
+			if (success && pokemon.species.name === 'Mewtwo' &&
+				!pokemon.battle.ruleTable.tagRules.includes("+pokemontag:cap")) {
+				if (!pokemon.m.darkMoves) pokemon.m.darkMoves = 0;
+				if (move.type === 'Dark' && !pokemon.m.darkMoves.includes(move.id)) pokemon.m.darkMoves++;
+				if (pokemon.m.darkMoves >= 3)
+					pokemon.formeChange('Mewtwo-Evil-Scary', null, true);
 			}
 			return success;
 		},
