@@ -111,6 +111,8 @@ export const Scripts: ModdedBattleScriptsData = {
 				poke.draggedIn = null;
 				if (poke.species.name === 'Iron Valiant' && !pokemon.battle.ruleTable.tagRules.includes("+pokemontag:cap"))
 					pokemon.m.usedMoves = [];
+				if (poke.species.name === 'Sudowoodo' && !pokemon.battle.ruleTable.tagRules.includes("+pokemontag:cap"))
+					poke.m.grassMoves = 0;
 			}
 			return true;
 		},
@@ -126,9 +128,37 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (success && pokemon.species.name === 'Mewtwo' &&
 				!pokemon.battle.ruleTable.tagRules.includes("+pokemontag:cap")) {
 				if (!pokemon.m.darkMoves) pokemon.m.darkMoves = 0;
-				if (move.type === 'Dark' && !pokemon.m.darkMoves.includes(move.id)) pokemon.m.darkMoves++;
+				if (move.type === 'Dark') pokemon.m.darkMoves++;
 				if (pokemon.m.darkMoves >= 3)
 					pokemon.formeChange('Mewtwo-Evil-Scary', null, true);
+			}
+			if (success && pokemon.species.name === 'Volcanion' &&
+				!pokemon.battle.ruleTable.tagRules.includes("+pokemontag:cap")) {
+				if (!pokemon.m.steamMoves) pokemon.m.steamMoves = 0;
+				if ((move.type === 'Water' || move.type === 'Fire')) pokemon.m.steamMoves++;
+				if (pokemon.m.darkMoves >= 3)
+					pokemon.formeChange('Volcanion-Surge', null, true);
+			}
+			if (success && move.type === 'Grass' &&
+				!pokemon.battle.ruleTable.tagRules.includes("+pokemontag:cap")) {
+				for (let mon of pokemon.foes())
+				{
+					if (mon.species.name !== 'Sudowoodo') continue;
+					if (!mon.m.grassMoves) mon.m.grassMoves = 0;
+					mon.m.grassMoves++;
+					if (mon.m.grassMoves >= 2) {
+						mon.formeChange('Sudowoodo-Nopseudo', null, true);
+					}
+				}
+				for (let mon of pokemon.alliesAndSelf())
+				{
+					if (mon.species.name !== 'Sudowoodo') continue;
+					if (!mon.m.grassMoves) mon.m.grassMoves = 0;
+					mon.m.grassMoves++;
+					if (mon.m.grassMoves >= 2) {
+						mon.formeChange('Sudowoodo-Nopseudo', null, true);
+					}
+				}
 			}
 			return success;
 		},

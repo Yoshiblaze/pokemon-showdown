@@ -917,4 +917,29 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		flags: { failroleplay: 1, noreceiver: 1, noentrain: 1, notrace: 1, failskillswap: 1, cantsuppress: 1 },
 		shortDesc: "Magcargo: On switch-in, absorbs 1 layer of hazards and transforms; Hazard immunity.",
 	},
+	growingbitterness: {
+		onStart(pokemon) {
+			if (!this.effectState.counter)
+			{
+				this.add('-start', pokemon, 'ability: Growing Bitterness');
+				this.effectState.counter = 8;
+			}
+		},
+		onResidualOrder: 28,
+		onResidualSubOrder: 2,
+		onResidual(pokemon) {
+			if (pokemon.activeTurns && this.effectState.counter) {
+				this.effectState.counter--;
+				if (!this.effectState.counter) {
+					this.add('-end', pokemon, 'Growing Bitterness');
+					delete this.effectState.counter;
+					source.formeChange('Weavile-Frost', null, true);
+				}
+			}
+		},
+		flags: {},
+		name: "Growing Bitterness",
+		rating: 0,
+		num: 1112,
+	},
 };
