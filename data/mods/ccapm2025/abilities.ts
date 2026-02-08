@@ -881,4 +881,25 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		rating: 3.5,
 		shortDesc: "Blaziken-Wildfire: 1.5x Atk & SpA. Reverts to base Blaziken after 2 turns.",
 	},
+	moltencore: {
+		onSwitchInPriority: 2,
+		onSwitchIn(pokemon) {
+			if (pokemon.baseSpecies.baseSpecies !== 'Magcargo') return;
+			const sideConditions = ['spikes', 'toxicspikes', 'stealthrock', 'stickyweb', 'gmaxsteelsurge'];
+			const activeHazards = sideConditions.filter(hazard => !pokemon.side.sideConditions[hazard]);
+			if (activeHazards.length > 0) {
+				const randomHazard = activeHazards[this.random(activeHazards.length)];
+				this.add('-sideend', pokemon.side, this.dex.conditions.get(randomHazard).name, '[from] move: Rapid Spin', `[of] ${pokemon}`);
+				// This should probably be one layer of (Toxic) Spikes. Not implemented for now
+			}
+			if (pokemon.species.forme !== 'Fractured') {
+				this.add('-activate', pokemon, 'ability: Molten Core');
+				pokemon.formeChange('Magcargo-Fractured', this.effect, false);
+			}
+		},
+		flags: { failroleplay: 1, noreceiver: 1, noentrain: 1, notrace: 1, failskillswap: 1, cantsuppress: 1, notransform: 1 },
+		name: "Tera Shift",
+		rating: 3,
+		num: 307,
+	},
 };

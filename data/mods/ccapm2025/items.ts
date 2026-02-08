@@ -51,6 +51,24 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 		shortDesc: "If held by a Flygon, this item allows it to Mega Evolve in battle.",
 		num: -3,
 	},
+	mysterioustusk: {
+		name: "Mysterious Tusk",
+		spritenum: 382,
+		onTakeItem(item, pokemon, source) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
+			if (source?.baseSpecies.name === 'Mamoswine') {
+				return false;
+			}
+			return true;
+		},
+		onAfterMoveSecondarySelf(pokemon, target, move) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
+			if (move.totalDamage == target.maxhp) {
+				pokemon.formeChange('Mamoswine-Overflow', this.effect, true);
+			}
+		},
+		gen: 9,
+	},
 	pixiedustmask: {
 		name: "Pixiedust Mask",
 		spritenum: 759,

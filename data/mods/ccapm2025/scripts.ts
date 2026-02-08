@@ -3,6 +3,9 @@ import {RESTORATIVE_BERRIES} from "../../../sim/pokemon";
 export const Scripts: ModdedBattleScriptsData = {
 	gen: 9,
 	init() {
+		for (let mon in this.species.all()) {
+			this.modData("Learnsets", mon).learnset.holdhands = ["9L1"];
+		}
 		this.modData("Learnsets", "alcremie").learnset.acidarmor = ["9L1"];
 		this.modData("Learnsets", "drifblim").learnset.hurricane = ["9L1"];
 		this.modData("Learnsets", "drifblim").learnset.infernalparade = ["9L1"];
@@ -112,6 +115,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			return true;
 		},
 		useMove(move: Move, pokemon: Pokemon) {
+
 			const success = this.useMoveInner(move, pokemon);
 			if (success && pokemon.species.name === 'Iron Valiant' &&
 				!pokemon.battle.ruleTable.tagRules.includes("+pokemontag:cap")) {
@@ -404,7 +408,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					case "sitrusberry":
 						const side = this.side.foe
 						if (!side.sideConditions['stickyweb']) {
-							side.addSideCondition('toxicspikes', this.foes()[0]);
+							side.addSideCondition('stickyweb', this.foes()[0]);
 						}
 						break;
 					case "wikiberry":
