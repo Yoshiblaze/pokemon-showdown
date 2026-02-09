@@ -1386,6 +1386,11 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 			if (move.willChangeForme) {
 				const lF = pokemon.species.id === 'landorustherianancestral' ? 'Landorus-Therian' : 'Landorus';
 				pokemon.formeChange(speciesid, this.effect, true);
+				if (pokemon.species.name === 'Landorus-Therian') {
+					pokemon.setAbility('intimidate', pokemon);
+				} else if (pokemon.species.name === 'Landorus') {
+					pokemon.setAbility('sheerforce', pokemon);
+				}
 			}
 		},
 		secondary: {
@@ -1429,6 +1434,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 			if (move.willChangeForme) {
 				const lF = pokemon.species.id === 'landorustherian' ? 'Landorus-Therian-Ancestral' : 'Landorus-Ancestral';
 				pokemon.formeChange(speciesid, this.effect, true);
+				pokemon.setAbility('download', pokemon);
 			}
 		},
 		secondary: {
