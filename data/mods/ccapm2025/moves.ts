@@ -1374,21 +1374,20 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		onPrepareHit(target, source) {
 			this.add('-anim', source, 'Dragon Rage', target);
 		},
-		/* onHit(target, pokemon, move) {
-			if (this.effectState.bigZera) return;
-			if (pokemon.baseSpecies.baseSpecies === 'Zeraora' &&
-				 pokemon.volatiles['charge'] &&
-				 !pokemon.transformed) {
+		onHit(target, pokemon, move) {
+			if (this.effectState.landoI) return;
+			if (pokemon.baseSpecies.baseSpecies === 'Landorus' && pokemon.transformed) {
 				move.willChangeForme = true;
-				this.effectState.bigZera = true;
+				this.effectState.landoT = false;
+				this.effectState.landoI = true;
 			}
 		},
 		onAfterMoveSecondarySelf(pokemon, target, move) {
 			if (move.willChangeForme) {
-				const zeraForme = pokemon.species.id === 'zeraorabig' ? '' : '-Big';
-				pokemon.formeChange('Zeraora' + zeraForme, this.effect, false, '0', '[msg]');
+				const lF = pokemon.species.id === 'landorustherianancestral' ? 'Landorus-Therian' : 'Landorus';
+				pokemon.formeChange(speciesid, this.effect, true);
 			}
-		}, */
+		},
 		secondary: {
 			chance: 100,
 			self: {
@@ -1418,21 +1417,20 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		onPrepareHit(target, source) {
 			this.add('-anim', source, 'Dragon Rage', target);
 		},
-		/* onHit(target, pokemon, move) {
-			if (this.effectState.bigZera) return;
-			if (pokemon.baseSpecies.baseSpecies === 'Zeraora' &&
-				 pokemon.volatiles['charge'] &&
-				 !pokemon.transformed) {
+		onHit(target, pokemon, move) {
+			if (this.effectState.landoT) return;
+			if (pokemon.baseSpecies.baseSpecies === 'Landorus' && !pokemon.transformed) {
 				move.willChangeForme = true;
-				this.effectState.bigZera = true;
+				this.effectState.landoT = true;
+				this.effectState.landoI = false;
 			}
 		},
 		onAfterMoveSecondarySelf(pokemon, target, move) {
 			if (move.willChangeForme) {
-				const zeraForme = pokemon.species.id === 'zeraorabig' ? '' : '-Big';
-				pokemon.formeChange('Zeraora' + zeraForme, this.effect, false, '0', '[msg]');
+				const lF = pokemon.species.id === 'landorustherian' ? 'Landorus-Therian-Ancestral' : 'Landorus-Ancestral';
+				pokemon.formeChange(speciesid, this.effect, true);
 			}
-		}, */
+		},
 		secondary: {
 			chance: 100,
 			self: {
