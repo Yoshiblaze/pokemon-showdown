@@ -22,6 +22,9 @@ export const Rulesets: import('../../../sim/dex-formats').ModdedFormatDataTable 
 		onStart(pokemon) {
 			if (pokemon.species.name === "Samurott" && pokemon.side.totalFainted >= 3) {
 				pokemon.formeChange('Samurott-Overlord', null, true);
+			} else if (pokemon.species.name === "Luvdisc" && pokemon.side.totalFainted >= 5) {
+				pokemon.formeChange('Luvdisc-Heartbreak', null, true);
+				pokemon.setAbility('pixilate', pokemon);
 			}
 		},
 		onWeather(target, source, effect) {
@@ -73,6 +76,11 @@ export const Rulesets: import('../../../sim/dex-formats').ModdedFormatDataTable 
 			if (speedUp && target.species.name === "Blaziken") {
 				target.formeChange('Blaziken-Wildfire', null, true);
 				target.setAbility('burnout', target);
+			}
+			if (effect?.name === 'Fiery Dance' && boost.spa &&
+				 source.species.name === "Blaziken") {
+				source.formeChange('Volcarona-Radiant', null, true);
+				source.setAbility('desolateland', source);
 			}
 		},
 		onAfterMoveSecondarySelf(source, target, move) {
@@ -131,9 +139,22 @@ export const Rulesets: import('../../../sim/dex-formats').ModdedFormatDataTable 
 					this.effectState.auraTriggered = true;
 				}
 			} else if (source.species.name === "Octillery") {
-				if (effect && effect.effectType === 'Move' &&
+				if (effect && effect.effectType === 'Move' && target.getMoveHitData(move).crit) {
 					source.formeChange('Octillery-Sharpshooter', null, true);
-					source.setAbility('focusedfire', target);
+					source.setAbility('focusedfire', source);
+				}
+			}
+		},
+		onUpdate(pokemon) {
+			for (const target of pokemon.adjacentFoes()) {
+				if ((target.status === 'psn' || target.status === 'tox') &&
+					 pokemon.species.name === "Pecharunt") {
+					pokemon.formeChange('Pecharunt-Puppetmaster', null, true);
+					pokemon.setAbility('intimidate', pokemon);
+				} else if (target.status !== 'psn' && !arget.status === 'tox' &&
+					 pokemon.species.name === "Pecharunt-Puppetmaster") {
+					pokemon.formeChange('Pecharunt', null, true);
+					pokemon.setAbility('poisonpuppeteer', pokemon);
 				}
 			}
 		},
