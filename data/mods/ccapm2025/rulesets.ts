@@ -78,7 +78,7 @@ export const Rulesets: import('../../../sim/dex-formats').ModdedFormatDataTable 
 				target.setAbility('burnout', target);
 			}
 			if (effect?.name === 'Fiery Dance' && boost.spa &&
-				 source.species.name === "Blaziken") {
+				 source.species.name === "Volcarona") {
 				source.formeChange('Volcarona-Radiant', null, true);
 				source.setAbility('desolateland', source);
 			}
