@@ -73,6 +73,14 @@ export const Rulesets: import('../../../sim/dex-formats').ModdedFormatDataTable 
 				}
 			}
 		},
+		onAnyDamage(damage, target, source, effect) {
+			if (!this.ruleTable.tagRules.includes("+pokemontag:cap")) {
+				if (target.species.name === "Victini" && target.hp - damage <= target.maxhp / 4 && target.hp - damage > 0) {
+					target.formeChange('Victini-Victorious', null, true);
+					target.setAbility('victoryfinale', target);
+				}
+			}
+		},
 		onAfterBoost(boost, target, source, effect) {
 			if (!this.ruleTable.tagRules.includes("+pokemontag:cap")) {
 				let speedUp = false;

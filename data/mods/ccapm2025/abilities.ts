@@ -320,26 +320,6 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		rating: 5,
 		shortDesc: "Effects Tough Claws + Gale Wings (Gen 6).",
 	},
-	stench: {
-		onModifyMovePriority: -1,
-		onModifyMove(move) {
-			if (move.category !== "Status") {
-				this.debug('Adding Stench flinch');
-				if (!move.secondaries) move.secondaries = [];
-				for (const secondary of move.secondaries) {
-					if (secondary.volatileStatus === 'flinch') return;
-				}
-				move.secondaries.push({
-					chance: 20,
-					volatileStatus: 'flinch',
-				});
-			}
-		},
-		flags: {},
-		name: "Stench",
-		rating: 1.5,
-		shortDesc: "This Pokemon's attacks without a chance to make the target flinch gain a 20% chance to make the target flinch.",
-	},
 	victoryfinale: {
 		onAnyModifyAccuracyPriority: -1,
 		onAnyModifyAccuracy(accuracy, target, source) {
@@ -933,7 +913,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 				if (!this.effectState.counter) {
 					this.add('-end', pokemon, 'Growing Bitterness');
 					delete this.effectState.counter;
-					source.formeChange('Weavile-Frost', null, true);
+					pokemon.formeChange('Weavile-Frost', null, true);
 				}
 			}
 		},
