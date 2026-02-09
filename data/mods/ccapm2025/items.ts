@@ -79,7 +79,7 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 			if (move && target.getMoveHitData(move).typeMod > 0 && !target.transformed) {
 				target.formeChange('Parasect-Wicked', this.effect, true);
 				this.damage(target.baseMaxhp / 8);
-				target.addVolatile('berserk'); // change to trySetStatus if that's how we end up coding it
+				target.trySetStatus('ber');
 				target.useItem();
 				return 0;
 			}
@@ -102,6 +102,44 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 		shortDesc: "Aurorus: Hazard immunity, changes its form after 1 turn.",
 		num: -6,
 		gen: 9,
+	},
+	berserkgene: {
+		name: "Berserk Gene",
+		spritenum: 388,
+		onStart(pokemon) {
+			if (pokemon.useItem()) {
+				pokemon.trySetStatus('ber');
+			}
+		},
+		boosts: {},
+		num: 0,
+		gen: 2,
+		isNonstandard: null,
+		shortDesc: "Makes the holder go berserk on switch-in. Single use.",
+	},
+	venomstake: {
+		name: "Venom Stake",
+		spritenum: 515,
+		fling: {
+			basePower: 40,
+			status: 'tox',
+		},
+		onResidualOrder: 28,
+		onResidualSubOrder: 3,
+		onResidual(pokemon) {
+			pokemon.trySetStatus('tox', pokemon);
+			this.damage(pokemon.baseMaxhp / 8);
+		},
+		onHit(target, source, move) {
+			if (source && source !== target && !source.item && move && this.checkMoveMakesContact(move, source, target)) {
+				const stake = target.takeItem();
+				if (!stake) return; // Gen 4 Multitype
+				source.setItem(stake);
+				// no message for Sticky Barb changing hands
+			}
+		},
+		num: -7,
+		shortDesc: "Effects of Toxic Orb and Sticky Barb.",
 	},
 	buggem: {
 		inherit: true,
