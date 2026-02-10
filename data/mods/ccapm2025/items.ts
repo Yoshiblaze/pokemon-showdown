@@ -113,7 +113,7 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 			if (move && target.getMoveHitData(move).typeMod > 0 && !target.transformed) {
 				target.formeChange('Parasect-Wicked', this.effect, true);
 				this.damage(target.baseMaxhp / 8);
-				target.addVolatile('berserk'); // change to trySetStatus if that's how we end up coding it
+				target.trySetStatus('ber');
 				target.useItem();
 				return 0;
 			}
@@ -136,6 +136,44 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 		shortDesc: "Aurorus: Hazard immunity, changes its form after 1 turn.",
 		num: -6,
 		gen: 9,
+	},
+	berserkgene: {
+		name: "Berserk Gene",
+		spritenum: 388,
+		onStart(pokemon) {
+			if (pokemon.useItem()) {
+				pokemon.trySetStatus('ber');
+			}
+		},
+		boosts: {},
+		num: 0,
+		gen: 2,
+		isNonstandard: null,
+		shortDesc: "Makes the holder go berserk on switch-in. Single use.",
+	},
+	venomstake: {
+		name: "Venom Stake",
+		spritenum: 515,
+		fling: {
+			basePower: 40,
+			status: 'tox',
+		},
+		onResidualOrder: 28,
+		onResidualSubOrder: 3,
+		onResidual(pokemon) {
+			pokemon.trySetStatus('tox', pokemon);
+			this.damage(pokemon.baseMaxhp / 8);
+		},
+		onHit(target, source, move) {
+			if (source && source !== target && !source.item && move && this.checkMoveMakesContact(move, source, target)) {
+				const stake = target.takeItem();
+				if (!stake) return; // Gen 4 Multitype
+				source.setItem(stake);
+				// no message for Sticky Barb changing hands
+			}
+		},
+		num: -7,
+		shortDesc: "Effects of Toxic Orb and Sticky Barb.",
 	},
 	buggem: {
 		inherit: true,
@@ -527,5 +565,47 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 				source.addVolatile('gem');
 			}
 		},
+	},
+	// advent
+	gingerite: {
+		name: "Gingerite",
+		spritenum: 576,
+		megaStone: { "Gingertar": "Gingertar-Mega" },
+		itemUser: ["Gingertar"],
+		onTakeItem(item, source) {
+			return !item.megaStone?.[source.baseSpecies.baseSpecies];
+		},
+		gen: 9,
+		shortDesc: "If held by a Gingertar, this item allows it to Mega Evolve in battle.",
+		num: -1000,
+	},
+	dulceirenite: {
+		name: "Dulceirenite",
+		spritenum: 576,
+		megaStone: { "Dulceirene": "Dulceirene-Mega" },
+		itemUser: ["Dulceirene"],
+		onTakeItem(item, source) {
+			return !item.megaStone?.[source.baseSpecies.baseSpecies];
+		},
+		gen: 9,
+		shortDesc: "If held by a Dulceirene, this item allows it to Mega Evolve in battle.",
+		num: -1001,
+	},
+	picktreelite: {
+		name: "Picktreelite",
+		spritenum: 576,
+		megaStone: { "Picktreebel": "Picktreebel-Mega" },
+		itemUser: ["Picktreebel"],
+		onTakeItem(item, source) {
+			return !item.megaStone?.[source.baseSpecies.baseSpecies];
+		},
+		gen: 9,
+		shortDesc: "If held by a Picktreebel, this item allows it to Mega Evolve in battle.",
+		num: -1002,
+	},
+	sablenite: {
+		inherit: true,
+		megaStone: { "Sableye-Festive": "Sableye-Festive-Mega" },
+		itemUser: ["Sableye-Festive"],
 	},
 };

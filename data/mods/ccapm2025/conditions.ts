@@ -135,4 +135,47 @@ export const Conditions: import('../../../sim/dex-conditions').ModdedConditionDa
 			this.add('-end', target, 'restoring');
 		},
 	},
+	// advent
+	gingerstorm: {
+		name: 'Gingerstorm',
+		effectType: 'Weather',
+		duration: 5,
+		// This should be applied directly to the stat before any of the other modifiers are chained
+		// So we give it increased priority.
+		onModifyDefPriority: 10,
+		onModifyDef(def, pokemon) {
+			if (pokemon.hasType('Fire') && this.field.isWeather('gingerstorm')) {
+				return this.modify(def, 1.5);
+			}
+		},
+		onFieldStart(field, source, effect) {
+			if (effect?.effectType === 'Ability') {
+				if (this.gen <= 5) this.effectState.duration = 0;
+				this.add('-weather', 'Gingerstorm', '[from] ability: ' + effect.name, `[of] ${source}`);
+			} else {
+				this.add('-weather', 'Gingerstorm');
+			}
+			this.add('-message', `${source} whipped up a gingerstorm!`);
+		},
+		onFieldResidualOrder: 1,
+		onFieldResidual() {
+			this.add('-weather', 'Gingerstorm', '[upkeep]');
+			this.add('-message', `The gingerstorm continues!`);
+			if (this.field.isWeather('gingerstorm')) this.eachEvent('Weather');
+		},
+		onWeather(target) {
+			if (target.hasType('Fire')) return;
+			if (target.status === 'brn') {
+				this.damage(target.baseMaxhp / 8);
+				this.add('-message', `${target.name} was buffeted by the gingerstorm!`);
+			} else {
+				this.damage(target.baseMaxhp / 16);
+				this.add('-message', `${target.name} was buffeted by the gingerstorm!`);
+			}
+		},
+		onFieldEnd() {
+			this.add('-weather', 'none');
+			this.add('-message', `The gingerstorm subsided...`);
+		},
+	},
 };

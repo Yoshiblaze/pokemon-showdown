@@ -329,4 +329,271 @@ export const FormatsData: import('../../../sim/dex-species').ModdedSpeciesFormat
 		tier: "OU",
 		doublesTier: "DOU",
 	},
+	strobite: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+		doublesTier: "CAP",
+	},
+	xurkitreesinnoh: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+		doublesTier: "CAP",
+	},
+	sandta: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+
+		doublesTier: "CAP",
+	},
+	eiscuesnowcone: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+		doublesTier: "CAP",
+	},
+	cardemelli: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+		doublesTier: "CAP",
+	},
+	gingertar: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+		doublesTier: "CAP",
+	},
+	gingertarmega: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+		doublesTier: "CAP",
+	},
+	nuzcracker: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+		doublesTier: "CAP",
+	},
+	smorgasbag: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+		doublesTier: "CAP",
+	},
+	sableyefestive: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+		doublesTier: "CAP",
+	},
+	mariahcarey: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+		doublesTier: "CAP",
+	},
+	draydol: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+		doublesTier: "CAP",
+	},
+	gamesi: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+		doublesTier: "CAP",
+	},
+	vipux: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+		doublesTier: "CAP",
+	},
+	popsicelf: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+		doublesTier: "CAP",
+	},
+	bellbeque: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+		doublesTier: "CAP",
+	},
+	chorislam: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+		doublesTier: "CAP",
+	},
+	gholdengofestive: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+		doublesTier: "CAP",
+	},
+	indeedeecook: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+		doublesTier: "CAP",
+	},
+	dulceirene: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+		doublesTier: "CAP",
+	},
+	dulceirenemega: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+		doublesTier: "CAP",
+	},
+	wreith: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+		doublesTier: "CAP",
+	},
+	eternalflowerwreith: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+		doublesTier: "CAP",
+	},
+	clamperlalola: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+		doublesTier: "CAP",
+	},
+	goodybyss: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+		doublesTier: "CAP",
+	},
+	naughtail: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+		doublesTier: "CAP",
+	},
+	gospiel: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+		doublesTier: "CAP",
+	},
+	rusalvia: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+		doublesTier: "CAP",
+	},
+	seraphexe: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+		doublesTier: "CAP",
+	},
+	mirrelette: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+		doublesTier: "CAP",
+	},
+	klefkimccallister: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+		doublesTier: "CAP",
+	},
+	sacchamorte: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+		doublesTier: "CAP",
+	},
+	treench: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+		doublesTier: "CAP",
+	},
+	grincheartcaged: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+		doublesTier: "CAP",
+	},
+	grincheartgrown: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+		doublesTier: "CAP",
+	},
+	lelitoccia: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+		doublesTier: "CAP",
+	},
+	deckherd: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+		doublesTier: "CAP",
+	},
+	caneine: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+		doublesTier: "CAP",
+	},
+	picktreebel: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+		doublesTier: "CAP",
+	},
+	picktreebelmega: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+		doublesTier: "CAP",
+	},
+	twinklingshade: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+		doublesTier: "CAP",
+	},
+	irontwilight: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+		doublesTier: "CAP",
+	},
+	faerwork: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+		doublesTier: "CAP",
+	},
+	antaron: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+		doublesTier: "CAP",
+	},
+	snowglob: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+		doublesTier: "CAP",
+	},
+	dinjingle: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+		doublesTier: "CAP",
+	},
+	guywithsweater: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+		doublesTier: "CAP",
+	},
+	gristletoe: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+		doublesTier: "CAP",
+	},
+	aegibashpolar: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+		doublesTier: "CAP",
+	},
+	gingermason: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+		doublesTier: "CAP",
+	},
+	swadloonfestive: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+		doublesTier: "CAP",
+	},
+	leavannyfestive: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+		doublesTier: "CAP",
+	},
+	mausholddysfunctional: {
+		isNonstandard: "CAP",
+		tier: "CAP",
+		doublesTier: "CAP",
+	},
+
 };

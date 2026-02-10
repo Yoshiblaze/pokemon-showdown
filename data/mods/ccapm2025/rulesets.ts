@@ -27,6 +27,10 @@ export const Rulesets: import('../../../sim/dex-formats').ModdedFormatDataTable 
 				if (pokemon.species.name === "Jirachi" && (pokemon.side as any).holdHandsUsers.length >= 2) {
 					pokemon.formeChange('Jirachi-Harmonic', null, true);
 				}
+        if (pokemon.species.name === "Luvdisc" && pokemon.side.totalFainted >= 5) {
+				  pokemon.formeChange('Luvdisc-Heartbreak', null, true);
+				  pokemon.setAbility('pixilate', pokemon);
+        }
 			}
 		},
 		onWeather(target, source, effect) {
@@ -101,6 +105,11 @@ export const Rulesets: import('../../../sim/dex-formats').ModdedFormatDataTable 
 					target.setAbility('burnout', target);
 				}
 			}
+			if (effect?.name === 'Fiery Dance' && boost.spa &&
+				 source.species.name === "Volcarona") {
+				source.formeChange('Volcarona-Radiant', null, true);
+				source.setAbility('desolateland', source);
+			}
 		},
 		onAfterMoveSecondarySelf(source, target, move) {
 			if (!this.ruleTable.tagRules.includes("+pokemontag:cap")) {
@@ -148,24 +157,36 @@ export const Rulesets: import('../../../sim/dex-formats').ModdedFormatDataTable 
 			}
 		},
 		onSourceAfterFaint(length, target, source, effect) {
-			if (!this.ruleTable.tagRules.includes("+pokemontag:cap")) {
-				if (source.species.id === 'lucario') {
-					if (this.effectState.auraTriggered) return;
-					if (effect?.effectType !== 'Move') {
-						return;
-					}
-					if (source.hp && !source.transformed && source.side.foePokemonLeft()) {
-						this.add('-activate', source, 'ability: Aura Bond');
-						// the ability isn't real
-						source.formeChange('Lucario-Aura Bond', this.effect, true);
-						source.setAbility('aurapartner', source);
-						source.formeRegression = true;
-						this.effectState.auraTriggered = true;
-					}
-				} else if (source.species.name === "Octillery") {
-					if (effect && effect.effectType === 'Move' &&
-						source.formeChange('Octillery-Sharpshooter', null, true))
-						source.setAbility('focusedfire', target);
+			if (source.species.id === 'lucario') {
+				if (this.effectState.auraTriggered) return;
+				if (effect?.effectType !== 'Move') {
+					return;
+				}
+				if (source.hp && !source.transformed && source.side.foePokemonLeft()) {
+					this.add('-activate', source, 'ability: Aura Bond');
+					// the ability isn't real
+					source.formeChange('Lucario-Aura Bond', this.effect, true);
+					source.setAbility('aurapartner', source);
+					source.formeRegression = true;
+					this.effectState.auraTriggered = true;
+				}
+			} else if (source.species.name === "Octillery") {
+				if (effect && effect.effectType === 'Move' && target.getMoveHitData(move).crit) {
+					source.formeChange('Octillery-Sharpshooter', null, true);
+					source.setAbility('focusedfire', source);
+				}
+			}
+		},
+		onUpdate(pokemon) {
+			for (const target of pokemon.adjacentFoes()) {
+				if ((target.status === 'psn' || target.status === 'tox') &&
+					 pokemon.species.name === "Pecharunt") {
+					pokemon.formeChange('Pecharunt-Puppetmaster', null, true);
+					pokemon.setAbility('intimidate', pokemon);
+				} else if (target.status !== 'psn' && !arget.status === 'tox' &&
+					 pokemon.species.name === "Pecharunt-Puppetmaster") {
+					pokemon.formeChange('Pecharunt', null, true);
+					pokemon.setAbility('poisonpuppeteer', pokemon);
 				}
 			}
 		},
