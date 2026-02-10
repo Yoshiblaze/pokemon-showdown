@@ -33,7 +33,7 @@ export const Conditions: import('../../../sim/dex-conditions').ModdedConditionDa
 			for (const pokemon of this.getAllPokemon()) {
 				if (pokemon.species.id === 'wyrdeer') {
 					pokemon.formeChange('Wyrdeer-Snowblind', this.effect, true);
-					pokemon.setAbility('heartofcold', pokemon, true);
+					pokemon.setAbility('heartofcold', pokemon, true); // error?
 					this.add('-activate', pokemon, 'ability: Heart of Cold');
 				}
 			}
