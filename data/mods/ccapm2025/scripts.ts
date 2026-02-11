@@ -1,8 +1,11 @@
 import type { Pokemon } from "../../../sim";
-
+import {RESTORATIVE_BERRIES} from "../../../sim/pokemon";
 export const Scripts: ModdedBattleScriptsData = {
 	gen: 9,
 	init() {
+		for (let mon in this.species.all()) {
+			this.modData("Learnsets", mon).learnset.holdhands = ["9L1"];
+		}
 		this.modData("Learnsets", "alcremie").learnset.acidarmor = ["9L1"];
 		this.modData("Learnsets", "drifblim").learnset.hurricane = ["9L1"];
 		this.modData("Learnsets", "drifblim").learnset.infernalparade = ["9L1"];
@@ -92,8 +95,25 @@ export const Scripts: ModdedBattleScriptsData = {
 			return null;
 		},
 		runSwitch(pokemon: Pokemon) {
-			if (pokemon.species.name === 'Iron Valiant' && !pokemon.battle.ruleTable.tagRules.includes("+pokemontag:cap"))
-				pokemon.m.usedMoves = [];
+			const switchersIn = [pokemon];
+			while (this.battle.queue.peek()?.choice === 'runSwitch') {
+				const nextSwitch = this.battle.queue.shift();
+				switchersIn.push(nextSwitch!.pokemon!);
+			}
+			const allActive = this.battle.getAllActive(true);
+			this.battle.speedSort(allActive);
+			this.battle.speedOrder = allActive.map(a => a.side.n * a.battle.sides.length + a.position);
+			this.battle.fieldEvent('SwitchIn', switchersIn);
+
+			for (const poke of switchersIn) {
+				if (!poke.hp) continue;
+				poke.isStarted = true;
+				poke.draggedIn = null;
+				if (poke.species.name === 'Iron Valiant' && !pokemon.battle.ruleTable.tagRules.includes("+pokemontag:cap"))
+					pokemon.m.usedMoves = [];
+				if (poke.species.name === 'Sudowoodo' && !pokemon.battle.ruleTable.tagRules.includes("+pokemontag:cap"))
+					poke.m.grassMoves = 0;
+			}
 			return true;
 		},
 		useMove(move: Move, pokemon: Pokemon) {
@@ -104,6 +124,41 @@ export const Scripts: ModdedBattleScriptsData = {
 				if (!pokemon.m.usedMoves.includes(move.id)) pokemon.m.usedMoves.push(move.id);
 				if (pokemon.moves.filter(name => pokemon.m.usedMoves.includes(name)).toString() === pokemon.moves.toString())
 					pokemon.formeChange('Iron Valiant-High-Judge', null, true);
+			}
+			if (success && pokemon.species.name === 'Mewtwo' &&
+				!pokemon.battle.ruleTable.tagRules.includes("+pokemontag:cap")) {
+				if (!pokemon.m.darkMoves) pokemon.m.darkMoves = 0;
+				if (move.type === 'Dark') pokemon.m.darkMoves++;
+				if (pokemon.m.darkMoves >= 3)
+					pokemon.formeChange('Mewtwo-Evil-Scary', null, true);
+			}
+			if (success && pokemon.species.name === 'Volcanion' &&
+				!pokemon.battle.ruleTable.tagRules.includes("+pokemontag:cap")) {
+				if (!pokemon.m.steamMoves) pokemon.m.steamMoves = 0;
+				if ((move.type === 'Water' || move.type === 'Fire')) pokemon.m.steamMoves++;
+				if (pokemon.m.darkMoves >= 3)
+					pokemon.formeChange('Volcanion-Surge', null, true);
+			}
+			if (success && move.type === 'Grass' &&
+				!pokemon.battle.ruleTable.tagRules.includes("+pokemontag:cap")) {
+				for (let mon of pokemon.foes())
+				{
+					if (mon.species.name !== 'Sudowoodo') continue;
+					if (!mon.m.grassMoves) mon.m.grassMoves = 0;
+					mon.m.grassMoves++;
+					if (mon.m.grassMoves >= 2) {
+						mon.formeChange('Sudowoodo-Nopseudo', null, true);
+					}
+				}
+				for (let mon of pokemon.alliesAndSelf())
+				{
+					if (mon.species.name !== 'Sudowoodo') continue;
+					if (!mon.m.grassMoves) mon.m.grassMoves = 0;
+					mon.m.grassMoves++;
+					if (mon.m.grassMoves >= 2) {
+						mon.formeChange('Sudowoodo-Nopseudo', null, true);
+					}
+				}
 			}
 			return success;
 		},
@@ -296,5 +351,113 @@ export const Scripts: ModdedBattleScriptsData = {
 
 			return true;
 		},
+		eatItem(this: Pokemon, force?: boolean, source?: Pokemon, sourceEffect?: Effect) {
+			if (!this.item) return false;
+			if ((!this.hp && this.item !== 'jabocaberry' && this.item !== 'rowapberry') || !this.isActive) return false;
+
+			if (!sourceEffect && this.battle.effect) sourceEffect = this.battle.effect;
+			if (!source && this.battle.event?.target) source = this.battle.event.target;
+			const item = this.getItem();
+			if (sourceEffect?.effectType === 'Item' && this.item !== sourceEffect.id && source === this) {
+				// if an item is telling us to eat it but we aren't holding it, we probably shouldn't eat what we are holding
+				return false;
+			}
+			if (
+				this.battle.runEvent('UseItem', this, null, null, item) &&
+				(force || this.battle.runEvent('TryEatItem', this, null, null, item))
+			) {
+				this.battle.add('-enditem', this, item, '[eat]');
+
+				this.battle.singleEvent('Eat', item, this.itemState, this, source, sourceEffect);
+				this.battle.runEvent('EatItem', this, source, sourceEffect, item);
+
+				if (RESTORATIVE_BERRIES.has(item.id)) {
+					switch (this.pendingStaleness) {
+					case 'internal':
+						if (this.staleness !== 'external') this.staleness = 'internal';
+						break;
+					case 'external':
+						this.staleness = 'external';
+						break;
+					}
+					this.pendingStaleness = undefined;
+				}
+
+				this.lastItem = this.item;
+				this.item = '';
+				this.battle.clearEffectState(this.itemState);
+				this.usedItemThisTurn = true;
+				this.ateBerry = true;
+				if (this.species.baseSpecies === 'Alcremie' && !this.battle.ruleTable.tagRules.includes("+pokemontag:cap")) {
+					switch(this.species.id) {
+					case "alcremierubycream":
+						this.formeChange('Alcremie-Sweetened-Ruby-Cream', null, true);
+						break;
+					case "alcremiematchacream":
+						this.formeChange('Alcremie-Sweetened-Matcha-Cream', null, true);
+						break;
+					case "alcremiemintcream":
+						this.formeChange('Alcremie-Sweetened-Mint-Cream', null, true);
+						break;
+					case "alcremielemoncream":
+						this.formeChange('Alcremie-Sweetened-Lemon-Cream', null, true);
+						break;
+					case "alcremiesaltedcream":
+						this.formeChange('Alcremie-Sweetened-Salted-Cream', null, true);
+						break;
+					case "alcremierubyswirl":
+						this.formeChange('Alcremie-Sweetened-Ruby-Swirl', null, true);
+						break;
+					case "alcremiecaramelswirl":
+						this.formeChange('Alcremie-Sweetened-Caramel-Swirl', null, true);
+						break;
+					case "alcremierainbowswirl":
+						this.formeChange('Alcremie-Sweetened-Rainbow-Swirl', null, true);
+						break;
+					default:
+						this.formeChange('Alcremie-Sweetened', null, true);
+						break;
+					}
+
+					switch(this.lastItem) {
+					case "aguavberry":
+						this.battle.boost({ spd: 1 }, this);
+						break;
+					case "enigmaberry":
+						const type = this.battle.dex.types.names()[this.battle.random(18)];
+						if (this.hasType(type)) return false;
+						if (!this.addType(type)) return false;
+						this.battle.add('-start', this, 'typeadd', type);
+						break;
+					case "figyberry":
+						this.battle.boost({ atk: 1 }, this);
+						break;
+					case "iapapaberry":
+						this.battle.boost({ def: 1 }, this);
+						break;
+					case "magoberry":
+						this.battle.boost({ spe: 1 }, this);
+						break;
+					case "oranberry":
+						this.heal(this.maxhp);
+						break;
+					case "sitrusberry":
+						const side = this.side.foe
+						if (!side.sideConditions['stickyweb']) {
+							side.addSideCondition('stickyweb', this.foes()[0]);
+						}
+						break;
+					case "wikiberry":
+						this.battle.boost({ spa: 1 }, this);
+						break;
+					default:
+						break;
+					}
+				}
+				this.battle.runEvent('AfterUseItem', this, null, null, item);
+				return true;
+			}
+			return false;
+		}
 	},
 };

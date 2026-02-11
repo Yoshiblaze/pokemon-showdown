@@ -117,6 +117,28 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 			}
 		},
 	},
+	stench: {
+		inherit: true,
+		onModifyMove(move) {
+			if (move.category !== "Status") {
+				this.debug('Adding Stench flinch');
+				if (!move.secondaries) move.secondaries = [];
+				for (const secondary of move.secondaries) {
+					if (secondary.volatileStatus === 'flinch') return;
+				}
+				move.secondaries.push({
+					chance: 10,
+					volatileStatus: 'flinch',
+					onHit(target, source, move) {
+						if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
+						if (source.species.name === 'Trubbish') {
+							source.formeChange('Trubbish-Mega-Dragon', this.effect, true);
+						}
+					},
+				});
+			}
+		},
+	},
 	thermalexchange: {
 		inherit: true,
 		onUpdate(pokemon) {
@@ -224,14 +246,6 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		rating: 4,
 		num: 176,
 	},
-	moltencore: {
-		/* onStart(pokemon) {
-		}, */
-		flags: { failroleplay: 1, noreceiver: 1, noentrain: 1, notrace: 1, failskillswap: 1, cantsuppress: 1 },
-		name: "Molten Core",
-		rating: 3.5,
-		shortDesc: "Magcargo: On switch-in, absorbs 1 layer of hazards and transforms; Hazard immunity.",
-	},
 	stackchange: {
 		onModifyMovePriority: 1,
 		onModifyMove(move, attacker, defender) {
@@ -305,26 +319,6 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		name: "Tough Wings",
 		rating: 5,
 		shortDesc: "Effects Tough Claws + Gale Wings (Gen 6).",
-	},
-	stench: {
-		onModifyMovePriority: -1,
-		onModifyMove(move) {
-			if (move.category !== "Status") {
-				this.debug('Adding Stench flinch');
-				if (!move.secondaries) move.secondaries = [];
-				for (const secondary of move.secondaries) {
-					if (secondary.volatileStatus === 'flinch') return;
-				}
-				move.secondaries.push({
-					chance: 20,
-					volatileStatus: 'flinch',
-				});
-			}
-		},
-		flags: {},
-		name: "Stench",
-		rating: 1.5,
-		shortDesc: "This Pokemon's attacks without a chance to make the target flinch gain a 20% chance to make the target flinch.",
 	},
 	victoryfinale: {
 		onAnyModifyAccuracyPriority: -1,
@@ -881,6 +875,52 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		rating: 3.5,
 		shortDesc: "Blaziken-Wildfire: 1.5x Atk & SpA. Reverts to base Blaziken after 2 turns.",
 	},
+	moltencore: {
+		onSwitchInPriority: 2,
+		onSwitchIn(pokemon) {
+			if (pokemon.baseSpecies.baseSpecies !== 'Magcargo') return;
+			const sideConditions = ['spikes', 'toxicspikes', 'stealthrock', 'stickyweb', 'gmaxsteelsurge'];
+			const activeHazards = sideConditions.filter(hazard => !pokemon.side.sideConditions[hazard]);
+			if (activeHazards.length > 0) {
+				const randomHazard = activeHazards[this.random(activeHazards.length)];
+				this.add('-sideend', pokemon.side, this.dex.conditions.get(randomHazard).name, '[from] move: Rapid Spin', `[of] ${pokemon}`);
+				// This should probably be one layer of (Toxic) Spikes. Not implemented for now
+			}
+			if (pokemon.species.forme !== 'Fractured') {
+				this.add('-activate', pokemon, 'ability: Molten Core');
+				pokemon.formeChange('Magcargo-Fractured', this.effect, false);
+			}
+		},
+		name: "Molten Core",
+		rating: 3.5,
+		num: 307,
+		flags: { failroleplay: 1, noreceiver: 1, noentrain: 1, notrace: 1, failskillswap: 1, cantsuppress: 1 },
+		shortDesc: "Magcargo: On switch-in, absorbs 1 layer of hazards and transforms; Hazard immunity.",
+	},
+	growingbitterness: {
+		onStart(pokemon) {
+			if (!this.effectState.counter)
+			{
+				this.add('-start', pokemon, 'ability: Growing Bitterness');
+				this.effectState.counter = 8;
+			}
+		},
+		onResidualOrder: 28,
+		onResidualSubOrder: 2,
+		onResidual(pokemon) {
+			if (pokemon.activeTurns && this.effectState.counter) {
+				this.effectState.counter--;
+				if (!this.effectState.counter) {
+					this.add('-end', pokemon, 'Growing Bitterness');
+					delete this.effectState.counter;
+					pokemon.formeChange('Weavile-Frost', null, true);
+				}
+			}
+		},
+		flags: {},
+		name: "Growing Bitterness",
+		rating: 0,
+		num: 1112,
 	// advent
 	snowface: {
 		onSwitchInPriority: -2,

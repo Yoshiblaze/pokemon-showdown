@@ -1,4 +1,20 @@
 export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
+	// Changed Items
+	berserkgene: {
+		inherit: true,
+		onUpdate(pokemon) {
+			if (pokemon.status === '' && pokemon.useItem())
+			{
+				pokemon.trySetStatus('ber', pokemon)
+			}
+		},
+		boosts: {},
+		num: 0,
+		gen: 2,
+		isNonstandard: null,
+	},
+
+	// Custom Items
 	darminitanite: {
 		name: "Darminitanite",
 		spritenum: 576,
@@ -34,6 +50,24 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 		gen: 9,
 		shortDesc: "If held by a Flygon, this item allows it to Mega Evolve in battle.",
 		num: -3,
+	},
+	mysterioustusk: {
+		name: "Mysterious Tusk",
+		spritenum: 382,
+		onTakeItem(item, pokemon, source) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
+			if (source?.baseSpecies.name === 'Mamoswine') {
+				return false;
+			}
+			return true;
+		},
+		onAfterMoveSecondarySelf(pokemon, target, move) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
+			if (pokemon.species.name === 'Mamoswine' && move.totalDamage == target.maxhp) {
+				pokemon.formeChange('Mamoswine-Overflow', this.effect, true);
+			}
+		},
+		gen: 9,
 	},
 	pixiedustmask: {
 		name: "Pixiedust Mask",

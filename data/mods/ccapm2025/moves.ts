@@ -706,6 +706,16 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 			}
 		},
 	},
+	holdhands: {
+		inherit: true,
+		isNonstandard: undefined,
+		onAfterMove(source, target, move) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
+			if (source.baseSpecies.name === 'Jirachi') return;
+			if (!(source.side as any).holdHandsUsers) (source.side as any).holdHandsUsers = [source.baseSpecies.name];
+			else if (!(source.side as any).holdHandsUsers.includes(source.baseSpecies.name)) (source.side as any).holdHandsUsers.push(source.baseSpecies.name);
+		},
+	},
 	lunarblessing: {
 		inherit: true,
 		onHit(pokemon) {

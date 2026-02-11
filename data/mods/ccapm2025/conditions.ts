@@ -33,7 +33,7 @@ export const Conditions: import('../../../sim/dex-conditions').ModdedConditionDa
 			for (const pokemon of this.getAllPokemon()) {
 				if (pokemon.species.id === 'wyrdeer') {
 					pokemon.formeChange('Wyrdeer-Snowblind', this.effect, true);
-					pokemon.setAbility('heartofcold', pokemon, true);
+					pokemon.setAbility('heartofcold', pokemon, true); // error?
 					this.add('-activate', pokemon, 'ability: Heart of Cold');
 				}
 			}
@@ -50,7 +50,7 @@ export const Conditions: import('../../../sim/dex-conditions').ModdedConditionDa
 				this.add('-status', target, 'ber');
 			}
 			if (target.species.name === 'Drifblim') {
-				target.formeChange('Drifblim-Inflamed', this.effect, true);
+				target.formeChange('Drifblim-Inflamed', this.effect, false);
 			}
 		},
 		onDamage(damage, target, source, effect) {
@@ -66,8 +66,8 @@ export const Conditions: import('../../../sim/dex-conditions').ModdedConditionDa
 			}
 		},
 		onEnd(pokemon) {
-			for (let opponent of pokemon.side.foe.active) {
-				let active = opponent.side.foe.active.filter(mon => mon.status === 'ber').length > 0;
+			for (const opponent of pokemon.side.foe.active) {
+				const active = opponent.side.foe.active.filter(mon => mon.status === 'ber').length > 0;
 				if (opponent.species.name === 'Mesprit' && active) {
 					opponent.formeChange('Mesprit-Rampaging', this.effect, false);
 				}
@@ -75,10 +75,13 @@ export const Conditions: import('../../../sim/dex-conditions').ModdedConditionDa
 					opponent.formeChange('Mesprit', this.effect, false);
 				}
 			}
+			if (pokemon.species.name === 'Drifblim-Inflamed') {
+				pokemon.formeChange('Drifblim', this.effect, false);
+			}
 		},
 		onFaint(pokemon) {
-			for (let opponent of pokemon.side.foe.active) {
-				let active = opponent.side.foe.active.filter(mon => mon.status === 'ber').length - 1 > 0;
+			for (const opponent of pokemon.side.foe.active) {
+				const active = opponent.side.foe.active.filter(mon => mon.status === 'ber').length - 1 > 0;
 				if (opponent.species.name === 'Mesprit' && active) {
 					opponent.formeChange('Mesprit-Rampaging', this.effect, false);
 				}
@@ -88,8 +91,8 @@ export const Conditions: import('../../../sim/dex-conditions').ModdedConditionDa
 			}
 		},
 		onSwitchOut(pokemon) {
-			for (let opponent of pokemon.side.foe.active) {
-				let active = opponent.side.foe.active.filter(mon => mon.status === 'ber').length - 1 > 0;
+			for (const opponent of pokemon.side.foe.active) {
+				const active = opponent.side.foe.active.filter(mon => mon.status === 'ber').length - 1 > 0;
 				if (opponent.species.name === 'Mesprit' && active) {
 					opponent.formeChange('Mesprit-Rampaging', this.effect, false);
 				}
@@ -98,16 +101,19 @@ export const Conditions: import('../../../sim/dex-conditions').ModdedConditionDa
 				}
 			}
 		},
-		onUpdate(pokemon) {
+		onSwitchIn(pokemon) {
 			if (this.effectState.counter >= 10000 * pokemon.maxhp) pokemon.cureStatus();
-			for (let opponent of pokemon.side.foe.active) {
-				let active = opponent.side.foe.active.filter(mon => mon.status === 'ber').length > 0;
+			for (const opponent of pokemon.side.foe.active) {
+				const active = opponent.side.foe.active.filter(mon => mon.status === 'ber').length > 0;
 				if (opponent.species.name === 'Mesprit' && active) {
 					opponent.formeChange('Mesprit-Rampaging', this.effect, false);
 				}
 				if (opponent.species.name === 'Mesprit-Rampaging' && !active) {
 					opponent.formeChange('Mesprit', this.effect, false);
 				}
+			}
+			if (pokemon.species.name === 'Drifblim') {
+				pokemon.formeChange('Drifblim-Inflamed', this.effect, false);
 			}
 		},
 	},
