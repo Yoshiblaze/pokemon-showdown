@@ -2633,4 +2633,65 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 			return success;
 		},
 	},
+	auroraveil: {
+		inherit: true,
+		onTry(source) {
+			if (!this.field.isWeather(['hail', 'snowscape']) && !source.hasAbility('heartofcold')) return false;
+		},
+	},
+	blizzard: {
+		inherit: true,
+		onModifyMove(move, pokemon) {
+			if (this.field.isWeather(['hail', 'snowscape']) || pokemon.hasAbility('heartofcold')) move.accuracy = true;
+		},
+	},
+	weatherball: {
+		inherit: true,
+		onModifyType(move, pokemon) {
+			switch (pokemon.effectiveWeather()) {
+			case 'sunnyday':
+			case 'desolateland':
+				move.type = 'Fire';
+				break;
+			case 'raindance':
+			case 'primordialsea':
+				move.type = 'Water';
+				break;
+			case 'sandstorm':
+				move.type = 'Rock';
+				break;
+			case 'hail':
+			case 'snowscape':
+				move.type = 'Ice';
+				break;
+			}
+			if (!this.field.isWeather() && pokemon.hasAbility('heartofcold')) {
+				move.type = 'Ice';
+			}
+		},
+		onModifyMove(move, pokemon) {
+			switch (pokemon.effectiveWeather()) {
+			case 'sunnyday':
+			case 'desolateland':
+				move.basePower *= 2;
+				break;
+			case 'raindance':
+			case 'primordialsea':
+				move.basePower *= 2;
+				break;
+			case 'sandstorm':
+				move.basePower *= 2;
+				break;
+			case 'hail':
+			case 'snowscape':
+				move.basePower *= 2;
+				break;
+			}
+			if (!this.field.isWeather() && pokemon.hasAbility('heartofcold')) {
+				move.basePower *= 2;
+			}
+			this.debug(`BP: ${move.basePower}`);
+		},
+	},
+	// heart of cold to-do: halving the bp/healing of solar blade/beam and synthesis clones
 };

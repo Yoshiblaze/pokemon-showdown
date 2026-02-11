@@ -1,19 +1,19 @@
 export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 	// Changed Items
 	berserkgene: {
-		inherit: true,
-		onUpdate(pokemon) {
-			if (pokemon.status === '' && pokemon.useItem())
-			{
-				pokemon.trySetStatus('ber', pokemon)
+		name: "Berserk Gene",
+		spritenum: 388,
+		onStart(pokemon) {
+			if (pokemon.useItem()) {
+				pokemon.trySetStatus('ber', pokemon);
 			}
 		},
 		boosts: {},
 		num: 0,
 		gen: 2,
 		isNonstandard: null,
+		shortDesc: "Makes the holder go berserk on switch-in. Single use.",
 	},
-
 	// Custom Items
 	darminitanite: {
 		name: "Darminitanite",
@@ -136,20 +136,6 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 		shortDesc: "Aurorus: Hazard immunity, changes its form after 1 turn.",
 		num: -6,
 		gen: 9,
-	},
-	berserkgene: {
-		name: "Berserk Gene",
-		spritenum: 388,
-		onStart(pokemon) {
-			if (pokemon.useItem()) {
-				pokemon.trySetStatus('ber');
-			}
-		},
-		boosts: {},
-		num: 0,
-		gen: 2,
-		isNonstandard: null,
-		shortDesc: "Makes the holder go berserk on switch-in. Single use.",
 	},
 	venomstake: {
 		name: "Venom Stake",

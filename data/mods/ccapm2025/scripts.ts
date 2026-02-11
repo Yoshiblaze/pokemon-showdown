@@ -1,5 +1,5 @@
 import type { Pokemon } from "../../../sim";
-import {RESTORATIVE_BERRIES} from "../../../sim/pokemon";
+import { RESTORATIVE_BERRIES } from "../../../sim/pokemon";
 export const Scripts: ModdedBattleScriptsData = {
 	gen: 9,
 	init() {

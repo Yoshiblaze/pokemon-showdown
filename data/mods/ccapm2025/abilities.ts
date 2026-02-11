@@ -899,8 +899,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 	},
 	growingbitterness: {
 		onStart(pokemon) {
-			if (!this.effectState.counter)
-			{
+			if (!this.effectState.counter) {
 				this.add('-start', pokemon, 'ability: Growing Bitterness');
 				this.effectState.counter = 8;
 			}
@@ -920,7 +919,48 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		flags: {},
 		name: "Growing Bitterness",
 		rating: 0,
-		num: 1112,
+		shortDesc: "Weavile: Transforms into Weavile-Frost after being active for 8 turns.",
+	},
+	heartofcold: {
+		onStart(pokemon) {
+			this.add('-message', `${pokemon.species.name}'s heart has grown cold!`);
+
+		},
+		onModifyDefPriority: 6,
+		onModifyDef(pokemon) {
+			if (!this.field.isWeather(['hail', 'snowscape']) && pokemon.hasType('Ice')) return this.chainModify(1.5);
+		},
+		flags: { breakable: 1 },
+		flags: {},
+		name: "Heart of Cold",
+		rating: 0,
+		shortDesc: "This Pokemon's moves and stats act as if snow is active.",
+	},
+	headon: {
+		onDamage(damage, target, source, effect) {
+			if (effect.effectType !== 'Move') {
+				if (effect.effectType === 'Ability') this.add('-activate', source, 'ability: ' + effect.name);
+				return false;
+			}
+		},
+		onModifyMove(move) {
+			delete move.flags['contact'];
+		},
+		onModifyAccuracyPriority: -1,
+		onModifyAccuracy(accuracy) {
+			if (this.effectState.headOn) return;
+			this.debug('Head-On - decreasing accuracy');
+			return 0;
+		},
+		onAfterMoveSecondary(target, source, move) {
+			if (this.effectState.headOn) return;
+			this.effectState.headOn = true;
+		},
+		flags: {},
+		name: "Head-On",
+		rating: 5,
+		shortDesc: "Effects of Magic Guard and Long Reach. The first move to target this Pokemon always misses.",
+	},
 	// advent
 	snowface: {
 		onSwitchInPriority: -2,
