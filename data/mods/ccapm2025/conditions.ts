@@ -66,8 +66,8 @@ export const Conditions: import('../../../sim/dex-conditions').ModdedConditionDa
 			}
 		},
 		onEnd(pokemon) {
-			for (let opponent of pokemon.side.foe.active) {
-				let active = opponent.side.foe.active.filter(mon => mon.status === 'ber').length > 0;
+			for (const opponent of pokemon.side.foe.active) {
+				const active = opponent.side.foe.active.filter(mon => mon.status === 'ber').length > 0;
 				if (opponent.species.name === 'Mesprit' && active) {
 					opponent.formeChange('Mesprit-Rampaging', this.effect, false);
 				}
@@ -80,8 +80,8 @@ export const Conditions: import('../../../sim/dex-conditions').ModdedConditionDa
 			}
 		},
 		onFaint(pokemon) {
-			for (let opponent of pokemon.side.foe.active) {
-				let active = opponent.side.foe.active.filter(mon => mon.status === 'ber').length - 1 > 0;
+			for (const opponent of pokemon.side.foe.active) {
+				const active = opponent.side.foe.active.filter(mon => mon.status === 'ber').length - 1 > 0;
 				if (opponent.species.name === 'Mesprit' && active) {
 					opponent.formeChange('Mesprit-Rampaging', this.effect, false);
 				}
@@ -91,8 +91,8 @@ export const Conditions: import('../../../sim/dex-conditions').ModdedConditionDa
 			}
 		},
 		onSwitchOut(pokemon) {
-			for (let opponent of pokemon.side.foe.active) {
-				let active = opponent.side.foe.active.filter(mon => mon.status === 'ber').length - 1 > 0;
+			for (const opponent of pokemon.side.foe.active) {
+				const active = opponent.side.foe.active.filter(mon => mon.status === 'ber').length - 1 > 0;
 				if (opponent.species.name === 'Mesprit' && active) {
 					opponent.formeChange('Mesprit-Rampaging', this.effect, false);
 				}
@@ -103,8 +103,8 @@ export const Conditions: import('../../../sim/dex-conditions').ModdedConditionDa
 		},
 		onSwitchIn(pokemon) {
 			if (this.effectState.counter >= 10000 * pokemon.maxhp) pokemon.cureStatus();
-			for (let opponent of pokemon.side.foe.active) {
-				let active = opponent.side.foe.active.filter(mon => mon.status === 'ber').length > 0;
+			for (const opponent of pokemon.side.foe.active) {
+				const active = opponent.side.foe.active.filter(mon => mon.status === 'ber').length > 0;
 				if (opponent.species.name === 'Mesprit' && active) {
 					opponent.formeChange('Mesprit-Rampaging', this.effect, false);
 				}
