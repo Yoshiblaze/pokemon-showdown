@@ -126,18 +126,20 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 				for (const secondary of move.secondaries) {
 					if (secondary.volatileStatus === 'flinch') return;
 				}
-				move.secondaries.push({
-					chance: 10,
-					volatileStatus: 'flinch',
-					onHit(target, source, move) {
-						if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
-						if (source.species.name === 'Trubbish') {
-							source.formeChange('Trubbish-Mega-Dragon', this.effect, true);
-						}
-					},
-				});
+				if (!this.ruleTable.tagRules.includes("+pokemontag:cap")) {
+					move.secondaries.push({
+						chance: 10,
+						volatileStatus: 'flinch',
+						onHit(target, source, move) {
+							if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
+							if (source.species.name === 'Trubbish') {
+								source.formeChange('Trubbish-Mega-Dragon', this.effect, true);
+							}
+						},
+					});
+				}
 			}
-		},
+		}
 	},
 	thermalexchange: {
 		inherit: true,
@@ -176,6 +178,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		},
 	},
 	wonderguard: {
+		inherit: true,
 		onTryHit(target, source, move) {
 			if (target === source || move.category === 'Status' || move.id === 'struggle') return;
 			if (move.id === 'skydrop' && !source.volatiles['skydrop']) return;
@@ -185,15 +188,13 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 					move.smartTarget = false;
 				} else {
 					this.add('-immune', target, '[from] ability: Wonder Guard');
-					target.formeChange('Shedinja-Escaped', null, true);
+					if (!this.ruleTable.tagRules.includes("+pokemontag:cap")) {
+						target.formeChange('Shedinja-Escaped', null, true);
+					}
 				}
 				return null;
 			}
 		},
-		flags: { failroleplay: 1, noreceiver: 1, noentrain: 1, failskillswap: 1, breakable: 1 },
-		name: "Wonder Guard",
-		rating: 5,
-		num: 25,
 	},
 
 	// New Abilities
@@ -899,8 +900,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 	},
 	growingbitterness: {
 		onStart(pokemon) {
-			if (!this.effectState.counter)
-			{
+			if (!this.effectState.counter) {
 				this.add('-start', pokemon, 'ability: Growing Bitterness');
 				this.effectState.counter = 8;
 			}
@@ -921,6 +921,8 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		name: "Growing Bitterness",
 		rating: 0,
 		num: 1112,
+	},
+
 	// advent
 	snowface: {
 		onSwitchInPriority: -2,
