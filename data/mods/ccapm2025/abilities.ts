@@ -130,7 +130,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 					move.secondaries.push({
 						chance: 10,
 						volatileStatus: 'flinch',
-						onHit(target, source, move) {
+						onHit(target, source, activeMove) {
 							if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 							if (source.species.name === 'Trubbish') {
 								source.formeChange('Trubbish-Mega-Dragon', this.effect, true);
@@ -139,7 +139,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 					});
 				}
 			}
-		}
+		},
 	},
 	thermalexchange: {
 		inherit: true,
@@ -1018,9 +1018,11 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 			const screens = [
 				'lightscreen', 'reflect', 'auroraveil',
 			];
-			if (defender.side.getSideCondition(screens)) {
-				this.debug('Equal Share boost');
-				return this.chainModify(1.5);
+			for (const screen of screens) {
+				if (defender.side.getSideCondition(screen)) {
+					this.debug('Equal Share boost');
+					return this.chainModify(1.5);
+				}
 			}
 			const yourSide = attacker.side;
 			let allLayers = 0;
@@ -1042,9 +1044,11 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 			const screens = [
 				'lightscreen', 'reflect', 'auroraveil',
 			];
-			if (defender.side.getSideCondition(screens)) {
-				this.debug('Equal Share boost');
-				return this.chainModify(1.5);
+			for (const screen of screens) {
+				if (defender.side.getSideCondition(screen)) {
+					this.debug('Equal Share boost');
+					return this.chainModify(1.5);
+				}
 			}
 			const yourSide = attacker.side;
 			let allLayers = 0;
@@ -1116,7 +1120,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 				effect.effectType === "Move" &&
 				!effect.multihit &&
 				!(effect.hasSheerForce && source.hasAbility('sheerforce') &&
-				effect.category === 'Physical')
+					effect.category === 'Physical')
 			) {
 				this.effectState.checkedBristle = false;
 			} else {
@@ -1140,7 +1144,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 			const damage = move.multihit && !move.smartTarget ? move.totalDamage : lastAttackedBy.damage;
 			if (target.hp <= target.maxhp / 2 && target.hp + damage > target.maxhp / 2) {
 				this.add('-activate', target, 'ability: Bristle');
-				side.addSideCondition('bristles', target);
+				target.side.addSideCondition('bristles', target);
 			}
 		},
 		flags: {},
@@ -1184,7 +1188,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		onStart(pokemon) {
 			this.add('-ability', pokemon, 'Entrapment');
 			for (const target of pokemon.adjacentFoes()) {
-				side.addSideCondition('spikes', target);
+				target.side.addSideCondition('spikes', target);
 			}
 		},
 		flags: {},

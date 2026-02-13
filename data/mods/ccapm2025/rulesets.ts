@@ -27,10 +27,10 @@ export const Rulesets: import('../../../sim/dex-formats').ModdedFormatDataTable 
 				if (pokemon.species.name === "Jirachi" && (pokemon.side as any).holdHandsUsers.length >= 2) {
 					pokemon.formeChange('Jirachi-Harmonic', null, true);
 				}
-        		if (pokemon.species.name === "Luvdisc" && pokemon.side.totalFainted >= 5) {
-			  		pokemon.formeChange('Luvdisc-Heartbreak', null, true);
-			  		pokemon.setAbility('pixilate', pokemon);
-		  		}
+				if (pokemon.species.name === "Luvdisc" && pokemon.side.totalFainted >= 5) {
+					pokemon.formeChange('Luvdisc-Heartbreak', null, true);
+					pokemon.setAbility('pixilate', pokemon);
+				}
 			}
 		},
 		onWeather(target, source, effect) {
@@ -79,7 +79,8 @@ export const Rulesets: import('../../../sim/dex-formats').ModdedFormatDataTable 
 		},
 		onAnyDamage(damage, target, source, effect) {
 			if (!this.ruleTable.tagRules.includes("+pokemontag:cap")) {
-				if (target.species.name === "Victini" && target.hp - damage <= target.maxhp / 4 && target.hp - damage > 0 && target.side.pokemonLeft > 1) {
+				if (target.species.name === "Victini" && target.hp - damage <= target.maxhp / 4 &&
+					target.hp - damage > 0 && target.side.pokemonLeft > 1) {
 					let stat: BoostID;
 					for (stat in target.boosts) {
 						if (target.boosts[stat] < 0) {
@@ -106,7 +107,7 @@ export const Rulesets: import('../../../sim/dex-formats').ModdedFormatDataTable 
 				}
 			}
 			if (effect?.name === 'Fiery Dance' && boost.spa &&
-				 source.species.name === "Volcarona") {
+				source.species.name === "Volcarona") {
 				source.formeChange('Volcarona-Radiant', null, true);
 				source.setAbility('desolateland', source);
 			}

@@ -2165,7 +2165,7 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		weightkg: 50, // placeholder
 		eggGroups: ["Undiscovered"], // placeholder
 	},
-	swadloonfestive: {
+	swadloon: {
 		inherit: true,
 		otherFormes: ["Swadloon-Festive"],
 		formeOrder: ["Swadloon", "Swadloon-Festive"],

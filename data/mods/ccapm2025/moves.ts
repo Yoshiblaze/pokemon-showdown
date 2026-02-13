@@ -714,7 +714,8 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if (source.baseSpecies.name === 'Jirachi') return;
 			if (!(source.side as any).holdHandsUsers) (source.side as any).holdHandsUsers = [source.baseSpecies.name];
-			else if (!(source.side as any).holdHandsUsers.includes(source.baseSpecies.name)) (source.side as any).holdHandsUsers.push(source.baseSpecies.name);
+			else if (!(source.side as any).holdHandsUsers.includes(source.baseSpecies.name)) (source.side as any)
+				.holdHandsUsers.push(source.baseSpecies.name);
 		},
 	},
 	lunarblessing: {
@@ -941,7 +942,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 					this.add('-sideend', pokemon.side, 'move: Toxic Spikes', `[of] ${pokemon}`);
 					pokemon.side.removeSideCondition('toxicspikes');
 				} else if (pokemon.hasType('Steel') || pokemon.hasItem('heavydutyboots') ||
-							 pokemon.hasItem('restorationcapsule') || pokemon.hasAbility('moltencore')) {
+					pokemon.hasItem('restorationcapsule') || pokemon.hasAbility('moltencore')) {
 					// do nothing
 				} else if (this.effectState.layers >= 2) {
 					pokemon.trySetStatus('tox', pokemon.side.foe.active[0]);
@@ -1396,7 +1397,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		onAfterMoveSecondarySelf(pokemon, target, move) {
 			if (move.willChangeForme) {
 				const lF = pokemon.species.id === 'landorustherianancestral' ? 'Landorus-Therian' : 'Landorus';
-				pokemon.formeChange(speciesid, this.effect, true);
+				pokemon.formeChange(lF, this.effect, true);
 				if (pokemon.species.name === 'Landorus-Therian') {
 					pokemon.setAbility('intimidate', pokemon);
 				} else if (pokemon.species.name === 'Landorus') {
@@ -1444,7 +1445,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		onAfterMoveSecondarySelf(pokemon, target, move) {
 			if (move.willChangeForme) {
 				const lF = pokemon.species.id === 'landorustherian' ? 'Landorus-Therian-Ancestral' : 'Landorus-Ancestral';
-				pokemon.formeChange(speciesid, this.effect, true);
+				pokemon.formeChange(lF, this.effect, true);
 				pokemon.setAbility('download', pokemon);
 			}
 		},
@@ -1666,7 +1667,8 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		selfSwitch: true,
 		onHit(target, pokemon, move) {
 			if (this.effectState.frostKing) return;
-			if (pokemon.baseSpecies.baseSpecies === 'Slowking' && !pokemon.transformed && !this.ruleTable.tagRules.includes("+pokemontag:cap")) {
+			if (pokemon.baseSpecies.baseSpecies === 'Slowking' && !pokemon.transformed &&
+				!this.ruleTable.tagRules.includes("+pokemontag:cap")) {
 				move.willChangeForme = true;
 				this.effectState.frostKing = true;
 			}
@@ -1905,7 +1907,8 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 			if (attacker.removeVolatile(move.id)) {
 				return;
 			}
-			if (attacker.species.name === 'Dragapult' && !attacker.transformed && !this.ruleTable.tagRules.includes("+pokemontag:cap")) {
+			if (attacker.species.name === 'Dragapult' && !attacker.transformed &&
+				!this.ruleTable.tagRules.includes("+pokemontag:cap")) {
 				attacker.formeChange('Dragapult-Manifest', move);
 				attacker.setAbility('analytic', attacker);
 			}
@@ -2028,7 +2031,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 					side.addSideCondition('spikes');
 				}
 			}
-			if (this.randomChance(1, 5))) {
+			if (this.randomChance(1, 5)) {
 				this.heal(source.baseMaxhp / 4, source, source);
 			}
 		},
@@ -2038,7 +2041,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 					side.addSideCondition('spikes');
 				}
 			}
-			if (this.randomChance(1, 5))) {
+			if (this.randomChance(1, 5)) {
 				this.heal(source.baseMaxhp / 4, source, source);
 			}
 		},
@@ -2408,7 +2411,6 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		secondary: null,
 		target: "self",
 		type: "Ice",
-		zMove: { effect: 'heal' },
 		zMove: { effect: 'heal' },
 		contestType: "Cool",
 	},

@@ -1,10 +1,10 @@
 import type { Pokemon } from "../../../sim";
-import {RESTORATIVE_BERRIES} from "../../../sim/pokemon";
+import { RESTORATIVE_BERRIES } from "../../../sim/pokemon";
 export const Scripts: ModdedBattleScriptsData = {
 	gen: 9,
 	init() {
-		for (let mon in this.species.all()) {
-			this.modData("Learnsets", mon).learnset.holdhands = ["9L1"];
+		for (const mon of this.species.all()) {
+			this.modData("Learnsets", mon.name).learnset.holdhands = ["9L1"];
 		}
 		this.modData("Learnsets", "alcremie").learnset.acidarmor = ["9L1"];
 		this.modData("Learnsets", "drifblim").learnset.hurricane = ["9L1"];
@@ -141,8 +141,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			}
 			if (success && move.type === 'Grass' &&
 				!pokemon.battle.ruleTable.tagRules.includes("+pokemontag:cap")) {
-				for (let mon of pokemon.foes())
-				{
+				for (const mon of pokemon.foes()) {
 					if (mon.species.name !== 'Sudowoodo') continue;
 					if (!mon.m.grassMoves) mon.m.grassMoves = 0;
 					mon.m.grassMoves++;
@@ -150,8 +149,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						mon.formeChange('Sudowoodo-Nopseudo', null, true);
 					}
 				}
-				for (let mon of pokemon.alliesAndSelf())
-				{
+				for (const mon of pokemon.alliesAndSelf()) {
 					if (mon.species.name !== 'Sudowoodo') continue;
 					if (!mon.m.grassMoves) mon.m.grassMoves = 0;
 					mon.m.grassMoves++;
@@ -389,7 +387,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				this.usedItemThisTurn = true;
 				this.ateBerry = true;
 				if (this.species.baseSpecies === 'Alcremie' && !this.battle.ruleTable.tagRules.includes("+pokemontag:cap")) {
-					switch(this.species.id) {
+					switch (this.species.id) {
 					case "alcremierubycream":
 						this.formeChange('Alcremie-Sweetened-Ruby-Cream', null, true);
 						break;
@@ -419,7 +417,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						break;
 					}
 
-					switch(this.lastItem) {
+					switch (this.lastItem) {
 					case "aguavberry":
 						this.battle.boost({ spd: 1 }, this);
 						break;
@@ -442,7 +440,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						this.heal(this.maxhp);
 						break;
 					case "sitrusberry":
-						const side = this.side.foe
+						const side = this.side.foe;
 						if (!side.sideConditions['stickyweb']) {
 							side.addSideCondition('stickyweb', this.foes()[0]);
 						}
@@ -458,6 +456,6 @@ export const Scripts: ModdedBattleScriptsData = {
 				return true;
 			}
 			return false;
-		}
+		},
 	},
 };
