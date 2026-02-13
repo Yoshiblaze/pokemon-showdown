@@ -4,7 +4,7 @@ export const Scripts: ModdedBattleScriptsData = {
 	gen: 9,
 	init() {
 		for (const mon of this.species.all()) {
-			this.modData("Learnsets", mon.name).learnset.holdhands = ["9L1"];
+			this.modData("Learnsets", mon.id).learnset.holdhands = ["9L1"];
 		}
 		this.modData("Learnsets", "alcremie").learnset.acidarmor = ["9L1"];
 		this.modData("Learnsets", "drifblim").learnset.hurricane = ["9L1"];
