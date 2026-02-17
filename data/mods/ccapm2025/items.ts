@@ -15,7 +15,6 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 		isNonstandard: null,
 		shortDesc: "Makes the holder go berserk on switch-in. Single use.",
 	},
-
 	// Custom Items
 	darminitanite: {
 		name: "Darminitanite",
