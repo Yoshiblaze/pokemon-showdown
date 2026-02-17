@@ -1,4 +1,4 @@
-import type { Pokemon } from "../../../sim";
+import {Pokemon, toID} from "../../../sim";
 import { RESTORATIVE_BERRIES } from "../../../sim/pokemon";
 export const Scripts: ModdedBattleScriptsData = {
 	gen: 9,
@@ -457,6 +457,58 @@ export const Scripts: ModdedBattleScriptsData = {
 				return true;
 			}
 			return false;
+		},
+
+		getStat(statName: StatIDExceptHP, unboosted?: boolean, unmodified?: boolean) {
+			statName = toID(statName) as StatIDExceptHP;
+			// @ts-expect-error type checking prevents 'hp' from being passed, but we're paranoid
+			if (statName === 'hp') throw new Error("Please read `maxhp` directly");
+
+			// base stat
+			let stat = this.storedStats[statName];
+
+			// Download ignores Wonder Room's effect, but this results in
+			// stat stages being calculated on the opposite defensive stat
+			if (unmodified && 'wonderroom' in this.battle.field.pseudoWeather) {
+				if (statName === 'def') {
+					statName = 'spd';
+				} else if (statName === 'spd') {
+					statName = 'def';
+				}
+			}
+
+			// stat boosts
+			if (!unboosted) {
+				let boosts = this.boosts;
+				if (!unmodified) {
+					boosts = this.battle.runEvent('ModifyBoost', this, null, null, { ...boosts });
+				}
+				let boost = boosts[statName];
+				const boostTable = [1, 1.5, 2, 2.5, 3, 3.5, 4];
+				if (boost > 6) boost = 6;
+				if (boost < -6) boost = -6;
+				if (boost >= 0) {
+					stat = Math.floor(stat * boostTable[boost]);
+				} else {
+					stat = Math.floor(stat / boostTable[-boost]);
+				}
+			}
+
+			// stat modifier effects
+			if (!unmodified) {
+				const statTable: { [s in StatIDExceptHP]: string } = { atk: 'Atk', def: 'Def', spa: 'SpA', spd: 'SpD', spe: 'Spe' };
+				stat = this.battle.runEvent('Modify' + statTable[statName], this, null, null, stat);
+				// Implement Trying My Best!
+				if (!this.battle.ruleTable.tagRules.includes("+pokemontag:cap")) {
+					let mon = (this as any);
+					if (mon.tryingMyBestSwitches) {
+						stat *= (10 + mon.tryingMyBestSwitches) / 10;
+					}
+				}
+			}
+
+			if (statName === 'spe' && stat > 10000 && !this.battle.format.battle?.trunc) stat = 10000;
+			return stat;
 		},
 	},
 };

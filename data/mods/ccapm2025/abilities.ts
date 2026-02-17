@@ -1294,4 +1294,21 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		rating: 3,
 		shortDesc: "Changes this Pokemon's secondary type to what best matches up against incoming moves.",
 	},
+	tryingmybest: {
+		onSwitchIn(pokemon) {
+			if (pokemon.side.pokemonLeft === 1) {
+				if (pokemon.species.name === 'Luvdisc') {
+					pokemon.formeChange('Luvdisc-Heartbreak', this.effect, true);
+				}
+			} else {
+				let mon = (pokemon as any);
+				if (mon.tryingMyBestSwitches) mon.timesSwitchedIn++;
+				else mon.tryingMyBestSwitches = 1;
+			}
+		},
+		flags: {},
+		name: "Trying My Best!",
+		rating: 4,
+		num: 1293,
+	},
 };
