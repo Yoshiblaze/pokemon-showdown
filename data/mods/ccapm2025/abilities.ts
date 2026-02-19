@@ -932,7 +932,6 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 			if (!this.field.isWeather(['hail', 'snowscape']) && pokemon.hasType('Ice')) return this.chainModify(1.5);
 		},
 		flags: { breakable: 1 },
-		flags: {},
 		name: "Heart of Cold",
 		rating: 0,
 		shortDesc: "This Pokemon's moves and stats act as if snow is active.",
