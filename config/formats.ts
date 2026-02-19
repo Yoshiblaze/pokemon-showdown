@@ -3471,7 +3471,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		name: "[Gen 9] CCAPM2025", // roomtours
 		mod: 'ccapm2025',
 		searchShow: false,
-		ruleset: ['Standard', 'Evasion Abilities Clause', 'Sleep Moves Clause', '!Sleep Clause Mod'],
+		ruleset: ['Standard NatDex', 'Evasion Abilities Clause', 'Sleep Moves Clause', '!Sleep Clause Mod'],
 		banlist: ['Uber', 'AG', 'Arena Trap', 'Moody', 'Shadow Tag', 'King\'s Rock', 'Razor Fang', 'Baton Pass', 'Last Respects', 'Shed Tail'],
 		onValidateSet(set) {
 			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) {
