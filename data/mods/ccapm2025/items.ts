@@ -4,8 +4,9 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 		name: "Berserk Gene",
 		spritenum: 388,
 		onStart(pokemon) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if (pokemon.useItem()) {
-				pokemon.trySetStatus('ber', pokemon);
+				pokemon.trySetStatus('ber');
 			}
 		},
 		boosts: {},
@@ -59,11 +60,10 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 			if (source?.baseSpecies.name === 'Mamoswine') {
 				return false;
 			}
-			return true;
 		},
 		onAfterMoveSecondarySelf(pokemon, target, move) {
 			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
-			if (pokemon.species.name === 'Mamoswine' && move.totalDamage == target.maxhp) {
+			if (pokemon.species.name === 'Mamoswine' && move.totalDamage === target.maxhp) {
 				pokemon.formeChange('Mamoswine-Overflow', this.effect, true);
 			}
 		},
@@ -165,18 +165,20 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 		inherit: true,
 		isNonstandard: null,
 		onTakeItem(item, pokemon, source) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if (source.name === "Diancie" || source?.ability === "geminfusion" || pokemon.ability === "geminfusion") {
 				return false;
 			}
-			return true;
 		},
 		onUseItem(item, pokemon) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if ((pokemon.name === "Diancie" || pokemon?.ability === "geminfusion") && item?.isGem) {
 				return false;
 			}
 		},
 		onSourceTryPrimaryHit(target, source, move) {
 			if (target === source || move.category === 'Status' || move.flags['pledgecombo']) return;
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if (move.type === 'Bug' && source.ability === "geminfusion") {
 				source.addVolatile('gem');
 			} else if (move.type === 'Bug' && source.useItem()) {
@@ -188,18 +190,20 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 		inherit: true,
 		isNonstandard: null,
 		onTakeItem(item, pokemon, source) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if (source.name === "Diancie" || source?.ability === "geminfusion" || pokemon.ability === "geminfusion") {
 				return false;
 			}
-			return true;
 		},
 		onUseItem(item, pokemon) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if ((pokemon.name === "Diancie" || pokemon?.ability === "geminfusion") && item?.isGem) {
 				return false;
 			}
 		},
 		onSourceTryPrimaryHit(target, source, move) {
 			if (target === source || move.category === 'Status' || move.flags['pledgecombo']) return;
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if (move.type === 'Dark' && source.ability === "geminfusion") {
 				source.addVolatile('gem');
 			} else if (move.type === 'Dark' && source.useItem()) {
@@ -211,18 +215,20 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 		inherit: true,
 		isNonstandard: null,
 		onTakeItem(item, pokemon, source) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if (source.name === "Diancie" || source?.ability === "geminfusion" || pokemon.ability === "geminfusion") {
 				return false;
 			}
-			return true;
 		},
 		onUseItem(item, pokemon) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if ((pokemon.name === "Diancie" || pokemon?.ability === "geminfusion") && item?.isGem) {
 				return false;
 			}
 		},
 		onSourceTryPrimaryHit(target, source, move) {
 			if (target === source || move.category === 'Status' || move.flags['pledgecombo']) return;
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if (move.type === 'Dragon' && source.ability === "geminfusion") {
 				source.addVolatile('gem');
 			} else if (move.type === 'Dragon' && source.useItem()) {
@@ -234,18 +240,20 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 		inherit: true,
 		isNonstandard: null,
 		onTakeItem(item, pokemon, source) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if (source.name === "Diancie" || source?.ability === "geminfusion" || pokemon.ability === "geminfusion") {
 				return false;
 			}
-			return true;
 		},
 		onUseItem(item, pokemon) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if ((pokemon.name === "Diancie" || pokemon?.ability === "geminfusion") && item?.isGem) {
 				return false;
 			}
 		},
 		onSourceTryPrimaryHit(target, source, move) {
 			if (target === source || move.category === 'Status' || move.flags['pledgecombo']) return;
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if (move.type === 'Electric' && source.ability === "geminfusion") {
 				source.addVolatile('gem');
 			} else if (move.type === 'Electric' && source.useItem()) {
@@ -257,18 +265,20 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 		inherit: true,
 		isNonstandard: null,
 		onTakeItem(item, pokemon, source) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if (source.name === "Diancie" || source?.ability === "geminfusion" || pokemon.ability === "geminfusion") {
 				return false;
 			}
-			return true;
 		},
 		onUseItem(item, pokemon) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if ((pokemon.name === "Diancie" || pokemon?.ability === "geminfusion") && item?.isGem) {
 				return false;
 			}
 		},
 		onSourceTryPrimaryHit(target, source, move) {
 			if (target === source || move.category === 'Status' || move.flags['pledgecombo']) return;
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if (move.type === 'Fairy' && source.ability === "geminfusion") {
 				source.addVolatile('gem');
 			} else if (move.type === 'Fairy' && source.useItem()) {
@@ -280,18 +290,20 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 		inherit: true,
 		isNonstandard: null,
 		onTakeItem(item, pokemon, source) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if (source.name === "Diancie" || source?.ability === "geminfusion" || pokemon.ability === "geminfusion") {
 				return false;
 			}
-			return true;
 		},
 		onUseItem(item, pokemon) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if ((pokemon.name === "Diancie" || pokemon?.ability === "geminfusion") && item?.isGem) {
 				return false;
 			}
 		},
 		onSourceTryPrimaryHit(target, source, move) {
 			if (target === source || move.category === 'Status' || move.flags['pledgecombo']) return;
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if (move.type === 'Fighting' && source.ability === "geminfusion") {
 				source.addVolatile('gem');
 			} else if (move.type === 'Fighting' && source.useItem()) {
@@ -303,18 +315,20 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 		inherit: true,
 		isNonstandard: null,
 		onTakeItem(item, pokemon, source) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if (source.name === "Diancie" || source?.ability === "geminfusion" || pokemon.ability === "geminfusion") {
 				return false;
 			}
-			return true;
 		},
 		onUseItem(item, pokemon) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if ((pokemon.name === "Diancie" || pokemon?.ability === "geminfusion") && item?.isGem) {
 				return false;
 			}
 		},
 		onSourceTryPrimaryHit(target, source, move) {
 			if (target === source || move.category === 'Status' || move.flags['pledgecombo']) return;
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if (move.type === 'Fire' && source.ability === "geminfusion") {
 				source.addVolatile('gem');
 			} else if (move.type === 'Fire' && source.useItem()) {
@@ -326,18 +340,20 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 		inherit: true,
 		isNonstandard: null,
 		onTakeItem(item, pokemon, source) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if (source.name === "Diancie" || source?.ability === "geminfusion" || pokemon.ability === "geminfusion") {
 				return false;
 			}
-			return true;
 		},
 		onUseItem(item, pokemon) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if ((pokemon.name === "Diancie" || pokemon?.ability === "geminfusion") && item?.isGem) {
 				return false;
 			}
 		},
 		onSourceTryPrimaryHit(target, source, move) {
 			if (target === source || move.category === 'Status' || move.flags['pledgecombo']) return;
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if (move.type === 'Flying' && source.ability === "geminfusion") {
 				source.addVolatile('gem');
 			} else if (move.type === 'Flying' && source.useItem()) {
@@ -349,18 +365,20 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 		inherit: true,
 		isNonstandard: null,
 		onTakeItem(item, pokemon, source) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if (source.name === "Diancie" || source?.ability === "geminfusion" || pokemon.ability === "geminfusion") {
 				return false;
 			}
-			return true;
 		},
 		onUseItem(item, pokemon) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if ((pokemon.name === "Diancie" || pokemon?.ability === "geminfusion") && item?.isGem) {
 				return false;
 			}
 		},
 		onSourceTryPrimaryHit(target, source, move) {
 			if (target === source || move.category === 'Status' || move.flags['pledgecombo']) return;
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if (move.type === 'Ghost' && source.ability === "geminfusion") {
 				source.addVolatile('gem');
 			} else if (move.type === 'Ghost' && source.useItem()) {
@@ -372,18 +390,20 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 		inherit: true,
 		isNonstandard: null,
 		onTakeItem(item, pokemon, source) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if (source.name === "Diancie" || source?.ability === "geminfusion" || pokemon.ability === "geminfusion") {
 				return false;
 			}
-			return true;
 		},
 		onUseItem(item, pokemon) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if ((pokemon.name === "Diancie" || pokemon?.ability === "geminfusion") && item?.isGem) {
 				return false;
 			}
 		},
 		onSourceTryPrimaryHit(target, source, move) {
 			if (target === source || move.category === 'Status' || move.flags['pledgecombo']) return;
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if (move.type === 'Grass' && source.ability === "geminfusion") {
 				source.addVolatile('gem');
 			} else if (move.type === 'Grass' && source.useItem()) {
@@ -395,18 +415,20 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 		inherit: true,
 		isNonstandard: null,
 		onTakeItem(item, pokemon, source) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if (source.name === "Diancie" || source?.ability === "geminfusion" || pokemon.ability === "geminfusion") {
 				return false;
 			}
-			return true;
 		},
 		onUseItem(item, pokemon) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if ((pokemon.name === "Diancie" || pokemon?.ability === "geminfusion") && item?.isGem) {
 				return false;
 			}
 		},
 		onSourceTryPrimaryHit(target, source, move) {
 			if (target === source || move.category === 'Status' || move.flags['pledgecombo']) return;
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if (move.type === 'Ground' && source.ability === "geminfusion") {
 				source.addVolatile('gem');
 			} else if (move.type === 'Ground' && source.useItem()) {
@@ -418,18 +440,20 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 		inherit: true,
 		isNonstandard: null,
 		onTakeItem(item, pokemon, source) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if (source.name === "Diancie" || source?.ability === "geminfusion" || pokemon.ability === "geminfusion") {
 				return false;
 			}
-			return true;
 		},
 		onUseItem(item, pokemon) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if ((pokemon.name === "Diancie" || pokemon?.ability === "geminfusion") && item?.isGem) {
 				return false;
 			}
 		},
 		onSourceTryPrimaryHit(target, source, move) {
 			if (target === source || move.category === 'Status' || move.flags['pledgecombo']) return;
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if (move.type === 'Ice' && source.ability === "geminfusion") {
 				source.addVolatile('gem');
 			} else if (move.type === 'Ice' && source.useItem()) {
@@ -441,18 +465,20 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 		inherit: true,
 		isNonstandard: null,
 		onTakeItem(item, pokemon, source) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if (source.name === "Diancie" || source?.ability === "geminfusion" || pokemon.ability === "geminfusion") {
 				return false;
 			}
-			return true;
 		},
 		onUseItem(item, pokemon) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if ((pokemon.name === "Diancie" || pokemon?.ability === "geminfusion") && item?.isGem) {
 				return false;
 			}
 		},
 		onSourceTryPrimaryHit(target, source, move) {
 			if (target === source || move.category === 'Status' || move.flags['pledgecombo']) return;
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if (move.type === 'Normal' && source.ability === "geminfusion") {
 				source.addVolatile('gem');
 			} else if (move.type === 'Normal' && source.useItem()) {
@@ -464,18 +490,20 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 		inherit: true,
 		isNonstandard: null,
 		onTakeItem(item, pokemon, source) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if (source.name === "Diancie" || source?.ability === "geminfusion" || pokemon.ability === "geminfusion") {
 				return false;
 			}
-			return true;
 		},
 		onUseItem(item, pokemon) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if ((pokemon.name === "Diancie" || pokemon?.ability === "geminfusion") && item?.isGem) {
 				return false;
 			}
 		},
 		onSourceTryPrimaryHit(target, source, move) {
 			if (target === source || move.category === 'Status' || move.flags['pledgecombo']) return;
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if (move.type === 'Poison' && source.ability === "geminfusion") {
 				source.addVolatile('gem');
 			} else if (move.type === 'Poison' && source.useItem()) {
@@ -487,18 +515,20 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 		inherit: true,
 		isNonstandard: null,
 		onTakeItem(item, pokemon, source) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if (source.name === "Diancie" || source?.ability === "geminfusion" || pokemon.ability === "geminfusion") {
 				return false;
 			}
-			return true;
 		},
 		onUseItem(item, pokemon) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if ((pokemon.name === "Diancie" || pokemon?.ability === "geminfusion") && item?.isGem) {
 				return false;
 			}
 		},
 		onSourceTryPrimaryHit(target, source, move) {
 			if (target === source || move.category === 'Status' || move.flags['pledgecombo']) return;
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if (move.type === 'Rock' && source.ability === "geminfusion") {
 				source.addVolatile('gem');
 			} else if (move.type === 'Rock' && source.useItem()) {
@@ -510,18 +540,20 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 		inherit: true,
 		isNonstandard: null,
 		onTakeItem(item, pokemon, source) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if (source.name === "Diancie" || source?.ability === "geminfusion" || pokemon.ability === "geminfusion") {
 				return false;
 			}
-			return true;
 		},
 		onUseItem(item, pokemon) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if ((pokemon.name === "Diancie" || pokemon?.ability === "geminfusion") && item?.isGem) {
 				return false;
 			}
 		},
 		onSourceTryPrimaryHit(target, source, move) {
 			if (target === source || move.category === 'Status' || move.flags['pledgecombo']) return;
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if (move.type === 'Steel' && source.ability === "geminfusion") {
 				source.addVolatile('gem');
 			} else if (move.type === 'Steel' && source.useItem()) {
@@ -533,18 +565,20 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 		inherit: true,
 		isNonstandard: null,
 		onTakeItem(item, pokemon, source) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if (source.name === "Diancie" || source?.ability === "geminfusion" || pokemon.ability === "geminfusion") {
 				return false;
 			}
-			return true;
 		},
 		onUseItem(item, pokemon) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if ((pokemon.name === "Diancie" || pokemon?.ability === "geminfusion") && item?.isGem) {
 				return false;
 			}
 		},
 		onSourceTryPrimaryHit(target, source, move) {
 			if (target === source || move.category === 'Status' || move.flags['pledgecombo']) return;
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if (move.type === 'Water' && source.ability === "geminfusion") {
 				source.addVolatile('gem');
 			} else if (move.type === 'Water' && source.useItem()) {

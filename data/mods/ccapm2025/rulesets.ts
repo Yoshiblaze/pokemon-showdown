@@ -27,10 +27,10 @@ export const Rulesets: import('../../../sim/dex-formats').ModdedFormatDataTable 
 				if (pokemon.species.name === "Jirachi" && (pokemon.side as any).holdHandsUsers.length >= 2) {
 					pokemon.formeChange('Jirachi-Harmonic', null, true);
 				}
-        if (pokemon.species.name === "Luvdisc" && pokemon.side.totalFainted >= 5) {
-				  pokemon.formeChange('Luvdisc-Heartbreak', null, true);
-				  pokemon.setAbility('pixilate', pokemon);
-        }
+				if (pokemon.species.name === "Luvdisc" && pokemon.side.totalFainted >= 5) {
+					pokemon.formeChange('Luvdisc-Heartbreak', null, true);
+					pokemon.setAbility('pixilate', pokemon);
+				}
 			}
 		},
 		onWeather(target, source, effect) {
@@ -79,7 +79,8 @@ export const Rulesets: import('../../../sim/dex-formats').ModdedFormatDataTable 
 		},
 		onAnyDamage(damage, target, source, effect) {
 			if (!this.ruleTable.tagRules.includes("+pokemontag:cap")) {
-				if (target.species.name === "Victini" && target.hp - damage <= target.maxhp / 4 && target.hp - damage > 0 && target.side.pokemonLeft > 1) {
+				if (target.species.name === "Victini" && target.hp - damage <= target.maxhp / 4 &&
+					target.hp - damage > 0 && target.side.pokemonLeft > 1) {
 					let stat: BoostID;
 					for (stat in target.boosts) {
 						if (target.boosts[stat] < 0) {
@@ -106,7 +107,7 @@ export const Rulesets: import('../../../sim/dex-formats').ModdedFormatDataTable 
 				}
 			}
 			if (effect?.name === 'Fiery Dance' && boost.spa &&
-				 source.species.name === "Volcarona") {
+				source.species.name === "Volcarona") {
 				source.formeChange('Volcarona-Radiant', null, true);
 				source.setAbility('desolateland', source);
 			}
@@ -157,36 +158,40 @@ export const Rulesets: import('../../../sim/dex-formats').ModdedFormatDataTable 
 			}
 		},
 		onSourceAfterFaint(length, target, source, effect) {
-			if (source.species.id === 'lucario') {
-				if (this.effectState.auraTriggered) return;
-				if (effect?.effectType !== 'Move') {
-					return;
-				}
-				if (source.hp && !source.transformed && source.side.foePokemonLeft()) {
-					this.add('-activate', source, 'ability: Aura Bond');
-					// the ability isn't real
-					source.formeChange('Lucario-Aura Bond', this.effect, true);
-					source.setAbility('aurapartner', source);
-					source.formeRegression = true;
-					this.effectState.auraTriggered = true;
-				}
-			} else if (source.species.name === "Octillery") {
-				if (effect && effect.effectType === 'Move' && target.getMoveHitData(move).crit) {
-					source.formeChange('Octillery-Sharpshooter', null, true);
-					source.setAbility('focusedfire', source);
+			if (!this.ruleTable.tagRules.includes("+pokemontag:cap")) {
+				if (source.species.id === 'lucario') {
+					if (this.effectState.auraTriggered) return;
+					if (effect?.effectType !== 'Move') {
+						return;
+					}
+					if (source.hp && !source.transformed && source.side.foePokemonLeft()) {
+						this.add('-activate', source, 'ability: Aura Bond');
+						// the ability isn't real
+						source.formeChange('Lucario-Aura Bond', this.effect, true);
+						source.setAbility('aurapartner', source);
+						source.formeRegression = true;
+						this.effectState.auraTriggered = true;
+					}
+				} else if (source.species.name === "Octillery") {
+					if (effect && effect.effectType === 'Move' && target.getMoveHitData(effect).crit) {
+						source.formeChange('Octillery-Sharpshooter', null, true);
+						source.setAbility('focusedfire', source);
+					}
 				}
 			}
 		},
 		onUpdate(pokemon) {
-			for (const target of pokemon.adjacentFoes()) {
-				if ((target.status === 'psn' || target.status === 'tox') &&
-					 pokemon.species.name === "Pecharunt") {
-					pokemon.formeChange('Pecharunt-Puppetmaster', null, true);
-					pokemon.setAbility('intimidate', pokemon);
-				} else if (target.status !== 'psn' && !arget.status === 'tox' &&
-					 pokemon.species.name === "Pecharunt-Puppetmaster") {
-					pokemon.formeChange('Pecharunt', null, true);
-					pokemon.setAbility('poisonpuppeteer', pokemon);
+			if (!this.ruleTable.tagRules.includes("+pokemontag:cap")) {
+				for (const target of pokemon.adjacentFoes()) {
+					if ((target.status === 'psn' || target.status === 'tox') &&
+						pokemon.species.name === "Pecharunt") {
+						pokemon.formeChange('Pecharunt-Puppetmaster', null, true);
+						pokemon.setAbility('intimidate', pokemon);
+					} else if (target.status !== 'psn' && target.status !== 'tox' &&
+						pokemon.species.name === "Pecharunt-Puppetmaster") {
+						pokemon.formeChange('Pecharunt', null, true);
+						pokemon.setAbility('poisonpuppeteer', pokemon);
+					}
 				}
 			}
 		},

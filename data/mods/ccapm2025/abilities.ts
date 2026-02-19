@@ -126,16 +126,18 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 				for (const secondary of move.secondaries) {
 					if (secondary.volatileStatus === 'flinch') return;
 				}
-				move.secondaries.push({
-					chance: 10,
-					volatileStatus: 'flinch',
-					onHit(target, source, move) {
-						if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
-						if (source.species.name === 'Trubbish') {
-							source.formeChange('Trubbish-Mega-Dragon', this.effect, true);
-						}
-					},
-				});
+				if (!this.ruleTable.tagRules.includes("+pokemontag:cap")) {
+					move.secondaries.push({
+						chance: 10,
+						volatileStatus: 'flinch',
+						onHit(target, source, activeMove) {
+							if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
+							if (source.species.name === 'Trubbish') {
+								source.formeChange('Trubbish-Mega-Dragon', this.effect, true);
+							}
+						},
+					});
+				}
 			}
 		},
 	},
@@ -176,6 +178,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		},
 	},
 	wonderguard: {
+		inherit: true,
 		onTryHit(target, source, move) {
 			if (target === source || move.category === 'Status' || move.id === 'struggle') return;
 			if (move.id === 'skydrop' && !source.volatiles['skydrop']) return;
@@ -185,15 +188,13 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 					move.smartTarget = false;
 				} else {
 					this.add('-immune', target, '[from] ability: Wonder Guard');
-					target.formeChange('Shedinja-Escaped', null, true);
+					if (!this.ruleTable.tagRules.includes("+pokemontag:cap")) {
+						target.formeChange('Shedinja-Escaped', null, true);
+					}
 				}
 				return null;
 			}
 		},
-		flags: { failroleplay: 1, noreceiver: 1, noentrain: 1, failskillswap: 1, breakable: 1 },
-		name: "Wonder Guard",
-		rating: 5,
-		num: 25,
 	},
 
 	// New Abilities
@@ -919,12 +920,12 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		flags: {},
 		name: "Growing Bitterness",
 		rating: 0,
+		num: 1112,
 		shortDesc: "Weavile: Transforms into Weavile-Frost after being active for 8 turns.",
 	},
 	heartofcold: {
 		onStart(pokemon) {
 			this.add('-message', `${pokemon.species.name}'s heart has grown cold!`);
-
 		},
 		onModifyDefPriority: 6,
 		onModifyDef(pokemon) {
@@ -1056,9 +1057,11 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 			const screens = [
 				'lightscreen', 'reflect', 'auroraveil',
 			];
-			if (defender.side.getSideCondition(screens)) {
-				this.debug('Equal Share boost');
-				return this.chainModify(1.5);
+			for (const screen of screens) {
+				if (defender.side.getSideCondition(screen)) {
+					this.debug('Equal Share boost');
+					return this.chainModify(1.5);
+				}
 			}
 			const yourSide = attacker.side;
 			let allLayers = 0;
@@ -1080,9 +1083,11 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 			const screens = [
 				'lightscreen', 'reflect', 'auroraveil',
 			];
-			if (defender.side.getSideCondition(screens)) {
-				this.debug('Equal Share boost');
-				return this.chainModify(1.5);
+			for (const screen of screens) {
+				if (defender.side.getSideCondition(screen)) {
+					this.debug('Equal Share boost');
+					return this.chainModify(1.5);
+				}
 			}
 			const yourSide = attacker.side;
 			let allLayers = 0;
@@ -1154,7 +1159,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 				effect.effectType === "Move" &&
 				!effect.multihit &&
 				!(effect.hasSheerForce && source.hasAbility('sheerforce') &&
-				effect.category === 'Physical')
+					effect.category === 'Physical')
 			) {
 				this.effectState.checkedBristle = false;
 			} else {
@@ -1178,7 +1183,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 			const damage = move.multihit && !move.smartTarget ? move.totalDamage : lastAttackedBy.damage;
 			if (target.hp <= target.maxhp / 2 && target.hp + damage > target.maxhp / 2) {
 				this.add('-activate', target, 'ability: Bristle');
-				side.addSideCondition('bristles', target);
+				target.side.addSideCondition('bristles', target);
 			}
 		},
 		flags: {},
@@ -1222,7 +1227,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		onStart(pokemon) {
 			this.add('-ability', pokemon, 'Entrapment');
 			for (const target of pokemon.adjacentFoes()) {
-				side.addSideCondition('spikes', target);
+				target.side.addSideCondition('spikes', target);
 			}
 		},
 		flags: {},
@@ -1327,5 +1332,22 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		name: "Social Retreat",
 		rating: 3,
 		shortDesc: "Changes this Pokemon's secondary type to what best matches up against incoming moves.",
+	},
+	tryingmybest: {
+		onSwitchIn(pokemon) {
+			if (pokemon.side.pokemonLeft === 1) {
+				if (pokemon.species.name === 'Luvdisc') {
+					pokemon.formeChange('Luvdisc-Heartbreak', this.effect, true);
+				}
+			} else {
+				const mon = pokemon as any;
+				if (mon.tryingMyBestSwitches) mon.timesSwitchedIn++;
+				else mon.tryingMyBestSwitches = 1;
+			}
+		},
+		flags: {},
+		name: "Trying My Best!",
+		rating: 4,
+		num: 1293,
 	},
 };

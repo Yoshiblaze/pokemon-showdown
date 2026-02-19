@@ -1,10 +1,11 @@
-import type { Pokemon } from "../../../sim";
+import { Pokemon, toID } from "../../../sim";
 import { RESTORATIVE_BERRIES } from "../../../sim/pokemon";
 export const Scripts: ModdedBattleScriptsData = {
 	gen: 9,
 	init() {
-		for (let mon in this.species.all()) {
-			this.modData("Learnsets", mon).learnset.holdhands = ["9L1"];
+		for (const mon of Dex.species.all()) {
+			if (this.modData("Learnsets", mon.id)?.learnset)
+				this.modData("Learnsets", mon.id).learnset.holdhands = ["9L1"];
 		}
 		this.modData("Learnsets", "alcremie").learnset.acidarmor = ["9L1"];
 		this.modData("Learnsets", "drifblim").learnset.hurricane = ["9L1"];
@@ -141,8 +142,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			}
 			if (success && move.type === 'Grass' &&
 				!pokemon.battle.ruleTable.tagRules.includes("+pokemontag:cap")) {
-				for (let mon of pokemon.foes())
-				{
+				for (const mon of pokemon.foes()) {
 					if (mon.species.name !== 'Sudowoodo') continue;
 					if (!mon.m.grassMoves) mon.m.grassMoves = 0;
 					mon.m.grassMoves++;
@@ -150,8 +150,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						mon.formeChange('Sudowoodo-Nopseudo', null, true);
 					}
 				}
-				for (let mon of pokemon.alliesAndSelf())
-				{
+				for (const mon of pokemon.alliesAndSelf()) {
 					if (mon.species.name !== 'Sudowoodo') continue;
 					if (!mon.m.grassMoves) mon.m.grassMoves = 0;
 					mon.m.grassMoves++;
@@ -389,7 +388,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				this.usedItemThisTurn = true;
 				this.ateBerry = true;
 				if (this.species.baseSpecies === 'Alcremie' && !this.battle.ruleTable.tagRules.includes("+pokemontag:cap")) {
-					switch(this.species.id) {
+					switch (this.species.id) {
 					case "alcremierubycream":
 						this.formeChange('Alcremie-Sweetened-Ruby-Cream', null, true);
 						break;
@@ -419,7 +418,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						break;
 					}
 
-					switch(this.lastItem) {
+					switch (this.lastItem) {
 					case "aguavberry":
 						this.battle.boost({ spd: 1 }, this);
 						break;
@@ -442,7 +441,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						this.heal(this.maxhp);
 						break;
 					case "sitrusberry":
-						const side = this.side.foe
+						const side = this.side.foe;
 						if (!side.sideConditions['stickyweb']) {
 							side.addSideCondition('stickyweb', this.foes()[0]);
 						}
@@ -458,6 +457,58 @@ export const Scripts: ModdedBattleScriptsData = {
 				return true;
 			}
 			return false;
-		}
+		},
+
+		getStat(statName: StatIDExceptHP, unboosted?: boolean, unmodified?: boolean) {
+			statName = toID(statName) as StatIDExceptHP;
+			// @ts-expect-error type checking prevents 'hp' from being passed, but we're paranoid
+			if (statName === 'hp') throw new Error("Please read `maxhp` directly");
+
+			// base stat
+			let stat = this.storedStats[statName];
+
+			// Download ignores Wonder Room's effect, but this results in
+			// stat stages being calculated on the opposite defensive stat
+			if (unmodified && 'wonderroom' in this.battle.field.pseudoWeather) {
+				if (statName === 'def') {
+					statName = 'spd';
+				} else if (statName === 'spd') {
+					statName = 'def';
+				}
+			}
+
+			// stat boosts
+			if (!unboosted) {
+				let boosts = this.boosts;
+				if (!unmodified) {
+					boosts = this.battle.runEvent('ModifyBoost', this, null, null, { ...boosts });
+				}
+				let boost = boosts[statName];
+				const boostTable = [1, 1.5, 2, 2.5, 3, 3.5, 4];
+				if (boost > 6) boost = 6;
+				if (boost < -6) boost = -6;
+				if (boost >= 0) {
+					stat = Math.floor(stat * boostTable[boost]);
+				} else {
+					stat = Math.floor(stat / boostTable[-boost]);
+				}
+			}
+
+			// stat modifier effects
+			if (!unmodified) {
+				const statTable: { [s in StatIDExceptHP]: string } = { atk: 'Atk', def: 'Def', spa: 'SpA', spd: 'SpD', spe: 'Spe' };
+				stat = this.battle.runEvent('Modify' + statTable[statName], this, null, null, stat);
+				// Implement Trying My Best!
+				if (!this.battle.ruleTable.tagRules.includes("+pokemontag:cap")) {
+					const mon = this as any;
+					if (mon.tryingMyBestSwitches) {
+						stat *= (10 + mon.tryingMyBestSwitches) / 10;
+					}
+				}
+			}
+
+			if (statName === 'spe' && stat > 10000 && !this.battle.format.battle?.trunc) stat = 10000;
+			return stat;
+		},
 	},
 };
