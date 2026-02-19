@@ -100,7 +100,7 @@ export const Conditions: import('../../../sim/dex-conditions').ModdedConditionDa
 		onEnd(target) {
 			if (target.species.id === 'aurorus') {
 				target.formeChange('Aurorus-Glorious', this.effect, true);
-				target.setAbility('megalauncher', source, true);
+				target.setAbility('megalauncher', target, true);
 				this.add('-activate', target, 'ability: Mega Launcher');
 				if (this.field.isWeather(['hail', 'snowscape'])) {
 					target.heal(pokemon.baseMaxhp / 2);
