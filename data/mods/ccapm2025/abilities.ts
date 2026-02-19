@@ -188,7 +188,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 					move.smartTarget = false;
 				} else {
 					this.add('-immune', target, '[from] ability: Wonder Guard');
-					if (!this.ruleTable.tagRules.includes("+pokemontag:cap")) {
+					if (!this.ruleTable.tagRules.includes("+pokemontag:cap") && target.baseSpecies.name === 'Shedinja') {
 						target.formeChange('Shedinja-Escaped', null, true);
 					}
 				}
