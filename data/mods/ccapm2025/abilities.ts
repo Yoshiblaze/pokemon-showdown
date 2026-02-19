@@ -926,7 +926,6 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 	heartofcold: {
 		onStart(pokemon) {
 			this.add('-message', `${pokemon.species.name}'s heart has grown cold!`);
-
 		},
 		onModifyDefPriority: 6,
 		onModifyDef(pokemon) {
@@ -1341,7 +1340,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 					pokemon.formeChange('Luvdisc-Heartbreak', this.effect, true);
 				}
 			} else {
-				let mon = (pokemon as any);
+				const mon = pokemon as any;
 				if (mon.tryingMyBestSwitches) mon.timesSwitchedIn++;
 				else mon.tryingMyBestSwitches = 1;
 			}
