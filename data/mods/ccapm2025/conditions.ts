@@ -103,7 +103,7 @@ export const Conditions: import('../../../sim/dex-conditions').ModdedConditionDa
 				target.setAbility('megalauncher', target, true);
 				this.add('-activate', target, 'ability: Mega Launcher');
 				if (this.field.isWeather(['hail', 'snowscape'])) {
-					target.heal(pokemon.baseMaxhp / 2);
+					target.heal(target.baseMaxhp / 2);
 				}
 			}
 			this.add('-end', target, 'restoring');
