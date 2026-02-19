@@ -1463,6 +1463,59 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		desc: "Always does 40 damage. Boosts the user's SpA by 2 stages. Landorus transforms.",
 		shortDesc: "Always does 40 damage. Boosts the user's SpA by 2 stages. Landorus transforms.",
 	},
+	soulboundslash: { // placeholder
+		accuracy: 100,
+		basePower: 90,
+		category: "Physical",
+		name: "Soulbound Slash",
+		pp: 10,
+		priority: 0,
+		flags: { slicing: 1, protect: 1, mirror: 1, metronome: 1 },
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Night Slash', target);
+		},
+		secondary: null,
+		target: "normal",
+		type: "Ghost",
+		contestType: "Cool",
+		// shortDesc: "Before damage, user and target swap type combinations if they don't share any types.",
+	},
+	glacierfang: { // placeholder but the move change would probably be coded elsewhere
+		accuracy: 100,
+		basePower: 85,
+		category: "Physical",
+		name: "Glacier Fang",
+		pp: 15,
+		priority: 0,
+		flags: { contact: 1, protect: 1, mirror: 1, metronome: 1, bite: 1 },
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Ice Fang', target);
+		},
+		secondary: null,
+		target: "normal",
+		type: "Ice",
+		// shortDesc: "Becomes Melting Maul if Beartic-Freshwater.",
+	},
+	meltingmaul: { // placeholder but the move change would probably be coded elsewhere
+		accuracy: 100,
+		basePower: 140,
+		category: "Physical",
+		name: "Melting Maul",
+		pp: 15,
+		priority: 0,
+		flags: { contact: 1, protect: 1, mirror: 1, metronome: 1, bite: 1, cantusetwice: 1 },
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Steam Eruption', target);
+			this.add('-anim', source, 'Ice Hammer', target);
+		},
+		onEffectiveness(typeMod, target, type, move) {
+			return typeMod + this.dex.getEffectiveness('Ice', type);
+		},
+		secondary: null,
+		target: "normal",
+		type: "Water",
+		// shortDesc: "Both Water & Ice-type. Can't be used twice in a row. Becomes Glacier Fang if base Beartic.",
+	},
 	// Old Moves
 	kingsshield: {
 		inherit: true,
