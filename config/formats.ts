@@ -3458,7 +3458,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		debug: true,
 		battle: { trunc: Math.trunc },
 		// no restrictions, for serious (other than team preview)
-		ruleset: ['Team Preview', 'Cancel Mod', 'Max Team Size = 24', 'Max Move Count = 24', 'Max Level = 9999', 'Default Level = 100'],
+		ruleset: ['CCAPM Form Changes', 'Team Preview', 'Cancel Mod', 'Max Team Size = 24', 'Max Move Count = 24', 'Max Level = 9999', 'Default Level = 100'],
 		onValidateSet(set) {
 			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) {
 				const { tierSpecies } = this.getValidationSpecies(set);
@@ -3471,7 +3471,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		name: "[Gen 9] CCAPM2025", // roomtours
 		mod: 'ccapm2025',
 		searchShow: false,
-		ruleset: ['Standard NatDex', 'Evasion Abilities Clause', 'Sleep Moves Clause', '!Sleep Clause Mod'],
+		ruleset: ['Standard NatDex', 'Evasion Abilities Clause', 'Sleep Moves Clause', '!Sleep Clause Mod', 'CCAPM Form Changes'],
 		banlist: ['Uber', 'AG', 'Arena Trap', 'Moody', 'Shadow Tag', 'King\'s Rock', 'Razor Fang', 'Baton Pass', 'Last Respects', 'Shed Tail'],
 		onValidateSet(set) {
 			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) {
