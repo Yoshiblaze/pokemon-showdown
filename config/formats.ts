@@ -484,13 +484,13 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		name: "[Gen 9] Flipped",
 		desc: `All Pok&eacute;mon have their base stats flipped. For example, Sylveon's HP and Speed stats, Attack and Special Defense stats, and Defense and Special Attack stats swap.`,
 		mod: 'gen9',
-		ruleset: ['Standard OMs', 'Sleep Clause Mod', 'Evasion Abilities Clause', 'Evasion Items Clause', 'Flipped Mod'],
+		ruleset: ['Standard OMs', 'Sleep Moves Clause', 'Evasion Abilities Clause', 'Evasion Items Clause', 'Flipped Mod'],
 		banlist: [
-			'Araquanid', 'Arceus', 'Azumarill', 'Blissey', 'Calyrex-Ice', 'Calyrex-Shadow', 'Cloyster', 'Cyclizar', 'Deoxys-Attack', 'Deoxys-Normal', 'Deoxys-Speed',
-			'Dialga', 'Dialga-Origin', 'Espathra', 'Eternatus', 'Giratina', 'Giratina-Origin', 'Groudon', 'Ho-Oh', 'Hoopa-Unbound', 'Koraidon', 'Kyogre', 'Kyurem-Black',
-			'Kyurem-White', 'Lugia', 'Lunala', 'Magearna', 'Mewtwo', 'Miraidon', 'Mienshao', 'Necrozma-Dawn-Wings', 'Necrozma-Dusk-Mane', 'Palkia', 'Palkia-Origin',
-			'Rayquaza', 'Regieleki', 'Reshiram', 'Shaymin-Sky', 'Snorlax', 'Solgaleo', 'Sylveon', 'Terapagos', 'Torkoal', 'Tornadus-Therian', 'Zacian', 'Zacian-Crowned',
-			'Zamazenta', 'Zamazenta-Crowned', 'Zekrom', 'Arena Trap', 'Moody', 'Shadow Tag', 'Damp Rock', 'King\'s Rock', 'Light Clay', 'Razor Fang', 'Baton Pass',
+			'Annihilape', 'Araquanid', 'Arceus', 'Azumarill', 'Blissey', 'Calyrex-Ice', 'Calyrex-Shadow', 'Cloyster', 'Cyclizar', 'Deoxys-Attack', 'Deoxys-Normal',
+			'Deoxys-Speed', 'Dialga', 'Dialga-Origin', 'Espathra', 'Eternatus', 'Giratina', 'Giratina-Origin', 'Groudon', 'Ho-Oh', 'Hoopa-Unbound', 'Koraidon', 'Kyogre',
+			'Kyurem-Black', 'Kyurem-White', 'Lugia', 'Lunala', 'Magearna', 'Mewtwo', 'Miraidon', 'Mienshao', 'Necrozma-Dawn-Wings', 'Necrozma-Dusk-Mane', 'Palkia',
+			'Palkia-Origin', 'Rayquaza', 'Regieleki', 'Reshiram', 'Shaymin-Sky', 'Snorlax', 'Solgaleo', 'Sylveon', 'Terapagos', 'Torkoal', 'Tornadus-Therian', 'Zacian',
+			'Zacian-Crowned', 'Zamazenta-Crowned', 'Zekrom', 'Arena Trap', 'Moody', 'Shadow Tag', 'Damp Rock', 'King\'s Rock', 'Light Clay', 'Razor Fang', 'Baton Pass',
 			'Last Respects', 'Shed Tail',
 		],
 	},
@@ -699,42 +699,13 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 			}
 		},
 	},
-	{
-		name: "[Gen 9] CCAPM2025 Custom Game", // for testing
-		mod: 'ccapm2025',
-		searchShow: false,
-		debug: true,
-		battle: { trunc: Math.trunc },
-		// no restrictions, for serious (other than team preview)
-		ruleset: ['Team Preview', 'Cancel Mod', 'Max Team Size = 24', 'Max Move Count = 24', 'Max Level = 9999', 'Default Level = 100'],
-		onValidateSet(set) {
-			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) {
-				const { tierSpecies } = this.getValidationSpecies(set);
-				if (tierSpecies.isNonstandard !== "CAP")
-					return [`${set.name || set.species} does not exist in Pet Mods Advent.`];
-			};
-		},
-	},
-	{
+	/* {
 		name: "[Gen 9] CCAPM2025 Random Battle",
 		desc: `Random Battles in a random generation! [Gen 1] Random Battle - [Gen 9] Random Battle.`,
 		mod: 'ccapm2025',
 		team: 'random',
 		bestOfDefault: true,
-	},
-	{
-		name: "[Gen 9] CCAPM2025", // roomtours
-		mod: 'ccapm2025',
-		ruleset: ['Standard', 'Evasion Abilities Clause', 'Sleep Moves Clause', '!Sleep Clause Mod'],
-		banlist: ['Uber', 'AG', 'Arena Trap', 'Moody', 'Shadow Tag', 'King\'s Rock', 'Razor Fang', 'Baton Pass', 'Last Respects', 'Shed Tail'],
-		onValidateSet(set) {
-			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) {
-				const { tierSpecies } = this.getValidationSpecies(set);
-				if (tierSpecies.isNonstandard !== "CAP")
-					return [`${set.name || set.species} does not exist in Pet Mods Advent.`];
-			};
-		},
-	},
+	}, */
 	{
 		name: "[Gen 3] Ubers",
 		mod: 'gen3',
@@ -3179,7 +3150,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		searchShow: false,
 		ruleset: [
 			'Standard NatDex',
-			'!Species Clause', 'Forme Clause', 'Terastal Clause', 'DryPass Clause', 'Mega Rayquaza Clause',
+			'!Species Clause', 'Forme Clause', '!Sleep Clause Mod', 'Sleep Moves Clause', 'Terastal Clause', 'DryPass Clause', 'Mega Rayquaza Clause',
 		],
 		banlist: [
 			'ND Uber', 'ND AG', 'ND OU', 'ND UUBL', 'ND UU', 'ND RUBL', 'ND RU', 'ND NFE', 'ND LC',
@@ -3190,7 +3161,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 			'Articuno-Galar', 'Aurorus', 'Bellossom', 'Bewear', 'Blastoise-Base', 'Dodrio', 'Entei', 'Falinks-Base', 'Flygon', 'Furret', 'Goodra-Hisui',
 			'Gumshoos-Base', 'Heliolisk', 'Hydrapple', 'Indeedee-F', 'Iron Thorns', 'Leavanny', 'Lickilicky', 'Ludicolo', 'Maractus', 'Meganium-Base',
 			'Polteageist', 'Probopass', 'Regieleki', 'Rhyperior', 'Seismitoad', 'Shiinotic', 'Slaking', 'Spidops', 'Spiritomb', 'Unfezant', 'Vanilluxe',
-			'Victreebel-Base', 'Weezing-Galar', 'Wyrdeer', 'Ultranecrozium Z', 'Solganium Z', 'Lunalium Z', 'Mewnium Z', 'Marshadium Z',
+			'Victreebel-Base', 'Weezing-Galar', 'Wyrdeer', 'Ultranecrozium Z', 'Solganium Z', 'Lunalium Z', 'Mewnium Z', 'Marshadium Z', 'Yawn',
 		],
 		// Stupid hardcode
 		onValidateSet(set, format, setHas, teamHas) {
@@ -3478,6 +3449,36 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 				!pokemon.terastallized) {
 				this.add('-start', pokemon, 'typechange', (pokemon.illusion || pokemon).getTypes(true).join('/'), '[silent]');
 			}
+		},
+	},
+	{
+		name: "[Gen 9] CCAPM2025 Custom Game", // for testing
+		mod: 'ccapm2025',
+		searchShow: false,
+		debug: true,
+		battle: { trunc: Math.trunc },
+		// no restrictions, for serious (other than team preview)
+		ruleset: ['Team Preview', 'Cancel Mod', 'Max Team Size = 24', 'Max Move Count = 24', 'Max Level = 9999', 'Default Level = 100'],
+		onValidateSet(set) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) {
+				const { tierSpecies } = this.getValidationSpecies(set);
+				if (tierSpecies.isNonstandard !== "CAP")
+					return [`${set.name || set.species} does not exist in Pet Mods Advent.`];
+			};
+		},
+	},
+	{
+		name: "[Gen 9] CCAPM2025", // roomtours
+		mod: 'ccapm2025',
+		searchShow: false,
+		ruleset: ['Standard', 'Evasion Abilities Clause', 'Sleep Moves Clause', '!Sleep Clause Mod'],
+		banlist: ['Uber', 'AG', 'Arena Trap', 'Moody', 'Shadow Tag', 'King\'s Rock', 'Razor Fang', 'Baton Pass', 'Last Respects', 'Shed Tail'],
+		onValidateSet(set) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) {
+				const { tierSpecies } = this.getValidationSpecies(set);
+				if (tierSpecies.isNonstandard !== "CAP")
+					return [`${set.name || set.species} does not exist in Pet Mods Advent.`];
+			};
 		},
 	},
 	{
