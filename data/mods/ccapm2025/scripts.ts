@@ -1,4 +1,4 @@
-import {Pokemon, toID} from "../../../sim";
+import { Pokemon, toID } from "../../../sim";
 import { RESTORATIVE_BERRIES } from "../../../sim/pokemon";
 export const Scripts: ModdedBattleScriptsData = {
 	gen: 9,
@@ -500,7 +500,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				stat = this.battle.runEvent('Modify' + statTable[statName], this, null, null, stat);
 				// Implement Trying My Best!
 				if (!this.battle.ruleTable.tagRules.includes("+pokemontag:cap")) {
-					let mon = (this as any);
+					const mon = this as any;
 					if (mon.tryingMyBestSwitches) {
 						stat *= (10 + mon.tryingMyBestSwitches) / 10;
 					}
