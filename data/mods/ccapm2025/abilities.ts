@@ -929,7 +929,9 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		},
 		onModifyDefPriority: 6,
 		onModifyDef(pokemon) {
-			if (!this.field.isWeather(['hail', 'snowscape']) && pokemon.hasType('Ice')) return this.chainModify(1.5);
+			if (pokemon.hasType('Ice') && !this.field.isWeather(['hail', 'snowscape'])) {
+				return this.chainModify(1.5);
+			}
 		},
 		flags: { breakable: 1 },
 		name: "Heart of Cold",
