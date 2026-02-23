@@ -1221,10 +1221,10 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		name: "Yin-Yang Blast",
 		pp: 1,
 		priority: 0,
-		flags: { },
-		onTryMove() {
+		flags: {},
+		/* onTryMove() {
 			this.attrLastMove('[still]');
-		},
+		}, */
 		onPrepareHit(target, source) {
 			this.add('-anim', source, 'Inferno Overdrive', target);
 			this.add('-anim', source, 'Thunder Cage', target);
