@@ -1371,54 +1371,54 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		desc: "Combined type effectiveness with Psychic. Sylveon transforms. Unusable in Lumineon forme.",
 		shortDesc: "Combined type effectiveness with Psychic. Sylveon transforms. Unusable in Lumineon forme.",
 	},
-	generationalevolution: {
-		accuracy: 100,
-		basePower: 0,
-		damage: 40,
-		category: "Physical",
-		name: "Generational Evolution",
-		pp: 30,
-		priority: 0,
-		flags: { protect: 1, mirror: 1, metronome: 1 },
-		onTryMove() {
-			this.attrLastMove('[still]');
-		},
-		onPrepareHit(target, source) {
-			this.add('-anim', source, 'Dragon Rage', target);
-		},
-		onHit(target, pokemon, move) {
-			if (this.effectState.landoI) return;
-			if (pokemon.baseSpecies.baseSpecies === 'Landorus' && pokemon.transformed) {
-				move.willChangeForme = true;
-				this.effectState.landoT = false;
-				this.effectState.landoI = true;
-			}
-		},
-		onAfterMoveSecondarySelf(pokemon, target, move) {
-			if (move.willChangeForme) {
-				const lF = pokemon.species.id === 'landorustherianancestral' ? 'Landorus-Therian' : 'Landorus';
-				pokemon.formeChange(lF, this.effect, true);
-				if (pokemon.species.name === 'Landorus-Therian') {
-					pokemon.setAbility('intimidate', pokemon);
-				} else if (pokemon.species.name === 'Landorus') {
-					pokemon.setAbility('sheerforce', pokemon);
-				}
-			}
-		},
-		secondary: {
-			chance: 100,
-			self: {
-				boosts: {
-					atk: 2,
-				},
-			},
-		},
-		target: "normal",
-		type: "Normal",
-		contestType: "Cool",
-		desc: "Always does 40 damage. Boosts the user's Attack by 2 stages. Landorus transforms.",
-		shortDesc: "Always does 40 damage. Boosts the user's Attack by 2 stages. Landorus transforms.",
-	},
+	// generationalevolution: {
+	// 	accuracy: 100,
+	// 	basePower: 0,
+	// 	damage: 40,
+	// 	category: "Physical",
+	// 	name: "Generational Evolution",
+	// 	pp: 30,
+	// 	priority: 0,
+	// 	flags: { protect: 1, mirror: 1, metronome: 1 },
+	// 	onTryMove() {
+	// 		this.attrLastMove('[still]');
+	// 	},
+	// 	onPrepareHit(target, source) {
+	// 		this.add('-anim', source, 'Dragon Rage', target);
+	// 	},
+	// 	onHit(target, pokemon, move) {
+	// 		if (this.effectState.landoI) return;
+	// 		if (pokemon.baseSpecies.baseSpecies === 'Landorus' && pokemon.transformed) {
+	// 			move.willChangeForme = true;
+	// 			this.effectState.landoT = false;
+	// 			this.effectState.landoI = true;
+	// 		}
+	// 	},
+	// 	onAfterMoveSecondarySelf(pokemon, target, move) {
+	// 		if (move.willChangeForme) {
+	// 			const lF = pokemon.species.id === 'landorustherianancestral' ? 'Landorus-Therian' : 'Landorus';
+	// 			pokemon.formeChange(lF, this.effect, true);
+	// 			if (pokemon.species.name === 'Landorus-Therian') {
+	// 				pokemon.setAbility('intimidate', pokemon);
+	// 			} else if (pokemon.species.name === 'Landorus') {
+	// 				pokemon.setAbility('sheerforce', pokemon);
+	// 			}
+	// 		}
+	// 	},
+	// 	secondary: {
+	// 		chance: 100,
+	// 		self: {
+	// 			boosts: {
+	// 				atk: 2,
+	// 			},
+	// 		},
+	// 	},
+	// 	target: "normal",
+	// 	type: "Normal",
+	// 	contestType: "Cool",
+	// 	desc: "Always does 40 damage. Boosts the user's Attack by 2 stages. Landorus transforms.",
+	// 	shortDesc: "Always does 40 damage. Boosts the user's Attack by 2 stages. Landorus transforms.",
+	// },
 	generationaldeevolution: {
 		accuracy: 100,
 		basePower: 0,
@@ -1435,27 +1435,17 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 			this.add('-anim', source, 'Dragon Rage', target);
 		},
 		onHit(target, pokemon, move) {
-			if (this.effectState.landoT) return;
+			if (pokemon.species.id === 'landorus') this.boost({ spa: 2 }, pokemon);
+			else if (pokemon.species.id === 'landorustherian') this.boost({ atk: 2 }, pokemon);
+
 			if (pokemon.baseSpecies.baseSpecies === 'Landorus' && !pokemon.transformed) {
 				move.willChangeForme = true;
-				this.effectState.landoT = true;
-				this.effectState.landoI = false;
 			}
 		},
 		onAfterMoveSecondarySelf(pokemon, target, move) {
 			if (move.willChangeForme) {
-				const lF = pokemon.species.id === 'landorustherian' ? 'Landorus-Therian-Ancestral' : 'Landorus-Ancestral';
-				pokemon.formeChange(lF, this.effect, true);
-				pokemon.setAbility('download', pokemon);
+				pokemon.formeChange('Landorus-Ancestral', this.effect, true);
 			}
-		},
-		secondary: {
-			chance: 100,
-			self: {
-				boosts: {
-					spa: 2,
-				},
-			},
 		},
 		target: "normal",
 		type: "Normal",
