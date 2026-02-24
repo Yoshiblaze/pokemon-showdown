@@ -1246,7 +1246,7 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		types: ["Fire", "Electric"],
 		baseStats: { hp: 75, atk: 132, def: 73, spa: 132, spd: 73, spe: 117 },
 		abilities: { 0: "Galvanize" },
-		heightm: 1,
+		heightm: 1.8,
 		weightkg: 75,
 		color: "Red",
 		eggGroups: ["Field"],
