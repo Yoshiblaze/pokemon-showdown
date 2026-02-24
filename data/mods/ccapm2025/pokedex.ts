@@ -2148,8 +2148,8 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 	aegibashpolar: {
 		num: 2018,
 		name: "Aegibash-Polar",
-		baseSpecies: "Aegibash",
-		forme: "Polar",
+		// baseSpecies: "Aegibash",
+		// forme: "Polar",
 		types: ["Steel", "Electric"],
 		baseStats: { hp: 60, atk: 50, def: 110, spa: 140, spd: 80, spe: 60 },
 		abilities: { 0: "Magnet Pull", 1: "Minus", H: "No Guard" },

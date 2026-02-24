@@ -3,9 +3,12 @@ import { RESTORATIVE_BERRIES } from "../../../sim/pokemon";
 export const Scripts: ModdedBattleScriptsData = {
 	gen: 9,
 	init() {
-		for (const mon of Dex.species.all()) {
-			if (this.modData("Learnsets", mon.id)?.learnset)
+		for (const mon of this.species.all()) {
+			if (!mon.isCosmeticForme &&  this.modData("Learnsets", mon.id)?.learnset)
+			{
 				this.modData("Learnsets", mon.id).learnset.holdhands = ["9L1"];
+			}
+			console.log(mon.id);
 		}
 		this.modData("Learnsets", "alcremie").learnset.acidarmor = ["9L1"];
 		this.modData("Learnsets", "drifblim").learnset.hurricane = ["9L1"];
