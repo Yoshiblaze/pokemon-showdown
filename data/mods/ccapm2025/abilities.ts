@@ -951,12 +951,9 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		onModifyAccuracyPriority: -1,
 		onModifyAccuracy(accuracy) {
 			if (this.effectState.headOn) return;
+			this.effectState.headOn = true;
 			this.debug('Head-On - decreasing accuracy');
 			return 0;
-		},
-		onAfterMoveSecondary(target, source, move) {
-			if (this.effectState.headOn) return;
-			this.effectState.headOn = true;
 		},
 		flags: {},
 		name: "Head-On",

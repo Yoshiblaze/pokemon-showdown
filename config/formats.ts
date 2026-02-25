@@ -699,13 +699,13 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 			}
 		},
 	},
-	/* {
+	{
 		name: "[Gen 9] CCAPM2025 Random Battle",
 		desc: `Random Battles in a random generation! [Gen 1] Random Battle - [Gen 9] Random Battle.`,
 		mod: 'ccapm2025',
 		team: 'random',
 		bestOfDefault: true,
-	}, */
+	},
 	{
 		name: "[Gen 3] Ubers",
 		mod: 'gen3',
