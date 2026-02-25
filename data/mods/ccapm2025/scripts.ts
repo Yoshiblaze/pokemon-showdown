@@ -125,8 +125,17 @@ export const Scripts: ModdedBattleScriptsData = {
 			}
 			return true;
 		},
-		useMove(move: Move, pokemon: Pokemon) {
-			const success = this.useMoveInner(move, pokemon);
+		useMove(
+			move: Move, pokemon: Pokemon, options?: {
+				target?: Pokemon | null, sourceEffect?: Effect | null,
+				zMove?: string, maxMove?: string,
+			}
+		) {
+			pokemon.moveThisTurnResult = undefined;
+			const oldMoveResult: boolean | null | undefined = pokemon.moveThisTurnResult;
+			const success = this.useMoveInner(move, pokemon, options);
+			if (oldMoveResult === pokemon.moveThisTurnResult) pokemon.moveThisTurnResult = success;
+
 			if (success && pokemon.species.name === 'Iron Valiant' &&
 				!pokemon.battle.ruleTable.tagRules.includes("+pokemontag:cap")) {
 				if (!pokemon.m.usedMoves) pokemon.m.usedMoves = [];
