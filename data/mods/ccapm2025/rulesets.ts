@@ -115,19 +115,19 @@ export const Rulesets: import('../../../sim/dex-formats').ModdedFormatDataTable 
 		onAfterMoveSecondarySelf(source, target, move) {
 			if (!this.ruleTable.tagRules.includes("+pokemontag:cap")) {
 				if (source.species.name === "Clawitzer" && move.flags['pulse']) {
-					target.formeChange('Clawitzer-Curled', null, true);
-					target.setAbility('prismarmor', target);
+					source.formeChange('Clawitzer-Curled', null, true);
+					source.setAbility('prismarmor', target);
 				} else if (source.species.name === "Lilligant" && move.flags['dance']) {
-					target.formeChange('Lilligant-Hisui', null, true);
-					target.setAbility('drought', target);
+					source.formeChange('Lilligant-Hisui', null, true);
+					source.setAbility('drought', target);
 				} else if (source.species.name === "Luxray-Conductive" &&
 					move.type !== 'Electric') {
-					target.formeChange('Luxray', null, true);
+					source.formeChange('Luxray', null, true);
 				} else if (source.species.name === "Luxray" && move.type === 'Electric') {
-					target.formeChange('Luxray-Conductive', null, true);
+					source.formeChange('Luxray-Conductive', null, true);
 				} else if (source.species.name === "Talonflame" && move.type === 'Flying') {
-					target.formeChange('Talonflame-Tempest', null, true);
-					target.setAbility('toughwings', target);
+					source.formeChange('Talonflame-Tempest', null, true);
+					source.setAbility('toughwings', target);
 				}
 			}
 		},
@@ -153,7 +153,7 @@ export const Rulesets: import('../../../sim/dex-formats').ModdedFormatDataTable 
 					pokemon.species.name === "Torterra") {
 					pokemon.formeChange('Torterra-Old', null, true);
 					pokemon.setAbility('headon', pokemon);
-					pokemon.heal(pokemon.baseMaxhp / 2);
+					pokemon.heal(pokemon.baseMaxhp / 4);
 				}
 			}
 		},
