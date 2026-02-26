@@ -1,6 +1,6 @@
 export const FormatsData: import('../../../sim/dex-species').ModdedSpeciesFormatsDataTable = {
 	kingdraclassic: {
-		tier: "OU",
+		tier: "OU", 
 	},
 	kingdrabrinepool: {
 		tier: "OU",
@@ -111,3 +111,4 @@ export const FormatsData: import('../../../sim/dex-species').ModdedSpeciesFormat
 		tier: "Illegal",
 	},
 };
+
