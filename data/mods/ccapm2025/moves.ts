@@ -1515,7 +1515,6 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		priority: 0,
 		flags: {},
 		weather: 'snowscape',
-		volatileStatus: 'healblock',
 		volatileStatus: 'frostbittenreception',
 		onPrepareHit(target, source) {
 			this.add('-anim', source, 'Chilly Reception', target);
@@ -1524,6 +1523,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 			noCopy: true,
 			onStart(pokemon) {
 				this.add('-start', pokemon, 'Frostbitten Reception');
+				pokemon.addVolatile('healblock');
 			},
 			onResidualOrder: 13,
 			onResidual(pokemon) {
