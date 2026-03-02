@@ -49,14 +49,14 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 	},
 	aromatherapy: {
 		inherit: true,
-		beforeMoveCallback(pokemon) {
+		/* beforeMoveCallback(pokemon) {
 			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
 			if (pokemon.species.name === 'Shaymin') {
 				pokemon.formeChange('Shaymin-Sky', null, true);
 				pokemon.setAbility('serenegrace', pokemon);
 				return true;
 			}
-		},
+		}, */
 		onHit(target, source, move) {
 			this.add('-activate', source, 'move: Aromatherapy');
 			let success = false;
@@ -1025,13 +1025,13 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 			if (!oldAbility) return oldAbility as false | null;
 			if (target.status === 'slp') (target as any).cureStatus(false, source);
 		},
-		beforeMoveCallback(pokemon) {
+		/* beforeMoveCallback(pokemon) {
 			if (pokemon.species.name === 'Shaymin') {
 				pokemon.formeChange('Shaymin-Sky', null, true);
 				pokemon.setAbility('serenegrace', pokemon);
 				return true;
 			}
-		},
+		}, */
 	},
 
 	// New Moves
@@ -1725,7 +1725,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		target: "all",
 		type: "Ice",
 	},
-	synthesis: {
+	/* synthesis: {
 		inherit: true,
 		beforeMoveCallback(pokemon) {
 			if (pokemon.species.name === 'Shaymin' && !this.ruleTable.tagRules.includes("+pokemontag:cap")) {
@@ -1804,7 +1804,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 				return true;
 			}
 		},
-	},
+	}, */
 	technoblast: {
 		num: 546,
 		accuracy: 100,
