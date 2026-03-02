@@ -121,11 +121,11 @@ export const Rulesets: import('../../../sim/dex-formats').ModdedFormatDataTable 
 				'aromatherapy', 'worryseed', 'synthesis', 'flowershield', 'floralhealing', 'strengthsap',
 			];
 			if (attacker.species.name === "Shaymin" && shaySky.includes(move.id)) {
-				source.formeChange('Shaymin-Sky', null, true);
-				source.setAbility('serenegrace', source);
+				attacker.formeChange('Shaymin-Sky', null, true);
+				attacker.setAbility('serenegrace', attacker);
 			} else if (attacker.species.name === "Shaymin-Sky" && shayLand.includes(move.id)) {
-				source.formeChange('Shaymin', null, true);
-				source.setAbility('flowerveil', source);
+				attacker.formeChange('Shaymin', null, true);
+				attacker.setAbility('flowerveil', attacker);
 			}
 		},
 		onAfterMoveSecondarySelf(source, target, move) {
