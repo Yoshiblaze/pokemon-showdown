@@ -1506,6 +1506,40 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		type: "Water",
 		// shortDesc: "Both Water & Ice-type. Can't be used twice in a row. Becomes Glacier Fang if base Beartic.",
 	},
+	frostbittenreception: {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		name: "Frostbitten Reception",
+		pp: 10,
+		priority: 0,
+		flags: {},
+		weather: 'snowscape',
+		volatileStatus: 'healblock',
+		volatileStatus: 'frostbittenreception',
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Chilly Reception', target);
+		},
+		condition: {
+			noCopy: true,
+			onStart(pokemon) {
+				this.add('-start', pokemon, 'Frostbitten Reception');
+			},
+			onResidualOrder: 13,
+			onResidual(pokemon) {
+				if (pokemon.status) {
+					this.damage(pokemon.baseMaxhp / 10);
+				}
+			},
+			onEnd(pokemon) {
+				this.add('-end', pokemon, 'Frostbitten Reception');
+			},
+		},
+		secondary: null,
+		target: "allAdjacentFoes",
+		type: "Ice",
+		// shortDesc: "Sets Snow. Foes can't heal and statused foes lose 1/10 of their max HP each turn.",
+	},
 	// Old Moves
 	kingsshield: {
 		inherit: true,
