@@ -1749,9 +1749,9 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 				if (move.id !== 'chillyreception') return;
 				this.add('-prepare', source, 'Chilly Reception', '[premajor]');
 				if (this.effectState.frostKing) return;
-				if (pokemon.species.name === 'Slowking' && !this.ruleTable.tagRules.includes("+pokemontag:cap")) {
-					pokemon.formeChange('Slowking-Frostking', null, true);
-					pokemon.setAbility('regenerator', pokemon);
+				if (source.species.name === 'Slowking' && !this.ruleTable.tagRules.includes("+pokemontag:cap")) {
+					source.formeChange('Slowking-Frostking', null, true);
+					source.setAbility('regenerator', source);
 					this.effectState.frostKing = true;
 				}
 			},
