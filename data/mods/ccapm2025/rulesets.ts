@@ -112,14 +112,30 @@ export const Rulesets: import('../../../sim/dex-formats').ModdedFormatDataTable 
 				source.setAbility('desolateland', source);
 			}
 		},
+		onModifyMovePriority: 1,
+		onModifyMove(move, attacker, defender) {
+			const shayLand = [
+				'seedflare', 'gigadrain', 'flowertrick', 'sappyseed',
+			];
+			const shaySky = [
+				'aromatherapy', 'worryseed', 'synthesis', 'flowershield', 'floralhealing', 'strengthsap',
+			];
+			if (attacker.species.name === "Shaymin" && shaySky.includes(move.id)) {
+				source.formeChange('Shaymin-Sky', null, true);
+				source.setAbility('serenegrace', source);
+			} else if (attacker.species.name === "Shaymin-Sky" && shayLand.includes(move.id)) {
+				source.formeChange('Shaymin', null, true);
+				source.setAbility('flowerveil', source);
+			}
+		},
 		onAfterMoveSecondarySelf(source, target, move) {
 			if (!this.ruleTable.tagRules.includes("+pokemontag:cap")) {
 				if (source.species.name === "Clawitzer" && move.flags['pulse']) {
 					source.formeChange('Clawitzer-Curled', null, true);
-					source.setAbility('prismarmor', target);
+					source.setAbility('prismarmor', source);
 				} else if (source.species.name === "Lilligant" && move.flags['dance']) {
 					source.formeChange('Lilligant-Hisui', null, true);
-					source.setAbility('drought', target);
+					source.setAbility('drought', source);
 				} else if (source.species.name === "Luxray-Conductive" &&
 					move.type !== 'Electric') {
 					source.formeChange('Luxray', null, true);
@@ -127,7 +143,7 @@ export const Rulesets: import('../../../sim/dex-formats').ModdedFormatDataTable 
 					source.formeChange('Luxray-Conductive', null, true);
 				} else if (source.species.name === "Talonflame" && move.type === 'Flying') {
 					source.formeChange('Talonflame-Tempest', null, true);
-					source.setAbility('toughwings', target);
+					source.setAbility('toughwings', source);
 				}
 			}
 		},
