@@ -1678,14 +1678,13 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 				return this.NOT_FAIL;
 			}
 			return success;
-			// if (pokemon.baseSpecies.baseSpecies === 'Volcarona' && !pokemon.transformed) {
-			// 	move.willChangeForme = true;
-			// }
 		},
 		onAfterMoveSecondarySelf(pokemon, target, move) {
-			if (move.willChangeForme && !this.ruleTable.tagRules.includes("+pokemontag:cap")) {
-				const volcaForme = pokemon.species.id === 'volcaronasolstice' ? '' : '-Solstice';
-				pokemon.formeChange('Volcarona' + volcaForme, this.effect, false, '0', '[msg]');
+			if (this.effectState.solStice) return;
+			if (pokemon.species.name === 'Volcarona' && !this.ruleTable.tagRules.includes("+pokemontag:cap")) {
+				pokemon.formeChange('Volcarona-Solstice', null, true);
+				pokemon.setAbility('flamebody', pokemon);
+				this.effectState.solStice = true;
 			}
 		},
 		secondary: null,
@@ -1708,20 +1707,6 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		},
 		weather: 'snowscape',
 		selfSwitch: true,
-		onHit(target, pokemon, move) {
-			if (this.effectState.frostKing) return;
-			if (pokemon.baseSpecies.baseSpecies === 'Slowking' && !pokemon.transformed &&
-				!this.ruleTable.tagRules.includes("+pokemontag:cap")) {
-				move.willChangeForme = true;
-				this.effectState.frostKing = true;
-			}
-		},
-		onAfterMoveSecondarySelf(pokemon, target, move) {
-			if (move.willChangeForme && !this.ruleTable.tagRules.includes("+pokemontag:cap")) {
-				const slowForme = pokemon.species.id === 'slowkingfrostking' ? '' : '-Frostking';
-				pokemon.formeChange('Slowking' + slowForme, this.effect, false, '0', '[msg]');
-			}
-		},
 		secondary: null,
 		condition: {
 			duration: 1,
@@ -1729,6 +1714,12 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 			onBeforeMove(source, target, move) {
 				if (move.id !== 'chillyreception') return;
 				this.add('-prepare', source, 'Chilly Reception', '[premajor]');
+				if (this.effectState.frostKing) return;
+				if (pokemon.species.name === 'Slowking' && !this.ruleTable.tagRules.includes("+pokemontag:cap")) {
+					pokemon.formeChange('Slowking-Frostking', null, true);
+					pokemon.setAbility('regenerator', pokemon);
+					this.effectState.frostKing = true;
+				}
 			},
 		},
 		target: "all",
