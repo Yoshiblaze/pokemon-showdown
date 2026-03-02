@@ -929,7 +929,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		},
 		onModifyDefPriority: 6,
 		onModifyDef(pokemon) {
-			if (pokemon.hasType('Ice') && !this.field.isWeather(['hail', 'snowscape'])) {
+			if (/* pokemon.hasType('Ice') && */ !this.field.isWeather(['hail', 'snowscape'])) {
 				return this.chainModify(1.5);
 			}
 		},
