@@ -88,8 +88,9 @@ export const Scripts: ModdedBattleScriptsData = {
 		this.modData("Learnsets", "stakataka").learnset.stackshield = ["9L1"];
 		this.modData("Learnsets", "aegislash").learnset.soulboundslash = ["9L1"];
 		this.modData("Learnsets", "landorus").learnset.generationaldeevolution = ["9L1"];
-		this.modData("Learnsets", "landorus").learnset.generationalevolution = ["9L1"];
+		// this.modData("Learnsets", "landorus").learnset.generationalevolution = ["9L1"];
 		this.modData("Learnsets", "sylveon").learnset.ribbonshift = ["9L1"];
+		this.modData("Learnsets", "slowking").learnset.frostbittenreception = ["9L1"];
 	},
 	actions: {
 		inherit: true,
