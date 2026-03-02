@@ -4,7 +4,7 @@ export const Conditions: import('../../../sim/dex-conditions').ModdedConditionDa
 		onFieldEnd() {
 			this.add('-weather', 'none');
 			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
-			for (const pokemon of this.getAllPokemon()) {
+			for (const pokemon of this.getAllActive()) {
 				if (pokemon.species.id === 'wyrdeer') {
 					pokemon.formeChange('Wyrdeer-Snowblind', this.effect, true);
 					pokemon.setAbility('heartofcold', pokemon, true); // error?
