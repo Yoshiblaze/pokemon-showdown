@@ -109,7 +109,7 @@ export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 			basePower: 30,
 		},
 		onDamagePriority: 1,
-		onModifyDamage(damage, source, target, move) {
+		onSourceModifyDamage(damage, source, target, move) {
 			if (move && target.getMoveHitData(move).typeMod > 0 && !target.transformed) {
 				target.formeChange('Parasect-Wicked', this.effect, true);
 				this.damage(target.baseMaxhp / 8);
