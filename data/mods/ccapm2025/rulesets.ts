@@ -167,9 +167,10 @@ export const Rulesets: import('../../../sim/dex-formats').ModdedFormatDataTable 
 					pokemon.setAbility('wither', pokemon);
 				} else if (pokemon.hp <= pokemon.maxhp / 2 &&
 					pokemon.species.name === "Torterra") {
-					pokemon.formeChange('Torterra-Old', null, true);
+					pokemon.sethp(Math.min(pokemon.maxhp, pokemon.hp + pokemon.baseMaxhp / 4));
+					this.add('-heal', pokemon, pokemon.getHealth);
+					pokemon.formeChange('Torterra-Old!', null, true);
 					pokemon.setAbility('headon', pokemon);
-					pokemon.heal(pokemon.baseMaxhp / 4);
 				}
 			}
 		},
