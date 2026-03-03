@@ -173,7 +173,7 @@ export const Rulesets: import('../../../sim/dex-formats').ModdedFormatDataTable 
 				}
 			}
 		},
-		onSourceAfterFaint(length, target, source, effect) {
+		onAfterFaint(length, target, source, effect) {
 			if (!this.ruleTable.tagRules.includes("+pokemontag:cap")) {
 				if (source.species.id === 'lucario') {
 					if (this.effectState.auraTriggered) return;
