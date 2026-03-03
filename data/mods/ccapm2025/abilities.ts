@@ -250,7 +250,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 	stackchange: {
 		onModifyMovePriority: 1,
 		onModifyMove(move, attacker, defender) {
-			if (attacker.species.baseSpecies !== 'stackshield' || attacker.transformed) return;
+			if (attacker.species.baseSpecies !== 'Stakataka' || attacker.transformed) return;
 			if (move.category === 'Status' && move.id !== 'stackshield') return;
 			const targetForme = (move.id === 'stackshield' ? 'Stakataka' : 'Stakataka-Missile');
 			if (attacker.species.name !== targetForme) attacker.formeChange(targetForme);
@@ -277,7 +277,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		},
 		onModifyMovePriority: 1,
 		onModifyMove(move, attacker, defender) {
-			if (attacker.species.baseSpecies !== 'stackshield' || attacker.transformed) return;
+			if (attacker.species.baseSpecies !== 'Stakataka' || attacker.transformed) return;
 			if (move.category === 'Status' && move.id !== 'stackshield') return;
 			const targetForme = (move.id === 'stackshield' ? 'Stakataka' : 'Stakataka-Missile');
 			if (attacker.species.name !== targetForme) attacker.formeChange(targetForme);
