@@ -5,8 +5,7 @@ export const Scripts: ModdedBattleScriptsData = {
 	init() {
 		for (const mon of this.species.all()) {
 			console.log(`${mon.name} !== ${mon.baseSpecies}`);
-			if (mon.name === mon.baseSpecies && this.modData("Learnsets", mon.id)?.learnset)
-			{
+			if (mon.name === mon.baseSpecies && this.modData("Learnsets", mon.id)?.learnset) {
 				this.modData("Learnsets", mon.id).learnset.holdhands = ["9L1"];
 			}
 		}
