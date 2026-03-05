@@ -1453,7 +1453,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		desc: "Always does 40 damage. Boosts the user's SpA by 2 stages. Landorus transforms.",
 		shortDesc: "Always does 40 damage. Boosts the user's SpA by 2 stages. Landorus transforms.",
 	},
-	soulboundslash: { // placeholder
+	soulboundslash: {
 		accuracy: 100,
 		basePower: 90,
 		category: "Physical",
@@ -1463,6 +1463,16 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		flags: { slicing: 1, protect: 1, mirror: 1, metronome: 1 },
 		onPrepareHit(target, source) {
 			this.add('-anim', source, 'Night Slash', target);
+			if (source.types.join() === source.species.types.join()) {
+				const randomType = target.types[this.random(target.types.length)];
+				if (source.setType(randomType)) this.add('-start', source, 'typechange', randomType);
+			}
+		},
+		onTryImmunity(target, source) {
+			return target.hasType(source.getTypes());
+		},
+		onEffectiveness(typeMod, target, type, move) {
+			if (typeMod !== null) return 1;
 		},
 		secondary: null,
 		target: "normal",

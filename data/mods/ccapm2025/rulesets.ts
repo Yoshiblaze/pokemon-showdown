@@ -1,3 +1,4 @@
+import { toID } from '../../../sim/dex-data';
 export const Rulesets: import('../../../sim/dex-formats').ModdedFormatDataTable = {
 	terastalclause: {
 		effectType: 'Rule',
@@ -33,17 +34,48 @@ export const Rulesets: import('../../../sim/dex-formats').ModdedFormatDataTable 
 				}
 			}
 		},
-		onWeather(target, source, effect) {
+		onWeatherChange(target, source, effect) {
 			if (!this.ruleTable.tagRules.includes("+pokemontag:cap")) {
-				if (effect.id === 'sunnyday' || effect.id === 'desolateland') {
+				const weather = target.effectiveWeather();
+				if (weather === 'sunnyday' || weather === 'desolateland') {
 					if (target.species.name === "Beartic") {
 						target.formeChange('Beartic-Freshwater', null, true);
 						target.setAbility('cloudnine', target);
+						const glacierFangIndex = target.set.moves.map(toID).indexOf('glacierfang' as ID);
+						if (glacierFangIndex < 0) return;
+
+						const move = this.dex.moves.get('meltingmaul');
+						const sketchedMove = {
+							move: move.name,
+							id: move.id,
+							pp: move.pp,
+							maxpp: move.pp,
+							target: move.target,
+							disabled: false,
+							used: false,
+						};
+						target.moveSlots[glacierFangIndex] = sketchedMove;
+						target.baseMoveSlots[glacierFangIndex] = sketchedMove;
 					}
-				} else if (effect.id === 'hail' || effect.id === 'snowscape') {
+				} else if (weather === 'hail' || weather === 'snowscape') {
 					if (target.species.name === "Beartic-Freshwater") {
 						target.formeChange('Beartic', null, true);
 						target.setAbility('slushrush', target);
+						const meltingMaulIndex = target.set.moves.map(toID).indexOf('meltingmaul' as ID);
+						if (meltingMaulIndex < 0) return;
+
+						const move = this.dex.moves.get('glacierfang');
+						const sketchedMove = {
+							move: move.name,
+							id: move.id,
+							pp: move.pp,
+							maxpp: move.pp,
+							target: move.target,
+							disabled: false,
+							used: false,
+						};
+						target.moveSlots[meltingMaulIndex] = sketchedMove;
+						target.baseMoveSlots[meltingMaulIndex] = sketchedMove;
 					}
 				}
 			}
@@ -167,13 +199,14 @@ export const Rulesets: import('../../../sim/dex-formats').ModdedFormatDataTable 
 					pokemon.setAbility('wither', pokemon);
 				} else if (pokemon.hp <= pokemon.maxhp / 2 &&
 					pokemon.species.name === "Torterra") {
-					pokemon.formeChange('Torterra-Old', null, true);
+					pokemon.sethp(Math.min(pokemon.maxhp, pokemon.hp + pokemon.baseMaxhp / 4));
+					this.add('-heal', pokemon, pokemon.getHealth);
+					pokemon.formeChange('Torterra-Old!', null, true);
 					pokemon.setAbility('headon', pokemon);
-					pokemon.heal(pokemon.baseMaxhp / 4);
 				}
 			}
 		},
-		onSourceAfterFaint(length, target, source, effect) {
+		onAfterFaint(length, target, source, effect) {
 			if (!this.ruleTable.tagRules.includes("+pokemontag:cap")) {
 				if (source.species.id === 'lucario') {
 					if (this.effectState.auraTriggered) return;
@@ -198,6 +231,9 @@ export const Rulesets: import('../../../sim/dex-formats').ModdedFormatDataTable 
 		},
 		onUpdate(pokemon) {
 			if (!this.ruleTable.tagRules.includes("+pokemontag:cap")) {
+				if (pokemon.species.baseSpecies === "Beartic") {
+					this.singleEvent('WeatherChange', this.effect, this.effectState, pokemon);
+				}
 				for (const target of pokemon.adjacentFoes()) {
 					if ((target.status === 'psn' || target.status === 'tox') &&
 						pokemon.species.name === "Pecharunt") {

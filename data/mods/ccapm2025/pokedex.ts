@@ -1399,7 +1399,7 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 	},
 	torterraold: {
 		num: 389,
-		name: "Torterra-Old",
+		name: "Torterra-Old!",
 		baseSpecies: "Torterra",
 		forme: "Old",
 		types: ["Grass", "Steel"],
