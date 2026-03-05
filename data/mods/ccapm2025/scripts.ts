@@ -4,7 +4,8 @@ export const Scripts: ModdedBattleScriptsData = {
 	gen: 9,
 	init() {
 		for (const mon of this.species.all()) {
-			if (!mon.isCosmeticForme &&  this.modData("Learnsets", mon.id)?.learnset)
+			console.log(`${mon.name} !== ${mon.baseSpecies}`);
+			if (mon.name === mon.baseSpecies && this.modData("Learnsets", mon.id)?.learnset)
 			{
 				this.modData("Learnsets", mon.id).learnset.holdhands = ["9L1"];
 			}

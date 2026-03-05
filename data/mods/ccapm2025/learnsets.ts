@@ -82,6 +82,9 @@ export const Learnsets: import('../../../sim/dex-species').ModdedLearnsetDataTab
 			{generation: 4, level: 23},
 		],
 	},
+	ogerponpixiedust: {
+		eventOnly: true,
+	},
   // advent mons
  	strobite: {
 		learnset: {
