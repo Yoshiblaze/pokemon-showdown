@@ -1,4 +1,4 @@
-import { Pokemon, toID } from "../../../sim";
+import { toID } from '../../../sim/dex-data';
 import { RESTORATIVE_BERRIES } from "../../../sim/pokemon";
 export const Scripts: ModdedBattleScriptsData = {
 	gen: 9,
