@@ -7,7 +7,7 @@ export const Conditions: import('../../../sim/dex-conditions').ModdedConditionDa
 			for (const pokemon of this.getAllActive()) {
 				if (pokemon.species.id === 'wyrdeer') {
 					pokemon.formeChange('Wyrdeer-Snowblind', this.effect, true);
-					pokemon.setAbility('heartofcold', pokemon, true); // error?
+					pokemon.setAbility('heartofcold', pokemon);
 					this.add('-activate', pokemon, 'ability: Heart of Cold');
 				}
 			}
@@ -100,7 +100,7 @@ export const Conditions: import('../../../sim/dex-conditions').ModdedConditionDa
 		onEnd(target) {
 			if (target.species.id === 'aurorus') {
 				target.formeChange('Aurorus-Glorious', this.effect, true);
-				target.setAbility('megalauncher', target, true);
+				target.setAbility('megalauncher', target);
 				this.add('-activate', target, 'ability: Mega Launcher');
 				if (this.field.isWeather(['hail', 'snowscape'])) {
 					target.heal(target.baseMaxhp / 2);
