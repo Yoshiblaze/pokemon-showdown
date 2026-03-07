@@ -2032,22 +2032,22 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 					}
 				}
 				if (ally.cureStatus()) success = true;
-			}
-			let activate = false;
-			const boosts: SparseBoostsTable = {};
-			let i: BoostID;
-			for (i in ally.boosts) {
-				if (ally.boosts[i] < 0) {
-					activate = true;
-					boosts[i] = 0;
+				let activate = false;
+				const boosts: SparseBoostsTable = {};
+				let i: BoostID;
+				for (i in ally.boosts) {
+					if (ally.boosts[i] < 0) {
+						activate = true;
+						boosts[i] = 0;
+					}
 				}
+				if (activate) {
+					ally.setBoost(boosts);
+					this.add('-clearnegativeboost', ally, '[silent]');
+					success = true;
+				}
+				return success;
 			}
-			if (activate) {
-				ally.setBoost(boosts);
-				this.add('-clearnegativeboost', ally, '[silent]');
-				success = true;
-			}
-			return success;
 		},
 		target: "allyTeam",
 		type: "Water",
@@ -2172,7 +2172,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		},
 		onBasePower(basePower, source) {
 			if ((this.field.isTerrain('grassyterrain') && source.isGrounded()) ||
-				['sunnyday', 'desolateland'].includes(attacker.effectiveWeather())
+				['sunnyday', 'desolateland'].includes(source.effectiveWeather())
 			) {
 				this.debug('field buff');
 				return this.chainModify(2);
@@ -2475,8 +2475,8 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 				if (!source.fainted) {
 					source.side.removeSideCondition('holidaypreparation');
 					this.boost({ atk: 1 }, source);
-					if (!target.hasType('Ice') && target.addType('Ice')) {
-						this.add('-start', target, 'typeadd', 'Ice', '[from] move: Holiday Preparation');
+					if (!source.hasType('Ice') && source.addType('Ice')) {
+						this.add('-start', source, 'typeadd', 'Ice', '[from] move: Holiday Preparation');
 					}
 					source.side.removeSideCondition('holidaypreparation');
 				}
@@ -2750,7 +2750,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 				move.type = 'Ice';
 				break;
 			}
-			if (!this.field.isWeather() && pokemon.hasAbility('heartofcold')) {
+			if (!this.field.isWeather(['hail', 'snowscape']) && pokemon.hasAbility('heartofcold')) {
 				move.type = 'Ice';
 			}
 		},
@@ -2772,7 +2772,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 				move.basePower *= 2;
 				break;
 			}
-			if (!this.field.isWeather() && pokemon.hasAbility('heartofcold')) {
+			if (!this.field.isWeather(['hail', 'snowscape']) && pokemon.hasAbility('heartofcold')) {
 				move.basePower *= 2;
 			}
 			this.debug(`BP: ${move.basePower}`);
