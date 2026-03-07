@@ -1,4 +1,3 @@
-import { toID } from '../../../sim/dex-data';
 export const Rulesets: import('../../../sim/dex-formats').ModdedFormatDataTable = {
 	terastalclause: {
 		effectType: 'Rule',
