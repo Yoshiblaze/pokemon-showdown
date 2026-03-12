@@ -652,6 +652,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		mod: 'ccapm2025',
 		team: 'random',
 		bestOfDefault: true,
+		ruleset: ['Obtainable', 'Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod', 'Illusion Level Mod', 'CCAPM Form Changes'],
 	},
 	{
 		name: "[Gen 4] Ubers",
