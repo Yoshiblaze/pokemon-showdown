@@ -660,7 +660,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		name: "[Gen 9] CCAPM2025 Random Battle",
 		desc: `Random Battles in a random generation! [Gen 1] Random Battle - [Gen 9] Random Battle.`,
 		mod: 'ccapm2025',
-		team: 'random',
+		team: 'randomC25',
 		bestOfDefault: true,
 		ruleset: ['Obtainable', 'Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod', 'Illusion Level Mod', 'CCAPM Form Changes'],
 	},
