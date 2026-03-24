@@ -1007,7 +1007,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 				if (foeActive && foeActive.status === 'slp') (foeActive as any).cureStatus(false, source);
 			}
 		},
-		secondary: null,
+		secondary: undefined,
 		target: "randomNormal",
 		type: "Normal",
 		contestType: "Cute",
@@ -1103,7 +1103,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		priority: 0,
 		flags: { protect: 1, reflectable: 1, mirror: 1, metronome: 1 },
 		status: 'ber',
-		secondary: null,
+		secondary: undefined,
 		target: "normal",
 		type: "Normal",
 		zMove: { boost: { spd: 1 } },
@@ -1179,7 +1179,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 				}
 			},
 		},
-		secondary: null,
+		secondary: undefined,
 		target: "normal",
 		type: "Normal",
 		contestType: "Clever",
@@ -1207,7 +1207,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 			if (type === '???' && types[1]) type = types[1];
 			move.type = type;
 		},
-		secondary: null,
+		secondary: undefined,
 		target: "normal",
 		type: "Normal",
 		contestType: "Beautiful",
@@ -1233,7 +1233,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 			if (type === 'Water') return 1;
 		},
 		isZ: "ultrasimiseariumz",
-		secondary: null,
+		secondary: undefined,
 		target: "normal",
 		type: "Fire",
 		contestType: "Cool",
@@ -1316,7 +1316,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 				return this.NOT_FAIL;
 			},
 		},
-		secondary: null,
+		secondary: undefined,
 		target: "self",
 		type: "Normal",
 		zMove: { effect: 'clearnegativeboost' },
@@ -1363,7 +1363,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 			return null;
 		},
 		priority: 0,
-		secondary: null,
+		secondary: undefined,
 		target: "normal",
 		type: "Fairy",
 		zMove: { basePower: 170 },
@@ -1474,7 +1474,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		onEffectiveness(typeMod, target, type, move) {
 			if (typeMod !== null) return 1;
 		},
-		secondary: null,
+		secondary: undefined,
 		target: "normal",
 		type: "Ghost",
 		contestType: "Cool",
@@ -1491,7 +1491,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		onPrepareHit(target, source) {
 			this.add('-anim', source, 'Ice Fang', target);
 		},
-		secondary: null,
+		secondary: undefined,
 		target: "normal",
 		type: "Ice",
 		// shortDesc: "Becomes Melting Maul if Beartic-Freshwater.",
@@ -1511,7 +1511,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		onEffectiveness(typeMod, target, type, move) {
 			return typeMod + this.dex.getEffectiveness('Ice', type);
 		},
-		secondary: null,
+		secondary: undefined,
 		target: "normal",
 		type: "Water",
 		// shortDesc: "Both Water & Ice-type. Can't be used twice in a row. Becomes Glacier Fang if base Beartic.",
@@ -1545,7 +1545,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 				this.add('-end', pokemon, 'Frostbitten Reception');
 			},
 		},
-		secondary: null,
+		secondary: undefined,
 		target: "allAdjacentFoes",
 		type: "Ice",
 		// shortDesc: "Sets Snow. Foes can't heal and statused foes lose 1/10 of their max HP each turn.",
@@ -1687,7 +1687,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 				pokemon.formeChange('Zeraora' + zeraForme, this.effect, false, '0', '[msg]');
 			}
 		},
-		secondary: null,
+		secondary: undefined,
 		target: "normal",
 		type: "Electric",
 		contestType: "Cool",
@@ -1731,7 +1731,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 				this.effectState.solStice = true;
 			}
 		},
-		secondary: null,
+		secondary: undefined,
 		target: "self",
 		type: "Normal",
 		zMove: { effect: 'clearnegativeboost' },
@@ -1751,7 +1751,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		},
 		weather: 'snowscape',
 		selfSwitch: true,
-		secondary: null,
+		secondary: undefined,
 		condition: {
 			duration: 1,
 			onBeforeMovePriority: 100,
@@ -1883,7 +1883,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 				this.effectState.geneSect = true;
 			}
 		},
-		secondary: null,
+		secondary: undefined,
 		target: "normal",
 		type: "Normal",
 		contestType: "Cool",
@@ -1912,7 +1912,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 			spa: 2,
 			spe: 2,
 		},
-		secondary: null,
+		secondary: undefined,
 		target: "self",
 		type: "Normal",
 		zMove: { effect: 'clearnegativeboost' },
@@ -1964,7 +1964,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 				this.damage(pokemon.baseMaxhp / 4);
 			},
 		},
-		secondary: null,
+		secondary: undefined,
 		target: "normal",
 		nonGhostTarget: "self",
 		type: "Ghost",
@@ -2001,7 +2001,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 			duration: 2,
 			onInvulnerability: false,
 		},
-		secondary: null,
+		secondary: undefined,
 		target: "normal",
 		type: "Ghost",
 		contestType: "Cool",
@@ -2068,7 +2068,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		onPrepareHit(target, source) {
 			this.add('-anim', source, 'Icicle Crash', target);
 		},
-		secondary: null,
+		secondary: undefined,
 		target: "normal",
 		type: "Ice",
 	},
@@ -2086,7 +2086,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		onPrepareHit(target, source) {
 			this.add('-anim', source, 'Sandstorm', target);
 		},
-		secondary: null,
+		secondary: undefined,
 		target: "all",
 		type: "Fire",
 	},
@@ -2178,7 +2178,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 				return this.chainModify(2);
 			}
 		},
-		secondary: null,
+		secondary: undefined,
 		target: "normal",
 		type: "Grass",
 	},
@@ -2259,7 +2259,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 			move.type = type;
 		},
 		// finish later
-		secondary: null,
+		secondary: undefined,
 		target: "normal",
 		type: "Normal",
 		contestType: "Beautiful",
@@ -2278,7 +2278,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		onPrepareHit(target, source) {
 			this.add('-anim', source, 'Night Slash', target);
 		},
-		secondary: null,
+		secondary: undefined,
 		target: "normal",
 		type: "Dark",
 		contestType: "Tough",
@@ -2304,7 +2304,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		onPrepareHit(target, source) {
 			this.add('-anim', source, 'Shadow Ball', target);
 		},
-		secondary: null,
+		secondary: undefined,
 		target: "normal",
 		type: "Ghost",
 	},
@@ -2351,7 +2351,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 				this.boost({ atk: 2 }, target);
 			}
 		},
-		secondary: null,
+		secondary: undefined,
 		target: "self",
 		type: "Fairy",
 		zMove: { effect: 'heal' },
@@ -2390,7 +2390,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 			this.add('-start', source, 'move: Waning Moon');
 			return this.NOT_FAIL;
 		},
-		secondary: null,
+		secondary: undefined,
 		target: "normal",
 		type: "Dark",
 		contestType: "Clever",
@@ -2408,7 +2408,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		onPrepareHit(target, source) {
 			this.add('-anim', source, 'Torch Song', target);
 		},
-		secondary: null,
+		secondary: undefined,
 		target: "normal",
 		type: "Fire",
 		contestType: "Cool",
@@ -2486,7 +2486,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 			return !!this.canSwitch(source.side);
 		},
 		selfSwitch: true,
-		secondary: null,
+		secondary: undefined,
 		target: "self",
 		type: "Ice",
 		zMove: { effect: 'heal' },
@@ -2514,7 +2514,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 				this.damage(pokemon.maxhp * (2 ** typeMod) / 8);
 			},
 		},
-		secondary: null,
+		secondary: undefined,
 		target: "foeSide",
 		type: "Grass",
 		zMove: { boost: { def: 1 } },
