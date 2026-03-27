@@ -630,12 +630,12 @@
             {
                 "role": "Bulky Attacker",
                 "movepool": ["Stack Shield", "Taunt", "Stone Edge", "Gyro Ball", "Trick Room"],
-                "abilities": ["Stack Shift"]
+                "abilities": ["Stack Change"]
             },
             {
                 "role": "Wallbreaker",
                 "movepool": ["Stack Shield", "Heat Crash", "Stone Edge", "Heavy Slam"],
-                "abilities": ["Stack Shift"]
+                "abilities": ["Stack Change"]
             }
         ]
     },
