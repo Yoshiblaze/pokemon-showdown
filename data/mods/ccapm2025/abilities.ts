@@ -1348,4 +1348,12 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		rating: 4,
 		num: 1293,
 	},
+	primalshackle: {
+		// placeholder, form change was implemented in rulesets.ts because we didn't
+		// know that it was supposed to be an ability lol
+		flags: { failroleplay: 1, noreceiver: 1, noentrain: 1, notrace: 1, failskillswap: 1, cantsuppress: 1 },
+		name: "Primal Shackle",
+		rating: 0,
+		shortDesc: "Rayquaza: Changes to Untethered form below 67% of its max HP.",
+	},
 };
