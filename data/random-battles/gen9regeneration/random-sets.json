@@ -723,17 +723,17 @@
 			{
 			    "role": "Bulky Support",
 			    "movepool": ["familyonslaught", "drainpunch", "earthquake", "u-turn", "suckerpunch", "dragonclaw"],
-			    "abilities": ["skilllink"]
+			    "abilities": ["Skill Link"]
 			},
 			{
 			    "role": "AV Pivot",
 			    "movepool": ["familyonslaught", "drainpunch", "earthquake", "u-turn", "suckerpunch", "dragonclaw"],
-			    "abilities": ["skillink"]
+			    "abilities": ["Skill Link"]
 			},
 			{
 			    "role": "Setup Sweeper",
 			    "movepool": ["dragondance", "familyonslaught", "drainpunch", "earthquake", "dragonclaw"],
-			    "abilities": ["skillink"]
+			    "abilities": ["Skill Link"]
 			}
         ]
     },
