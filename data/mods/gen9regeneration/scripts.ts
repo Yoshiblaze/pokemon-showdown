@@ -180,5 +180,12 @@ export const Scripts: ModdedBattleScriptsData = {
 		this.modData("Learnsets", "farfetchd").learnset.bulkup = ["9L1"];
 		this.modData("Learnsets", "farfetchd").learnset.sacredsword = ["9L1"];
 		delete this.modData('Learnsets', 'farfetchd').learnset.toxic;
+		this.modData("Learnsets", "lapras").learnset.escort = ["9L1"];
+		this.modData("Learnsets", "lapras").learnset.wish = ["9L1"];
+		this.modData("Learnsets", "tauros").learnset.escort = ["9L1"];
+		this.modData("Learnsets", "tauros").learnset.headlongrush = ["9L1"];
+		this.modData("Learnsets", "marowak").learnset.knockoff = ["9L1"];
+		this.modData("Learnsets", "marowak").learnset.vengefulbone = ["9L1"];
+		this.modData("Learnsets", "marowak").learnset.closecombat = ["9L1"];
 	},
 };

@@ -650,7 +650,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		mod: 'gen9regeneration',
 		team: 'random',
 		bestOfDefault: true,
-		ruleset: ['Obtainable', 'Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod', 'Illusion Level Mod', 'Data Preview'],
+		ruleset: ['Obtainable', 'Terastal Clause', 'Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod', 'Illusion Level Mod', 'Data Preview'],
 		onBegin() {
 			this.add(`raw|<div class='broadcast-green'><b>Need help with all of the new moves and abilities?<br />Then make sure to check out the <a href="https://docs.google.com/spreadsheets/d/1wbFWGR5pVcnTTyuy7vAUSrPxqSZsNF-Okx-v1hvD2Vc/edit?usp=sharing" target="_blank">spreadsheet</a> or use /dt!</b></div>`);
 			this.add('-message', `Welcome to ReGeneration!`);
@@ -3474,7 +3474,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		desc: `A Gen 9 metagame where every Kanto Pokemon is redesigned with Gen 9 design philosophies.`,
 		mod: 'gen9regeneration',
 		searchShow: false,
-		ruleset: ['Standard NatDex', 'Dynamax Clause', 'Data Preview'],
+		ruleset: ['Standard NatDex', 'Terastal Clause', 'Data Preview'],
 		banlist: [
 			'Arena Trap', 'Moody', 'Shadow Tag', 'Baton Pass',
 			'Aerodactylite', 'Alakazite', 'Beedrillite', 'Blastoisinite', 'Charizardite X', 'Charizardite Y', 'Gyaradosite',

@@ -78,23 +78,33 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		onSwitchIn(pokemon) {
 			let activated = false;
 			for (const sideCondition of ['spikes', 'stealthrock']) {
-				if (pokemon.side.getSideCondition(sideCondition)) {
+				if (pokemon.side.getSideCondition(sideCondition) && !pokemon.side.getSideCondition('excavate')) {
 					if (!activated) {
 						this.add('-activate', pokemon, 'ability: Excavate');
 						activated = true;
 					}
-					pokemon.side.removeSideCondition(sideCondition);
 				}
-				if (pokemon.side.getSideCondition('spikes')) {
+				if (pokemon.side.getSideCondition('spikes') && !pokemon.side.getSideCondition('excavate')) {
+					this.add('-sideend', pokemon.side, 'move: Spikes', `[of] ${pokemon}`);
+					pokemon.side.removeSideCondition('spikes');
 					this.boost({ def: 1 }, pokemon);
+					pokemon.side.addSideCondition('excavate');
 				}
-				if (pokemon.side.getSideCondition('stealthrock')) {
+				if (pokemon.side.getSideCondition('stealthrock') && !pokemon.side.getSideCondition('excavate')) {
+					this.add('-sideend', pokemon.side, 'move: Stealth Rock', `[of] ${pokemon}`);
+					pokemon.side.removeSideCondition('stealthrock');
 					this.boost({ def: 1 }, pokemon);
+					pokemon.side.addSideCondition('excavate');
 				}
 			}
 		},
+		condition: {
+			onSideStart(side) {
+				this.add('-sidestart', side, 'move: Excavate Used');
+			},
+		},
 		name: "Excavate",
-		shortDesc: "Removes Stealth Rock and Spikes on switch-in, +1 Def for each hazard removed.",
+		shortDesc: "Once per game. Removes Stealth Rock and Spikes on switch-in, +1 Def for each hazard removed.",
 		rating: 4,
 	},
 	lifeguard: {
@@ -148,7 +158,6 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		name: "Ballooning",
 		shortDesc: "At 1/2 or less of this Pokemon's max HP: +1 Atk, Sp. Atk, Spe, and gains the Perish Song effect.",
 		rating: 4,
-		num: 271,
 	},
 	ofafeather: {
 		onModifyAtkPriority: 5,
@@ -167,7 +176,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		},
 		name: "Of A Feather",
 		rating: 3.5,
-		num: 263,
+		shortDesc: "This Pokemon's Flying-type moves have 1.5x power.",
 	},
 	patriach: {
 		onStart(pokemon) {
@@ -222,7 +231,6 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		name: "Violent Abandon",
 		shortDesc: "This Pokemon transforms into Mega Gyarados whenever its item is used or lost.",
 		rating: 3.5,
-		num: 84,
 	},
 	tropicalcurrent: {
 		onDamagePriority: 1,
@@ -235,6 +243,32 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		name: "Tropical Current",
 		shortDesc: "This Pokemon restored 1/8 of its max HP per turn if it's burned. Ignores burn attack drop.",
 		rating: 4,
-		num: 90,
+	},
+	bullspirit: {
+		onAfterMoveSecondarySelf(source, target, move) {
+			if (!move || source.switchFlag === true || !move.hitTargets || move.type !== 'Normal') return;
+			this.add('-ability', source, 'Bull Spirit');
+			this.add('-message', `${source.name}'s next attack will be physical!`)
+			source.addVolatile('bullspirit');
+		},
+		condition: {
+			onStart(target) {
+				this.add('-start', target, 'ability: Bull Spirit');
+			},
+			duration: 2,
+			onModifyMovePriority: 8,
+			onModifyMove(move, pokemon) {
+				if (move.category !== "Status") {
+					move.category = "Physical";
+				}
+			},
+			onEnd(target) {
+				this.add('-end', target, 'ability: Bull Spirit', '[silent]');
+			},
+		},
+		flags: {},
+		name: "Bull Spirit",
+		rating: 1,
+		shortDesc: "After using a Normal-type move, the user's next attack will always be physical.",
 	},
 };
