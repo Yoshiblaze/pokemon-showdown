@@ -9,6 +9,178 @@ const DOUBLES_NO_LEAD_POKEMON = [
 ];
 
 export class RandomRGTeams extends RandomTeams {
+	/* override randomSet(
+		s: string | Species,
+		teamDetails: RandomTeamsTypes.TeamDetails = {},
+		isLead = false,
+		isDoubles = false
+	): RandomTeamsTypes.RandomSet {
+		const species = this.dex.species.get(s);
+		const forme = this.getForme(species);
+		const sets = this.randomSets[species.id]["sets"];
+		const possibleSets: RandomTeamsTypes.RandomSetData[] = [];
+
+		const ruleTable = this.dex.formats.getRuleTable(this.format);
+
+		for (const set of sets) {
+			// Prevent Fast Bulky Setup on lead Paradox Pokemon, since it generates Booster Energy.
+			const abilities = set.abilities!;
+			if (
+				isLead && (abilities.includes('Protosynthesis') || abilities.includes('Quark Drive')) &&
+				set.role === 'Fast Bulky Setup'
+			) continue;
+			// Prevent Tera Blast user if the team already has one, or if Terastallizion is prevented.
+			if ((teamDetails.teraBlast || ruleTable.has('terastalclause')) && set.role === 'Tera Blast user') {
+				continue;
+			}
+			possibleSets.push(set);
+		}
+		const set = this.sampleIfArray(possibleSets);
+		const role = set.role;
+		const movePool: string[] = [];
+		for (const movename of set.movepool) {
+			movePool.push(this.dex.moves.get(movename).id);
+		}
+		const teraTypes = set.teraTypes!;
+		let teraType = this.sampleIfArray(teraTypes);
+
+		let ability = '';
+		let item = undefined;
+
+		const evs = { hp: 85, atk: 85, def: 85, spa: 85, spd: 85, spe: 85 };
+		const ivs = { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 };
+
+		const types = species.types;
+		const abilities = set.abilities!;
+
+		// Get moves
+		const moves = this.randomMoveset(types, abilities, teamDetails, species, isLead, isDoubles, movePool, teraType, role);
+		const counter = this.queryMoves(moves, species, teraType, abilities);
+
+		// Get ability
+		ability = this.getAbility(types, moves, abilities, counter, teamDetails, species, isLead, isDoubles, teraType, role);
+
+		// Get items
+		// First, the priority items
+		item = this.getPriorityItem(ability, types, moves, counter, teamDetails, species, isLead, isDoubles, teraType, role);
+		if (item === undefined) {
+			if (isDoubles) {
+				item = this.getDoublesItem(ability, types, moves, counter, teamDetails, species, isLead, teraType, role);
+			} else {
+				item = this.getItem(ability, types, moves, counter, teamDetails, species, isLead, teraType, role);
+			}
+		}
+
+		// Get level
+		const level = this.getLevel(species, isDoubles);
+
+		// Prepare optimal HP
+		const srImmunity = ability === 'Magic Guard' || ability === 'Frost Cloak' || item === 'Heavy-Duty Boots';
+		let srWeakness = srImmunity ? 0 : this.dex.getEffectiveness('Rock', species);
+		// Crash damage move users want an odd HP to survive two misses
+		if (['axekick', 'highjumpkick', 'jumpkick'].some(m => moves.has(m))) srWeakness = 2;
+		while (evs.hp > 1) {
+			const hp = Math.floor(Math.floor(2 * species.baseStats.hp + ivs.hp + Math.floor(evs.hp / 4) + 100) * level / 100 + 10);
+			if ((moves.has('substitute') && ['Sitrus Berry', 'Salac Berry'].includes(item))) {
+				// Two Substitutes should activate Sitrus Berry
+				if (hp % 4 === 0) break;
+			} else if ((moves.has('bellydrum') || moves.has('filletaway')) && (item === 'Sitrus Berry' || ability === 'Gluttony')) {
+				// Belly Drum should activate Sitrus Berry
+				if (hp % 2 === 0) break;
+			} else if (moves.has('substitute') && moves.has('endeavor')) {
+				// Luvdisc should be able to Substitute down to very low HP
+				if (hp % 4 > 0) break;
+			} else {
+				// Maximize number of Stealth Rock switch-ins
+				if (srWeakness <= 0 || ability === 'Regenerator' || ['Leftovers', 'Life Orb'].includes(item)) break;
+				if (item !== 'Sitrus Berry' && hp % (4 / srWeakness) > 0) break;
+				// Minimise number of Stealth Rock switch-ins to activate Sitrus Berry
+				if (item === 'Sitrus Berry' && hp % (4 / srWeakness) === 0) break;
+			}
+			evs.hp -= 4;
+		}
+
+		// Minimize confusion damage
+		const noAttackStatMoves = [...moves].every(m => {
+			const move = this.dex.moves.get(m);
+			if (move.damageCallback || move.damage) return true;
+			if (move.id === 'shellsidearm') return false;
+			// Magearna and doubles Dragonite, though these can work well as a general rule
+			if (move.id === 'terablast' && (
+				species.id === 'porygon2' || moves.has('shiftgear') || species.baseStats.atk > species.baseStats.spa)
+			) return false;
+			return move.category !== 'Physical' || move.id === 'bodypress' || move.id === 'foulplay';
+		});
+		// prevents Illumise (who can turn into Volbeat with Physical moves) from having 0 Atk EVs
+		if (noAttackStatMoves && !moves.has('transform') && this.format.mod !== 'partnersincrime' &&
+			species.id !== 'illumise') {
+			evs.atk = 0;
+			ivs.atk = 0;
+		}
+
+		// hidden power time
+		// Hidden Power Ice IVs
+		if (
+			moves.has('hiddenpower') &&
+			(
+				species.id === 'ninetales' || species.id === 'electrode' || species.id === 'jolteon' || species.id === 'zapdos' ||
+				species.id === 'blastoise' || species.id === 'butterfree' || species.id === 'pikachu' || species.id === 'raichu'
+			)
+		) {
+			ivs.atk = 0;
+			ivs.def = 30;
+		}
+
+		// Hidden Power Ground IVs
+		if (
+			moves.has('hiddenpower') && (species.id === 'vileplume' || species.id === 'magneton' || species.id === 'victreebel')
+		) {
+			ivs.atk = 1;
+			ivs.spa = 30;
+			ivs.spd = 30;
+		}
+
+		// Hidden Power Fighting IVs
+		if (
+			moves.has('hiddenpower') &&
+			(species.id === 'persian' || species.id === 'gengar' || species.id === 'exeggutor' || species.id === 'porygon')
+		) {
+			ivs.atk = 1;
+			ivs.def = 30;
+			ivs.spa = 30;
+			ivs.spd = 30;
+			ivs.spe = 30;
+		}
+
+		// Hidden Power Grass IVs
+		if ((species.id === 'vaporeon' || species.id === 'omastar') && moves.has('hiddenpower')) {
+			ivs.atk = 0;
+			ivs.spa = 30;
+		}
+
+
+		// Enforce Tera Type after all set generation is done to prevent infinite generation
+		if (this.forceTeraType) teraType = this.forceTeraType;
+
+		// shuffle moves to add more randomness to camomons
+		const shuffledMoves = Array.from(moves);
+		this.prng.shuffle(shuffledMoves);
+		return {
+			name: species.baseSpecies,
+			species: forme,
+			gender: species.baseSpecies === 'Greninja' ? 'M' : (species.gender || (this.random(2) ? 'F' : 'M')),
+			shiny: this.randomChance(1, 151),
+			level,
+			moves: shuffledMoves,
+			ability,
+			evs,
+			ivs,
+			item,
+			teraType,
+			role,
+		};
+	} */
+
 	override randomSets: { [species: string]: RandomTeamsTypes.RandomSpeciesData } = require('./random-sets.json');
 
 	override randomTeam() {

@@ -515,4 +515,24 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 			},
 		},
 	},
+	// placeholder for hidden power because teams.ts was not cooperating
+	terablast: {
+		num: 851,
+		accuracy: 100,
+		basePower: 60,
+		category: "Special",
+		name: "Tera Blast",
+		pp: 15,
+		priority: 0,
+		flags: { protect: 1, mirror: 1, metronome: 1, mustpressure: 1 },
+		onPrepareHit(target, source, move) {
+			this.attrLastMove('[anim] Tera Blast ' + source.teraType);
+		},
+		onModifyType(move, pokemon, target) {
+			move.type = pokemon.teraType;
+			this.add('-message', `This attack is ${pokemon.teraType}-type!`)
+		},
+		target: "normal",
+		type: "Normal",
+	},
 };
