@@ -507,7 +507,7 @@
         "sets": [
 			{
 			    "role": "Fast Attacker",
-			    "movepool": ["bravebird", "highjumpkick", "knockoff", "earthquake", "return", "swordsdance", "uturn"],
+			    "movepool": ["bravebird", "highjumpkick", "knockoff", "earthquake", "swordsdance", "uturn"],
 			    "abilities": ["ofafeather"],
 			    "preferredTypes": ["Flying"]
 			}

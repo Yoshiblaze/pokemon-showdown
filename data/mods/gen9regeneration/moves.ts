@@ -241,7 +241,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		shortDesc: "100% chance to poison. Harshly lowers a random one of the target's stats.",
 		pp: 10,
 		priority: 0,
-		flags: {protect: 1, mirror: 1, wind: 1, metronome: 1},
+		flags: { protect: 1, mirror: 1, wind: 1, metronome: 1 },
 		onHit(target) {
 			const stats: BoostID[] = [];
 			let stat: BoostID;
@@ -529,7 +529,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		},
 		onModifyType(move, pokemon, target) {
 			move.type = pokemon.teraType;
-			this.add('-message', `This attack is ${pokemon.teraType}-type!`)
+			this.add('-message', `This attack is ${pokemon.teraType}-type!`);
 		},
 		target: "normal",
 		type: "Normal",

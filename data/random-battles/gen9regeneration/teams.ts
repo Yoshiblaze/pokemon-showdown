@@ -158,7 +158,6 @@ export class RandomRGTeams extends RandomTeams {
 			ivs.spa = 30;
 		}
 
-
 		// Enforce Tera Type after all set generation is done to prevent infinite generation
 		if (this.forceTeraType) teraType = this.forceTeraType;
 

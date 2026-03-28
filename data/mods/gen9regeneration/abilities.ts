@@ -249,7 +249,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		onAfterMoveSecondarySelf(source, target, move) {
 			if (!move || source.switchFlag === true || !move.hitTargets || move.type !== 'Normal') return;
 			this.add('-ability', source, 'Bull Spirit');
-			this.add('-message', `${source.name}'s next attack will be physical!`)
+			this.add('-message', `${source.name}'s next attack will be physical!`);
 			source.addVolatile('bullspirit');
 		},
 		condition: {
