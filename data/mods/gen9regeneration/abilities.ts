@@ -104,10 +104,9 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 			}
 		},
 		onModifySecondaries(secondaries, move) {
-			if (move.type === 'Water') {
-				this.debug('Lifeguard prevent secondary');
-				return secondaries.filter(effect => !!effect.self);
-			}
+			if (move.types === 'Water') return;
+			this.debug('Lifeguard prevent secondary');
+			return secondaries.filter(effect => !!effect.self);
 		},
 		name: "Lifeguard",
 		shortDesc: "Boosts Defense when hit by a Water move; blocks additional effects of Water moves.",
