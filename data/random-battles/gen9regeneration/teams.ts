@@ -1,12 +1,12 @@
 import RandomTeams from '../gen9/teams';
 
 /** Pokemon who should never be in the lead slot */
-const NO_LEAD_POKEMON = [
+/* const NO_LEAD_POKEMON = [
 	'Zacian', 'Zamazenta',
 ];
 const DOUBLES_NO_LEAD_POKEMON = [
 	'Basculegion', 'Houndstone', 'Iron Bundle', 'Roaring Moon', 'Zacian', 'Zamazenta',
-];
+]; */
 
 export class RandomRGTeams extends RandomTeams {
 	override getPriorityItem(
