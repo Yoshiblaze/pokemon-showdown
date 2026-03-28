@@ -125,20 +125,20 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 	raticate: {
 		inherit: true,
 		types: ["Normal", "Poison"],
-		baseStats: {hp: 75, atk: 90, def: 70, spa: 40, spd: 75, spe: 125},
-		abilities: {0: "Poison Touch", 1: "Hustle", H: "Guts"},
+		baseStats: { hp: 75, atk: 90, def: 70, spa: 40, spd: 75, spe: 125 },
+		abilities: { 0: "Poison Touch", 1: "Hustle", H: "Guts" },
 	},
 	kangaskhan: {
 		inherit: true,
 		types: ["Normal", "Dragon"],
-		baseStats: {hp: 115, atk: 110, def: 70, spa: 60, spd: 60, spe: 85},
-		abilities: {0: "Early Bird", 1: "Bulletproof", H: "Skill Link"},
+		baseStats: { hp: 115, atk: 110, def: 70, spa: 60, spd: 60, spe: 85 },
+		abilities: { 0: "Early Bird", 1: "Bulletproof", H: "Skill Link" },
 	},
 	farfetchd: {
 		inherit: true,
 		types: ["Normal", "Fighting"],
-		baseStats: {hp: 75, atk: 100, def: 80, spa: 60, spd: 75, spe: 90},
-		abilities: {0: "Hustle", 1: "Scrappy", H: "Defiant"},
+		baseStats: { hp: 75, atk: 100, def: 80, spa: 60, spd: 75, spe: 90 },
+		abilities: { 0: "Hustle", 1: "Scrappy", H: "Defiant" },
 	},
 	// Minor Changes (mostly to prevent unevolved Pokemons in gen 1 to hold Eviolite)
 	golbat: {

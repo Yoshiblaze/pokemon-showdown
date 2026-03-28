@@ -180,7 +180,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		selfSwitch: true,
 		target: "normal",
 		type: "Water",
-		zMove: {effect: 'healreplacement'},
+		zMove: { effect: 'healreplacement' },
 		contestType: "Cool",
 	},
 	flareout: {
@@ -205,7 +205,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		selfSwitch: true,
 		target: "normal",
 		type: "Fire",
-		zMove: {effect: 'healreplacement'},
+		zMove: { effect: 'healreplacement' },
 		contestType: "Cool",
 	},
 	buzzoff: {
@@ -230,7 +230,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		selfSwitch: true,
 		target: "normal",
 		type: "Electric",
-		zMove: {effect: 'healreplacement'},
+		zMove: { effect: 'healreplacement' },
 		contestType: "Cool",
 	},
 	powdergale: {
@@ -270,7 +270,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		},
 		target: "normal",
 		type: "Bug",
-		zMove: {effect: 'crit2'},
+		zMove: { effect: 'crit2' },
 		contestType: "Tough",
 	},
 	splashback: {
@@ -306,7 +306,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		priority: 0,
 		flags: { contact: 1, protect: 1, mirror: 1 },
 		self: {
-		   volatileStatus: 'encore',
+			volatileStatus: 'encore',
 		},
 		secondary: {
 			chance: 100,

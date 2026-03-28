@@ -1,5 +1,5 @@
 export const Scripts: ModdedBattleScriptsData = {
-   gen: 9,
+	gen: 9,
 	init() {
 		this.modData("Learnsets", "alakazam").learnset.brainwave = ["9L1"];
 		this.modData("Learnsets", "gengar").learnset.avalanche = ["9L1"];

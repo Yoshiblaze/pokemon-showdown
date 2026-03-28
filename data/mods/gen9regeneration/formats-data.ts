@@ -408,7 +408,7 @@ export const FormatsData: import('../../../sim/dex-species').ModdedSpeciesFormat
 		doublesTier: "LC",
 	},
 	haunter: {
-	  tier: "NFE",
+		tier: "NFE",
 		doublesTier: "NFE",
 	},
 	gengar: {

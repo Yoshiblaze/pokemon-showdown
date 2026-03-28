@@ -81,15 +81,15 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 				if (pokemon.side.getSideCondition(sideCondition)) {
 					if (!activated) {
 						this.add('-activate', pokemon, 'ability: Excavate');
-		            activated = true;
+						activated = true;
 					}
 					pokemon.side.removeSideCondition(sideCondition);
 				}
-			   if (pokemon.side.getSideCondition('spikes')) {
-			      this.boost({ def: 1 }, pokemon);
+				if (pokemon.side.getSideCondition('spikes')) {
+					this.boost({ def: 1 }, pokemon);
 				}
-			   if (pokemon.side.getSideCondition('stealthrock')) {
-			      this.boost({ def: 1 }, pokemon);
+				if (pokemon.side.getSideCondition('stealthrock')) {
+					this.boost({ def: 1 }, pokemon);
 				}
 			}
 		},
@@ -98,15 +98,15 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		rating: 4,
 	},
 	lifeguard: {
-	  onDamagingHit(damage, target, source, move) {
-		  if (move.type === 'Water') {
-			 this.boost({ def: 1 });
-		  }
-	  },
-	  onModifySecondaries(secondaries, move) {
-		  if (move.type !== 'Water') return;
-		  this.debug('Lifeguard prevent secondary');
-		  return secondaries.filter(effect => !!(effect.self || effect.dustproof));
+		onDamagingHit(damage, target, source, move) {
+			if (move.type === 'Water') {
+				this.boost({ def: 1 });
+			}
+		},
+		onModifySecondaries(secondaries, move) {
+			if (move.type !== 'Water') return;
+			this.debug('Lifeguard prevent secondary');
+			return secondaries.filter(effect => !!(effect.self || effect.dustproof));
 		},
 		name: "Lifeguard",
 		shortDesc: "Boosts Defense when hit by a Water move; blocks additional effects of Water moves.",
@@ -202,9 +202,9 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 			) {
 				return;
 			}
-				if (pokemon.species.forme !== 'Mega') {
-					pokemon.formeChange('Gyarados-Mega', this.effect, true);
-		      }
+			if (pokemon.species.forme !== 'Mega') {
+				pokemon.formeChange('Gyarados-Mega', this.effect, true);
+			}
 		},
 		onTakeItem(item, pokemon) {
 			if (
@@ -214,9 +214,9 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 			) {
 				return;
 			}
-				if (pokemon.species.forme !== 'Mega') {
-					pokemon.formeChange('Gyarados-Mega', this.effect, true);
-			   }
+			if (pokemon.species.forme !== 'Mega') {
+				pokemon.formeChange('Gyarados-Mega', this.effect, true);
+			}
 		},
 		flags: { failroleplay: 1, noreceiver: 1, noentrain: 1, notrace: 1, failskillswap: 1, cantsuppress: 1 },
 		name: "Violent Abandon",
