@@ -16,7 +16,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		pp: 5,
 		priority: 0,
 		flags: { protect: 1, mirror: 1 },
-		secondary: null,
+		secondary: undefined,
 		target: "allAdjacentFoes",
 		type: "Grass",
 		contestType: "Beautiful",
@@ -87,7 +87,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Expanding Force", target);
 		},
-		secondary: null,
+		secondary: undefined,
 		target: "normal",
 		type: "Psychic",
 	},
@@ -106,14 +106,14 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 			},
 		},
 		drain: [1, 4],
-		onModifyMove(move, pokemon) {
+		/* onModifyMove(move, pokemon) {
 			move.drain = [pokemon.negativeBoosts.spa(), 4];
-		},
+		}, */
 		onPrepareHit(target, source, move) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Icy Wind", target);
 		},
-		secondary: null,
+		secondary: undefined,
 		target: "normal",
 		type: "Ice",
 		contestType: "Clever",
@@ -132,7 +132,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Acrobatics", target);
 		},
-		secondary: null,
+		secondary: undefined,
 		target: "normal",
 		type: "Flying",
 	},
@@ -166,7 +166,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		shortDesc: "100% chance to lower the target's Attack by 1, switches the user out.",
 		pp: 20,
 		priority: 0,
-		flags: { contact: 1, protect: 1, mirror: 1, authentic: 1 },
+		flags: { contact: 1, protect: 1, mirror: 1, bypasssub: 1 },
 		secondary: {
 			chance: 100,
 			boosts: {
@@ -191,7 +191,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		shortDesc: "100% chance to lower the target's Defense by 1, switches the user out.",
 		pp: 20,
 		priority: 0,
-		flags: { contact: 1, protect: 1, mirror: 1, authentic: 1 },
+		flags: { contact: 1, protect: 1, mirror: 1, bypasssub: 1 },
 		secondary: {
 			chance: 100,
 			boosts: {
@@ -216,7 +216,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		shortDesc: "100% chance to lower the target's Speed by 1, switches the user out.",
 		pp: 20,
 		priority: 0,
-		flags: { protect: 1, mirror: 1, authentic: 1 },
+		flags: { protect: 1, mirror: 1, bypasssub: 1 },
 		secondary: {
 			chance: 100,
 			boosts: {
@@ -279,9 +279,9 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		basePowerCallback(pokemon) {
 			return Math.min(300, 50 + 50 * pokemon.timesAttacked);
 		},
-		onEnd(pokemon) {
+		/* onEnd(pokemon) {
 			this.add('-end', pokemon, 'Splashback', '[silent]');
-		},
+		}, */
 		onPrepareHit(target, source, move) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Flip Turn", target);
@@ -292,7 +292,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		pp: 10,
 		priority: 0,
 		flags: { contact: 1, protect: 1, mirror: 1, punch: 1 },
-		secondary: null,
+		secondary: undefined,
 		target: "normal",
 		type: "Water",
 	},

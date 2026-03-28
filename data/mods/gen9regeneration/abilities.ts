@@ -106,7 +106,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		onModifySecondaries(secondaries, move) {
 			if (move.type !== 'Water') return;
 			this.debug('Lifeguard prevent secondary');
-			return secondaries.filter(effect => !!(effect.self || effect.dustproof));
+			return secondaries.filter(effect => !!effect.self);
 		},
 		name: "Lifeguard",
 		shortDesc: "Boosts Defense when hit by a Water move; blocks additional effects of Water moves.",
@@ -117,7 +117,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 			if (
 				effect.effectType === "Move" &&
 				!effect.multihit &&
-				(!effect.negateSecondary && !(effect.hasSheerForce && source.hasAbility('sheerforce')))
+				!(effect.hasSheerForce && source.hasAbility('sheerforce'))
 			) {
 				this.effectState.checkedBallooning = false;
 			} else {
@@ -142,7 +142,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 			const damage = move.multihit ? move.totalDamage : lastAttackedBy.damage;
 			if (target.hp <= target.maxhp / 2 && target.hp + damage > target.maxhp / 2) {
 				this.boost({ atk: 1, spa: 1, spe: 1 }, target, target);
-				pokemon.addVolatile('perishsong');
+				target.addVolatile('perishsong');
 			}
 		},
 		name: "Ballooning",
