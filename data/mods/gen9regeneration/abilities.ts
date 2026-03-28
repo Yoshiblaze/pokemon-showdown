@@ -173,7 +173,8 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		onStart(pokemon) {
 			if (pokemon.side.pokemon.filter(ally => ally === pokemon || !ally.fainted && !ally.status)) {
 				this.add('-activate', pokemon, 'ability: Patriach');
-				const healthy = Math.min(pokemon.side.pokemon.filter(ally => ally === pokemon || !ally.fainted && !ally.status).length, 5);
+				const healthy = Math.min(pokemon.side.pokemon
+					.filter(ally => ally === pokemon || !ally.fainted && !ally.status).length, 5);
 				this.add('-start', pokemon, `healthy{healthy}`, '[silent]');
 				this.effectState.healthy = healthy;
 			}
