@@ -29,7 +29,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		shortDesc: "Applies the Torment effect on opponent.",
 		pp: 10,
 		priority: 0,
-		flags: {},
+		flags: { protect: 1, mirror: 1, metronome: 1 },
 		onPrepareHit(target, source, move) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Outrage", target);
@@ -50,7 +50,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		shortDesc: "Removes all hazards in the field. If any are cleared, the user heals for 50% of its maximum HP.",
 		pp: 40,
 		priority: 0,
-		flags: { contact: 1, protect: 1, mirror: 1 },
+		flags: { protect: 1, mirror: 1, metronome: 1 },
 		onHit(target, source, move) {
 			let success = false;
 			const removeAll = [
@@ -81,7 +81,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		shortDesc: "Uses user's Special Defense stat as Special Attack in damage calculation.",
 		pp: 10,
 		priority: 0,
-		flags: { protect: 1, mirror: 1 },
+		flags: { protect: 1, mirror: 1, metronome: 1 },
 		overrideOffensiveStat: 'spd',
 		onPrepareHit(target, source, move) {
 			this.attrLastMove('[still]');
@@ -126,7 +126,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		shortDesc: "Uses user's Defense stat as Attack in damage calculation.",
 		pp: 10,
 		priority: 0,
-		flags: { contact: 1, protect: 1, mirror: 1 },
+		flags: { contact: 1, protect: 1, mirror: 1, metronome: 1 },
 		overrideOffensiveStat: 'def',
 		onPrepareHit(target, source, move) {
 			this.attrLastMove('[still]');
@@ -144,7 +144,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		shortDesc: "33% recoil. 10% chance to poison.",
 		pp: 15,
 		priority: 0,
-		flags: { protect: 1, mirror: 1 },
+		flags: { protect: 1, mirror: 1, metronome: 1 },
 		secondary: {
 			chance: 10,
 			status: 'psn',
@@ -166,7 +166,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		shortDesc: "100% chance to lower the target's Attack by 1, switches the user out.",
 		pp: 20,
 		priority: 0,
-		flags: { contact: 1, protect: 1, mirror: 1, bypasssub: 1 },
+		flags: { contact: 1, protect: 1, mirror: 1, metronome: 1 },
 		secondary: {
 			chance: 100,
 			boosts: {
@@ -191,7 +191,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		shortDesc: "100% chance to lower the target's Defense by 1, switches the user out.",
 		pp: 20,
 		priority: 0,
-		flags: { contact: 1, protect: 1, mirror: 1, bypasssub: 1 },
+		flags: { contact: 1, protect: 1, mirror: 1, metronome: 1 },
 		secondary: {
 			chance: 100,
 			boosts: {
@@ -216,7 +216,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		shortDesc: "100% chance to lower the target's Speed by 1, switches the user out.",
 		pp: 20,
 		priority: 0,
-		flags: { protect: 1, mirror: 1, bypasssub: 1 },
+		flags: { protect: 1, mirror: 1, metronome: 1 },
 		secondary: {
 			chance: 100,
 			boosts: {
@@ -234,20 +234,20 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		contestType: "Cool",
 	},
 	powdergale: {
-		accuracy: true,
-		basePower: 0,
-		category: "Status",
+		accuracy: 100,
+		basePower: 75,
+		category: "Special",
 		name: "Powder Gale",
-		shortDesc: "100% chance to poison. Harshly lowers a random one of the target's stat.",
-		pp: 30,
+		shortDesc: "100% chance to poison. Harshly lowers a random one of the target's stats.",
+		pp: 10,
 		priority: 0,
-		flags: {},
+		flags: {protect: 1, mirror: 1, wind: 1, metronome: 1},
 		onHit(target) {
 			const stats: BoostID[] = [];
 			let stat: BoostID;
 			for (stat in target.boosts) {
 				if (stat === 'accuracy' || stat === 'evasion') continue;
-				if (target.boosts[stat] < 6) {
+				if (target.boosts[stat] > -6) {
 					stats.push(stat);
 				}
 			}
@@ -266,12 +266,11 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		},
 		onPrepareHit(target, source, move) {
 			this.attrLastMove('[still]');
-			this.add('-anim', source, "Hurricane", target);
+			this.add('-anim', source, "Silver Wind", target);
 		},
 		target: "normal",
 		type: "Bug",
-		zMove: { effect: 'crit2' },
-		contestType: "Tough",
+		contestType: "Clever",
 	},
 	splashback: {
 		accuracy: 100,
@@ -291,7 +290,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		shortDesc: "Base power increases by 50 every time this Pokemon is hit. Max 300 BP. Reset on switch out.",
 		pp: 10,
 		priority: 0,
-		flags: { contact: 1, protect: 1, mirror: 1, punch: 1 },
+		flags: { contact: 1, protect: 1, mirror: 1, metronome: 1 },
 		secondary: undefined,
 		target: "normal",
 		type: "Water",
@@ -304,7 +303,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		shortDesc: "Lowers the target's Atk by 1. Inflicts Encore on the user.",
 		pp: 20,
 		priority: 0,
-		flags: { contact: 1, protect: 1, mirror: 1 },
+		flags: { contact: 1, protect: 1, mirror: 1, metronome: 1 },
 		self: {
 			volatileStatus: 'encore',
 		},
@@ -316,7 +315,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		},
 		onPrepareHit(target, source, move) {
 			this.attrLastMove('[still]');
-			this.add('-anim', source, "Liquidation", target);
+			this.add('-anim', source, "Breaking Swipe", target);
 		},
 		target: "allAdjacentFoes",
 		type: "Water",
