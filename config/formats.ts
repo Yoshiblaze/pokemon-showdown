@@ -646,7 +646,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 	},
 	{
 		name: "[Gen 9] ReGeneration Random Battle",
-		desc: `A Gen 9 metagame where every Kanto Pokemon is redesigned with Gen 9 design philosophies.`,
+		desc: `A Kanto-only Gen 9 metagame where many of the Pokemon have been redesigned with modern design philosophies.`,
 		mod: 'gen9regeneration',
 		team: 'random',
 		bestOfDefault: true,
@@ -654,7 +654,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		onBegin() {
 			this.add(`raw|<div class='broadcast-green'><b>Need help with all of the new moves and abilities?<br />Then make sure to check out the <a href="https://docs.google.com/spreadsheets/d/1wbFWGR5pVcnTTyuy7vAUSrPxqSZsNF-Okx-v1hvD2Vc/edit?usp=sharing" target="_blank">spreadsheet</a> or use /dt!</b></div>`);
 			this.add('-message', `Welcome to ReGeneration!`);
-			this.add('-message', `This is a Generation 9 Pet Mod where Kanto Pokemon have been redesigned to fit the modern era!`);
+			this.add('-message', `This is a Generation 9 Pet Mod where many Kanto Pokemon have been redesigned to fit the modern era!`);
 			this.add('-message', `You can find our thread and metagame resources here:`);
 			this.add('-message', `https://www.smogon.com/forums/threads/3718196/`);
 		},
@@ -3471,7 +3471,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 	},
 	{
 		name: "[Gen 9] ReGeneration", // Roomtours
-		desc: `A Gen 9 metagame where every Kanto Pokemon is redesigned with Gen 9 design philosophies.`,
+		desc: `A Kanto-only Gen 9 metagame where many of the Pokemon have been redesigned with modern design philosophies.`,
 		mod: 'gen9regeneration',
 		searchShow: false,
 		ruleset: ['Standard NatDex', 'Terastal Clause', 'Data Preview'],
@@ -3483,7 +3483,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		onBegin() {
 			this.add(`raw|<div class='broadcast-green'><b>Need help with all of the new moves and abilities?<br />Then make sure to check out the <a href="https://docs.google.com/spreadsheets/d/1wbFWGR5pVcnTTyuy7vAUSrPxqSZsNF-Okx-v1hvD2Vc/edit?usp=sharing" target="_blank">spreadsheet</a> or use /dt!</b></div>`);
 			this.add('-message', `Welcome to ReGeneration!`);
-			this.add('-message', `This is a Generation 9 Pet Mod where Kanto Pokemon have been redesigned to fit the modern era!`);
+			this.add('-message', `This is a Generation 9 Pet Mod where many Kanto Pokemon have been redesigned to fit the modern era!`);
 			this.add('-message', `You can find our thread and metagame resources here:`);
 			this.add('-message', `https://www.smogon.com/forums/threads/3718196/`);
 		},

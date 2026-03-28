@@ -200,7 +200,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 			}
 		},
 		name: "Patriach",
-		shortDesc: "This Pokemon's moves have 10% more power for each fainted foe, up to 5 foes.",
+		shortDesc: "This Pokemon's moves have 10% more power for each of its healthy allies.",
 		rating: 3.5,
 	},
 	violentabandon: {
