@@ -50,12 +50,12 @@ const MOVE_PAIRS = [
 	['leechseed', 'burningbulwark'],
 ];
 
-/** Pokemon who always want priority STAB, and are fine with it as its only STAB move of that type */
+// Pokemon who always want priority STAB, and are fine with it as its only STAB move of that type 
 const PRIORITY_POKEMON = [
 	'breloom', 'brutebonnet', 'cacturne', 'honchkrow', 'mimikyu', 'ragingbolt', 'scizor',
 ];
 
-/** Pokemon who should never be in the lead slot */
+// Pokemon who should never be in the lead slot
 const NO_LEAD_POKEMON = [
 	'Zacian', 'Zamazenta',
 ];
