@@ -87,7 +87,7 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 	nidoking: {
 		inherit: true,
 		baseStats: { hp: 81, atk: 102, def: 82, spa: 95, spd: 70, spe: 95 },
-		abilities: { 0: "Poison Point", 1: "Patriach", H: "Sheer Force" },
+		abilities: { 0: "Poison Point", 1: "Patriarch", H: "Sheer Force" },
 	},
 	nidoqueen: {
 		inherit: true,

@@ -180,10 +180,10 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		rating: 3.5,
 		shortDesc: "This Pokemon's Flying-type moves have 1.5x power.",
 	},
-	patriach: {
+	patriarch: {
 		onStart(pokemon) {
 			if (pokemon.side.pokemon.filter(ally => ally === pokemon || !ally.fainted && !ally.status)) {
-				this.add('-activate', pokemon, 'ability: Patriach');
+				this.add('-activate', pokemon, 'ability: Patriarch');
 				const healthy = Math.min(pokemon.side.pokemon
 					.filter(ally => ally === pokemon || !ally.fainted && !ally.status).length, 5);
 				this.add('-start', pokemon, `healthy{healthy}`, '[silent]');
@@ -201,7 +201,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 				return this.chainModify([powMod[this.effectState.healthy], 4096]);
 			}
 		},
-		name: "Patriach",
+		name: "Patriarch",
 		shortDesc: "This Pokemon's moves have 10% more power for each of its healthy allies.",
 		rating: 3.5,
 	},
