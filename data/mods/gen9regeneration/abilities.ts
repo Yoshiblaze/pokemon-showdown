@@ -63,7 +63,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 			}
 		}, */
 		onEnd(pokemon) {
-			this.field.removePseudoWeather('magicroom', pokemon);
+			this.field.removePseudoWeather('magicroom');
 			/* for (const target of this.getAllActive()) {
 				if (target === pokemon) continue;
 				if (target.hasAbility('blackout')) return;
