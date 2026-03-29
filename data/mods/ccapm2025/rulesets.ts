@@ -125,7 +125,7 @@ export const Rulesets: import('../../../sim/dex-formats').ModdedFormatDataTable 
 		},
 		onAfterBoost(boost, target, source, effect) {
 			if (!this.ruleTable.tagRules.includes("+pokemontag:cap")) {
-				let speedUp = false;
+				/* let speedUp = false;
 				let i: BoostID;
 				for (i in boost) {
 					if (boost[i]! > 0) {
@@ -133,6 +133,11 @@ export const Rulesets: import('../../../sim/dex-formats').ModdedFormatDataTable 
 					}
 				}
 				if (speedUp && target.species.name === "Blaziken") {
+					target.formeChange('Blaziken-Wildfire', null, true);
+					target.setAbility('burnout', target);
+				} */
+				if (boost.spe && boost.spe > 0 &&
+					target.species.name === "Blaziken") {
 					target.formeChange('Blaziken-Wildfire', null, true);
 					target.setAbility('burnout', target);
 				}
