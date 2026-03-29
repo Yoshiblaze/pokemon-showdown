@@ -40,35 +40,37 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 			}
 		},
 		name: "Galaxy Brain",
-		shortDesc: "On switch-in, Defense or Sp. Def is raised 1 stage based on the foes' weaker Attack.",
+		shortDesc: "On switch-in, Defense or Sp. Def is raised 1 stage based on the foes' stronger offense.",
 		rating: 4,
 	},
 	blackout: {
 		onStart(source) {
-			let activated = false;
+			this.field.addPseudoWeather('magicroom', source);
+			/* let activated = false;
 			for (const pokemon of this.getAllActive()) {
 				if (!activated) {
-					this.add('-ability', source, 'Erratic Code');
+					this.add('-ability', source, 'Blackout');
 				}
 				activated = true;
 				if (!pokemon.volatiles['embargo']) {
 					pokemon.addVolatile('embargo');
 				}
-			}
+			} */
 		},
-		onAnySwitchIn(pokemon) {
+		/* onAnySwitchIn(pokemon) {
 			if (!pokemon.volatiles['embargo']) {
 				pokemon.addVolatile('embargo');
 			}
-		},
+		}, */
 		onEnd(pokemon) {
-			for (const target of this.getAllActive()) {
+			this.field.removePseudoWeather('magicroom', pokemon);
+			/* for (const target of this.getAllActive()) {
 				if (target === pokemon) continue;
 				if (target.hasAbility('blackout')) return;
 			}
 			for (const target of this.getAllActive()) {
 				target.removeVolatile('embargo');
-			}
+			} */
 		},
 		name: "Blackout",
 		shortDesc: "While this Pokemon is active, all held items are disabled.",

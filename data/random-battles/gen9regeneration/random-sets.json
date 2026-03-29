@@ -34,13 +34,13 @@
         "sets": [
 			{
 			    "role": "Bulky Support",
-			    "movepool": ["terablast", "rapidspin", "roar", "powerwash", "toxic", "thunderbolt", "thunderwave"],
+			    "movepool": ["hiddenpower", "rapidspin", "roar", "powerwash", "toxic", "thunderbolt", "thunderwave"],
 			    "abilities": ["Motor Drive"],
 				"teraTypes": ["Ice"]
 			},
 			{
 			    "role": "Staller",
-			    "movepool": ["haze", "terablast", "protect", "powerwash", "scald", "toxic"],
+			    "movepool": ["haze", "hiddenpower", "protect", "powerwash", "scald", "toxic"],
 			    "abilities": ["Motor Drive"],
 				"teraTypes": ["Ice"]
 			}
@@ -51,7 +51,7 @@
         "sets": [
 			{
 			    "role": "Setup Sweeper",
-			    "movepool": ["airslash", "powdergale", "quiverdance", "sleeppowder", "terablast", "strengthsap"],
+			    "movepool": ["airslash", "powdergale", "quiverdance", "sleeppowder", "hiddenpower", "strengthsap"],
 			    "abilities": ["Tinted Lens", "Multiscale"],
 				"teraTypes": ["Ice"]
 			}
@@ -88,7 +88,12 @@
 			{
 			    "role": "Wallbreaker",
 			    "movepool": ["crunch", "facade", "gunkshot", "pestspread", "protect", "closecombat", "uturn"],
-			    "abilities": ["Guts", "Hustle", "Poison Touch"]
+			    "abilities": ["Guts"]
+			},
+			{
+			    "role": "Fast Attacker",
+			    "movepool": ["crunch", "doubleedge", "gunkshot", "pestspread", "closecombat", "uturn"],
+			    "abilities": ["Hustle", "Poison Touch"]
 			}
         ]
     },
@@ -128,7 +133,7 @@
         "sets": [
 			{
 			    "role": "Fast Attacker",
-			    "movepool": ["extremespeed", "grassknot", "terablast", "knockoff", "surf", "voltswitch", "volttackle"],
+			    "movepool": ["extremespeed", "grassknot", "hiddenpower", "knockoff", "surf", "voltswitch", "volttackle"],
 			    "abilities": ["Lightning Rod"],
 				"teraTypes": ["Ice"]
 			}
@@ -139,7 +144,7 @@
         "sets": [
 			{
 			    "role": "Fast Support",
-			    "movepool": ["encore", "terablast", "knockoff", "nastyplot", "nuzzle", "thunderbolt", "voltswitch", "alluringvoice"],
+			    "movepool": ["encore", "hiddenpower", "knockoff", "nastyplot", "nuzzle", "thunderbolt", "voltswitch", "alluringvoice"],
 			    "abilities": ["Lightning Rod"],
 			    "preferredTypes": ["Ice"],
 				"teraTypes": ["Ice"]
@@ -215,7 +220,7 @@
         "sets": [
 			{
 			    "role": "Setup Sweeper",
-			    "movepool": ["fireblast", "terablast", "nastyplot", "solarbeam"],
+			    "movepool": ["fireblast", "hiddenpower", "nastyplot", "solarbeam"],
 			    "abilities": ["Drought"],
 				"teraTypes": ["Ice"]
 			},
@@ -242,7 +247,7 @@
         "sets": [
 			{
 			    "role": "Bulky Support",
-			    "movepool": ["aromatherapy", "gigadrain", "terablast", "sleeppowder", "sludgebomb", "strengthsap"],
+			    "movepool": ["aromatherapy", "gigadrain", "hiddenpower", "sleeppowder", "sludgebomb", "strengthsap"],
 			    "abilities": ["Effect Spore"],
 				"teraTypes": ["Ground"]
 			}
@@ -299,7 +304,7 @@
 			},
 			{
 			    "role": "Setup Sweeper",
-			    "movepool": ["terablast", "hypervoice", "nastyplot", "shadowball"],
+			    "movepool": ["hiddenpower", "hypervoice", "nastyplot", "shadowball"],
 			    "abilities": ["Technician"],
 				"teraTypes": ["Fighting"]
 			}
@@ -421,7 +426,7 @@
 			},
 			{
 			    "role": "Wallbreaker",
-			    "movepool": ["terablast", "knockoff", "powerwhip", "sleeppowder", "sludgebomb", "strengthsap", "suckerpunch"],
+			    "movepool": ["hiddenpower", "knockoff", "powerwhip", "sleeppowder", "sludgebomb", "strengthsap", "suckerpunch"],
 			    "abilities": ["Chlorophyll"],
 				"teraTypes": ["Ground"]
 			},
@@ -565,7 +570,7 @@
         "sets": [
 			{
 			    "role": "Fast Attacker",
-			    "movepool": ["shadowball", "icebeam", "illwind", "dazzlinggleam", "terablast", "trick"],
+			    "movepool": ["shadowball", "icebeam", "illwind", "dazzlinggleam", "hiddenpower"],
 			    "abilities": ["blackout"],
 				"teraTypes": ["Fighting"]
 			},
@@ -606,14 +611,14 @@
         "sets": [
 			{
 			    "role": "Wallbreaker",
-			    "movepool": ["foulplay", "terablast", "signalbeam", "taunt", "thunderbolt", "voltswitch"],
+			    "movepool": ["foulplay", "hiddenpower", "signalbeam", "taunt", "thunderbolt", "voltswitch"],
 			    "abilities": ["Aftermath", "Static"],
 			    "preferredTypes": ["Ice"],
 				"teraTypes": ["Ice"]
 			},
 			{
 			    "role": "Fast Support",
-			    "movepool": ["terablast", "lightscreen", "reflect", "thunderbolt", "thunderwave", "toxic", "voltswitch"],
+			    "movepool": ["hiddenpower", "lightscreen", "reflect", "thunderbolt", "thunderwave", "toxic", "voltswitch"],
 			    "abilities": ["Aftermath", "Static"],
 				"teraTypes": ["Ice"]
 			}
@@ -634,7 +639,7 @@
 			},
 			{
 			    "role": "Bulky Setup",
-			    "movepool": ["Calm Mind", "Giga Drain", "Psychic", "Psyshock", "Sleep Powder", "terablast", "Substitute"],
+			    "movepool": ["Calm Mind", "Giga Drain", "Psychic", "Psyshock", "Sleep Powder", "hiddenpower", "Substitute"],
 			    "abilities": ["Harvest"],
 				"teraTypes": ["Fighting"]
 			}
@@ -846,7 +851,7 @@
         "sets": [
 			{
 			    "role": "Setup Sweeper",
-			    "movepool": ["dragondance", "violentabandon", "crunch", "substitute", "liquidation"],
+			    "movepool": ["dragondance", "crunch", "substitute", "liquidation"],
 			    "abilities": ["Violent Abandon"]
 			}
         ]
@@ -891,7 +896,7 @@
 			},
 			{
 			    "role": "Wallbreaker",
-			    "movepool": ["hydropump", "slipaway", "icebeam", "terablast", "alluringvoice"],
+			    "movepool": ["hydropump", "slipaway", "icebeam", "hiddenpower", "alluringvoice"],
 			    "abilities": ["Protean"],
 				"teraTypes": ["Grass"]
 			}
@@ -902,13 +907,13 @@
         "sets": [
 			{
 			    "role": "Fast Attacker",
-			    "movepool": ["terablast", "shadowball", "thunderbolt", "voltswitch", "alluring voice"],
+			    "movepool": ["hiddenpower", "shadowball", "thunderbolt", "voltswitch", "alluring voice"],
 			    "abilities": ["Protean"],
 				"teraTypes": ["Ice"]
 			},
 			{
 			    "role": "Setup Sweeper",
-			    "movepool": ["terablast", "signalbeam", "thunderbolt", "voltswitch", "calmmind", "substitute"],
+			    "movepool": ["hiddenpower", "signalbeam", "thunderbolt", "voltswitch", "calmmind", "substitute"],
 			    "abilities": ["Trace"],
 				"teraTypes": ["Ice"]
 			}
@@ -929,7 +934,7 @@
         "sets": [
 			{
 			    "role": "Setup Sweeper",
-			    "movepool": ["terablast", "hydropump", "icebeam", "shellsmash"],
+			    "movepool": ["hiddenpower", "hydropump", "icebeam", "shellsmash"],
 			    "abilities": ["Shell Armor", "Swift Swim"],
 				"teraTypes": ["Grass"]
 			}
@@ -1001,7 +1006,7 @@
         "sets": [
 			{
 			    "role": "Bulky Support",
-			    "movepool": ["defog", "discharge", "heatwave", "terablast", "roost", "toxic", "uturn"],
+			    "movepool": ["defog", "discharge", "heatwave", "hiddenpower", "roost", "toxic", "uturn"],
 			    "abilities": ["Static"],
 				"teraTypes": ["Ice"]
 			}
@@ -1068,7 +1073,7 @@
         "sets": [
 			{
 			    "role": "Wallbreaker",
-			    "movepool": ["triattack", "shadowball", "terablast", "hyperbeam", "trick"],
+			    "movepool": ["triattack", "shadowball", "hiddenpower", "hyperbeam", "trick"],
 			    "abilities": ["Download"],
 				"teraTypes": ["Fighting"]
 			}
@@ -1079,7 +1084,7 @@
         "sets": [
 			{
 			    "role": "Fast Attacker",
-			    "movepool": ["Flash Cannon", "Thunderbolt", "Volt Switch", "terablast"],
+			    "movepool": ["Flash Cannon", "Thunderbolt", "Volt Switch", "hiddenpower"],
 			    "abilities": ["Analytic", "Magnet Pull"],
 				"teraTypes": ["Ground"]
 			}
