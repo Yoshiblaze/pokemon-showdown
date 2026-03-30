@@ -4,7 +4,7 @@
         "sets": [
             {
                 "role": "Bulky Attacker",
-                "movepool": ["Soulbound Slash", "Shadow Sneak", "King's Shield", "Swords Dance", "Close Combat", "Shadow Claw"],
+                "movepool": ["Soulbound Slash", "Shadow Sneak", "King's Shield", "Swords Dance", "Close Combat"],
                 "abilities": ["Stance Change"]
             }
         ]
@@ -104,6 +104,16 @@
             }
         ]
     },
+	"darmanitan": {
+        "level": 100,
+        "sets": [
+			      {
+                "role": "Wallbreaker",
+                "movepool": ["Flare Blitz", "Superpower", "U-turn", "Earthquake", "Zen Headbutt"],
+                "abilities": ["Sheer Force"]
+            }
+        ]
+    },
 	 "diancie": {
         "level": 100,
         "sets": [
@@ -114,7 +124,7 @@
             },
             {
                 "role": "Bulky Setup",
-                "movepool": ["Calm Mind", "Power Gem", "Draining Kiss", "Stored Power", "Earth Power"],
+                "movepool": ["Calm Mind", "Diamond Storm", "Draining Kiss", "Stored Power"],
                 "abilities": ["Clear Body"]
             },
             {
@@ -215,17 +225,7 @@
             {
                 "role": "Fast Attacker",
                 "movepool": ["Draco Meteor", "Earth Power", "Vacuum Wave", "Alluring Voice", "U-turn", "Boomburst"],
-                "abilities": ["Contrary"]
-            }
-        ]
-    },
-	"genesect": {
-        "level": 100,
-        "sets": [
-            {
-                "role": "Bulky Attacker",
-                "movepool": ["Techno Blast", "U-turn", "Iron Head", "Tri Attack"],
-                "abilities": ["Mega Launcher"]
+                "abilities": ["Levitate"]
             }
         ]
     },
@@ -480,12 +480,14 @@
             {
                 "role": "Setup Sweeper",
                 "movepool": ["Ivy Cudgel", "Stomping Tantrum", "Trailblaze", "Swords Dance"],
-                "abilities": ["Shield Dust"]
+                "abilities": ["Shield Dust"],
+				"teraTypes": ["Fairy"]
             },
             {
                 "role": "Fast Support",
                 "movepool": ["Ivy Cudgel", "Spikes", "U-turn", "Synthesis"],
-                "abilities": ["Shield Dust"]
+                "abilities": ["Shield Dust"],
+				"teraTypes": ["Fairy"]
             }
         ]
     },
@@ -749,12 +751,12 @@
         "sets": [
             {
                 "role": "Fast Attacker",
-                "movepool": ["Weather Ball", "Morning Sun", "Giga Drain", "Bug Buzz", "Air Slash"],
+                "movepool": ["Weather Ball", "Morning Sun", "Giga Drain", "Bug Buzz"],
                 "abilities": ["Drought"]
             },
             {
                 "role": "Bulky Attacker",
-                "movepool": ["Fiery Dance", "Morning Sun", "Solar Beam", "Psychic", "Air Slash"],
+                "movepool": ["Fiery Dance", "Air Slash", "Solar Beam", "Psychic"],
                 "abilities": ["Drought"]
             }
         ]
@@ -789,7 +791,7 @@
         "sets": [
             {
                 "role": "Fast Attacker",
-                "movepool": ["Heart of Oak", "Power Whip", "Knock Off", "U-turn"],
+                "movepool": ["Aromatherapy", "Power Whip", "Knock Off", "U-turn"],
                 "abilities": ["Natural Cure"]
             }
         ]
