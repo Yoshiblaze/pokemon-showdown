@@ -1109,6 +1109,41 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		zMove: { boost: { spd: 1 } },
 		contestType: "Tough",
 	},
+	heartofoak: {
+		num: 1312,
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		name: "Heart of Oak",
+		pp: 5,
+		priority: 0,
+		flags: { snatch: 1, distance: 1, metronome: 1 },
+		onHit(target, source, move) {
+			this.add('-activate', source, 'move: Heart of Oak');
+			let success = false;
+			const allies = [...target.side.pokemon, ...target.side.allySide?.pokemon || []];
+			for (const ally of allies) {
+				if (ally !== source && !this.suppressingAbility(ally)) {
+					if (ally.hasAbility('sapsipper')) {
+						this.add('-immune', ally, '[from] ability: Sap Sipper');
+						continue;
+					}
+					if (ally.hasAbility('goodasgold')) {
+						this.add('-immune', ally, '[from] ability: Good as Gold');
+						continue;
+					}
+					if (ally.volatiles['substitute'] && !move.infiltrates) continue;
+				}
+				if (ally.cureStatus()) success = true;
+				if (ally.hp < ally.maxhp) ally.sethp(Math.min(ally.maxhp, ally.hp + source.maxhp / 8));
+			}
+			return success;
+		},
+		target: "allyTeam",
+		type: "Grass",
+		zMove: { effect: 'heal' },
+		contestType: "Beautiful",
+	},
 	sixtongueemojis: {
 		accuracy: 100,
 		basePower: 100,
