@@ -40,7 +40,8 @@ export const Rulesets: import('../../../sim/dex-formats').ModdedFormatDataTable 
 					if (target.species.name === "Beartic") {
 						target.formeChange('Beartic-Freshwater', null, true);
 						target.setAbility('cloudnine', target);
-						const glacierFangIndex = target.set.moves.map(move => move.toLowerCase().replace(/[^a-z0-9]/g, '')).indexOf('glacierfang' as ID);
+						const glacierFangIndex = target.set.moves
+							.map(move => move.toLowerCase().replace(/[^a-z0-9]/g, '')).indexOf('glacierfang' as ID);
 						if (glacierFangIndex < 0) return;
 
 						const move = this.dex.moves.get('meltingmaul');
