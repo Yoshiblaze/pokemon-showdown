@@ -26,6 +26,15 @@ export const Conditions: import('../../../sim/dex-conditions').ModdedConditionDa
 			if (target.species.name === 'Drifblim') {
 				target.formeChange('Drifblim-Inflamed', this.effect, false);
 			}
+			for (const opponent of target.side.foe.active) {
+				const active = opponent.side.foe.active.filter(mon => mon.status === 'ber').length > 0;
+				if (opponent.species.name === 'Mesprit' && active) {
+					opponent.formeChange('Mesprit-Rampaging', this.effect, false);
+				}
+				if (opponent.species.name === 'Mesprit-Rampaging' && !active) {
+					opponent.formeChange('Mesprit', this.effect, false);
+				}
+			}
 		},
 		onDamage(damage, target, source, effect) {
 			const hp = target.maxhp / 16;
