@@ -108,21 +108,6 @@ export const Rulesets: import('../../../sim/dex-formats').ModdedFormatDataTable 
 				}
 			}
 		},
-		onAnyDamage(damage, target, source, effect) {
-			if (!this.ruleTable.tagRules.includes("+pokemontag:cap")) {
-				if (target.species.name === "Victini" && target.hp - damage <= target.maxhp / 4 &&
-					target.hp - damage > 0 && target.side.pokemonLeft > 1) {
-					let stat: BoostID;
-					for (stat in target.boosts) {
-						if (target.boosts[stat] < 0) {
-							return;
-						}
-					}
-					target.formeChange('Victini-Victorious', null, true);
-					target.setAbility('victoryfinale', target);
-				}
-			}
-		},
 		onAfterBoost(boost, target, source, effect) {
 			if (!this.ruleTable.tagRules.includes("+pokemontag:cap")) {
 				/* let speedUp = false;
@@ -253,6 +238,16 @@ export const Rulesets: import('../../../sim/dex-formats').ModdedFormatDataTable 
 						pokemon.formeChange('Pecharunt', null, true);
 						pokemon.setAbility('poisonpuppeteer', pokemon);
 					}
+				}
+				if (pokemon.species.name === "Victini" && pokemon.hp <= pokemon.maxhp / 4 &&
+					pokemon.hp > 0 && pokemon.side.pokemonLeft > 1) {
+					let stat: BoostID;
+					for (stat in pokemon.boosts) {
+						if (pokemon.boosts[stat] < 0) {
+							return;
+						}
+					}
+					pokemon.formeChange('Victini-Victorious', null, true);
 				}
 			}
 		},
