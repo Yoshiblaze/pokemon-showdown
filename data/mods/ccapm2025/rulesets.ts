@@ -24,7 +24,7 @@ export const Rulesets: import('../../../sim/dex-formats').ModdedFormatDataTable 
 				if (pokemon.species.name === "Samurott" && pokemon.side.totalFainted >= 3) {
 					pokemon.formeChange('Samurott-Overlord', null, true);
 				}
-				if (pokemon.species.name === "Jirachi" && (pokemon.side as any).holdHandsUsers.length >= 2) {
+				if (pokemon.species.name === "Jirachi" && (pokemon.side as any).holdHandsUsers?.length >= 2) {
 					pokemon.formeChange('Jirachi-Harmonic', null, true);
 				}
 				if (pokemon.species.name === "Luvdisc" && pokemon.side.totalFainted >= 5) {
@@ -40,7 +40,8 @@ export const Rulesets: import('../../../sim/dex-formats').ModdedFormatDataTable 
 					if (target.species.name === "Beartic") {
 						target.formeChange('Beartic-Freshwater', null, true);
 						target.setAbility('cloudnine', target);
-						const glacierFangIndex = target.set.moves.map(toID).indexOf('glacierfang' as ID);
+						const glacierFangIndex = target.set.moves
+							.map(move => move.toLowerCase().replace(/[^a-z0-9]/g, '')).indexOf('glacierfang' as ID);
 						if (glacierFangIndex < 0) return;
 
 						const move = this.dex.moves.get('meltingmaul');
@@ -105,21 +106,6 @@ export const Rulesets: import('../../../sim/dex-formats').ModdedFormatDataTable 
 				if (effect && effect.id === 'stealthrock' && target.species.name === "Kommo-o") {
 					target.formeChange('Kommo-o-Hard-Rock', null, true);
 					target.setAbility('backbeat', target);
-				}
-			}
-		},
-		onAnyDamage(damage, target, source, effect) {
-			if (!this.ruleTable.tagRules.includes("+pokemontag:cap")) {
-				if (target.species.name === "Victini" && target.hp - damage <= target.maxhp / 4 &&
-					target.hp - damage > 0 && target.side.pokemonLeft > 1) {
-					let stat: BoostID;
-					for (stat in target.boosts) {
-						if (target.boosts[stat] < 0) {
-							return;
-						}
-					}
-					target.formeChange('Victini-Victorious', null, true);
-					target.setAbility('victoryfinale', target);
 				}
 			}
 		},
@@ -253,6 +239,16 @@ export const Rulesets: import('../../../sim/dex-formats').ModdedFormatDataTable 
 						pokemon.formeChange('Pecharunt', null, true);
 						pokemon.setAbility('poisonpuppeteer', pokemon);
 					}
+				}
+				if (pokemon.species.name === "Victini" && pokemon.hp <= pokemon.maxhp / 4 &&
+					pokemon.hp > 0 && pokemon.side.pokemonLeft > 1) {
+					let stat: BoostID;
+					for (stat in pokemon.boosts) {
+						if (pokemon.boosts[stat] < 0) {
+							return;
+						}
+					}
+					pokemon.formeChange('Victini-Victorious', null, true);
 				}
 			}
 		},

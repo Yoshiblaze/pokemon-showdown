@@ -154,7 +154,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				!pokemon.battle.ruleTable.tagRules.includes("+pokemontag:cap")) {
 				if (!pokemon.m.steamMoves) pokemon.m.steamMoves = 0;
 				if ((move.type === 'Water' || move.type === 'Fire')) pokemon.m.steamMoves++;
-				if (pokemon.m.darkMoves >= 3)
+				if (pokemon.m.steamMoves >= 3)
 					pokemon.formeChange('Volcanion-Surge', null, true);
 			}
 			if (success && move.type === 'Grass' &&
