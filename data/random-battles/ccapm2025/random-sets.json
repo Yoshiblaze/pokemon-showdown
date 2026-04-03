@@ -405,12 +405,12 @@
             {
                 "role": "Bulky Support",
                 "movepool": ["Overheat", "Stealth Rock", "Earth Power", "Will-O-Wisp"],
-                "abilities": ["Flame Body"]
+                "abilities": ["Molten Core"]
             },
             {
                 "role": "Setup Sweeper",
                 "movepool": ["Shell Smash", "Flamethrower", "Earth Power", "Power Gem"],
-                "abilities": ["Flame Body"]
+                "abilities": ["Molten Core"]
             }
         ]
     },
