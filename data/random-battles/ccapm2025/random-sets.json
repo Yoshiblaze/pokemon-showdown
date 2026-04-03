@@ -84,12 +84,12 @@
         "sets": [
             {
                 "role": "Bulky Setup",
-                "movepool": ["Curse", "Shadow Ball", "Energy Ball", "Nasty Plot", "Psychic"],
+                "movepool": ["Curse", "Shadow Ball", "Energy Ball", "Nasty Plot"],
                 "abilities": ["Mummy"]
             },
             {
                 "role": "Bulky Attacker",
-                "movepool": ["Curse", "Shadow Ball", "Stealth Rock", "Nasty Plot", "Giga Drain"],
+                "movepool": ["Curse", "Shadow Ball", "Stealth Rock", "Giga Drain"],
                 "abilities": ["Mummy"]
             }
         ]
