@@ -216,7 +216,7 @@ export const Rulesets: import('../../../sim/dex-formats').ModdedFormatDataTable 
 						source.formeChange('Octillery-Sharpshooter', null, true);
 						source.setAbility('focusedfire', source);
 					}
-				} else if (source?.species.name === "Dudunsparce" || source.species.name === "Du-Dudunsparce") {
+				} else if (source?.species.name === "Dudunsparce" || source?.species.name === "Du-Dudunsparce") {
 					if (effect && effect.effectType === 'Move') {
 						source.formeChange('Dudunsparce-tongueemoji', null, true);
 						source.setAbility('naturalcure', source);
