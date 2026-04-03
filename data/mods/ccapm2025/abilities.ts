@@ -584,10 +584,10 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 			move.multihit = 2;
 			move.multihitType = 'parentalbond';
 		},
-		onBasePowerPriority: 7,
+		/* onBasePowerPriority: 7,
 		onBasePower(basePower, pokemon, target, move) {
 			if (move.multihitType === 'parentalbond' && move.hit > 1) return this.chainModify(0.25);
-		},
+		}, */
 		onModifyTypePriority: -1,
 		onModifyType(move, pokemon) {
 			if (move.multihitType === 'parentalbond' && move.hit > 1) { // hardcode
