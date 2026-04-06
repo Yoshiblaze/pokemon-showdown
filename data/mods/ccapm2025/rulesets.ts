@@ -198,7 +198,7 @@ export const Rulesets: import('../../../sim/dex-formats').ModdedFormatDataTable 
 		},
 		onAfterFaint(length, target, source, effect) {
 			if (!this.ruleTable.tagRules.includes("+pokemontag:cap")) {
-				if (source.species.id === 'lucario') {
+				if (source?.species.id === 'lucario') {
 					if (this.effectState.auraTriggered) return;
 					if (effect?.effectType !== 'Move') {
 						return;
@@ -211,12 +211,12 @@ export const Rulesets: import('../../../sim/dex-formats').ModdedFormatDataTable 
 						source.formeRegression = true;
 						this.effectState.auraTriggered = true;
 					}
-				} else if (source.species.name === "Octillery") {
+				} else if (source?.species.name === "Octillery") {
 					if (effect && effect.effectType === 'Move' && target.getMoveHitData(effect).crit) {
 						source.formeChange('Octillery-Sharpshooter', null, true);
 						source.setAbility('focusedfire', source);
 					}
-				} else if (source.species.name === "Dudunsparce" || source.species.name === "Du-Dudunsparce") {
+				} else if (source?.species.name === "Dudunsparce" || source?.species.name === "Du-Dudunsparce") {
 					if (effect && effect.effectType === 'Move') {
 						source.formeChange('Dudunsparce-tongueemoji', null, true);
 						source.setAbility('naturalcure', source);
