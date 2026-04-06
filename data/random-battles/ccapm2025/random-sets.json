@@ -586,7 +586,7 @@
         "sets": [
             {
                 "role": "Fast Attacker",
-                "movepool": ["Seed Flare", "Flower Trick", "Substitute", "Giga Drain"],
+                "movepool": ["Seed Flare", "Flower Trick", "Synthesis", "Aromatherapy"],
                 "abilities": ["Flower Veil"]
             }
         ]
