@@ -254,24 +254,25 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 			if (move.category === 'Status' && move.id !== 'stackshield') return;
 			const targetForme = (move.id === 'stackshield' ? 'Stakataka' : 'Stakataka-Missile');
 			if (attacker.species.name !== targetForme) attacker.formeChange(targetForme);
+			attacker.setAbility('interdimensionalmissile', attacker);
 		},
 		flags: { failroleplay: 1, noreceiver: 1, noentrain: 1, notrace: 1, failskillswap: 1, cantsuppress: 1 },
 		name: "Stack Change",
 		rating: 4,
 		shortDesc: "Stakataka: Changes to Missile Forme before attacks, and changes to Base Forme before Stack Shield.",
 	},
-	interdimensionalmissle: {
+	interdimensionalmissile: {
 		onModifyAtkPriority: 5,
 		onModifyAtk(atk, attacker, defender, move) {
 			if (move.type === 'Fire') {
-				this.debug('Interdimensional Missle boost');
+				this.debug('Interdimensional Missile boost');
 				return this.chainModify(1.5);
 			}
 		},
 		onModifySpAPriority: 5,
 		onModifySpA(atk, attacker, defender, move) {
 			if (move.type === 'Fire') {
-				this.debug('Interdimensional Missle boost');
+				this.debug('Interdimensional Missile boost');
 				return this.chainModify(1.5);
 			}
 		},
@@ -281,10 +282,11 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 			if (move.category === 'Status' && move.id !== 'stackshield') return;
 			const targetForme = (move.id === 'stackshield' ? 'Stakataka' : 'Stakataka-Missile');
 			if (attacker.species.name !== targetForme) attacker.formeChange(targetForme);
+			attacker.setAbility('stackchange', attacker);
 		},
 		// airborneness implemented in scripts.ts:Pokemon#isGrounded
 		flags: { breakable: 1, failroleplay: 1, noreceiver: 1, noentrain: 1, notrace: 1, failskillswap: 1, cantsuppress: 1 },
-		name: "Interdimensional Missle",
+		name: "Interdimensional Missile",
 		rating: 3.5,
 		shortDesc: "Effects of Levitate + Stack Change + User's Fire moves deal 1.5x damage.",
 	},
