@@ -646,7 +646,7 @@
         "sets": [
             {
                 "role": "Setup Sweeper",
-                "movepool": ["Growth", "Giga Drain", "Solar Beam", "Sunny Day", "Weather Ball"],
+                "movepool": ["Growth", "Giga Drain", "Sunny Day", "Weather Ball"],
                 "abilities": ["Chlorophyll"]
             }
         ]
