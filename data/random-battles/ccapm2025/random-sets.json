@@ -631,7 +631,7 @@
         "sets": [
             {
                 "role": "Bulky Attacker",
-                "movepool": ["Stack Shield", "Taunt", "Stone Edge", "Gyro Ball", "Trick Room"],
+                "movepool": ["Stack Shield", "Taunt", "Stone Edge", "Heavy Slam", "Trick Room"],
                 "abilities": ["Stack Change"]
             },
             {
