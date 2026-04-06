@@ -1291,7 +1291,7 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		forme: "Missile",
 		types: ["Rock", "Steel"],
 		baseStats: { hp: 61, atk: 161, def: 13, spa: 53, spd: 71, spe: 211 },
-		abilities: { 0: "Interdimensional Missle" },
+		abilities: { 0: "Interdimensional Missile" },
 		heightm: 5.5,
 		weightkg: 820,
 		color: "Gray",
