@@ -307,5 +307,23 @@ export const Scripts: ModdedBattleScriptsData = {
 		this.modData("Learnsets", "marowak").learnset.knockoff = ["9L1"];
 		this.modData("Learnsets", "marowak").learnset.vengefulbone = ["9L1"];
 		this.modData("Learnsets", "marowak").learnset.closecombat = ["9L1"];
+		this.modData("Learnsets", "gyarados").learnset.acrobatics = ["9L1"];
+		this.modData("Learnsets", "gyarados").learnset.ragingtorrent = ["9L1"];
+		this.modData("Learnsets", "cloyster").learnset.bulletpunch = ["9L1"];
+		this.modData("Learnsets", "cloyster").learnset.curse = ["9L1"];
+		this.modData("Learnsets", "cloyster").learnset.explosion = ["9L1"];
+		this.modData("Learnsets", "cloyster").learnset.ironhead = ["9L1"];
+		this.modData("Learnsets", "cloyster").learnset.splashback = ["9L1"];
+		this.modData("Learnsets", "tentacruel").learnset.darkpulse = ["9L1"];
+		this.modData("Learnsets", "tentacruel").learnset.foulplay = ["9L1"];
+		this.modData("Learnsets", "tentacruel").learnset.nastyplot = ["9L1"];
+		delete this.modData('Learnsets', 'cloyster').learnset.iceshard;
+		delete this.modData('Learnsets', 'cloyster').learnset.lifedew;
+		delete this.modData('Learnsets', 'cloyster').learnset.shellsmash;
+		delete this.modData('Learnsets', 'tentacruel').learnset.scald;
+		delete this.modData('Learnsets', 'shellder').learnset.iceshard;
+		delete this.modData('Learnsets', 'shellder').learnset.lifedew;
+		delete this.modData('Learnsets', 'shellder').learnset.shellsmash;
+		delete this.modData('Learnsets', 'tentacool').learnset.scald;
 	},
 };
