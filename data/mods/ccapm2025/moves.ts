@@ -1473,7 +1473,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 			if (pokemon.species.id === 'landorus') this.boost({ spa: 2 }, pokemon);
 			else if (pokemon.species.id === 'landorustherian') this.boost({ atk: 2 }, pokemon);
 
-			if (pokemon.baseSpecies.baseSpecies === 'Landorus' && !pokemon.transformed) {
+			if (pokemon.baseSpecies.baseSpecies === 'Landorus' && pokemon.species.name !== 'Landorus-Ancestral') {
 				move.willChangeForme = true;
 			}
 		},

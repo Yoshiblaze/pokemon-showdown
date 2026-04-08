@@ -162,9 +162,6 @@ export const Rulesets: import('../../../sim/dex-formats').ModdedFormatDataTable 
 					pokemon.formeChange('Fearow-Ferocious', null, true);
 				} else if (pokemon.activeTurns && pokemon.species.name === "Fearow-Ferocious") {
 					pokemon.formeChange('Fearow', null, true);
-				} else if (pokemon.hp <= pokemon.maxhp / 1.5 &&
-					pokemon.species.name === "Rayquaza") {
-					pokemon.formeChange('Rayquaza-Untethered', null, true);
 				} else if (pokemon.hp <= pokemon.maxhp / 2 &&
 					pokemon.species.name === "Sunflora") {
 					pokemon.formeChange('Sunflora-Wilted', null, true);

@@ -1353,6 +1353,27 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 	primalshackle: {
 		// placeholder, form change was implemented in rulesets.ts because we didn't
 		// know that it was supposed to be an ability lol
+		onDamage(damage, target, source, effect) {
+			if (
+				effect.effectType === "Move" &&
+				!effect.multihit &&
+				!(effect.hasSheerForce && source.hasAbility('sheerforce'))
+			) {
+				this.effectState.checkedPrimalShackle = false;
+			} else {
+				this.effectState.checkedPrimalShackle = true;
+			}
+		},
+		onAfterMoveSecondary(target, source, move) {
+			this.effectState.checkedBerserk = true;
+			if (!source || source === target || !target.hp || !move.totalDamage) return;
+			const lastAttackedBy = target.getLastAttackedBy();
+			if (!lastAttackedBy) return;
+			const damage = move.multihit && !move.smartTarget ? move.totalDamage : lastAttackedBy.damage;
+			if (target.hp <= target.maxhp / 1.5 && target.hp + damage > target.maxhp / 2) {
+				target.formeChange('Rayquaza-Untethered', null, true);
+			}
+		},
 		flags: { failroleplay: 1, noreceiver: 1, noentrain: 1, notrace: 1, failskillswap: 1, cantsuppress: 1 },
 		name: "Primal Shackle",
 		rating: 0,
