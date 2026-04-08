@@ -1341,8 +1341,8 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 				}
 			} else {
 				const mon = pokemon as any;
-				if (mon.tryingMyBestSwitches) mon.timesSwitchedIn++;
-				else mon.tryingMyBestSwitches = 1;
+				if (mon.timesSwitchedIn) mon.timesSwitchedIn++;
+				else mon.timesSwitchedIn = 1;
 			}
 		},
 		flags: {},
