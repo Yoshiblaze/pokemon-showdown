@@ -248,18 +248,33 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		num: 176,
 	},
 	stackchange: {
+		onModifyAtkPriority: 5,
+		onModifyAtk(atk, attacker, defender, move) {
+			if (move.type === 'Fire') {
+				this.debug('Stack Change boost');
+				return this.chainModify(1.5);
+			}
+		},
+		onModifySpAPriority: 5,
+		onModifySpA(atk, attacker, defender, move) {
+			if (move.type === 'Fire') {
+				this.debug('Stack Change boost');
+				return this.chainModify(1.5);
+			}
+		},
 		onModifyMovePriority: 1,
 		onModifyMove(move, attacker, defender) {
 			if (attacker.species.baseSpecies !== 'Stakataka' || attacker.transformed) return;
 			if (move.category === 'Status' && move.id !== 'stackshield') return;
 			const targetForme = (move.id === 'stackshield' ? 'Stakataka' : 'Stakataka-Missile');
 			if (attacker.species.name !== targetForme) attacker.formeChange(targetForme);
-			attacker.setAbility('interdimensionalmissile', attacker);
+			// attacker.setAbility('interdimensionalmissile', attacker);
 		},
+		// airborneness implemented in scripts.ts:Pokemon#isGrounded
 		flags: { failroleplay: 1, noreceiver: 1, noentrain: 1, notrace: 1, failskillswap: 1, cantsuppress: 1 },
 		name: "Stack Change",
 		rating: 4,
-		shortDesc: "Stakataka: Changes to Missile Forme before attacks, and changes to Base Forme before Stack Shield.",
+		shortDesc: "Stakataka: Levitate + Fire moves 1.5x pow. Missile before attacks, Base before Stack Shield.",
 	},
 	interdimensionalmissile: {
 		onModifyAtkPriority: 5,
