@@ -357,7 +357,8 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (item === 'ironball') return true;
 			// If a Fire/Flying type uses Burn Up and Roost, it becomes ???/Flying-type, but it's still grounded.
 			if (!negateImmunity && this.hasType('Flying') && !(this.hasType('???') && 'roost' in this.volatiles)) return false;
-			if ((this.hasAbility('levitate') || this.hasAbility('interdimensionalmissile')) &&
+			if ((this.hasAbility('levitate') || this.hasAbility('interdimensionalmissile') ||
+				this.hasAbility('stackchange')) &&
 				!this.battle.suppressingAbility(this)) {
 				return null;
 			}
