@@ -178,6 +178,43 @@ export const Scripts: ModdedBattleScriptsData = {
 			}
 			return success;
 		},
+		terastallize(pokemon: Pokemon) {
+			if (pokemon.species.baseSpecies === 'Ogerpon' && !['Fire', 'Grass', 'Rock', 'Water', 'Fairy']
+				.includes(pokemon.teraType) && (!pokemon.illusion || pokemon.illusion.species.baseSpecies === 'Ogerpon')) {
+				this.battle.hint("If Ogerpon Terastallizes into a type other than Fire, Grass, Rock, or Water, the game crashes.", false, pokemon.side);
+				return;
+			}
+
+			if (pokemon.illusion && ['Ogerpon', 'Terapagos'].includes(pokemon.illusion.species.baseSpecies)) {
+				this.battle.singleEvent('End', this.dex.abilities.get('Illusion'), pokemon.abilityState, pokemon);
+			}
+
+			const type = pokemon.teraType;
+			this.battle.add('-terastallize', pokemon, type);
+			pokemon.terastallized = type;
+			for (const ally of pokemon.side.pokemon) {
+				ally.canTerastallize = null;
+			}
+			pokemon.addedType = '';
+			pokemon.knownType = true;
+			pokemon.apparentType = type;
+			if (pokemon.species.baseSpecies === 'Ogerpon') {
+				let ogerponSpecies = toID(pokemon.species.battleOnly || pokemon.species.id);
+				ogerponSpecies += ogerponSpecies === 'ogerpon' ? 'tealtera' : 'tera';
+				pokemon.formeChange(ogerponSpecies, null, true);
+			}
+			if (pokemon.species.name === 'Terapagos-Terastal') {
+				pokemon.formeChange('Terapagos-Stellar', null, true);
+			}
+			if (pokemon.species.baseSpecies === 'Morpeko' && !pokemon.transformed &&
+				pokemon.baseSpecies.id !== pokemon.species.id
+			) {
+				pokemon.formeRegression = true;
+				pokemon.baseSpecies = pokemon.species;
+				pokemon.details = pokemon.getUpdatedDetails();
+			}
+			this.battle.runEvent('AfterTerastallization', pokemon);
+		},
 	},
 	faintMessages(lastFirst = false, forceCheck = false, checkWin = true) {
 		if (this.ended) return;
@@ -476,6 +513,51 @@ export const Scripts: ModdedBattleScriptsData = {
 			return false;
 		},
 
+		calculateStat(statName: StatIDExceptHP, boost: number, modifier?: number, statUser?: Pokemon) {
+			statName = toID(statName) as StatIDExceptHP;
+			// @ts-expect-error type checking prevents 'hp' from being passed, but we're paranoid
+			if (statName === 'hp') throw new Error("Please read `maxhp` directly");
+
+			// base stat
+			let stat = this.storedStats[statName];
+
+			// Implement Trying My Best!
+			if (!this.battle.ruleTable.tagRules.includes("+pokemontag:cap")) {
+				const mon = this as any;
+				// Make sure it has changed abilities since
+				if (mon.timesSwitchedIn && mon.ability !== 'tryingmybest') {
+					stat *= (10 + mon.timesSwitchedIn) / 10;
+				}
+			}
+
+			// Wonder Room swaps defenses before calculating anything else
+			if ('wonderroom' in this.battle.field.pseudoWeather) {
+				if (statName === 'def') {
+					stat = this.storedStats['spd'];
+				} else if (statName === 'spd') {
+					stat = this.storedStats['def'];
+				}
+			}
+
+			// stat boosts
+			let boosts: SparseBoostsTable = {};
+			const boostName = statName as BoostID;
+			boosts[boostName] = boost;
+			boosts = this.battle.runEvent('ModifyBoost', statUser || this, null, null, boosts);
+			boost = boosts[boostName]!;
+			const boostTable = [1, 1.5, 2, 2.5, 3, 3.5, 4];
+			if (boost > 6) boost = 6;
+			if (boost < -6) boost = -6;
+			if (boost >= 0) {
+				stat = Math.floor(stat * boostTable[boost]);
+			} else {
+				stat = Math.floor(stat / boostTable[-boost]);
+			}
+
+			// stat modifier
+			return this.battle.modify(stat, (modifier || 1));
+		},
+
 		getStat(statName: StatIDExceptHP, unboosted?: boolean, unmodified?: boolean) {
 			statName = toID(statName) as StatIDExceptHP;
 			// @ts-expect-error type checking prevents 'hp' from being passed, but we're paranoid
@@ -483,6 +565,15 @@ export const Scripts: ModdedBattleScriptsData = {
 
 			// base stat
 			let stat = this.storedStats[statName];
+
+			// Implement Trying My Best!
+			if (!this.battle.ruleTable.tagRules.includes("+pokemontag:cap")) {
+				const mon = this as any;
+				// Make sure it has changed abilities since
+				if (mon.timesSwitchedIn && mon.ability !== 'tryingmybest') {
+					stat *= (10 + mon.timesSwitchedIn) / 10;
+				}
+			}
 
 			// Download ignores Wonder Room's effect, but this results in
 			// stat stages being calculated on the opposite defensive stat
@@ -515,13 +606,6 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (!unmodified) {
 				const statTable: { [s in StatIDExceptHP]: string } = { atk: 'Atk', def: 'Def', spa: 'SpA', spd: 'SpD', spe: 'Spe' };
 				stat = this.battle.runEvent('Modify' + statTable[statName], this, null, null, stat);
-				// Implement Trying My Best!
-				if (!this.battle.ruleTable.tagRules.includes("+pokemontag:cap")) {
-					const mon = this as any;
-					if (mon.tryingMyBestSwitches) {
-						stat *= (10 + mon.tryingMyBestSwitches) / 10;
-					}
-				}
 			}
 
 			if (statName === 'spe' && stat > 10000 && !this.battle.format.battle?.trunc) stat = 10000;

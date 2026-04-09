@@ -1138,6 +1138,12 @@ export class RandomC25Teams extends RandomTeams {
 			throw new Error(`Could not build a random team for ${this.format} (seed=${seed})`);
 		}
 
+		if (pokemon.some(mon => mon.name === 'Jirachi')) {
+			for (const set of pokemon) {
+				if (!set.moves.includes('Hold Hands')) set.moves.push('Hold Hands');
+			}
+		}
+
 		return pokemon;
 	}
 }
