@@ -524,7 +524,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			}
 			this.battle.eachEvent('WeatherChange', sourceEffect);
 			return true;
-		}
+		},
 	},
 	pokemon: {
 		inherit: true,
