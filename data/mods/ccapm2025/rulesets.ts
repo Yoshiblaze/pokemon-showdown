@@ -58,7 +58,8 @@ export const Rulesets: import('../../../sim/dex-formats').ModdedFormatDataTable 
 				} else if (weather === 'hail' || weather === 'snowscape') {
 					if (target.species.name === "Beartic-Freshwater") {
 						target.formeChange('Beartic', null, true);
-						const meltingMaulIndex = target.set.moves.map(toID).indexOf('meltingmaul' as ID);
+						const meltingMaulIndex = target.set.moves
+							.map(move => move.toLowerCase().replace(/[^a-z0-9]/g, '')).indexOf('meltingmaul' as ID);
 						if (meltingMaulIndex < 0) return;
 
 						const move = this.dex.moves.get('glacierfang');

@@ -466,6 +466,66 @@ export const Scripts: ModdedBattleScriptsData = {
 		}
 		return false;
 	},
+	field: {
+		setWeather(status: string | Condition, source: Pokemon | 'debug' | null = null, sourceEffect: Effect | null = null) {
+			status = this.battle.dex.conditions.get(status);
+			if (!sourceEffect && this.battle.effect) sourceEffect = this.battle.effect;
+			if (!source && this.battle.event?.target) source = this.battle.event.target;
+			if (source === 'debug') source = this.battle.sides[0].active[0];
+
+			if (this.weather === status.id) {
+				if (sourceEffect && sourceEffect.effectType === 'Ability') {
+					if (this.battle.gen > 5 || this.weatherState.duration === 0) {
+						return false;
+					}
+				} else if (this.battle.gen > 2 || status.id === 'sandstorm') {
+					return false;
+				}
+			}
+			if (source) {
+				const result = this.battle.runEvent('SetWeather', source, source, status);
+				if (!result) {
+					if (result === false) {
+						if ((sourceEffect as Move)?.weather) {
+							this.battle.add('-fail', source, sourceEffect, '[from] ' + this.weather);
+						} else if (sourceEffect && sourceEffect.effectType === 'Ability') {
+							this.battle.add('-ability', source, sourceEffect, '[from] ' + this.weather, '[fail]');
+						}
+					}
+					return null;
+				}
+			}
+			const prevWeather = this.weather;
+			const prevWeatherState = this.weatherState;
+			this.weather = status.id;
+			this.weatherState = this.battle.initEffectState({ id: status.id });
+			if (source) {
+				this.weatherState.source = source;
+				this.weatherState.sourceSlot = source.getSlot();
+			}
+			if (status.duration) {
+				this.weatherState.duration = status.duration;
+			}
+			if (status.durationCallback) {
+				if (!source) throw new Error(`setting weather without a source`);
+				this.weatherState.duration = status.durationCallback.call(this.battle, source, source, sourceEffect);
+			}
+			if (!this.battle.singleEvent('FieldStart', status, this.weatherState, this, source, sourceEffect)) {
+				this.weather = prevWeather;
+				this.weatherState = prevWeatherState;
+				return false;
+			} else if (prevWeather === 'snowscape' && !this.battle.ruleTable.tagRules.includes("+pokemontag:cap")) {
+				for (const pokemon of this.battle.getAllActive()) {
+					if (pokemon.species.id === 'wyrdeer') {
+						pokemon.formeChange('Wyrdeer-Snowblind', this.battle.effect, true);
+						this.battle.add('-activate', pokemon, 'ability: Heart of Cold');
+					}
+				}
+			}
+			this.battle.eachEvent('WeatherChange', sourceEffect);
+			return true;
+		}
+	},
 	pokemon: {
 		inherit: true,
 		isGrounded(negateImmunity = false) {
