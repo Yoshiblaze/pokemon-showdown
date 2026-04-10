@@ -299,7 +299,7 @@
         "sets": [
             {
                 "role": "Bulky Setup",
-                "movepool": ["Calm Mind", "Moonblast", "Psyshock", "Aura Sphere", "Hold Hands"],
+                "movepool": ["Calm Mind", "Moonblast", "Psyshock", "Aura Sphere"],
                 "abilities": ["Serene Grace"]
             }
         ]
