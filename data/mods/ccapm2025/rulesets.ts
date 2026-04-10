@@ -104,13 +104,13 @@ export const Rulesets: import('../../../sim/dex-formats').ModdedFormatDataTable 
 						.map(move => move.toLowerCase().replace(/[^a-z0-9]/g, '')).indexOf('glacierfang' as ID);
 					if (glacierFangIndex < 0) return;
 
-					const move = this.dex.moves.get('meltingmaul');
+					const meltingmaul = this.dex.moves.get('meltingmaul');
 					const sketchedMove = {
-						move: move.name,
-						id: move.id,
-						pp: move.pp,
-						maxpp: move.pp,
-						target: move.target,
+						move: meltingmaul.name,
+						id: meltingmaul.id,
+						pp: meltingmaul.pp,
+						maxpp: meltingmaul.pp,
+						target: meltingmaul.target,
 						disabled: false,
 						used: false,
 					};
@@ -124,13 +124,13 @@ export const Rulesets: import('../../../sim/dex-formats').ModdedFormatDataTable 
 						.map(move => move.toLowerCase().replace(/[^a-z0-9]/g, '')).indexOf('meltingmaul' as ID);
 					if (meltingMaulIndex < 0) return;
 
-					const move = this.dex.moves.get('glacierfang');
+					const glacierfang = this.dex.moves.get('glacierfang');
 					const sketchedMove = {
-						move: move.name,
-						id: move.id,
-						pp: move.pp,
-						maxpp: move.pp,
-						target: move.target,
+						move: glacierfang.name,
+						id: glacierfang.id,
+						pp: glacierfang.pp,
+						maxpp: glacierfang.pp,
+						target: glacierfang.target,
 						disabled: false,
 						used: false,
 					};
