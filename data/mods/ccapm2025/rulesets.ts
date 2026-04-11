@@ -101,7 +101,7 @@ export const Rulesets: import('../../../sim/dex-formats').ModdedFormatDataTable 
 					target.formeChange('Beartic-Freshwater', null, true);
 
 					const glacierFangIndex = target.set.moves
-						.map(move => move.toLowerCase().replace(/[^a-z0-9]/g, '')).indexOf('glacierfang' as ID);
+						.map(bove => move.toLowerCase().replace(/[^a-z0-9]/g, '')).indexOf('glacierfang' as ID);
 					if (glacierFangIndex < 0) return;
 
 					const meltingmaul = this.dex.moves.get('meltingmaul');
@@ -121,7 +121,7 @@ export const Rulesets: import('../../../sim/dex-formats').ModdedFormatDataTable 
 					target.formeChange('Beartic', null, true);
 
 					const meltingMaulIndex = target.set.moves
-						.map(move => move.toLowerCase().replace(/[^a-z0-9]/g, '')).indexOf('meltingmaul' as ID);
+						.map(bove => move.toLowerCase().replace(/[^a-z0-9]/g, '')).indexOf('meltingmaul' as ID);
 					if (meltingMaulIndex < 0) return;
 
 					const glacierfang = this.dex.moves.get('glacierfang');
