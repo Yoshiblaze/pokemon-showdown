@@ -213,7 +213,7 @@ export class RuleTable extends Map<string, string> {
 		// into the team validator and battle engine, and can affect validation
 		// in complicated ways.
 
-		// If you're making your own rule, it nearly definitely does not not
+		// If you're making your own rule, it nearly definitely does not
 		// belong here: `onValidateRule`, `onValidateSet`, and `onValidateTeam`
 		// should be enough for a validator rule, and the battle event system
 		// should be enough for a battle rule.
