@@ -792,21 +792,29 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		},
 	},
 	{
-		name: "[Gen 9] ChatBats",
-		desc: `A Random Battles Solomod made by the Pet Mods chatroom on Showdown.`,
-		mod: 'chatbats',
-		team: 'randomChatBats',
-		ruleset: ['Obtainable', 'Species Clause', 'HP Percentage Mod', 'Sleep Clause Mod', 'Data Preview', 'Cancel Mod'],
-		onSwitchIn(pokemon) {
-			this.add('-start', pokemon, 'typechange', pokemon.species.types.join('/'), '[silent]');
-		},
-		// Dachsbun causes Koraidon to generate on enemy team. Implemented here.
+		name: "[Gen 9] CCAPM2025 Random Battle",
+		desc: `A Gen 9 metagame created in the Pet Mods Room featuring Pokemon with new form changes.`,
+		mod: 'ccapm2025',
+		team: 'randomC25',
+		bestOfDefault: true,
+		ruleset: ['Obtainable', 'Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod', 'Illusion Level Mod', 'Terastal Clause', 'CCAPM Form Changes'],
 		onBegin() {
-			this.add(`raw|<div class='broadcast-green'><b>Need help with all of the new moves, abilities, and wacky sets?<br />Then make sure to check out the <a href="https://www.smogon.com/forums/threads/chatbats.3760234/post-10645803" target="_blank">ChatBats Compendium</a> or use /dt!</b></div>`);
-			this.add(`raw|Welcome to ChatBats!`);
-			this.add(`raw|ChatBats is a Random Battles format created by the Pet Mods room here on Showdown!`);
-			this.add(`raw|If you want to help create new sets, we will host events periodically in the Pet Mods room!`);
-			this.add(`raw|Anyone who is there can help create a new set for a random mon, changing moves, abilities, stats, and even custom formes.`);
+			this.add(`raw|<div class='broadcast-green'><b>Need help with all of the wacky new forms, moves, items, and abilities?<br />Then make sure to check out the <a href="https://docs.google.com/spreadsheets/d/1WMZ8okE8Q0DZAVHAOcbcsnYhYQ45QYEqCa8SHLTo8Tc/edit?usp=sharing" target="_blank">spreadsheet</a> or use /dt!</b></div>`);
+			this.add('-message', `Welcome to Commuity Create-A-Pet Mod 2025!`);
+			this.add('-message', `This is a Generation 9 Pet Mod where every Pokemon has a new form change!`);
+			this.add('-message', `You can find our thread and metagame resources here:`);
+			this.add('-message', `https://www.smogon.com/forums/threads/3773591/`);
+			this.add('-message', `This metagame was created last year in the Pet Mods Room here on Showdown!`);
+			this.add('-message', `Be sure to swing by to discuss the metagame and participate in events like CCAPM:`);
+			this.add('-message', `https://play.pokemonshowdown.com/petmods`);
+		},
+		onSwitchInPriority: 100,
+		onSwitchIn(pokemon) {
+			if ((pokemon.illusion || pokemon).getTypes(true, true).join('/') !==
+				this.dex.forGen(9).species.get((pokemon.illusion || pokemon).species.name).types.join('/') &&
+				!pokemon.terastallized) {
+				this.add('-start', pokemon, 'typechange', (pokemon.illusion || pokemon).getTypes(true).join('/'), '[silent]');
+			}
 		},
 	},
 	{
@@ -3346,6 +3354,47 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 			if (species.num >= 152 && !this.ruleTable.has('+' + species.id)) {
 				return [`${species.baseSpecies} is not in the Kanto Pokédex.`];
 			}
+		},
+	},
+	{
+		name: "[Gen 9] CCAPM2025 Custom Game", // for testing
+		mod: 'ccapm2025',
+		searchShow: false,
+		debug: true,
+		battle: { trunc: Math.trunc },
+		// no restrictions, for serious (other than team preview)
+		ruleset: ['CCAPM Form Changes', 'Team Preview', 'Cancel Mod', 'Max Team Size = 24', 'Max Move Count = 24', 'Max Level = 9999', 'Default Level = 100'],
+		onValidateSet(set) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) {
+				const { tierSpecies } = this.getValidationSpecies(set);
+				if (tierSpecies.isNonstandard !== "CAP")
+					return [`${set.name || set.species} does not exist in Pet Mods Advent.`];
+			};
+		},
+	},
+	{
+		name: "[Gen 9] CCAPM2025", // roomtours
+		desc: `A Gen 9 metagame created in the Pet Mods Room featuring Pokemon with new form changes.`,
+		mod: 'ccapm2025',
+		searchShow: false,
+		ruleset: ['Standard NatDex', 'Sleep Moves Clause', '!Sleep Clause Mod', 'CCAPM Form Changes', 'Terastal Clause'],
+		banlist: ['Uber', 'AG', 'Arena Trap', 'Moody', 'Shadow Tag', 'King\'s Rock', 'Razor Fang', 'Baton Pass', 'Last Respects', 'Shed Tail'],
+		onBegin() {
+			this.add(`raw|<div class='broadcast-green'><b>Need help with all of the wacky new forms, moves, items, and abilities?<br />Then make sure to check out the <a href="https://docs.google.com/spreadsheets/d/1WMZ8okE8Q0DZAVHAOcbcsnYhYQ45QYEqCa8SHLTo8Tc/edit?usp=sharing" target="_blank">spreadsheet</a> or use /dt!</b></div>`);
+			this.add('-message', `Welcome to Commuity Create-A-Pet Mod 2025!`);
+			this.add('-message', `This is a Generation 9 Pet Mod where every Pokemon has a new form change!`);
+			this.add('-message', `You can find our thread and metagame resources here:`);
+			this.add('-message', `https://www.smogon.com/forums/threads/3773591/`);
+			this.add('-message', `This metagame was created last year in the Pet Mods Room here on Showdown!`);
+			this.add('-message', `Be sure to swing by to discuss the metagame and participate in events like CCAPM:`);
+			this.add('-message', `https://play.pokemonshowdown.com/petmods`);
+		},
+		onValidateSet(set) {
+			if (this.ruleTable.tagRules.includes("+pokemontag:cap")) {
+				const { tierSpecies } = this.getValidationSpecies(set);
+				if (tierSpecies.isNonstandard !== "CAP")
+					return [`${set.name || set.species} does not exist in Pet Mods Advent.`];
+			};
 		},
 	},
 	{
