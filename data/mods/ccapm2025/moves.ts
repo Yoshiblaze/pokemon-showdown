@@ -1300,7 +1300,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 			onTryHit(target, source, move) {
 				if (!move.flags['protect']) {
 					if (['gmaxoneblow', 'gmaxrapidflow'].includes(move.id)) return;
-					if (move.isZ || move.isMax) target.getMoveHitData(move).zBrokeProtect = true;
+					if (move.isZ || move.isMax) target.getMoveHitData(move).brokeProtect = true;
 					return;
 				}
 				if (move.smartTarget) {
@@ -1564,7 +1564,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 			onTryHit(target, source, move) {
 				if (!move.flags['protect'] || move.category === 'Status') {
 					if (['gmaxoneblow', 'gmaxrapidflow'].includes(move.id)) return;
-					if (move.isZ || move.isMax) target.getMoveHitData(move).zBrokeProtect = true;
+					if (move.isZ || move.isMax) target.getMoveHitData(move).brokeProtect = true;
 					return;
 				}
 				if (move.smartTarget) {
