@@ -26,6 +26,23 @@ export const Rulesets: import('../../../sim/dex-formats').ModdedFormatDataTable 
 				}
 				if (pokemon.species.name === "Jirachi" && (pokemon.side as any).holdHandsUsers?.length >= 2) {
 					pokemon.formeChange('Jirachi-Harmonic', null, true);
+
+					const holdHandsIndex = pokemon.set.moves
+						.map(move => move.toLowerCase().replace(/[^a-z0-9]/g, '')).indexOf('holdhands' as ID);
+					if (holdHandsIndex < 0) return;
+
+					const move = this.dex.moves.get('lightofruin');
+					const sketchedMove = {
+						move: move.name,
+						id: move.id,
+						pp: move.pp,
+						maxpp: move.pp,
+						target: move.target,
+						disabled: false,
+						used: false,
+					};
+					pokemon.moveSlots[holdHandsIndex] = sketchedMove;
+					pokemon.baseMoveSlots[holdHandsIndex] = sketchedMove;
 				}
 				if (pokemon.species.name === "Luvdisc" && pokemon.side.totalFainted >= 5) {
 					pokemon.formeChange('Luvdisc-Heartbreak', null, true);
@@ -82,8 +99,43 @@ export const Rulesets: import('../../../sim/dex-formats').ModdedFormatDataTable 
 			if (!this.ruleTable.tagRules.includes("+pokemontag:cap")) {
 				if (move.type === 'Fire' && target.species.name === "Beartic") {
 					target.formeChange('Beartic-Freshwater', null, true);
+
+					const glacierFangIndex = target.set.moves
+						.map(setMove => setMove.toLowerCase().replace(/[^a-z0-9]/g, '')).indexOf('glacierfang' as ID);
+					if (glacierFangIndex < 0) return;
+
+					const meltingmaul = this.dex.moves.get('meltingmaul');
+					const sketchedMove = {
+						move: meltingmaul.name,
+						id: meltingmaul.id,
+						pp: meltingmaul.pp,
+						maxpp: meltingmaul.pp,
+						target: meltingmaul.target,
+						disabled: false,
+						used: false,
+					};
+
+					target.moveSlots[glacierFangIndex] = sketchedMove;
+					target.baseMoveSlots[glacierFangIndex] = sketchedMove;
 				} else if (move.type === 'Ice' && target.species.name === "Beartic-Freshwater") {
 					target.formeChange('Beartic', null, true);
+
+					const meltingMaulIndex = target.set.moves
+						.map(setMove => setMove.toLowerCase().replace(/[^a-z0-9]/g, '')).indexOf('meltingmaul' as ID);
+					if (meltingMaulIndex < 0) return;
+
+					const glacierfang = this.dex.moves.get('glacierfang');
+					const sketchedMove = {
+						move: glacierfang.name,
+						id: glacierfang.id,
+						pp: glacierfang.pp,
+						maxpp: glacierfang.pp,
+						target: glacierfang.target,
+						disabled: false,
+						used: false,
+					};
+					target.moveSlots[meltingMaulIndex] = sketchedMove;
+					target.baseMoveSlots[meltingMaulIndex] = sketchedMove;
 				} else if (move.type === 'Rock' && target.species.name === "Kommo-o") {
 					target.formeChange('Kommo-o-Hard-Rock', null, true);
 				} else if (move.type === 'Electric' && target.species.name === "Luxray") {
