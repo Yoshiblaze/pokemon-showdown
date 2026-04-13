@@ -100,7 +100,7 @@
 			      {
                 "role": "Setup Sweeper",
                 "movepool": ["Shell Smash", "Night Slash", "X-Scissor", "Earthquake"],
-                "abilities": ["Weak Armor", "Sturdy"]
+                "abilities": ["Weak Armor"]
             }
         ]
     },
@@ -235,7 +235,7 @@
             {
                 "role": "Setup Sweeper",
                 "movepool": ["Techno Blast", "Shift Gear", "Bug Buzz", "Last Resort"],
-                "abilities": ["Mega Launcher"]
+                "abilities": ["Download"]
             }
         ]
     },
@@ -245,7 +245,7 @@
             {
                 "role": "Bulky Attacker",
                 "movepool": ["Techno Blast", "Iron Defense", "Giga Drain", "Tri Attack"],
-                "abilities": ["Mega Launcher"]
+                "abilities": ["Download"]
             }
         ]
     },
@@ -255,7 +255,7 @@
             {
                 "role": "Setup Sweeper",
                 "movepool": ["Techno Blast", "Fell Stinger", "Return", "Rock Polish"],
-                "abilities": ["Mega Launcher"]
+                "abilities": ["Download"]
             }
         ]
     },
@@ -265,7 +265,7 @@
             {
                 "role": "Fast Attacker",
                 "movepool": ["Techno Blast", "Extreme Speed", "Bug Buzz", "Flash Cannon"],
-                "abilities": ["Mega Launcher"]
+                "abilities": ["Download"]
             }
         ]
     },
@@ -526,7 +526,7 @@
             },
             {
                 "role": "Bulky Attacker",
-                "movepool": ["Dragon Pulse", "Dragon Ascent", "Wild Charge", "Surf", "Hydro Pump"],
+                "movepool": ["Dragon Pulse", "Dragon Ascent", "Wild Charge", "Hydro Pump"],
                 "abilities": ["Primal Shackle"]
             }
         ]
@@ -536,7 +536,7 @@
         "sets": [
             {
                 "role": "Bulky Attacker",
-                "movepool": ["Acupressure", "Tera Blast", "Knock Off", "Earthquake"],
+                "movepool": ["Acupressure", "Body Slam", "Knock Off", "Earthquake"],
                 "abilities": ["Slow Start"]
             },
             {
@@ -606,12 +606,12 @@
         "sets": [
             {
                 "role": "Fast Attacker",
-                "movepool": ["Fire Blast", "Earth Power", "Superpower", "Work Up"],
+                "movepool": ["Fire Blast", "Tera Blast", "Superpower", "Work Up"],
                 "abilities": ["Blaze"]
             },
             {
                 "role": "Setup Sweeper",
-                "movepool": ["Fire Blast", "Earth Power", "Substitute", "Temper Flare"],
+                "movepool": ["Fire Blast", "Earth Power", "Substitute", "Tera Blast"],
                 "abilities": ["Blaze"]
             }
         ]
@@ -791,7 +791,7 @@
         "sets": [
             {
                 "role": "Fast Attacker",
-                "movepool": ["Aromatherapy", "Power Whip", "Knock Off", "U-turn"],
+                "movepool": ["Heart of Oak", "Power Whip", "Knock Off", "U-turn"],
                 "abilities": ["Natural Cure"]
             }
         ]
