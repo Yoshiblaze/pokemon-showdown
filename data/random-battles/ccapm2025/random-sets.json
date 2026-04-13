@@ -541,7 +541,7 @@
             },
             {
                 "role": "Bulky Support",
-                "movepool": ["Acupressure", "Tera Blast", "Rest", "Sleep Talk"],
+                "movepool": ["Acupressure", "Body Slam", "Rest", "Sleep Talk"],
                 "abilities": ["Slow Start"]
             }
         ]
