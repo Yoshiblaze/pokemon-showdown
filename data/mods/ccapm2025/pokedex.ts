@@ -694,7 +694,7 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		name: "Kecleon-Luminous",
 		baseSpecies: "Kecleon",
 		forme: "Luminous",
-		types: ["Electric", "Fairy"],
+		types: ["Electric", "Fairy", "Psychic"],
 		baseStats: { hp: 60, atk: 85, def: 70, spa: 60, spd: 90, spe: 120 },
 		abilities: { 0: "Luminious Palette" },
 		heightm: 1,
