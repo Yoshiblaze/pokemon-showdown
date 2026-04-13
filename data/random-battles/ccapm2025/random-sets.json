@@ -611,7 +611,7 @@
             },
             {
                 "role": "Setup Sweeper",
-                "movepool": ["Fire Blast", "Tera Blast", "Substitute", "Temper Flare"],
+                "movepool": ["Fire Blast", "Earth Power", "Substitute", "Temper Flare"],
                 "abilities": ["Blaze"]
             }
         ]
