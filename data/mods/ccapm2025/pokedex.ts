@@ -736,7 +736,7 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		name: "Kecleon-Ruffian",
 		baseSpecies: "Kecleon",
 		forme: "Ruffian",
-		types: ["Normal", "Fighting"],
+		types: ["Normal", "Fighting", "Dark"],
 		baseStats: { hp: 60, atk: 120, def: 85, spa: 60, spd: 70, spe: 90 },
 		abilities: { 0: "Ruffian Palette" },
 		heightm: 1,
