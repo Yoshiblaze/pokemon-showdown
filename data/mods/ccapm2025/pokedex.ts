@@ -722,7 +722,7 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		name: "Kecleon-Phasic",
 		baseSpecies: "Kecleon",
 		forme: "Phasic",
-		types: ["Ice", "Water"],
+		types: ["Ice", "Water", "Flying"],
 		baseStats: { hp: 60, atk: 90, def: 70, spa: 60, spd: 85, spe: 120 },
 		abilities: { 0: "Phasic Palette" },
 		heightm: 1,
