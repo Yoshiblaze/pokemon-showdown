@@ -1452,7 +1452,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		target: "normal",
 		type: "Normal",
 		contestType: "Cool",
-		desc: "Always does 40 damage. Boosts the user's SpA by 2 stages. Landorus transforms.",
+		desc: "Always does 40 damage. Boosts the user's Atk or SpA by 2 stages, depending on Landorus's current form. Landorus transforms.",
 		shortDesc: "Always does 40 damage. Boosts Atk/SpA by 2 based on form. Landorus transforms.",
 	},
 	soulboundslash: {
