@@ -680,7 +680,7 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		name: "Kecleon-Wild",
 		baseSpecies: "Kecleon",
 		forme: "Wild",
-		types: ["Grass", "Bug"],
+		types: ["Grass", "Bug", "Poison"],
 		baseStats: { hp: 60, atk: 120, def: 90, spa: 60, spd: 70, spe: 85 },
 		abilities: { 0: "Wild Palette" },
 		heightm: 1,
