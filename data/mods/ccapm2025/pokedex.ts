@@ -708,7 +708,7 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		name: "Kecleon-Storybook",
 		baseSpecies: "Kecleon",
 		forme: "Storybook",
-		types: ["Ghost", "Dragon"],
+		types: ["Ghost", "Dragon", "Steel"],
 		baseStats: { hp: 60, atk: 85, def: 120, spa: 60, spd: 90, spe: 70 },
 		abilities: { 0: "Storybook Palette" },
 		heightm: 1,
