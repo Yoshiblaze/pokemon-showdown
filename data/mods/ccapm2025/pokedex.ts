@@ -1545,7 +1545,7 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		inherit: true,
 		types: ["Ice", "Psychic"],
 		baseStats: { hp: 103, atk: 80, def: 72, spa: 115, spd: 90, spe: 65 },
-		abilities: { 0: "Intimidate" },
+		abilities: { 0: "Snow Warning" },
 		otherFormes: ["Wyrdeer-Snowblind"],
 		formeOrder: ["Wyrdeer", "Wyrdeer-Snowblind"],
 	},
