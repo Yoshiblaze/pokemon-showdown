@@ -666,7 +666,7 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		name: "Kecleon-Volcanic",
 		baseSpecies: "Kecleon",
 		forme: "Volcanic",
-		types: ["Fire", "Rock"],
+		types: ["Fire", "Rock", "Ground"],
 		baseStats: { hp: 60, atk: 90, def: 120, spa: 60, spd: 85, spe: 70 },
 		abilities: { 0: "Volcanic Palette" },
 		heightm: 1,
