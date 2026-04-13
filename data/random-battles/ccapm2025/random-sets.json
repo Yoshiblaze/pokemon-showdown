@@ -606,7 +606,7 @@
         "sets": [
             {
                 "role": "Fast Attacker",
-                "movepool": ["Fire Blast", "Tera Blast", "Superpower", "Work Up"],
+                "movepool": ["Fire Blast", "Earth Power", "Superpower", "Work Up"],
                 "abilities": ["Blaze"]
             },
             {
