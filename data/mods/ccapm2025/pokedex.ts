@@ -758,7 +758,7 @@ export const Pokedex: import('../../../sim/dex-species').ModdedSpeciesDataTable 
 		name: "Kommo-o-Hard-Rock",
 		baseSpecies: "Kommo-o",
 		forme: "Hard-Rock",
-		types: ["Dragon", "Fighting"],
+		types: ["Dragon", "Fighting", "Rock"],
 		baseStats: { hp: 75, atk: 110, def: 125, spa: 100, spd: 105, spe: 85 },
 		abilities: { 0: "Backbeat" },
 		heightm: 1.6,
