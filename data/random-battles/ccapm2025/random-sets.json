@@ -14,7 +14,7 @@
         "sets": [
             {
                 "role": "Bulky Setup",
-                "movepool": ["Moonblast", "Recover", "Calm Mind", "Mystical Fire", "Psyshock"],
+                "movepool": ["Dazzling Gleam", "Recover", "Calm Mind", "Mystical Fire", "Psyshock"],
                 "abilities": ["Aroma Veil"]
             }
         ]
@@ -30,7 +30,7 @@
             {
                 "role": "Setup Sweeper",
                 "movepool": ["Primal Pulse", "Ice Beam", "Rock Polish", "Dark Pulse"],
-                "abilities": ["Refrigerate"]
+                "abilities": ["Snow Warning"]
             }
         ]
     },
@@ -310,7 +310,7 @@
             {
                 "role": "Bulky Support",
                 "movepool": ["Kaleidostorm", "Knock Off", "Power-Up Punch", "Drain Punch"],
-                "abilities": ["Color Change"]
+                "abilities": ["Protean"]
             }
         ]
     },
@@ -395,7 +395,7 @@
             {
                 "role": "Bulky Attacker",
                 "movepool": ["Supercell Slam", "Iron Tail", "Volt Switch", "Psychic Fangs", "Play Rough"],
-                "abilities": ["Intimidate"]
+                "abilities": ["Overcharged"]
             }
         ]
     },
@@ -632,12 +632,22 @@
             {
                 "role": "Bulky Attacker",
                 "movepool": ["Stack Shield", "Taunt", "Stone Edge", "Heavy Slam", "Trick Room"],
-                "abilities": ["Stack Change"]
+                "abilities": ["Stack Shift"]
             },
             {
                 "role": "Wallbreaker",
                 "movepool": ["Stack Shield", "Heat Crash", "Stone Edge", "Heavy Slam"],
-                "abilities": ["Stack Change"]
+                "abilities": ["Stack Shift"]
+            }
+        ]
+    },
+    "sudowoodo": {
+        "level": 100,
+        "sets": [
+            {
+                "role": "Bulky Attacker",
+                "movepool": ["Stealth Rock", "Curse", "Wood Hammer", "Synthesis", "Drain Punch", "Head Smash"],
+                "abilities": ["Rock Head"]
             }
         ]
     },
@@ -648,16 +658,6 @@
                 "role": "Setup Sweeper",
                 "movepool": ["Growth", "Giga Drain", "Sunny Day", "Weather Ball"],
                 "abilities": ["Chlorophyll"]
-            }
-        ]
-    },
-	"sudowoodo": {
-        "level": 100,
-        "sets": [
-            {
-                "role": "Bulky Attacker",
-                "movepool": ["Stealth Rock", "Curse", "Wood Hammer", "Synthesis", "Drain Punch", "Head Smash"],
-                "abilities": ["Rock Head"]
             }
         ]
     },
@@ -686,7 +686,7 @@
             },
             {
                 "role": "Fast Attacker",
-                "movepool": ["Overheat", "Flare Blitz", "U-turn", "Acrobatics"],
+                "movepool": ["Overheat", "Defog", "U-turn", "Acrobatics"],
                 "abilities": ["Gale Wings"]
             }
         ]
