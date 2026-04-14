@@ -128,7 +128,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 				}
 				if (!this.ruleTable.tagRules.includes("+pokemontag:cap")) {
 					move.secondaries.push({
-						chance: 10,
+						chance: 20,
 						volatileStatus: 'flinch',
 						onHit(target, source, activeMove) {
 							if (this.ruleTable.tagRules.includes("+pokemontag:cap")) return;
@@ -190,6 +190,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 					this.add('-immune', target, '[from] ability: Wonder Guard');
 					if (!this.ruleTable.tagRules.includes("+pokemontag:cap") && target.baseSpecies.name === 'Shedinja') {
 						target.formeChange('Shedinja-Escaped', null, true);
+						this.add('-activate', target, 'ability: Wonder Guard');
 					}
 				}
 				return null;
@@ -858,9 +859,9 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 		},
 		condition: {
 			duration: 3,
-			/* onStart(pokemon) {
-	         // put a message here
-			}, */
+			onStart(pokemon) {
+				this.add('-start', pokemon, 'Burnout');
+			},
 			onModifyAtkPriority: 5,
 			onModifyAtk(atk, attacker, defender, move) {
 				this.debug('Burnout boost');
@@ -872,7 +873,8 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 				return this.chainModify(1.5);
 			},
 			onEnd(pokemon) {
-				// message here
+				this.add('-end', pokemon, 'Burnout');
+				this.add('-ability', pokemon, 'Burnout');
 				pokemon.formeChange('Blaziken');
 				pokemon.setAbility('toughclaws', pokemon);
 				this.add('-activate', pokemon, 'ability: Tough Claws');
