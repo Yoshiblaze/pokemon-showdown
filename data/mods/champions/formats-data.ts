@@ -627,7 +627,7 @@ export const FormatsData: import('../../../sim/dex-species').ModdedSpeciesFormat
 		tier: "OU",
 	},
 	gengarmega: {
-		tier: "Uber",
+		tier: "OU",
 	},
 	gengargmax: {
 		isNonstandard: "Past",
