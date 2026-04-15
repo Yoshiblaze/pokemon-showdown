@@ -82360,7 +82360,8 @@ export const Learnsets: import('../../../sim/dex-species').ModdedLearnsetDataTab
 			zenheadbutt: ["9M", "8M"],
 		},
 		eventData: [
-			{generation: 8, level: 10, perfectIVs: 3, moves: ["rocksmash", "leer", "endure", "focusenergy"], pokeball: "pokeball"},
+			// TODO get actual event data
+			{generation: 8, level: 10, perfectIVs: 3, moves: ["rocksmash", "leer", "endure", "focusenergy"]},
 		],
 		eventOnly: true,
 	},
